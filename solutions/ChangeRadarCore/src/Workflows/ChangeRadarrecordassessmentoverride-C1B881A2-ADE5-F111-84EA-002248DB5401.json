@@ -1,0 +1,128 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "When_an_override_changes": {
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "crdr_assessment",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "crdr_overrideimpact,crdr_overridereason"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "type": "OpenApiConnectionWebhook"
+        }
+      },
+      "actions": {
+        "Record_who_and_when": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_assessments",
+              "item/crdr_overriddenby@odata.bind": "@concat('/systemusers(', triggerOutputs()?['body/_modifiedby_value'], ')')",
+              "item/crdr_overriddenon": "@utcNow()",
+              "recordId": "@triggerOutputs()?['body/crdr_assessmentid']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Raise_override_rated_payload": {
+          "type": "Compose",
+          "runAfter": {
+            "Record_who_and_when": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "externalId": "@first(split(triggerOutputs()?['body/crdr_name'], ' | '))",
+            "estate": "@json('{\"169890000\":\"live\",\"169890001\":\"fixture\",\"169890002\":\"synthetic\"}')?[string(triggerOutputs()?['body/crdr_source'])]",
+            "estateImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_estateimpact'])]",
+            "overrideImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_overrideimpact'])]",
+            "effectiveImpact": "@coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_estateimpact'])])"
+          }
+        },
+        "Raise_override_rated": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Raise_override_rated_payload": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_events",
+              "item/crdr_assessment@odata.bind": "@concat('/crdr_assessments(', triggerOutputs()?['body/crdr_assessmentid'], ')')",
+              "item/crdr_correlationid": "@if(greater(length(coalesce(concat('assessment.rated|', triggerOutputs()?['body/crdr_assessmentid'], '|', utcNow()), '')), 100), substring(concat('assessment.rated|', triggerOutputs()?['body/crdr_assessmentid'], '|', utcNow()), 0, 100), coalesce(concat('assessment.rated|', triggerOutputs()?['body/crdr_assessmentid'], '|', utcNow()), ''))",
+              "item/crdr_eventtype": 169890005,
+              "item/crdr_name": "@if(greater(length(coalesce(concat('assessment.rated | ', first(split(triggerOutputs()?['body/crdr_name'], ' | ')), ' | ', json('{\"169890000\":\"live\",\"169890001\":\"fixture\",\"169890002\":\"synthetic\"}')?[string(triggerOutputs()?['body/crdr_source'])], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_estateimpact'])]), ' (override)'), '')), 200), substring(concat('assessment.rated | ', first(split(triggerOutputs()?['body/crdr_name'], ' | ')), ' | ', json('{\"169890000\":\"live\",\"169890001\":\"fixture\",\"169890002\":\"synthetic\"}')?[string(triggerOutputs()?['body/crdr_source'])], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_estateimpact'])]), ' (override)'), 0, 200), coalesce(concat('assessment.rated | ', first(split(triggerOutputs()?['body/crdr_name'], ' | ')), ' | ', json('{\"169890000\":\"live\",\"169890001\":\"fixture\",\"169890002\":\"synthetic\"}')?[string(triggerOutputs()?['body/crdr_source'])], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(triggerOutputs()?['body/crdr_estateimpact'])]), ' (override)'), ''))",
+              "item/crdr_payloadjson": "@string(outputs('Raise_override_rated_payload'))",
+              "item/crdr_raisedon": "@utcNow()",
+              "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', triggerOutputs()?['body/_crdr_signal_value'], ')')"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "description": "Change Radar: when a person sets, changes or clears an assessment override, record who and when (ADR 0010)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

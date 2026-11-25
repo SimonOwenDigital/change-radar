@@ -1,0 +1,86 @@
+{
+  "description": "Expected radar home logic (ADR 0012), written before engine/ChangeRadar.Radar.psm1. Days are UTC calendar days from 'today' to the key date.",
+  "today": "2026-11-21",
+  "buckets": [
+    { "id": "bucket-01", "keyDate": "2026-11-21", "expected": "next30", "note": "today" },
+    { "id": "bucket-02", "keyDate": "2026-12-21", "expected": "next30", "note": "30 days" },
+    { "id": "bucket-03", "keyDate": "2026-12-22", "expected": "m1to3", "note": "31 days" },
+    { "id": "bucket-04", "keyDate": "2027-02-20", "expected": "m1to3", "note": "91 days" },
+    { "id": "bucket-05", "keyDate": "2027-02-21", "expected": "m3to6", "note": "92 days" },
+    { "id": "bucket-06", "keyDate": "2027-05-23", "expected": "m3to6", "note": "183 days" },
+    { "id": "bucket-07", "keyDate": "2027-05-24", "expected": "later", "note": "184 days" },
+    { "id": "bucket-08", "keyDate": "2026-11-20", "expected": "landed", "note": "yesterday: landed (Simon 2026-11-24: 'Later or landed' split into Landed and Later)" },
+    { "id": "bucket-09", "keyDate": null, "expected": "nodate", "note": "no date: counted beside the matrix, not in a column" },
+    { "id": "bucket-10", "keyDate": "2025-06-01", "expected": "landed", "note": "long past: landed" },
+    { "id": "bucket-11", "keyDate": "2028-01-01", "expected": "later", "note": "far future: later" }
+  ],
+  "impact": [
+    { "id": "impact-01", "signal": { "genericImpact": "medium" }, "live": null, "expected": { "impact": "medium", "basis": "generic" } },
+    { "id": "impact-02", "signal": { "genericImpact": "medium" }, "live": { "estateImpact": "high", "overrideImpact": null }, "expected": { "impact": "high", "basis": "estate" } },
+    { "id": "impact-03", "signal": { "genericImpact": "high" }, "live": { "estateImpact": "high", "overrideImpact": "low" }, "expected": { "impact": "low", "basis": "override" } },
+    { "id": "impact-04", "signal": { "genericImpact": null }, "live": null, "expected": { "impact": "unrated", "basis": "none" } },
+    { "id": "impact-05", "signal": { "genericImpact": "low" }, "live": { "estateImpact": "none", "overrideImpact": null }, "expected": { "impact": "low", "basis": "generic" }, "note": "no live exposure left (estate none): fall back to generic" }
+  ],
+  "timeline": [
+    { "id": "row-01", "signal": { "source": "roadmap", "dateLabel": "Launched · GA November CY2026", "keyDate": "2026-11-01", "horizon": "future", "nature": "new_capability", "actionRequired": false }, "expected": "shipped" },
+    { "id": "row-02", "signal": { "source": "graph_mc", "dateLabel": "Stay informed · published", "keyDate": "2026-11-10", "horizon": "future", "nature": "informational", "actionRequired": false }, "expected": "shipped", "note": "past, no action" },
+    { "id": "row-03", "signal": { "source": "graph_mc", "dateLabel": "Plan for change", "keyDate": "2026-12-31", "horizon": "imminent", "nature": "deprecation", "actionRequired": true }, "expected": "retiring" },
+    { "id": "row-04", "signal": { "source": "graph_mc", "dateLabel": "Plan for change", "keyDate": "2026-11-15", "horizon": "now", "nature": "breaking", "actionRequired": true }, "expected": "retiring", "note": "overdue action is not shipped" },
+    { "id": "row-05", "signal": { "source": "graph_mc", "dateLabel": "Plan for change", "keyDate": "2026-12-10", "horizon": "imminent", "nature": "behaviour_change", "actionRequired": false }, "expected": "imminent" },
+    { "id": "row-06", "signal": { "source": "roadmap", "dateLabel": "In development · GA March CY2027", "keyDate": "2027-03-01", "horizon": "future", "nature": "new_capability", "actionRequired": false }, "expected": "future" },
+    { "id": "row-07", "signal": { "source": "graph_health", "dateLabel": "Incident · serviceDegradation", "keyDate": "2026-11-21", "horizon": "now", "nature": "incident", "actionRequired": false }, "expected": "none", "note": "incidents stay in the Now tile, not the timeline" },
+    { "id": "row-08", "signal": { "source": "roadmap", "dateLabel": "In development · GA January CY2027", "keyDate": "2027-01-01", "horizon": "imminent", "nature": null, "actionRequired": false }, "expected": "imminent", "note": "unrated" }
+  ],
+  "summary": {
+    "signals": [
+      { "id": "s1", "title": "Incident A", "source": "graph_health", "horizon": "now", "keyDate": "2026-11-21", "actionRequired": false, "genericImpact": null, "nature": "incident" },
+      { "id": "s2", "title": "Resolved incident", "source": "graph_health", "horizon": "future", "keyDate": "2026-11-01", "actionRequired": false, "genericImpact": null, "nature": "incident" },
+      { "id": "s3", "title": "Credits continue", "source": "graph_mc", "horizon": "imminent", "keyDate": "2026-12-07", "actionRequired": true, "genericImpact": "high", "nature": "licensing" },
+      { "id": "s4", "title": "Claude models in EU boundary", "source": "graph_mc", "horizon": "now", "keyDate": "2026-12-09", "actionRequired": true, "genericImpact": "high", "nature": "behaviour_change" },
+      { "id": "s5", "title": "Old action, overdue", "source": "graph_mc", "horizon": "now", "keyDate": "2026-11-01", "actionRequired": true, "genericImpact": "medium", "nature": "breaking" },
+      { "id": "s6", "title": "Tempauth ends", "source": "graph_mc", "horizon": "future", "keyDate": "2027-04-01", "actionRequired": false, "genericImpact": "medium", "nature": "deprecation", "live": { "estateImpact": "critical", "overrideImpact": null } },
+      { "id": "s7", "title": "Roadmap future", "source": "roadmap", "horizon": "future", "keyDate": "2027-03-01", "actionRequired": false, "genericImpact": null, "nature": null },
+      { "id": "s8", "title": "Roadmap imminent", "source": "roadmap", "horizon": "imminent", "keyDate": "2026-12-01", "actionRequired": false, "genericImpact": "low", "nature": "new_capability" },
+      { "id": "s9", "title": "Overridden down", "source": "graph_mc", "horizon": "imminent", "keyDate": "2026-12-20", "actionRequired": false, "genericImpact": "high", "nature": "behaviour_change", "live": { "estateImpact": "high", "overrideImpact": "low" } }
+    ],
+    "expected": {
+      "incidentsActive": 1,
+      "actionRequired": 3,
+      "highImpact": 3,
+      "retiring": 2,
+      "futureRoadmap": 1,
+      "nextDeadline": { "id": "s3", "keyDate": "2026-12-07", "title": "Credits continue" },
+      "headline": "3 items need action, and 3 are rated high impact. The next deadline is 2026-12-07: Credits continue."
+    },
+    "note": "actionRequired: non-incident signals with action required (overdue included). highImpact: effective impact high or critical (s3, s4, s6; s9 overridden to low). retiring: nature deprecation or breaking with a key date today or later, or action still required (s5 overdue breaking, s6). nextDeadline: earliest key date today or later among action-required signals."
+  },
+  "headlines": [
+    { "id": "headline-01", "counts": { "actionRequired": 1, "highImpact": 1 }, "next": null, "expected": "1 item needs action, and 1 is rated high impact. No upcoming deadline." },
+    { "id": "headline-02", "counts": { "actionRequired": 0, "highImpact": 0 }, "next": null, "expected": "No items need action, and none are rated high impact. No upcoming deadline." }
+  ],
+  "bins": [
+    {"id": "bin-01", "day": "2026-11-21", "granularity": "week", "expected": "2026-11-16", "note": "Saturday -> Monday of that week"},
+    {"id": "bin-02", "day": "2026-11-16", "granularity": "week", "expected": "2026-11-16", "note": "Monday is its own week start"},
+    {"id": "bin-03", "day": "2026-11-22", "granularity": "week", "expected": "2026-11-16", "note": "Sunday belongs to the week before"},
+    {"id": "bin-04", "day": "2026-11-23", "granularity": "week", "expected": "2026-11-23"},
+    {"id": "bin-05", "day": "2027-01-03", "granularity": "week", "expected": "2026-12-28", "note": "across the year end"},
+    {"id": "bin-06", "day": "2026-11-21", "granularity": "month", "expected": "2026-11-01"},
+    {"id": "bin-07", "day": "2027-02-15", "granularity": "month", "expected": "2027-02-01"},
+    {"id": "bin-08", "day": "2026-12-01", "granularity": "month", "expected": "2026-12-01"}
+  ],
+  "windows": [
+    {"id": "win-01", "preset": "next90", "expected": {"from": "2026-11-16", "to": "2027-02-19", "granularity": "week", "bins": 14, "firstBin": "2026-11-16", "lastBin": "2027-02-15"}, "note": "from the start of this week to 90 days ahead"},
+    {"id": "win-02", "preset": "next12m", "expected": {"from": "2026-11-01", "to": "2027-11-21", "granularity": "month", "bins": 13, "firstBin": "2026-11-01", "lastBin": "2027-11-01"}, "note": "from the start of this month to a year ahead"},
+    {"id": "win-03", "preset": "past90", "expected": {"from": "2026-08-23", "to": "2026-11-21", "granularity": "week", "bins": 14, "firstBin": "2026-08-17", "lastBin": "2026-11-16"}, "note": "the last 90 days, to today"}
+  ],
+  "patternWindowNote": "ADR 0012 addendum (2026-11-22): Patterns counts items landing from 90 days before today onwards (key date on or after today minus 90 UTC days, the past90 timeline's 'from'). Items with no key date are kept: their landing is unknown, not old. 'Show older items' (showOlder) keeps everything.",
+  "patternWindow": [
+    {"id": "pw-01", "keyDate": "2026-08-23", "showOlder": false, "expected": true, "note": "exactly 90 days ago: in"},
+    {"id": "pw-02", "keyDate": "2026-08-22", "showOlder": false, "expected": false, "note": "91 days ago: out"},
+    {"id": "pw-03", "keyDate": "2026-11-21", "showOlder": false, "expected": true, "note": "today"},
+    {"id": "pw-04", "keyDate": "2027-03-01", "showOlder": false, "expected": true, "note": "future"},
+    {"id": "pw-05", "keyDate": null, "showOlder": false, "expected": true, "note": "no key date: kept"},
+    {"id": "pw-06", "keyDate": "2025-01-01", "showOlder": true, "expected": true, "note": "Show older items"},
+    {"id": "pw-07", "keyDate": "2026-08-22T23:30:00Z", "showOlder": false, "expected": false, "note": "UTC day, not local time"}
+  ]
+}

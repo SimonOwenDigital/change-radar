@@ -1,0 +1,37 @@
+# Secrets and local settings
+.env
+*.env
+*.pfx
+*.pem
+*.key
+**/deploymentSettings*.json
+!**/deploymentSettings.template.json
+!**/deploymentSettings.handlers.template.json
+local.settings.json
+.vscode/settings.json
+
+# PAC CLI and build output
+out/
+bin/
+obj/
+*.zip
+!seed/*.zip
+.pac/
+
+# Raw, unredacted samples
+samples/raw/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local tool state (genpage base markers, Playwright screenshots and logs)
+.*.genpage-base.json
+.playwright-mcp/
+
+# Node dependencies (tools/docbuild)
+node_modules/
+__pycache__/
+
+# Generated Word and PDF (ADR 0026): shipped in the release documentation pack
+docs/word/

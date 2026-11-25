@@ -1,0 +1,50 @@
+{
+  "id": "ml-csm-claude-sonnet-4-6",
+  "workedExample": "ADR 0013 done-when 1: a model retirement exposes the agents on that model and harness",
+  "signal": {
+    "id": "ML-CSM-claude-sonnet-4-6",
+    "source": "feed",
+    "title": "Claude Sonnet 4.6 retires from Copilot Studio (Microsoft Copilot harness) on 15 February 2027",
+    "fingerprint": [
+      { "group": "A", "facet": "model", "value": "claude-sonnet-4.6", "confidence": 1, "extractedBy": "rule" },
+      { "group": "A", "facet": "resource_type", "value": "agent", "confidence": 1, "extractedBy": "rule" },
+      { "group": "A", "facet": "harness", "value": "microsoft_copilot", "confidence": 1, "extractedBy": "rule" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "agt-mc-sonnet", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Research helper", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Microsoft Copilot", "orchestration": "Generative", "createdIn": "Copilot Studio", "model": "Claude Sonnet 4.6", "channels": ["Teams"], "powerPlatformConnectors": [] } },
+      { "name": "agt-std-sonnet", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Policy assistant", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "model": "Claude Sonnet 4.6", "channels": ["Teams"], "powerPlatformConnectors": [] } },
+      { "name": "agt-mc-luna", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Expenses helper", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Microsoft Copilot", "orchestration": "Generative", "createdIn": "Copilot Studio", "model": "GPT-6 Luna", "channels": [], "powerPlatformConnectors": [] } },
+      { "name": "agt-builder", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Team FAQ", "environmentId": "env-default", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Copilot Chat", "orchestration": "Generative", "createdIn": "Copilot Studio Lite", "model": "Microsoft 365 Copilot", "channels": [], "powerPlatformConnectors": [] } },
+      { "name": "agt-no-model", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Old agent", "environmentId": "env-sandbox", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Microsoft Copilot", "orchestration": "Classic", "createdIn": "Copilot Studio", "channels": [], "powerPlatformConnectors": [] } }
+    ]
+  },
+  "cases": [
+    { "id": "mdl-01", "kind": "positive", "assetId": "agt-mc-sonnet",
+      "description": "Microsoft Copilot harness agent on Claude Sonnet 4.6",
+      "expect": { "match": true, "matchedFacets": ["harness", "model", "resource_type"] } },
+    { "id": "mdl-02", "kind": "near_miss", "assetId": "agt-std-sonnet",
+      "description": "Same model on the Standard harness: this table's retirement doesn't cover it",
+      "expect": { "match": false } },
+    { "id": "mdl-03", "kind": "near_miss", "assetId": "agt-mc-luna",
+      "description": "Same harness, different model",
+      "expect": { "match": false } },
+    { "id": "mdl-04", "kind": "near_miss", "assetId": "agt-builder",
+      "description": "Agent Builder agent follows Copilot Chat (m365-copilot), not a selectable model",
+      "expect": { "match": false } },
+    { "id": "mdl-05", "kind": "near_miss", "assetId": "agt-no-model",
+      "description": "No model in inventory: unknown is not a match",
+      "expect": { "match": false } }
+  ]
+}

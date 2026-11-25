@@ -1,0 +1,40 @@
+{
+  "id": "rm570671-mcp-policies",
+  "workedExample": "spec §5 row 4",
+  "signal": {
+    "id": "RM570671",
+    "source": "roadmap",
+    "title": "Work IQ: granular MCP policies",
+    "fingerprint": [
+      { "group": "A", "facet": "capability", "value": "uses_mcp", "confidence": 0.95, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "agt-mcp", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Engineering assistant", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "channels": ["Teams"], "powerPlatformConnectors": [] } },
+      { "name": "agt-gen-nomcp", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Travel policy", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "channels": ["Teams"], "powerPlatformConnectors": [] } },
+      { "name": "agt-nokit", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Unscanned agent", "environmentId": "env-sandbox", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "channels": [], "powerPlatformConnectors": [] } }
+    ],
+    "agentKit": [
+      { "resourceId": "agt-mcp", "usesMcp": true, "hasAutonomousTriggers": false, "hasHttpActions": false },
+      { "resourceId": "agt-gen-nomcp", "usesMcp": false, "hasAutonomousTriggers": false, "hasHttpActions": true }
+    ]
+  },
+  "cases": [
+    { "id": "mcp-01", "kind": "positive", "assetId": "agt-mcp",
+      "description": "Agent Inventory says UsesMCP = true",
+      "expect": { "match": true, "matchedFacets": ["capability"] } },
+    { "id": "mcp-02", "kind": "near_miss", "assetId": "agt-gen-nomcp",
+      "description": "Generative agent with HTTP actions but no MCP",
+      "expect": { "match": false } },
+    { "id": "mcp-03", "kind": "near_miss", "assetId": "agt-nokit",
+      "description": "Agent with no Agent Inventory row: unknown is not a match (reported as a coverage gap)",
+      "expect": { "match": false } }
+  ]
+}

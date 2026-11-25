@@ -1,0 +1,114 @@
+{
+  "description": "Expected estate impact per signal and source (ADR 0010, spec §6). Written before engine/ChangeRadar.Assessment.psm1. Each case gives a signal, its generic impact, and exposures (source, kind, environment type, status); 'expected' lists one result per source that has, or had, exposures.",
+  "today": "2026-11-21",
+  "estateImpactMax": 4,
+  "cases": [
+    {
+      "id": "score-01", "note": "No exposures: nothing to assess",
+      "signal": { "id": "T-01", "genericImpact": "high", "actionRequired": true, "keyDate": "2026-11-25" },
+      "exposures": [],
+      "expected": []
+    },
+    {
+      "id": "score-02", "note": "Generic medium, one developer asset, no action: stays medium",
+      "signal": { "id": "T-02", "genericImpact": "medium", "actionRequired": false, "keyDate": "2026-12-01" },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "developer", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "medium", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": false } ]
+    },
+    {
+      "id": "score-03", "note": "Production asset adds one",
+      "signal": { "id": "T-03", "genericImpact": "medium", "actionRequired": false, "keyDate": null },
+      "exposures": [
+        { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "developer", "status": "new" },
+        { "source": "live", "kind": "asset", "assetId": "a2", "environmentType": "production", "status": "confirmed" }
+      ],
+      "expected": [ { "source": "live", "estateImpact": "high", "affectedCount": 2, "unknownEnvironmentCount": 0, "productionBonus": true, "actionBonus": false } ]
+    },
+    {
+      "id": "score-04", "note": "Production and action within 30 days: medium + 2 = critical",
+      "signal": { "id": "T-04", "genericImpact": "medium", "actionRequired": true, "keyDate": "2026-12-15" },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "production", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "critical", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": true, "actionBonus": true } ]
+    },
+    {
+      "id": "score-05", "note": "High + 2 clamps at critical",
+      "signal": { "id": "T-05", "genericImpact": "high", "actionRequired": true, "keyDate": "2026-11-30" },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "production", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "critical", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": true, "actionBonus": true } ]
+    },
+    {
+      "id": "score-06", "note": "Unknown environment: no production bonus, counted; action date 45 days away: no action bonus",
+      "signal": { "id": "T-06", "genericImpact": "low", "actionRequired": true, "keyDate": "2027-01-05" },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": null, "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "low", "affectedCount": 1, "unknownEnvironmentCount": 1, "productionBonus": false, "actionBonus": false } ]
+    },
+    {
+      "id": "score-07", "note": "Overdue action date still counts",
+      "signal": { "id": "T-07", "genericImpact": "low", "actionRequired": true, "keyDate": "2026-11-01" },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "sandbox", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "medium", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": true } ]
+    },
+    {
+      "id": "score-08", "note": "Generic none but exposed: floor at low",
+      "signal": { "id": "T-08", "genericImpact": "none", "actionRequired": false, "keyDate": null },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "default", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "low", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": false } ]
+    },
+    {
+      "id": "score-09", "note": "Setting exposure only: no production bonus, action bonus applies",
+      "signal": { "id": "T-09", "genericImpact": "medium", "actionRequired": true, "keyDate": "2026-12-10" },
+      "exposures": [ { "source": "live", "kind": "setting", "settingKey": "copilot_spending_policy", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "high", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": true } ]
+    },
+    {
+      "id": "score-10", "note": "Sources never mixed: synthetic production asset doesn't lift the live rating",
+      "signal": { "id": "T-10", "genericImpact": "medium", "actionRequired": false, "keyDate": null },
+      "exposures": [
+        { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "developer", "status": "new" },
+        { "source": "synthetic", "kind": "asset", "assetId": "s1", "environmentType": "production", "status": "new" },
+        { "source": "synthetic", "kind": "asset", "assetId": "s2", "environmentType": "production", "status": "new" }
+      ],
+      "expected": [
+        { "source": "live", "estateImpact": "medium", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": false },
+        { "source": "synthetic", "estateImpact": "high", "affectedCount": 2, "unknownEnvironmentCount": 0, "productionBonus": true, "actionBonus": false }
+      ]
+    },
+    {
+      "id": "score-11", "note": "Dismissed and no-longer-matching exposures don't count; production one is dismissed",
+      "signal": { "id": "T-11", "genericImpact": "medium", "actionRequired": false, "keyDate": null },
+      "exposures": [
+        { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "production", "status": "dismissed" },
+        { "source": "live", "kind": "asset", "assetId": "a2", "environmentType": "production", "status": "unmatched" },
+        { "source": "live", "kind": "asset", "assetId": "a3", "environmentType": "developer", "status": "new" }
+      ],
+      "expected": [ { "source": "live", "estateImpact": "medium", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": false } ]
+    },
+    {
+      "id": "score-12", "note": "All exposures gone for a source: estate impact none, row kept",
+      "signal": { "id": "T-12", "genericImpact": "high", "actionRequired": false, "keyDate": null },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "production", "status": "unmatched" } ],
+      "expected": [ { "source": "live", "estateImpact": "none", "affectedCount": 0, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": false } ]
+    },
+    {
+      "id": "score-13", "note": "Action required without a key date: no action bonus",
+      "signal": { "id": "T-13", "genericImpact": "low", "actionRequired": true, "keyDate": null },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "developer", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "low", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": false } ]
+    },
+    {
+      "id": "score-14", "note": "Key date exactly 30 days away counts",
+      "signal": { "id": "T-14", "genericImpact": "low", "actionRequired": true, "keyDate": "2026-12-21" },
+      "exposures": [ { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "developer", "status": "new" } ],
+      "expected": [ { "source": "live", "estateImpact": "medium", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": true } ]
+    },
+    {
+      "id": "score-15", "note": "Same asset exposed twice counts once",
+      "signal": { "id": "T-15", "genericImpact": "low", "actionRequired": false, "keyDate": null },
+      "exposures": [
+        { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "developer", "status": "new" },
+        { "source": "live", "kind": "asset", "assetId": "a1", "environmentType": "developer", "status": "confirmed" }
+      ],
+      "expected": [ { "source": "live", "estateImpact": "low", "affectedCount": 1, "unknownEnvironmentCount": 0, "productionBonus": false, "actionBonus": false } ]
+    }
+  ]
+}

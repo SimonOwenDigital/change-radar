@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Sample event | Book of News</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"Sample event | Book of News","datePublished":"2026-11-17T13:00:00+00:00","dateModified":"2026-11-19T21:12:55+00:00"}]}</script>
+</head>
+<body>
+<header class="site-header"><h2 class="wp-block-heading">Site header heading outside main</h2><p>Navigation text that is outside the content area and must be ignored.</p></header>
+<!-- Test sample for ADR 0018 (webpage_sections). Its markup follows the Ignite 2026 Book of News page (fetched 2026-11-23, spike T11); every text is written for the test, so no real names appear. -->
+<main id="wp--skip-link--target" class="wp-block-group alignfull mse-wrap mse-event-book-of-news">
+
+<h2 class="wp-block-heading has-text-align-center">Try Instant Summaries</h2>
+<p class="wp-block-paragraph">Switch between the full announcement and a short instant summary of each item. This paragraph is long enough to pass the minimum size, but the heading is on the skip list, so it never becomes a signal.</p>
+
+<h2 class="wp-block-heading has-text-align-center" style="text-transform:uppercase">Book of News</h2>
+
+<h2 class="wp-block-heading has-tertiary-font-family has-medium-font-size">Introduction</h2>
+<h3 class="wp-block-heading">What is the Book of News?</h3>
+<p class="wp-block-paragraph">The Book of News is a guide to the announcements at the event. Contact <a href="/cdn-cgi/l/email-protection#x"><span class="__cf_email__" data-cfemail="0011223344">[email&#160;protected]</span></a> for questions. This section is on the skip list and is also where the page varies between fetches.</p>
+
+<h2 class="wp-block-heading has-tertiary-font-family has-medium-font-size">Azure</h2>
+<h3 class="wp-block-heading">Core</h3>
+<p>Short.</p>
+<h3 class="wp-block-heading">Data</h3>
+<h4 class="wp-block-heading has-text-align-left has-tertiary-font-family has-small-font-size wp-states-740fe36c" style="letter-spacing:3px;text-transform:uppercase">Power BI introduces custom data app creation in preview</h4>
+<div class="wp-block-group has-medium-font-size"><p hidden class="wp-block-mks-bon-variation-heading">Instant Summary:</p>
+<div class="seb-bon-content__content"><p class="wp-block-paragraph"><strong>Custom data apps</strong> let report authors build small interactive apps on top of their semantic models, in preview. Authors start from a template, connect it to a model and share it with the same permissions as the report. Admins can turn the feature off at tenant level. More detail will follow in the product documentation during the preview.</p></div>
+<button class="seb-bon-share"><svg viewBox="0 0 16 16"><path d="M1 1L15 15" fill="white"></path></svg></button></div>
+
+<h4 class="wp-block-heading has-text-align-left has-small-font-size">Azure SQL expands modernisation options</h4>
+<div class="wp-block-group"><div class="seb-bon-content__content"><p class="wp-block-paragraph">Azure SQL adds new migration paths and local development options for database teams. The changes cover assessment tools, a local emulator and improved resiliency settings for production workloads, with general availability planned for later in the year. None of it touches the products that Change Radar watches.</p></div></div>
+
+<h2 class="wp-block-heading has-tertiary-font-family has-medium-font-size">Microsoft Copilot</h2>
+<h3 class="wp-block-heading">Microsoft Copilot</h3>
+<h4 class="wp-block-heading has-text-align-left has-small-font-size">Autopilot is rolling out to Frontier customers</h4>
+<div class="wp-block-group"><div class="seb-bon-content__content"><p class="wp-block-paragraph"><strong>Autopilot</strong> is a long-running agent for personal productivity with its own identity, memory and access to tools. It can follow up on threads and run recurring work, and admins can see and manage it. It is rolling out through the Frontier programme, and customers will find it in the left navigation of the Copilot app.</p>
+<script>window.bonTrack && window.bonTrack('autopilot');</script></div></div>
+
+<h4 class="wp-block-heading has-text-align-left has-small-font-size">Autopilot is rolling out to Frontier customers</h4>
+<div class="wp-block-group"><p class="wp-block-paragraph">A second item with the same title, as can happen when one announcement is listed under two areas. Only the first becomes a signal, because both would get the same external id from the title.</p></div>
+
+<h2 class="wp-block-heading has-tertiary-font-family has-medium-font-size">Windows</h2>
+<h3 class="wp-block-heading">Windows</h3>
+<h4 class="wp-block-heading has-text-align-left has-small-font-size">Windows introduces controls that help isolate AI agents</h4>
+<div class="wp-block-group"><p class="wp-block-paragraph">Windows adds controls that isolate local AI agents and let administrators govern what they can reach on a device. This is in scope only through its body, which says that agents built in Copilot Studio can run in the isolated workspace once the preview starts.</p></div>
+<h4 class="wp-block-heading has-text-align-left has-small-font-size">Windows 365 adds persistent Cloud PCs</h4>
+<div class="wp-block-group"><p class="wp-block-paragraph">Windows 365 introduces persistent Cloud PCs for long-running workloads, with new sizes and regions. Nothing in this announcement mentions the products that Change Radar watches, so it stays out of scope as a near miss for the scope rule.</p></div>
+
+</main>
+<footer><h2>Footer heading outside main</h2><p>Footer text that must be ignored.</p></footer>
+</body>
+</html>

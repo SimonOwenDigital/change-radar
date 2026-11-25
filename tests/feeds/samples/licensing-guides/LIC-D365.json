@@ -1,0 +1,1799 @@
+{
+ "note": "Trimmed AI Builder text recognition output (predictionOutput) for the change log pages of the guide, captured in spike T12 on 2026-11-23. Lines keep text and bounding box only.",
+ "results": [
+  {
+   "page": 94,
+   "fullPageText": "Appendix K: Change Log\nPage(s) Topic\nChange\nAction\nDate\n64\nBusiness\nUpdate\nBusiness Application tools, including Model Context Protocol (MCP)\nOctober 2026\nApplications\n59-62\nSustainability\nNew\nDynamics 365 Sustainability – new to the Dynamics 365 portfolio\nOctober 2026\n15\nCommerce\nNew\nHeadless Commerce (GA)\nSeptember 2026\n72\nCustomer Insights New\nJourney Creation Agent - Paid Public Preview\nAugust 2026\n73\nCustomer Insights New\nOutreach Optimization Agent - Paid Public Preview\nAugust 2026\n45, 50\nSales\nNew\nSales Research Agent (GA)\nJune 2026\n71\nBusiness Central\nNew\nExpense Agent (Paid Public Preview)\nJune 2026\n71\nContact Center\nNew\nService Operations Agent available (Paid Public Preview)\nJune 2026\nVarious Dynamics 365\nNew\nLicensing entitlement tables for Dynamics 365 applications added to\nJune 2026\nApplications\nthe licensing guide\n56\nSupply Chain\nNew\nProcurement Agent enters Paid Public Preview\nMay 2026\nManagement\n(replaces Supplier Communications Agent)\n33\nSales\nNew\nSales Opportunity Agent (GA)\nApril 2026\n46\nSales Premium\nUpdate\nIncrease in Dataverse Database (Default and Accrued) and Dataverse\nMarch 2026\nFile (Default) capacities\n42\nModel Context\nNew\nModel Context Protocol (MCP) in Dynamics 365\nFebruary 2026\nProtocol\n24, 53\nField Service and\nUpdate\nField Service and Project Operations integration\nFebruary 2026\nProject Ops\n44\nOperations-\nUpdate\nShop floor updated to production floor\nFebruary 2026\nActivity,\nOperations-\nDevice\nN/A\nDynamics 365\nRemove\nDynamics 365 Commerce Recommendations End of Sale\nFebruary 2026\nCommerce\nN/A\nDynamics 365\nRemove\nDynamics 365 Commerce Ratings and Reviews End of Sale\nFebruary 2026\nCommerce\n14\nContact Center\nNew\nTeams Phone Extensibility\nJanuary 2026\nVoice\n44\nDataverse and\nUpdate\nDataverse and Operations capacity increases and consolidation\nDecember 2025\nOperations\ncapacity\nVarious Dynamics 365\nNew\nDynamics 365 Premium licenses: Copilot Credits entitlement included\nNovember 2025\nPremium licenses\nDynamics 365 Licensing Guide | November 2026\nPage | 94",
+   "lines": [
+    {
+     "text": "Appendix K: Change Log",
+     "boundingBox": {
+      "left": 0.11787,
+      "top": 0.09691,
+      "width": 0.25348,
+      "height": 0.01726
+     }
+    },
+    {
+     "text": "Page(s) Topic",
+     "boundingBox": {
+      "left": 0.12238,
+      "top": 0.12717,
+      "width": 0.09176,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "Change",
+     "boundingBox": {
+      "left": 0.30522,
+      "top": 0.12707,
+      "width": 0.0482,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Action",
+     "boundingBox": {
+      "left": 0.38554,
+      "top": 0.12717,
+      "width": 0.04047,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Date",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.12753,
+      "width": 0.02848,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "64",
+     "boundingBox": {
+      "left": 0.12181,
+      "top": 0.14315,
+      "width": 0.01448,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Business",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.14293,
+      "width": 0.05285,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.14283,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Business Application tools, including Model Context Protocol (MCP)",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.14283,
+      "width": 0.43562,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "October 2026",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.14283,
+      "width": 0.0872,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Applications",
+     "boundingBox": {
+      "left": 0.17961,
+      "top": 0.15798,
+      "width": 0.07896,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "59-62",
+     "boundingBox": {
+      "left": 0.1222,
+      "top": 0.18117,
+      "width": 0.03556,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Sustainability",
+     "boundingBox": {
+      "left": 0.18032,
+      "top": 0.18085,
+      "width": 0.08459,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.18131,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Dynamics 365 Sustainability – new to the Dynamics 365 portfolio",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.18074,
+      "width": 0.41722,
+      "height": 0.01119
+     }
+    },
+    {
+     "text": "October 2026",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.18085,
+      "width": 0.0872,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "15",
+     "boundingBox": {
+      "left": 0.12265,
+      "top": 0.21931,
+      "width": 0.01318,
+      "height": 0.00826
+     }
+    },
+    {
+     "text": "Commerce",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.21935,
+      "width": 0.06912,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.21949,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Headless Commerce (GA)",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.21904,
+      "width": 0.16238,
+      "height": 0.01021
+     }
+    },
+    {
+     "text": "September 2026",
+     "boundingBox": {
+      "left": 0.85692,
+      "top": 0.21904,
+      "width": 0.10506,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "72",
+     "boundingBox": {
+      "left": 0.12173,
+      "top": 0.25739,
+      "width": 0.01427,
+      "height": 0.00809
+     }
+    },
+    {
+     "text": "Customer Insights New",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.25707,
+      "width": 0.15352,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Journey Creation Agent - Paid Public Preview",
+     "boundingBox": {
+      "left": 0.38552,
+      "top": 0.25707,
+      "width": 0.29113,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "August 2026",
+     "boundingBox": {
+      "left": 0.85621,
+      "top": 0.25739,
+      "width": 0.08085,
+      "height": 0.01075
+     }
+    },
+    {
+     "text": "73",
+     "boundingBox": {
+      "left": 0.12173,
+      "top": 0.29542,
+      "width": 0.01398,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Customer Insights New",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.2951,
+      "width": 0.15352,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Outreach Optimization Agent - Paid Public Preview",
+     "boundingBox": {
+      "left": 0.38605,
+      "top": 0.2951,
+      "width": 0.32922,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "August 2026",
+     "boundingBox": {
+      "left": 0.85621,
+      "top": 0.29542,
+      "width": 0.08085,
+      "height": 0.01075
+     }
+    },
+    {
+     "text": "45, 50",
+     "boundingBox": {
+      "left": 0.12112,
+      "top": 0.33349,
+      "width": 0.03816,
+      "height": 0.00955
+     }
+    },
+    {
+     "text": "Sales",
+     "boundingBox": {
+      "left": 0.18032,
+      "top": 0.33317,
+      "width": 0.03121,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.33363,
+      "width": 0.02774,
+      "height": 0.00807
+     }
+    },
+    {
+     "text": "Sales Research Agent (GA)",
+     "boundingBox": {
+      "left": 0.38625,
+      "top": 0.33317,
+      "width": 0.16839,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "June 2026",
+     "boundingBox": {
+      "left": 0.85619,
+      "top": 0.33349,
+      "width": 0.0644,
+      "height": 0.00821
+     }
+    },
+    {
+     "text": "71",
+     "boundingBox": {
+      "left": 0.12173,
+      "top": 0.37163,
+      "width": 0.01234,
+      "height": 0.00814
+     }
+    },
+    {
+     "text": "Business Central",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.37135,
+      "width": 0.10252,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.37181,
+      "width": 0.02774,
+      "height": 0.00807
+     }
+    },
+    {
+     "text": "Expense Agent (Paid Public Preview)",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.37135,
+      "width": 0.23148,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "June 2026",
+     "boundingBox": {
+      "left": 0.85619,
+      "top": 0.37167,
+      "width": 0.0644,
+      "height": 0.00821
+     }
+    },
+    {
+     "text": "71",
+     "boundingBox": {
+      "left": 0.12173,
+      "top": 0.40965,
+      "width": 0.01234,
+      "height": 0.00814
+     }
+    },
+    {
+     "text": "Contact Center",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.4097,
+      "width": 0.09627,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.40984,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Service Operations Agent available (Paid Public Preview)",
+     "boundingBox": {
+      "left": 0.38625,
+      "top": 0.40938,
+      "width": 0.36112,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "June 2026",
+     "boundingBox": {
+      "left": 0.85619,
+      "top": 0.4097,
+      "width": 0.0644,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Various Dynamics 365",
+     "boundingBox": {
+      "left": 0.12115,
+      "top": 0.44752,
+      "width": 0.14753,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.44786,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Licensing entitlement tables for Dynamics 365 applications added to",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.44729,
+      "width": 0.44022,
+      "height": 0.01119
+     }
+    },
+    {
+     "text": "June 2026",
+     "boundingBox": {
+      "left": 0.85619,
+      "top": 0.44773,
+      "width": 0.0644,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Applications",
+     "boundingBox": {
+      "left": 0.17961,
+      "top": 0.46256,
+      "width": 0.07896,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "the licensing guide",
+     "boundingBox": {
+      "left": 0.38568,
+      "top": 0.46256,
+      "width": 0.12164,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "56",
+     "boundingBox": {
+      "left": 0.1222,
+      "top": 0.48576,
+      "width": 0.014,
+      "height": 0.00821
+     }
+    },
+    {
+     "text": "Supply Chain",
+     "boundingBox": {
+      "left": 0.18032,
+      "top": 0.48545,
+      "width": 0.08285,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.4859,
+      "width": 0.02774,
+      "height": 0.00807
+     }
+    },
+    {
+     "text": "Procurement Agent enters Paid Public Preview",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.48545,
+      "width": 0.29818,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "May 2026",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.48576,
+      "width": 0.06144,
+      "height": 0.01075
+     }
+    },
+    {
+     "text": "Management",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.50105,
+      "width": 0.0846,
+      "height": 0.01062
+     }
+    },
+    {
+     "text": "(replaces Supplier Communications Agent)",
+     "boundingBox": {
+      "left": 0.38638,
+      "top": 0.50059,
+      "width": 0.27373,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "33",
+     "boundingBox": {
+      "left": 0.12191,
+      "top": 0.52396,
+      "width": 0.0138,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Sales",
+     "boundingBox": {
+      "left": 0.18032,
+      "top": 0.52365,
+      "width": 0.03121,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.5241,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Sales Opportunity Agent (GA)",
+     "boundingBox": {
+      "left": 0.38625,
+      "top": 0.52365,
+      "width": 0.18987,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "April 2026",
+     "boundingBox": {
+      "left": 0.85621,
+      "top": 0.52365,
+      "width": 0.06518,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "46",
+     "boundingBox": {
+      "left": 0.12112,
+      "top": 0.562,
+      "width": 0.01508,
+      "height": 0.00821
+     }
+    },
+    {
+     "text": "Sales Premium",
+     "boundingBox": {
+      "left": 0.18032,
+      "top": 0.56168,
+      "width": 0.09309,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.56168,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Increase in Dataverse Database (Default and Accrued) and Dataverse",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.56155,
+      "width": 0.44102,
+      "height": 0.01033
+     }
+    },
+    {
+     "text": "March 2026",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.56168,
+      "width": 0.07455,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "File (Default) capacities",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.57671,
+      "width": 0.14711,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "42",
+     "boundingBox": {
+      "left": 0.12112,
+      "top": 0.60003,
+      "width": 0.01488,
+      "height": 0.00809
+     }
+    },
+    {
+     "text": "Model Context",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.59971,
+      "width": 0.09436,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.60016,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Model Context Protocol (MCP) in Dynamics 365",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.59971,
+      "width": 0.30595,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.59971,
+      "width": 0.09024,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Protocol",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.61486,
+      "width": 0.05196,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "24, 53",
+     "boundingBox": {
+      "left": 0.1218,
+      "top": 0.63805,
+      "width": 0.037,
+      "height": 0.00955
+     }
+    },
+    {
+     "text": "Field Service and",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.63774,
+      "width": 0.10626,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.63774,
+      "width": 0.04566,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "Field Service and Project Operations integration",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.63774,
+      "width": 0.30638,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.63774,
+      "width": 0.09024,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Project Ops",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.65299,
+      "width": 0.07306,
+      "height": 0.01097
+     }
+    },
+    {
+     "text": "44",
+     "boundingBox": {
+      "left": 0.12112,
+      "top": 0.67637,
+      "width": 0.01518,
+      "height": 0.00795
+     }
+    },
+    {
+     "text": "Operations-",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.67603,
+      "width": 0.07585,
+      "height": 0.01091
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.67592,
+      "width": 0.04566,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "Shop floor updated to production floor",
+     "boundingBox": {
+      "left": 0.38625,
+      "top": 0.6758,
+      "width": 0.25326,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.67592,
+      "width": 0.09024,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Activity,",
+     "boundingBox": {
+      "left": 0.17961,
+      "top": 0.69103,
+      "width": 0.04951,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "Operations-",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.70617,
+      "width": 0.07585,
+      "height": 0.01091
+     }
+    },
+    {
+     "text": "Device",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.72133,
+      "width": 0.04122,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "N/A",
+     "boundingBox": {
+      "left": 0.12238,
+      "top": 0.73747,
+      "width": 0.02462,
+      "height": 0.00926
+     }
+    },
+    {
+     "text": "Dynamics 365",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.73712,
+      "width": 0.08788,
+      "height": 0.01097
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.73747,
+      "width": 0.05062,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Dynamics 365 Commerce Recommendations End of Sale",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.73689,
+      "width": 0.36421,
+      "height": 0.0112
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.73702,
+      "width": 0.09024,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Commerce",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.75249,
+      "width": 0.06912,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "N/A",
+     "boundingBox": {
+      "left": 0.12238,
+      "top": 0.77551,
+      "width": 0.02462,
+      "height": 0.00925
+     }
+    },
+    {
+     "text": "Dynamics 365",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.77515,
+      "width": 0.08788,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.77551,
+      "width": 0.05062,
+      "height": 0.00807
+     }
+    },
+    {
+     "text": "Dynamics 365 Commerce Ratings and Reviews End of Sale",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.77493,
+      "width": 0.37539,
+      "height": 0.01119
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.77505,
+      "width": 0.09024,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Commerce",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.79052,
+      "width": 0.06912,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "14",
+     "boundingBox": {
+      "left": 0.12265,
+      "top": 0.81335,
+      "width": 0.01365,
+      "height": 0.00814
+     }
+    },
+    {
+     "text": "Contact Center",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.8134,
+      "width": 0.09627,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.81354,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Teams Phone Extensibility",
+     "boundingBox": {
+      "left": 0.38567,
+      "top": 0.81308,
+      "width": 0.16685,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "January 2026",
+     "boundingBox": {
+      "left": 0.85619,
+      "top": 0.8134,
+      "width": 0.084,
+      "height": 0.01075
+     }
+    },
+    {
+     "text": "Voice",
+     "boundingBox": {
+      "left": 0.17958,
+      "top": 0.82834,
+      "width": 0.03518,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "44",
+     "boundingBox": {
+      "left": 0.12112,
+      "top": 0.85172,
+      "width": 0.01518,
+      "height": 0.00795
+     }
+    },
+    {
+     "text": "Dataverse and",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.85126,
+      "width": 0.08982,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.85126,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Dataverse and Operations capacity increases and consolidation",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.85126,
+      "width": 0.40575,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "December 2025",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.85126,
+      "width": 0.09987,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Operations",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.86636,
+      "width": 0.07022,
+      "height": 0.01091
+     }
+    },
+    {
+     "text": "capacity",
+     "boundingBox": {
+      "left": 0.18014,
+      "top": 0.88151,
+      "width": 0.05202,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "Various Dynamics 365",
+     "boundingBox": {
+      "left": 0.12115,
+      "top": 0.89727,
+      "width": 0.14753,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.89762,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Dynamics 365 Premium licenses: Copilot Credits entitlement included",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.89716,
+      "width": 0.4456,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.89716,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Premium licenses",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.91232,
+      "width": 0.11031,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Dynamics 365 Licensing Guide | November 2026",
+     "boundingBox": {
+      "left": 0.11881,
+      "top": 0.9542,
+      "width": 0.28476,
+      "height": 0.01015
+     }
+    },
+    {
+     "text": "Page | 94",
+     "boundingBox": {
+      "left": 0.83091,
+      "top": 0.9542,
+      "width": 0.05362,
+      "height": 0.01015
+     }
+    }
+   ]
+  },
+  {
+   "page": 95,
+   "fullPageText": "Page(s) Topic\nChange\nAction\nDate\n7\nBusiness Central\nNew\nBusiness Central Agents generally available (GA)\nNovember 2025\nVarious Guides and\nRemove\nEnd of Sale\nNovember 2025\nRemote Assist\n45\nBusiness Central\nUpdate\nPricing and capacity increase for Business Central Essentials, Premium\nNovember 2025\nand Device\n58\nTeam Members\nUpdate\nAppendix E: Team Members use rights clarified\nNovember 2025\n39\nDynamics 365\nNew\nDynamics 365 Agents generally available (GA)\nOctober 2025\nAgents\n54\nDynamics 365\nNew\nDynamics 365 Agents available in Paid Public Preview\nOctober 2025\nAgents\n10, 11\nCommerce\nUpdate\nCommerce security role names updated\nOctober 2025\n10\nCommerce\nUpdate\nGeneral subheading added to security roles section\nOctober 2025\n24\nFinance\nUpdate\nFinance security roles General section updated\nOctober 2025\nVarious Project\nUpdate\nProject Operations Lite renamed to Project Operations Core\nOctober 2025\nOperations\nProject Operations for resource/non-stocked scenarios renamed to\nProject Operations Integrated with ERP\n39, 40\nCopilot for Sales\nRemove\nNow included in Microsoft 365 Copilot\nOctober 2025\nCopilot for Service\n4\nHow to buy\nUpdate\nHow to buy Dynamics 365 section updated\nOctober 2025\n© 2025 Microsoft Corporation. All rights reserved.\nThis document is for informational purposes only. MICROSOFT MAKES NO WARRANTIES, EXPRESS OR IMPLIED, IN THIS DOCUMENT. This information is\nprovided to help guide your authorized use of products you license; it is not your agreement. Your use of products licensed under your license agreement is\nTOC\ngoverned by the terms and conditions of that agreement. In the case of any conflict between this information and your agreement, the terms and conditions of\nyour agreement control. Prices for licenses acquired through Microsoft resellers are determined by the reseller.\nDynamics 365 Licensing Guide | November 2026\nPage | 95",
+   "lines": [
+    {
+     "text": "Page(s) Topic",
+     "boundingBox": {
+      "left": 0.12238,
+      "top": 0.09611,
+      "width": 0.09176,
+      "height": 0.01097
+     }
+    },
+    {
+     "text": "Change",
+     "boundingBox": {
+      "left": 0.30522,
+      "top": 0.09601,
+      "width": 0.0482,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Action",
+     "boundingBox": {
+      "left": 0.38554,
+      "top": 0.09611,
+      "width": 0.04047,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Date",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.09646,
+      "width": 0.02848,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "7",
+     "boundingBox": {
+      "left": 0.12173,
+      "top": 0.11222,
+      "width": 0.00654,
+      "height": 0.00795
+     }
+    },
+    {
+     "text": "Business Central",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.11176,
+      "width": 0.10252,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.11222,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Business Central Agents generally available (GA)",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.11176,
+      "width": 0.30836,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.11176,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Various Guides and",
+     "boundingBox": {
+      "left": 0.12115,
+      "top": 0.1498,
+      "width": 0.13006,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.15025,
+      "width": 0.05062,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "End of Sale",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.14967,
+      "width": 0.07046,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.1498,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Remote Assist",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.16505,
+      "width": 0.08947,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "45",
+     "boundingBox": {
+      "left": 0.12112,
+      "top": 0.18844,
+      "width": 0.01471,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Business Central",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.18798,
+      "width": 0.10252,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.18798,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Pricing and capacity increase for Business Central Essentials, Premium",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.18785,
+      "width": 0.44672,
+      "height": 0.01119
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.18798,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "and Device",
+     "boundingBox": {
+      "left": 0.38602,
+      "top": 0.20298,
+      "width": 0.07035,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "58",
+     "boundingBox": {
+      "left": 0.1222,
+      "top": 0.22633,
+      "width": 0.01399,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Team Members",
+     "boundingBox": {
+      "left": 0.17974,
+      "top": 0.22601,
+      "width": 0.09981,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.22601,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Appendix E: Team Members use rights clarified",
+     "boundingBox": {
+      "left": 0.38554,
+      "top": 0.22588,
+      "width": 0.30186,
+      "height": 0.0112
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.8574,
+      "top": 0.22601,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "39",
+     "boundingBox": {
+      "left": 0.12191,
+      "top": 0.26435,
+      "width": 0.01416,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Dynamics 365",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.26415,
+      "width": 0.08788,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.26449,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Dynamics 365 Agents generally available (GA)",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.26404,
+      "width": 0.29328,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.26404,
+      "width": 0.08681,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Agents",
+     "boundingBox": {
+      "left": 0.17961,
+      "top": 0.27965,
+      "width": 0.04445,
+      "height": 0.01062
+     }
+    },
+    {
+     "text": "54",
+     "boundingBox": {
+      "left": 0.1222,
+      "top": 0.30256,
+      "width": 0.01409,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Dynamics 365",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.30221,
+      "width": 0.08788,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.30256,
+      "width": 0.02774,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Dynamics 365 Agents available in Paid Public Preview",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.30211,
+      "width": 0.34342,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.30211,
+      "width": 0.08681,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Agents",
+     "boundingBox": {
+      "left": 0.17961,
+      "top": 0.31772,
+      "width": 0.04445,
+      "height": 0.01061
+     }
+    },
+    {
+     "text": "10, 11",
+     "boundingBox": {
+      "left": 0.12265,
+      "top": 0.34056,
+      "width": 0.03452,
+      "height": 0.00959
+     }
+    },
+    {
+     "text": "Commerce",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.34061,
+      "width": 0.06912,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.34029,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Commerce security role names updated",
+     "boundingBox": {
+      "left": 0.38605,
+      "top": 0.34029,
+      "width": 0.25586,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.34029,
+      "width": 0.08681,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "10",
+     "boundingBox": {
+      "left": 0.12265,
+      "top": 0.37859,
+      "width": 0.01354,
+      "height": 0.00826
+     }
+    },
+    {
+     "text": "Commerce",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.37864,
+      "width": 0.06912,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.37832,
+      "width": 0.04566,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "General subheading added to security roles section",
+     "boundingBox": {
+      "left": 0.38605,
+      "top": 0.37832,
+      "width": 0.33,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.37832,
+      "width": 0.08681,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "24",
+     "boundingBox": {
+      "left": 0.1218,
+      "top": 0.41667,
+      "width": 0.01449,
+      "height": 0.00809
+     }
+    },
+    {
+     "text": "Finance",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.41645,
+      "width": 0.04729,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.41635,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Finance security roles General section updated",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.41635,
+      "width": 0.29828,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.41635,
+      "width": 0.08681,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Various Project",
+     "boundingBox": {
+      "left": 0.12115,
+      "top": 0.45448,
+      "width": 0.10288,
+      "height": 0.01096
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.45438,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Project Operations Lite renamed to Project Operations Core",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.45438,
+      "width": 0.38441,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.45438,
+      "width": 0.08681,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Operations",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.46964,
+      "width": 0.07022,
+      "height": 0.01091
+     }
+    },
+    {
+     "text": "Project Operations for resource/non-stocked scenarios renamed to",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.46941,
+      "width": 0.43118,
+      "height": 0.01119
+     }
+    },
+    {
+     "text": "Project Operations Integrated with ERP",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.48468,
+      "width": 0.25006,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "39, 40",
+     "boundingBox": {
+      "left": 0.12191,
+      "top": 0.50076,
+      "width": 0.03738,
+      "height": 0.00955
+     }
+    },
+    {
+     "text": "Copilot for Sales",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.50032,
+      "width": 0.10488,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.30589,
+      "top": 0.5009,
+      "width": 0.05062,
+      "height": 0.00807
+     }
+    },
+    {
+     "text": "Now included in Microsoft 365 Copilot",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.50032,
+      "width": 0.24859,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.50045,
+      "width": 0.08681,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Copilot for Service",
+     "boundingBox": {
+      "left": 0.18012,
+      "top": 0.51535,
+      "width": 0.11793,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "4",
+     "boundingBox": {
+      "left": 0.12112,
+      "top": 0.53895,
+      "width": 0.00733,
+      "height": 0.00795
+     }
+    },
+    {
+     "text": "How to buy",
+     "boundingBox": {
+      "left": 0.1808,
+      "top": 0.5385,
+      "width": 0.07391,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.30576,
+      "top": 0.5385,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "How to buy Dynamics 365 section updated",
+     "boundingBox": {
+      "left": 0.38673,
+      "top": 0.5385,
+      "width": 0.27554,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.85672,
+      "top": 0.5385,
+      "width": 0.08681,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "© 2025 Microsoft Corporation. All rights reserved.",
+     "boundingBox": {
+      "left": 0.11859,
+      "top": 0.58804,
+      "width": 0.25041,
+      "height": 0.00865
+     }
+    },
+    {
+     "text": "This document is for informational purposes only. MICROSOFT MAKES NO WARRANTIES, EXPRESS OR IMPLIED, IN THIS DOCUMENT. This information is",
+     "boundingBox": {
+      "left": 0.11792,
+      "top": 0.5997,
+      "width": 0.76635,
+      "height": 0.00865
+     }
+    },
+    {
+     "text": "provided to help guide your authorized use of products you license; it is not your agreement. Your use of products licensed under your license agreement is",
+     "boundingBox": {
+      "left": 0.1188,
+      "top": 0.61152,
+      "width": 0.78362,
+      "height": 0.00865
+     }
+    },
+    {
+     "text": "TOC",
+     "boundingBox": {
+      "left": 0.07422,
+      "top": 0.62638,
+      "width": 0.02082,
+      "height": 0.00806
+     }
+    },
+    {
+     "text": "governed by the terms and conditions of that agreement. In the case of any conflict between this information and your agreement, the terms and conditions of",
+     "boundingBox": {
+      "left": 0.11841,
+      "top": 0.62334,
+      "width": 0.80092,
+      "height": 0.00865
+     }
+    },
+    {
+     "text": "your agreement control. Prices for licenses acquired through Microsoft resellers are determined by the reseller.",
+     "boundingBox": {
+      "left": 0.11796,
+      "top": 0.63636,
+      "width": 0.55666,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "Dynamics 365 Licensing Guide | November 2026",
+     "boundingBox": {
+      "left": 0.11881,
+      "top": 0.9542,
+      "width": 0.28476,
+      "height": 0.01015
+     }
+    },
+    {
+     "text": "Page | 95",
+     "boundingBox": {
+      "left": 0.83091,
+      "top": 0.9542,
+      "width": 0.05274,
+      "height": 0.01015
+     }
+    }
+   ]
+  }
+ ]
+}

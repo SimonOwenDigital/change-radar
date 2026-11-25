@@ -1,0 +1,71 @@
+{
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "crdr_readercertificate",
+      "Value": "",
+      "Name": {
+        "Default": "Reader certificate",
+        "ByLcid": {
+          "1033": "Reader certificate"
+        }
+      },
+      "TypeId": 100000005,
+      "Description": {
+        "Default": "Key Vault secret holding the reader certificate (PFX). Value: /subscriptions/<id>/resourceGroups/<rg>/providers/Microsoft.KeyVault/vaults/<vault>/secrets/<name>",
+        "ByLcid": {
+          "1033": "Key Vault secret holding the reader certificate (PFX). Value: /subscriptions/<id>/resourceGroups/<rg>/providers/Microsoft.KeyVault/vaults/<vault>/secrets/<name>"
+        }
+      },
+      "IsRequired": false
+    },
+    {
+      "SchemaName": "crdr_readerclientid",
+      "Value": "",
+      "Name": {
+        "Default": "Reader client ID",
+        "ByLcid": {
+          "1033": "Reader client ID"
+        }
+      },
+      "TypeId": 100000000,
+      "Description": {
+        "Default": "Application (client) ID of the read-only app registration (crdr-reader)",
+        "ByLcid": {
+          "1033": "Application (client) ID of the read-only app registration (crdr-reader)"
+        }
+      },
+      "IsRequired": false
+    },
+    {
+      "SchemaName": "crdr_tenantid",
+      "Value": "",
+      "Name": {
+        "Default": "Tenant ID",
+        "ByLcid": {
+          "1033": "Tenant ID"
+        }
+      },
+      "TypeId": 100000000,
+      "Description": {
+        "Default": "Microsoft Entra tenant ID (GUID)",
+        "ByLcid": {
+          "1033": "Microsoft Entra tenant ID (GUID)"
+        }
+      },
+      "IsRequired": false
+    }
+  ],
+  "ConnectionReferences": [
+    {
+      "LogicalName": "crdr_dataverse",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "crdr_powerplatformadmin",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_powerplatformadminv2"
+    }
+  ],
+  "CopilotAgents": []
+}

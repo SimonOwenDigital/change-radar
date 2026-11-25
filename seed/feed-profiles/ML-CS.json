@@ -1,0 +1,5 @@
+{ "surface": "Copilot Studio (standard harness)", "retiredWithinDays": 90,
+  "tables": [ { "requires": ["Retiring model", "Retirement date"], "status": "Retiring",
+    "columns": { "model": "Retiring model", "date": "Retirement date", "replacement": "Planned replacement", "harness": "Harness", "extension": "Extension available" } } ],
+  "fingerprintScope": {"resource_type": ["agent"], "harness": ["standard"]},
+  "migrationNote": "Agents pinned to this model must move to the replacement before the date; agents on the GPT Chat Latest alias, or in a managed solution, move automatically." }

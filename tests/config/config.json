@@ -1,0 +1,74 @@
+{
+  "description": "Configuration switches read by more than one flow and the Radar page. Written before engine/ChangeRadar.Config.psm1. demo_data (ADR 0022, Simon 2026-11-24): off stops the match and assess flows working on synthetic demo data (no credits spent on it) and hides it on the Radar page; nothing is deleted. New installs are seeded off; a missing row means on, so an install from before the switch behaves as it did.",
+  "demoData": [
+    { "id": "demo-01", "value": "on", "expected": true },
+    { "id": "demo-02", "value": "off", "expected": false },
+    { "id": "demo-03", "value": " OFF ", "expected": false, "note": "case and spaces ignored" },
+    { "id": "demo-04", "value": "false", "expected": false },
+    { "id": "demo-05", "value": "no", "expected": false },
+    { "id": "demo-06", "value": "0", "expected": false },
+    { "id": "demo-07", "value": null, "expected": true, "note": "no config row: behaves as before the switch existed" },
+    { "id": "demo-08", "value": "", "expected": true, "note": "empty value: as no row" },
+    { "id": "demo-09", "value": "yes", "expected": true },
+    { "id": "demo-10", "value": "offline", "expected": true, "note": "near miss: only the whole word counts" }
+  ],
+  "demoToggleDescription": "The Radar page's demo data switch (Simon 2026-11-24) writes demo_data as 'on' or 'off', and what it writes must read back the same way through the demoData rule. Engine Get-DemoDataValue, page demoDataValue.",
+  "demoToggle": [
+    { "id": "toggle-01", "on": true, "writes": "on" },
+    { "id": "toggle-02", "on": false, "writes": "off" }
+  ],
+  "estateShownDescription": "Which estate the Radar page shows (Simon 2026-11-24, 'Demo replaces live'): with demo data on, every visual and table shows the demo organisation; with it off, the live estate. One estate at a time, so live and synthetic ratings are never mixed (CLAUDE.md). The inputs are the demo_data value as stored (reusing the demoData rule) and whether any demo data is loaded: with none loaded the page shows the live estate whatever the setting. Engine Get-EstateShown, page estateShown.",
+  "estateShown": [
+    { "id": "shown-01", "value": "on", "loaded": true, "expected": "synthetic" },
+    { "id": "shown-02", "value": "off", "loaded": true, "expected": "live" },
+    { "id": "shown-03", "value": null, "loaded": true, "expected": "synthetic", "note": "no row means demo data on" },
+    { "id": "shown-04", "value": " FALSE ", "loaded": true, "expected": "live" },
+    { "id": "shown-05", "value": null, "loaded": false, "expected": "live", "note": "an install from before the switch: no row (on) and no demo data loaded shows the live estate, never an empty demo one" },
+    { "id": "shown-06", "value": "on", "loaded": false, "expected": "live", "note": "on, but the demo data was removed" }
+  ],
+  "assessmentStepDescription": "assessment_max_per_run (install test finding 15, Simon 2026-11-24: separate cap). Each exposed signal and source either needs the estate prompt (no assessment yet, or its exposure summary or signal changed) or not. Under the cap it is prompted; at the cap it is DEFERRED: nothing is written, so it still needs the prompt next run. It must never fall through to rescore, which would store the new summary and stop it ever being prompted. Rescoring calls no prompt, so it is never capped. 0 or less = no cap.",
+  "assessmentStep": [
+    { "id": "cap-01", "needsPrompt": true, "prompted": 0, "max": 25, "expected": "prompt" },
+    { "id": "cap-02", "needsPrompt": true, "prompted": 24, "max": 25, "expected": "prompt", "note": "the 25th call is allowed" },
+    { "id": "cap-03", "needsPrompt": true, "prompted": 25, "max": 25, "expected": "defer", "note": "the 26th is deferred to the next run" },
+    { "id": "cap-04", "needsPrompt": true, "prompted": 300, "max": 0, "expected": "prompt", "note": "0 = no cap" },
+    { "id": "cap-05", "needsPrompt": true, "prompted": 5, "max": -1, "expected": "prompt", "note": "negative = no cap" },
+    { "id": "cap-06", "needsPrompt": false, "prompted": 25, "max": 25, "expected": "rescore", "note": "rescore calls no prompt, so the cap doesn't stop it" },
+    { "id": "cap-07", "needsPrompt": false, "prompted": 0, "max": 25, "expected": "rescore" },
+    { "id": "cap-08", "needsPrompt": true, "prompted": 1, "max": 1, "expected": "defer", "note": "cap of 1" }
+  ],
+  "effectiveCapDescription": "Catch-up (install test finding 14, Simon 2026-11-24: raise the caps for the first weeks). Before catchup_until (a date, yyyy-MM-dd, set at install to the install date + 14 days), each per-run cap is raised to catchup_max_per_run; from that date on the normal cap applies. Flow expressions can't parse a date safely, so the rule is textual: the value must be exactly 'yyyy-MM-dd' starting '20', with dashes at positions 4 and 7, and catch-up applies while today's UTC date (yyyy-MM-dd) sorts before it and it sorts before today + 120 days (the flows can't test digits, so the bound stops a malformed value meaning catch-up forever). Anything else is ignored (normal cap), never 'catch-up forever'. Catch-up never lowers a cap, and a cap of 0 (no cap) stays 0. catchup_max_per_run 0 or less = no catch-up.",
+  "effectiveCap": [
+    { "id": "catch-01", "cap": 25, "catchupCap": 100, "until": "2026-12-08", "today": "2026-11-24", "expected": 100 },
+    { "id": "catch-02", "cap": 25, "catchupCap": 100, "until": "2026-12-08", "today": "2026-12-07", "expected": 100, "note": "last catch-up night" },
+    { "id": "catch-03", "cap": 25, "catchupCap": 100, "until": "2026-12-08", "today": "2026-12-08", "expected": 25, "note": "ends on the date itself" },
+    { "id": "catch-04", "cap": 25, "catchupCap": 100, "until": "2026-11-01", "today": "2026-11-24", "expected": 25, "note": "past" },
+    { "id": "catch-05", "cap": 25, "catchupCap": 100, "until": "", "today": "2026-11-24", "expected": 25, "note": "no date: no catch-up (installs from before catch-up)" },
+    { "id": "catch-06", "cap": 25, "catchupCap": 100, "until": null, "today": "2026-11-24", "expected": 25, "note": "no setting row" },
+    { "id": "catch-07", "cap": 25, "catchupCap": 100, "until": "not a date", "today": "2026-11-24", "expected": 25, "note": "ten characters, but not a date: ignored, never catch-up forever" },
+    { "id": "catch-08", "cap": 25, "catchupCap": 100, "until": "8/12/2026", "today": "2026-11-24", "expected": 25, "note": "wrong format: ignored" },
+    { "id": "catch-09", "cap": 25, "catchupCap": 100, "until": " 2026-12-08 ", "today": "2026-11-24", "expected": 100, "note": "spaces trimmed" },
+    { "id": "catch-10", "cap": 0, "catchupCap": 100, "until": "2026-12-08", "today": "2026-11-24", "expected": 0, "note": "no cap stays no cap" },
+    { "id": "catch-11", "cap": 25, "catchupCap": 0, "until": "2026-12-08", "today": "2026-11-24", "expected": 25, "note": "catch-up switched off" },
+    { "id": "catch-12", "cap": 25, "catchupCap": 10, "until": "2026-12-08", "today": "2026-11-24", "expected": 25, "note": "catch-up never lowers a cap" },
+    { "id": "catch-13", "cap": 25, "catchupCap": 100, "until": "20ab-cd-ef", "today": "2026-11-24", "expected": 25, "note": "the right shape but not digits: sorts after any real date, so the 120-day bound ignores it" },
+    { "id": "catch-14", "cap": 25, "catchupCap": 100, "until": "2062-12-08", "today": "2026-11-24", "expected": 25, "note": "typo far in the future: ignored" },
+    { "id": "catch-15", "cap": 25, "catchupCap": 100, "until": "2027-03-23", "today": "2026-11-24", "expected": 100, "note": "119 days ahead: inside the bound" },
+    { "id": "catch-16", "cap": 25, "catchupCap": 100, "until": "2027-03-24", "today": "2026-11-24", "expected": 25, "note": "120 days ahead: outside the bound" }
+  ],
+  "seedStepDescription": "What Import-MatchingData does with one row (Simon, 2026-11-24): a plain run only adds what is missing, so re-running it after the first night never undoes vocabulary, rule, fingerprint or subscription changes made in the app. Only -UpdateToSeed (reset) changes or deactivates existing rows.",
+  "seedStep": [
+    { "id": "seed-01", "inSeed": true, "exists": false, "same": false, "active": false, "reset": false, "expected": "create", "note": "missing row: added on a plain run" },
+    { "id": "seed-02", "inSeed": true, "exists": true, "same": true, "active": true, "reset": false, "expected": "exists", "note": "matches the seed" },
+    { "id": "seed-03", "inSeed": true, "exists": true, "same": false, "active": true, "reset": false, "expected": "keep", "note": "differs: changed here, or the seed moved on; never reset by a plain run" },
+    { "id": "seed-04", "inSeed": true, "exists": true, "same": false, "active": true, "reset": true, "expected": "update", "note": "differs, reset asked for" },
+    { "id": "seed-05", "inSeed": false, "exists": true, "same": false, "active": true, "reset": false, "expected": "keep", "note": "added here, or dropped from the seed: stays active" },
+    { "id": "seed-06", "inSeed": false, "exists": true, "same": false, "active": true, "reset": true, "expected": "deactivate", "note": "not in the seed, reset asked for" },
+    { "id": "seed-07", "inSeed": false, "exists": true, "same": false, "active": false, "reset": true, "expected": "exists", "note": "not in the seed, already inactive: nothing to do" },
+    { "id": "seed-08", "inSeed": false, "exists": true, "same": false, "active": false, "reset": false, "expected": "exists", "note": "not in the seed, already inactive, plain run" },
+    { "id": "seed-09", "inSeed": true, "exists": false, "same": false, "active": false, "reset": true, "expected": "create", "note": "missing row: added with a reset too" },
+    { "id": "seed-10", "inSeed": true, "exists": true, "same": true, "active": true, "reset": true, "expected": "exists", "note": "matches: a reset changes nothing" },
+    { "id": "seed-11", "inSeed": true, "exists": true, "same": false, "active": false, "reset": false, "expected": "keep", "note": "switched off here but active in the seed: stays off" },
+    { "id": "seed-12", "inSeed": true, "exists": true, "same": false, "active": false, "reset": true, "expected": "update", "note": "switched off here, reset asked for: back on" }
+  ]
+}

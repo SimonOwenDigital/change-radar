@@ -1,0 +1,10 @@
+<botcomponent schemaname="crdr_AskChangeRadar.gpt.default">
+  <componenttype>15</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Ask Change Radar</name>
+  <parentbotid>
+    <schemaname>crdr_AskChangeRadar</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

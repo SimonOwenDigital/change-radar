@@ -1,0 +1,144 @@
+{
+  "description": "See the estate by solution (ADR 0020). Written before engine/ChangeRadar.Solutions.psm1. A component's solutions come from Dataverse solutioncomponents (objectid, solution unique and display name, publisher, managed). Default, Active and the Common Data Services Default Solution hold everything and are not counted. Solutions whose publisher is a Microsoft publisher (seed/asset-signatures.json pcfMicrosoftPublishers) are counted but marked microsoft. Ids below are short placeholders, not real ids.",
+  "today": "2026-11-24",
+  "microsoftPublishers": ["microsoftdynamics", "microsoftfirstparty", "MicrosoftCorporation", "dynamics365"],
+  "objectIds": [
+    { "id": "oid-01", "note": "A flow: the component id is the workflow id", "asset": { "componentid": "c-flow-1", "sourceid": "env-1|r-flow-1|", "resourcetype": "microsoft.powerautomate/cloudflows" }, "expected": "c-flow-1" },
+    { "id": "oid-02", "note": "An agent has no component id: the bot id is the source id's second part", "asset": { "componentid": null, "sourceid": "env-1|bot-1|", "resourcetype": "microsoft.copilotstudio/agents" }, "expected": "bot-1" },
+    { "id": "oid-03", "note": "A fixture asset's source id carries its solution as the third part; the second part is still the id", "asset": { "componentid": "", "sourceid": "env-1|bot-2|crdr_fixtures", "resourcetype": "microsoft.copilotstudio/agents" }, "expected": "bot-2" },
+    { "id": "oid-04", "note": "No component id and no usable source id: no object id", "asset": { "componentid": null, "sourceid": "", "resourcetype": "microsoft.powerapps/canvasapps" }, "expected": null }
+  ],
+  "counted": [
+    { "id": "cnt-01", "note": "A maker's solution counts", "solution": { "uniquename": "SGSizer", "friendlyname": "Scalable Governance Sizer", "publisher": "pplab" }, "expected": true },
+    { "id": "cnt-02", "note": "Default holds everything", "solution": { "uniquename": "Default", "friendlyname": "Default Solution", "publisher": "DefaultPublisherorg8114c1da" }, "expected": false },
+    { "id": "cnt-03", "note": "Active is the hidden layer of every unmanaged customisation", "solution": { "uniquename": "Active", "friendlyname": "Active Solution", "publisher": "DefaultPublisherorg8114c1da" }, "expected": false },
+    { "id": "cnt-04", "note": "The Common Data Services Default Solution, by display name", "solution": { "uniquename": "Cr185c1", "friendlyname": "Common Data Services Default Solution", "publisher": "Cr3e6c8" }, "expected": false },
+    { "id": "cnt-05", "note": "The same solution with a translated display name: recognised by its Cr-hex unique name and Cr-hex publisher", "solution": { "uniquename": "Cr9a0b1", "friendlyname": "Solution par défaut Common Data Services", "publisher": "Cr77f20" }, "expected": false },
+    { "id": "cnt-06", "note": "Near miss: a maker solution whose name starts with Cr but whose publisher is a real one", "solution": { "uniquename": "Crm2Upgrade", "friendlyname": "CRM upgrade tools", "publisher": "contoso" }, "expected": true },
+    { "id": "cnt-07", "note": "A Microsoft managed solution counts (marked microsoft separately)", "solution": { "uniquename": "msdyn_PowerAppsChecker", "friendlyname": "Power Apps Checker", "publisher": "microsoftdynamics" }, "expected": true }
+  ],
+  "membership": [
+    {
+      "id": "mem-01",
+      "note": "One flow in two maker solutions and Default: two rows, Default dropped; an agent matched by its bot id; a Microsoft solution marked; a component that is not an asset is ignored",
+      "assets": [
+        { "assetid": "a-flow", "environmentid": "env-1", "componentid": "c-flow-1", "sourceid": "env-1|r-flow-1|" },
+        { "assetid": "a-agent", "environmentid": "env-1", "componentid": null, "sourceid": "env-1|bot-1|" },
+        { "assetid": "a-app", "environmentid": "env-1", "componentid": "c-app-1", "sourceid": "env-1|r-app-1|" }
+      ],
+      "components": [
+        { "objectid": "c-flow-1", "uniquename": "Default", "friendlyname": "Default Solution", "publisher": "DefaultPublisherorg1", "ismanaged": false },
+        { "objectid": "c-flow-1", "uniquename": "SGSizer", "friendlyname": "Scalable Governance Sizer", "publisher": "pplab", "ismanaged": false },
+        { "objectid": "c-flow-1", "uniquename": "ChangeRadarCore", "friendlyname": "Change Radar Core", "publisher": "ChangeRadar", "ismanaged": false },
+        { "objectid": "bot-1", "uniquename": "ChangeRadarAsk", "friendlyname": "Change Radar Ask", "publisher": "ChangeRadar", "ismanaged": false },
+        { "objectid": "c-app-1", "uniquename": "msdyn_PowerAppsChecker", "friendlyname": "Power Apps Checker", "publisher": "microsoftdynamics", "ismanaged": true },
+        { "objectid": "c-not-an-asset", "uniquename": "SGSizer", "friendlyname": "Scalable Governance Sizer", "publisher": "pplab", "ismanaged": false }
+      ],
+      "expected": [
+        { "assetid": "a-agent", "uniquename": "ChangeRadarAsk", "displayname": "Change Radar Ask", "publisher": "ChangeRadar", "managed": false, "microsoft": false },
+        { "assetid": "a-app", "uniquename": "msdyn_PowerAppsChecker", "displayname": "Power Apps Checker", "publisher": "microsoftdynamics", "managed": true, "microsoft": true },
+        { "assetid": "a-flow", "uniquename": "ChangeRadarCore", "displayname": "Change Radar Core", "publisher": "ChangeRadar", "managed": false, "microsoft": false },
+        { "assetid": "a-flow", "uniquename": "SGSizer", "displayname": "Scalable Governance Sizer", "publisher": "pplab", "managed": false, "microsoft": false }
+      ]
+    },
+    {
+      "id": "mem-02",
+      "note": "The same component listed twice for one solution (two component types) gives one row",
+      "assets": [ { "assetid": "a-app", "environmentid": "env-1", "componentid": "c-app-1", "sourceid": "env-1|r-app-1|" } ],
+      "components": [
+        { "objectid": "c-app-1", "uniquename": "SGSizer", "friendlyname": "Scalable Governance Sizer", "publisher": "pplab", "ismanaged": false },
+        { "objectid": "C-APP-1", "uniquename": "SGSizer", "friendlyname": "Scalable Governance Sizer", "publisher": "pplab", "ismanaged": false }
+      ],
+      "expected": [ { "assetid": "a-app", "uniquename": "SGSizer", "displayname": "Scalable Governance Sizer", "publisher": "pplab", "managed": false, "microsoft": false } ]
+    }
+  ],
+  "groups": [
+    {
+      "id": "grp-01",
+      "note": "In a solution; not in a solution (environment has Dataverse detail); not known (environment without detail)",
+      "detailEnvironments": ["env-1"],
+      "assets": [
+        { "assetid": "a-flow", "environmentid": "env-1" },
+        { "assetid": "a-loose", "environmentid": "env-1" },
+        { "assetid": "a-other-env", "environmentid": "env-2" }
+      ],
+      "membership": [ { "assetid": "a-flow", "uniquename": "SGSizer", "displayname": "Scalable Governance Sizer", "microsoft": false } ],
+      "expected": { "a-flow": ["SGSizer"], "a-loose": ["(not in a solution)"], "a-other-env": ["(solution not known)"] }
+    },
+    {
+      "id": "grp-02",
+      "note": "Two solutions: the asset is in both groups, sorted by display name; a Microsoft solution is listed after makers' ones",
+      "detailEnvironments": ["env-1"],
+      "assets": [ { "assetid": "a-flow", "environmentid": "env-1" } ],
+      "membership": [
+        { "assetid": "a-flow", "uniquename": "msdyn_X", "displayname": "Another Microsoft thing", "microsoft": true },
+        { "assetid": "a-flow", "uniquename": "SGSizer", "displayname": "Scalable Governance Sizer", "microsoft": false },
+        { "assetid": "a-flow", "uniquename": "ChangeRadarCore", "displayname": "Change Radar Core", "microsoft": false }
+      ],
+      "expected": { "a-flow": ["ChangeRadarCore", "SGSizer", "msdyn_X"] }
+    }
+  ],
+  "relatedFacets": ["connector", "capability", "model", "setting", "harness", "auth_mode"],
+  "related": [
+    {
+      "id": "rel-01",
+      "note": "Simon, 2026-11-24: a solution shows the signals that affect it (exposures) and the signals related to it: an accepted signal fingerprint on a connector, capability, model, setting, harness or authentication mode that a component in the solution also has. Product, resource type and environment type are too broad. Not accepted fingerprints don't count; a signal that already affects the solution is not listed as related; values compare without case; each link is listed once, sorted.",
+      "solutionAssets": ["a1", "a2"],
+      "assetFingerprints": [
+        { "assetid": "a1", "facet": "connector", "value": "shared_teams" },
+        { "assetid": "a1", "facet": "product", "value": "Power Automate" },
+        { "assetid": "a1", "facet": "resource_type", "value": "cloud flow" },
+        { "assetid": "a2", "facet": "model", "value": "gpt-6-sol" },
+        { "assetid": "a2", "facet": "capability", "value": "ai_prompt" },
+        { "assetid": "a3", "facet": "connector", "value": "shared_sql" }
+      ],
+      "signalFingerprints": [
+        { "signal": "s1", "facet": "connector", "value": "shared_teams", "status": "accepted" },
+        { "signal": "s2", "facet": "product", "value": "Power Automate", "status": "accepted" },
+        { "signal": "s3", "facet": "model", "value": "GPT-6-SOL", "status": "accepted" },
+        { "signal": "s4", "facet": "connector", "value": "shared_teams", "status": "rejected" },
+        { "signal": "s4", "facet": "connector", "value": "shared_teams", "status": "review" },
+        { "signal": "s5", "facet": "connector", "value": "shared_teams", "status": "accepted" },
+        { "signal": "s6", "facet": "capability", "value": "ai_prompt", "status": "accepted" },
+        { "signal": "s6", "facet": "connector", "value": "shared_teams", "status": "accepted" },
+        { "signal": "s6", "facet": "connector", "value": "shared_teams", "status": "accepted" },
+        { "signal": "s7", "facet": "connector", "value": "shared_sql", "status": "accepted" },
+        { "signal": "s8", "facet": "resource_type", "value": "cloud flow", "status": "accepted" }
+      ],
+      "affects": ["s5"],
+      "expected": [
+        { "signal": "s1", "links": ["connector: shared_teams"] },
+        { "signal": "s3", "links": ["model: gpt-6-sol"] },
+        { "signal": "s6", "links": ["capability: ai_prompt", "connector: shared_teams"] }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "id": "sum-01",
+      "note": "Per solution: exposed assets (distinct), highest impact, next deadline from today on, items needing action. A solution with no exposure is listed with zeros. An exposure on an asset in two solutions counts in both. A landed key date is not a deadline.",
+      "solutions": [
+        { "uniquename": "SGSizer", "displayname": "Scalable Governance Sizer", "microsoft": false },
+        { "uniquename": "ChangeRadarCore", "displayname": "Change Radar Core", "microsoft": false },
+        { "uniquename": "Quiet", "displayname": "Quiet solution", "microsoft": false }
+      ],
+      "membership": [
+        { "assetid": "a-flow", "uniquename": "SGSizer" },
+        { "assetid": "a-flow", "uniquename": "ChangeRadarCore" },
+        { "assetid": "a-app", "uniquename": "SGSizer" },
+        { "assetid": "a-idle", "uniquename": "Quiet" }
+      ],
+      "exposures": [
+        { "assetid": "a-flow", "signal": "s1", "impact": "medium", "keyDate": "2026-12-08", "actionRequired": true },
+        { "assetid": "a-flow", "signal": "s2", "impact": "high", "keyDate": "2026-12-01", "actionRequired": false },
+        { "assetid": "a-app", "signal": "s1", "impact": "medium", "keyDate": "2026-12-08", "actionRequired": true },
+        { "assetid": "a-app", "signal": "s3", "impact": "critical", "keyDate": "2026-10-01", "actionRequired": true }
+      ],
+      "expected": [
+        { "uniquename": "SGSizer", "assets": 2, "items": 3, "highest": "critical", "nextDeadline": "2026-12-01", "action": 2 },
+        { "uniquename": "ChangeRadarCore", "assets": 1, "items": 2, "highest": "high", "nextDeadline": "2026-12-01", "action": 1 },
+        { "uniquename": "Quiet", "assets": 0, "items": 0, "highest": null, "nextDeadline": null, "action": 0 }
+      ]
+    }
+  ]
+}

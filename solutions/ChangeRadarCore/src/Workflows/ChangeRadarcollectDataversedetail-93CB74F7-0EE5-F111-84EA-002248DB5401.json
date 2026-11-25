@@ -1,0 +1,2918 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "4"
+              ],
+              "minutes": [
+                "30"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_envs": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'detail_environments')"
+          }
+        },
+        "Config_fixtures": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'fixture_solutions')"
+          }
+        },
+        "Init_hits": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Config_envs": [
+              "Succeeded"
+            ],
+            "Config_fixtures": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Hits",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_log": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_hits": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Log",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_prompts": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_log": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Prompts",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Calls": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_prompts": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Calls",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_PromptInfo": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Calls": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "PromptInfo",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_Desired": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_PromptInfo": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Desired",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_Seen": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Desired": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Seen",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_SolRows": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Seen": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "SolRows",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_SolPairs": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_SolRows": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "SolPairs",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Collect": {
+          "type": "Scope",
+          "runAfter": {
+            "Init_SolPairs": [
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Get_certificate": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "RetrieveEnvironmentVariableSecretValue",
+                  "item/EnvironmentVariableName": "crdr_readercertificate"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "secureData": {
+                  "properties": [
+                    "inputs",
+                    "outputs"
+                  ]
+                }
+              }
+            },
+            "Env_list": {
+              "type": "Query",
+              "runAfter": {
+                "Get_certificate": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@split(coalesce(first(body('Config_envs'))?['crdr_value'], ''), ';')",
+                "where": "@not(empty(trim(item())))"
+              }
+            },
+            "Fixture_list": {
+              "type": "Query",
+              "runAfter": {
+                "Env_list": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@split(coalesce(first(body('Config_fixtures'))?['crdr_value'], ''), ';')",
+                "where": "@not(empty(trim(item())))"
+              }
+            },
+            "List_models": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Fixture_list": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_facet eq 169890008 and crdr_active eq true",
+                  "$select": "crdr_value,crdr_aliases",
+                  "entityName": "crdr_facetvalues"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Model_rows": {
+              "type": "Select",
+              "runAfter": {
+                "List_models": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('List_models')?['value']",
+                "select": "@concat('<r v=\"', item()?['crdr_value'], '\"><a>', toLower(item()?['crdr_value']), '</a><a>', replace(toLower(trim(coalesce(item()?['crdr_aliases'], ''))), '|', '</a><a>'), '</a></r>')"
+              }
+            },
+            "Model_xml": {
+              "type": "Compose",
+              "runAfter": {
+                "Model_rows": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@xml(concat('<m>', join(body('Model_rows'), ''), '</m>'))"
+            },
+            "Each_env": {
+              "type": "Foreach",
+              "foreach": "@body('Env_list')",
+              "runAfter": {
+                "Model_xml": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 1
+                }
+              },
+              "actions": {
+                "Reset_hits": {
+                  "type": "SetVariable",
+                  "runAfter": {},
+                  "inputs": {
+                    "name": "Hits",
+                    "value": []
+                  }
+                },
+                "Org": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Reset_hits": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/RetrieveCurrentOrganization(AccessType=Microsoft.Dynamics.CRM.EndpointAccessType'Default')",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Env_id": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Org": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@body('Org')?['Detail']?['EnvironmentId']"
+                },
+                "Env_assets": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Env_id": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_environmentid eq ''', outputs('Env_id'), ''' and crdr_source ne 169890002')",
+                      "$select": "crdr_assetid,crdr_name,crdr_componentid,crdr_source,crdr_solutionuniquename,crdr_sourceid,crdr_environmentname,crdr_environmenttype",
+                      "entityName": "crdr_assets"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Fixture_components": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Fixture_filter": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/solutioncomponents?$select=objectid,componenttype&$expand=solutionid($select=uniquename)&$filter=(componenttype eq 29 or componenttype eq 80 or componenttype eq 300) and (@{join(body('Fixture_filter'), ' or ')})",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    },
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Fixture_filter": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Env_assets": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@if(empty(body('Fixture_list')), createArray('-'), body('Fixture_list'))",
+                    "select": "@concat('solutionid/uniquename eq ''', trim(item()), '''')"
+                  }
+                },
+                "Fixture_ids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Fixture_components": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Fixture_components')?['value']",
+                    "select": "@item()?['objectid']"
+                  }
+                },
+                "To_relabel": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Fixture_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Env_assets')?['value']",
+                    "where": "@and(contains(body('Fixture_ids'), item()?['crdr_componentid']), not(equals(item()?['crdr_source'], 169890001)))"
+                  }
+                },
+                "Relabel": {
+                  "type": "Foreach",
+                  "foreach": "@body('To_relabel')",
+                  "runAfter": {
+                    "To_relabel": [
+                      "Succeeded"
+                    ]
+                  },
+                  "actions": {
+                    "Membership": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@body('Fixture_components')?['value']",
+                        "where": "@equals(item()?['objectid'], items('Relabel')?['crdr_componentid'])"
+                      }
+                    },
+                    "Relabel_asset": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {
+                        "Membership": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_assets",
+                          "item/crdr_solutionuniquename": "@first(body('Membership'))?['solutionid']?['uniquename']",
+                          "item/crdr_source": 169890001,
+                          "item/crdr_syntheticorg": "Change Radar fixtures (FIXTURE: test assets, not real)",
+                          "recordId": "@items('Relabel')?['crdr_assetid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Controls": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Relabel": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/customcontrols?$select=customcontrolid,name",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    },
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Owners": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Controls": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/solutioncomponents?$select=objectid&$filter=componenttype eq 66&$expand=solutionid($select=uniquename;$expand=publisherid($select=uniquename))",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    },
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Shipped": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Owners": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Owners')?['value']",
+                    "where": "@contains(json('[\"microsoftdynamics\",\"MicrosoftCorporation\",\"microsoftfirstparty\"]'), item()?['solutionid']?['publisherid']?['uniquename'])"
+                  }
+                },
+                "Shipped_ids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Shipped": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Shipped')",
+                    "select": "@item()?['objectid']"
+                  }
+                },
+                "Maker_owned": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Shipped_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Owners')?['value']",
+                    "where": "@and(not(contains(json('[\"microsoftdynamics\",\"MicrosoftCorporation\",\"microsoftfirstparty\"]'), item()?['solutionid']?['publisherid']?['uniquename'])), not(contains(createArray('Default', 'Active'), item()?['solutionid']?['uniquename'])))"
+                  }
+                },
+                "Maker_ids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Maker_owned": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Maker_owned')",
+                    "select": "@item()?['objectid']"
+                  }
+                },
+                "Maker": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Maker_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Controls')?['value']",
+                    "where": "@and(contains(body('Maker_ids'), item()?['customcontrolid']), not(contains(body('Shipped_ids'), item()?['customcontrolid'])))"
+                  }
+                },
+                "Each_control": {
+                  "type": "Foreach",
+                  "foreach": "@body('Maker')",
+                  "runAfter": {
+                    "Maker": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Deps": {
+                      "type": "Http",
+                      "runAfter": {},
+                      "inputs": {
+                        "method": "GET",
+                        "uri": "@{items('Each_env')}/api/data/v9.2/dependencies?$select=dependentcomponenttype,dependentcomponentobjectid&$filter=requiredcomponentobjectid eq @{items('Each_control')?['customcontrolid']}",
+                        "headers": {
+                          "Accept": "application/json",
+                          "Prefer": "odata.maxpagesize=5000"
+                        },
+                        "authentication": {
+                          "type": "ActiveDirectoryOAuth",
+                          "authority": "https://login.microsoftonline.com",
+                          "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                          "audience": "@{items('Each_env')}",
+                          "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                          "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                          "password": "@string('')"
+                        }
+                      },
+                      "runtimeConfiguration": {
+                        "paginationPolicy": {
+                          "minimumItemCount": 100000
+                        },
+                        "secureData": {
+                          "properties": [
+                            "inputs"
+                          ]
+                        }
+                      }
+                    },
+                    "Canvas_deps": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Deps": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Deps')?['value']",
+                        "where": "@equals(item()?['dependentcomponenttype'], 300)"
+                      }
+                    },
+                    "Canvas_hits": {
+                      "type": "Select",
+                      "runAfter": {
+                        "Canvas_deps": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Canvas_deps')",
+                        "select": {
+                          "componentid": "@item()?['dependentcomponentobjectid']",
+                          "control": "@items('Each_control')?['name']",
+                          "path": "@concat('canvas app ', item()?['dependentcomponentobjectid'])"
+                        }
+                      }
+                    },
+                    "Hits_with_canvas": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Canvas_hits": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@union(variables('Hits'), body('Canvas_hits'))"
+                    },
+                    "Add_canvas_hits": {
+                      "type": "SetVariable",
+                      "runAfter": {
+                        "Hits_with_canvas": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Hits",
+                        "value": "@outputs('Hits_with_canvas')"
+                      }
+                    },
+                    "Form_deps": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Add_canvas_hits": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Deps')?['value']",
+                        "where": "@equals(item()?['dependentcomponenttype'], 60)"
+                      }
+                    },
+                    "Each_form": {
+                      "type": "Foreach",
+                      "foreach": "@body('Form_deps')",
+                      "runAfter": {
+                        "Form_deps": [
+                          "Succeeded"
+                        ]
+                      },
+                      "runtimeConfiguration": {
+                        "concurrency": {
+                          "repetitions": 1
+                        }
+                      },
+                      "actions": {
+                        "App_deps": {
+                          "type": "Http",
+                          "runAfter": {},
+                          "inputs": {
+                            "method": "GET",
+                            "uri": "@{items('Each_env')}/api/data/v9.2/dependencies?$select=dependentcomponentobjectid&$filter=requiredcomponentobjectid eq @{items('Each_form')?['dependentcomponentobjectid']} and dependentcomponenttype eq 80",
+                            "headers": {
+                              "Accept": "application/json",
+                              "Prefer": "odata.maxpagesize=5000"
+                            },
+                            "authentication": {
+                              "type": "ActiveDirectoryOAuth",
+                              "authority": "https://login.microsoftonline.com",
+                              "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                              "audience": "@{items('Each_env')}",
+                              "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                              "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                              "password": "@string('')"
+                            }
+                          },
+                          "runtimeConfiguration": {
+                            "paginationPolicy": {
+                              "minimumItemCount": 100000
+                            },
+                            "secureData": {
+                              "properties": [
+                                "inputs"
+                              ]
+                            }
+                          }
+                        },
+                        "App_hits": {
+                          "type": "Select",
+                          "runAfter": {
+                            "App_deps": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('App_deps')?['value']",
+                            "select": {
+                              "componentid": "@item()?['dependentcomponentobjectid']",
+                              "control": "@items('Each_control')?['name']",
+                              "path": "@concat('form ', items('Each_form')?['dependentcomponentobjectid'], ' -> app module ', item()?['dependentcomponentobjectid'])"
+                            }
+                          }
+                        },
+                        "Hits_with_app": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "App_hits": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@union(variables('Hits'), body('App_hits'))"
+                        },
+                        "Add_app_hits": {
+                          "type": "SetVariable",
+                          "runAfter": {
+                            "Hits_with_app": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "Hits",
+                            "value": "@outputs('Hits_with_app')"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "Existing_pcf": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Each_control": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_name eq ''capability: pcf_control'' and crdr_asset/crdr_environmentid eq ''', outputs('Env_id'), '''')",
+                      "$select": "crdr_assetfingerprintid,_crdr_asset_value,crdr_evidence",
+                      "entityName": "crdr_assetfingerprints"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Each_asset": {
+                  "type": "Foreach",
+                  "foreach": "@body('Env_assets')?['value']",
+                  "runAfter": {
+                    "Existing_pcf": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 10
+                    }
+                  },
+                  "actions": {
+                    "Asset_hits": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@variables('Hits')",
+                        "where": "@and(not(empty(items('Each_asset')?['crdr_componentid'])), equals(item()?['componentid'], items('Each_asset')?['crdr_componentid']))"
+                      }
+                    },
+                    "Asset_existing": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Asset_hits": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Existing_pcf')?['value']",
+                        "where": "@equals(item()?['_crdr_asset_value'], items('Each_asset')?['crdr_assetid'])"
+                      }
+                    },
+                    "Evidence_parts": {
+                      "type": "Select",
+                      "runAfter": {
+                        "Asset_existing": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Asset_hits')",
+                        "select": "@concat('dependency: control ''', item()?['control'], ''' <- ', item()?['path'])"
+                      }
+                    },
+                    "Evidence": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Evidence_parts": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@if(greater(length(coalesce(join(body('Evidence_parts'), '; '), '')), 1000), substring(join(body('Evidence_parts'), '; '), 0, 1000), coalesce(join(body('Evidence_parts'), '; '), ''))"
+                    },
+                    "Has_pcf": {
+                      "type": "If",
+                      "runAfter": {
+                        "Evidence": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "not": {
+                          "equals": [
+                            "@empty(body('Asset_hits'))",
+                            true
+                          ]
+                        }
+                      },
+                      "actions": {
+                        "Pcf_exists": {
+                          "type": "If",
+                          "runAfter": {},
+                          "expression": {
+                            "equals": [
+                              "@empty(body('Asset_existing'))",
+                              true
+                            ]
+                          },
+                          "actions": {
+                            "Create_pcf": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_assetfingerprints",
+                                  "item/crdr_asset@odata.bind": "@concat('/crdr_assets(', items('Each_asset')?['crdr_assetid'], ')')",
+                                  "item/crdr_evidence": "@outputs('Evidence')",
+                                  "item/crdr_facet": 169890003,
+                                  "item/crdr_name": "capability: pcf_control",
+                                  "item/crdr_value": "pcf_control"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {
+                              "Update_pcf": {
+                                "type": "OpenApiConnection",
+                                "runAfter": {},
+                                "inputs": {
+                                  "host": {
+                                    "connectionName": "shared_commondataserviceforapps",
+                                    "operationId": "UpdateRecord",
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                  },
+                                  "parameters": {
+                                    "entityName": "crdr_assetfingerprints",
+                                    "item/crdr_evidence": "@outputs('Evidence')",
+                                    "recordId": "@first(body('Asset_existing'))?['crdr_assetfingerprintid']"
+                                  },
+                                  "authentication": "@parameters('$authentication')"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Remove_pcf": {
+                            "type": "Foreach",
+                            "foreach": "@body('Asset_existing')",
+                            "runAfter": {},
+                            "actions": {
+                              "Delete_pcf": {
+                                "type": "OpenApiConnection",
+                                "runAfter": {},
+                                "inputs": {
+                                  "host": {
+                                    "connectionName": "shared_commondataserviceforapps",
+                                    "operationId": "DeleteRecord",
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                  },
+                                  "parameters": {
+                                    "entityName": "crdr_assetfingerprints",
+                                    "recordId": "@items('Remove_pcf')?['crdr_assetfingerprintid']"
+                                  },
+                                  "authentication": "@parameters('$authentication')"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "Log_detail": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {
+                    "Each_asset": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Log",
+                    "value": "@concat(outputs('Env_id'), ': maker-built controls ', string(length(body('Maker'))), ', app dependencies ', string(length(variables('Hits'))), ', fixtures relabelled ', string(length(body('To_relabel'))))"
+                  }
+                },
+                "Run_configs": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Log_detail": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/msdyn_aiconfigurations?$select=msdyn_aiconfigurationid,msdyn_customconfiguration&$filter=msdyn_type eq 190690001",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    },
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Prompt_models": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Run_configs": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/msdyn_aimodels?$select=msdyn_aimodelid,msdyn_name,ismanaged,_ownerid_value,modifiedon,_msdyn_activerunconfigurationid_value&$filter=statecode eq 1 and _msdyn_activerunconfigurationid_value ne null",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    },
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Ms_prompt_rows": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Prompt_models": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/solutioncomponents?$select=objectid&$filter=componenttype eq 401&$expand=solutionid($select=uniquename;$expand=publisherid($select=uniquename))",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    },
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Ms_prompts": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Ms_prompt_rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Ms_prompt_rows')?['value']",
+                    "where": "@contains(json('[\"microsoftdynamics\",\"MicrosoftCorporation\",\"microsoftfirstparty\"]'), item()?['solutionid']?['publisherid']?['uniquename'])"
+                  }
+                },
+                "Ms_prompt_ids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Ms_prompts": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Ms_prompts')",
+                    "select": "@item()?['objectid']"
+                  }
+                },
+                "Env_row": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Ms_prompt_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@first(body('Env_assets')?['value'])"
+                },
+                "Workflows": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Env_row": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@{items('Each_env')}/api/data/v9.2/workflows?$select=workflowid,name,clientdata&$filter=type eq 1 and contains(clientdata,'aibuilderpredict_')",
+                    "headers": {
+                      "Accept": "application/json",
+                      "Prefer": "odata.maxpagesize=5000"
+                    },
+                    "authentication": {
+                      "type": "ActiveDirectoryOAuth",
+                      "authority": "https://login.microsoftonline.com",
+                      "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                      "audience": "@{items('Each_env')}",
+                      "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                      "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                      "password": "@string('')"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    },
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  }
+                },
+                "Reset_calls": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Workflows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Calls",
+                    "value": []
+                  }
+                },
+                "Each_flow": {
+                  "type": "Foreach",
+                  "foreach": "@body('Workflows')?['value']",
+                  "runAfter": {
+                    "Reset_calls": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Flow_calls": {
+                      "type": "Select",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@skip(split(coalesce(items('Each_flow')?['clientdata'], ''), '\"operationId\":\"aibuilderpredict_'), 1)",
+                        "select": {
+                          "wf": "@toLower(items('Each_flow')?['workflowid'])",
+                          "name": "@items('Each_flow')?['name']",
+                          "op": "@first(split(item(), '\"'))",
+                          "id": "@if(and(not(startsWith(first(split(coalesce(split(first(split(item(), '\"operationId\":\"')), '\"recordId\":\"')?[1], ''), '\"')), '@')), equals(length(first(split(coalesce(split(first(split(item(), '\"operationId\":\"')), '\"recordId\":\"')?[1], ''), '\"'))), 36), equals(length(split(first(split(coalesce(split(first(split(item(), '\"operationId\":\"')), '\"recordId\":\"')?[1], ''), '\"')), '-')), 5)), toLower(first(split(coalesce(split(first(split(item(), '\"operationId\":\"')), '\"recordId\":\"')?[1], ''), '\"'))), '')"
+                        }
+                      }
+                    },
+                    "Calls_now": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Flow_calls": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@union(variables('Calls'), body('Flow_calls'))"
+                    },
+                    "Set_calls": {
+                      "type": "SetVariable",
+                      "runAfter": {
+                        "Calls_now": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Calls",
+                        "value": "@outputs('Calls_now')"
+                      }
+                    }
+                  }
+                },
+                "Reset_prompt_info": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Each_flow": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "PromptInfo",
+                    "value": []
+                  }
+                },
+                "Reset_prompts": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Reset_prompt_info": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Prompts",
+                    "value": 0
+                  }
+                },
+                "Each_prompt": {
+                  "type": "Foreach",
+                  "foreach": "@body('Prompt_models')?['value']",
+                  "runAfter": {
+                    "Reset_prompts": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Config": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@body('Run_configs')?['value']",
+                        "where": "@equals(item()?['msdyn_aiconfigurationid'], items('Each_prompt')?['_msdyn_activerunconfigurationid_value'])"
+                      }
+                    },
+                    "After_key": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Config": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@join(skip(split(coalesce(first(body('Config'))?['msdyn_customconfiguration'], ''), '\"modelType\"'), 1), '\"modelType\"')"
+                    },
+                    "Key_parts": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "After_key": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@split(outputs('After_key'), '\"')"
+                    },
+                    "Model_type": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Key_parts": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@if(and(greater(length(outputs('Key_parts')), 2), equals(trim(replace(first(outputs('Key_parts')), ':', '')), ''), equals(length(split(first(outputs('Key_parts')), ':')), 2)), outputs('Key_parts')[1], '')"
+                    },
+                    "Model_id": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Model_type": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@xpath(outputs('Model_xml'), concat('string(/m/r[a = ''', replace(toLower(trim(coalesce(outputs('Model_type'), ''))), '''', ''), ''']/@v)'))"
+                    },
+                    "Is_prompt": {
+                      "type": "If",
+                      "runAfter": {
+                        "Model_id": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "not": {
+                          "equals": [
+                            "@outputs('Model_type')",
+                            ""
+                          ]
+                        }
+                      },
+                      "actions": {
+                        "Prompt_sourceid": {
+                          "type": "Compose",
+                          "runAfter": {},
+                          "inputs": "@concat(outputs('Env_id'), '|', items('Each_prompt')?['msdyn_aimodelid'], '|')"
+                        },
+                        "Prompt_found": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Prompt_sourceid": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Env_assets')?['value']",
+                            "where": "@equals(item()?['crdr_sourceid'], outputs('Prompt_sourceid'))"
+                          }
+                        },
+                        "Prompt_new": {
+                          "type": "If",
+                          "runAfter": {
+                            "Prompt_found": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "equals": [
+                              "@empty(body('Prompt_found'))",
+                              true
+                            ]
+                          },
+                          "actions": {
+                            "Create_prompt": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_assets",
+                                  "item/crdr_componentid": "@items('Each_prompt')?['msdyn_aimodelid']",
+                                  "item/crdr_environmentid": "@outputs('Env_id')",
+                                  "item/crdr_environmentname": "@outputs('Env_row')?['crdr_environmentname']",
+                                  "item/crdr_environmenttype": "@outputs('Env_row')?['crdr_environmenttype']",
+                                  "item/crdr_lastmodified": "@items('Each_prompt')?['modifiedon']",
+                                  "item/crdr_lastseen": "@utcNow()",
+                                  "item/crdr_microsoftsystem": "@contains(body('Ms_prompt_ids'), items('Each_prompt')?['msdyn_aimodelid'])",
+                                  "item/crdr_name": "@if(greater(length(coalesce(coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), '')), 400), substring(coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), 0, 400), coalesce(coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), ''))",
+                                  "item/crdr_ownerobjectid": "@items('Each_prompt')?['_ownerid_value']",
+                                  "item/crdr_resourcetype": "microsoft.aibuilder/prompts",
+                                  "item/crdr_source": 169890000,
+                                  "item/crdr_sourceid": "@outputs('Prompt_sourceid')"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {
+                              "Update_prompt": {
+                                "type": "OpenApiConnection",
+                                "runAfter": {},
+                                "inputs": {
+                                  "host": {
+                                    "connectionName": "shared_commondataserviceforapps",
+                                    "operationId": "UpdateRecord",
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                  },
+                                  "parameters": {
+                                    "entityName": "crdr_assets",
+                                    "item/crdr_lastmodified": "@items('Each_prompt')?['modifiedon']",
+                                    "item/crdr_lastseen": "@utcNow()",
+                                    "item/crdr_microsoftsystem": "@contains(body('Ms_prompt_ids'), items('Each_prompt')?['msdyn_aimodelid'])",
+                                    "item/crdr_name": "@if(greater(length(coalesce(coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), '')), 400), substring(coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), 0, 400), coalesce(coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), ''))",
+                                    "recordId": "@first(body('Prompt_found'))?['crdr_assetid']"
+                                  },
+                                  "authentication": "@parameters('$authentication')"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "Prompt_id": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Prompt_new": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@coalesce(actions('Create_prompt')?['outputs']?['body']?['crdr_assetid'], first(body('Prompt_found'))?['crdr_assetid'])"
+                        },
+                        "Prompt_env_type": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Prompt_id": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@json('{\"169890000\":\"production\",\"169890001\":\"sandbox\",\"169890002\":\"developer\",\"169890003\":\"default\",\"169890004\":\"trial\"}')?[string(coalesce(outputs('Env_row')?['crdr_environmenttype'], ''))]"
+                        },
+                        "Prompt_facets": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Prompt_env_type": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@union(json('[{\"facet\":\"product\",\"value\":\"AI Builder\",\"evidence\":\"inventory.type = ''microsoft.aibuilder/prompts''\"},{\"facet\":\"product\",\"value\":\"Copilot Studio\",\"evidence\":\"inventory.type = ''microsoft.aibuilder/prompts''\"},{\"facet\":\"product\",\"value\":\"Power Automate\",\"evidence\":\"inventory.type = ''microsoft.aibuilder/prompts''\"},{\"facet\":\"product\",\"value\":\"Power Apps\",\"evidence\":\"inventory.type = ''microsoft.aibuilder/prompts''\"},{\"facet\":\"resource_type\",\"value\":\"prompt\",\"evidence\":\"inventory.type = ''microsoft.aibuilder/prompts''\"}]'), if(empty(outputs('Prompt_env_type')), json('[]'), createArray(addProperty(addProperty(json('{\"facet\":\"environment_type\"}'), 'value', outputs('Prompt_env_type')), 'evidence', 'environment of the Dataverse detail run'))), if(empty(outputs('Model_id')), json('[]'), createArray(addProperty(addProperty(json('{\"facet\":\"model\"}'), 'value', outputs('Model_id')), 'evidence', concat('inventory.properties.model = ''', outputs('Model_type'), ''' (active run configuration modelParameters.modelType)')))))"
+                        },
+                        "Prompt_names": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Prompt_facets": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@outputs('Prompt_facets')",
+                            "select": "@concat(item()?['facet'], ': ', item()?['value'])"
+                          }
+                        },
+                        "Prompt_fps": {
+                          "type": "OpenApiConnection",
+                          "runAfter": {
+                            "Prompt_names": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "ListRecords",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "$filter": "@concat('_crdr_asset_value eq ', outputs('Prompt_id'))",
+                              "$select": "crdr_assetfingerprintid,crdr_name",
+                              "entityName": "crdr_assetfingerprints"
+                            },
+                            "authentication": "@parameters('$authentication')"
+                          }
+                        },
+                        "Prompt_existing": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Prompt_fps": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Prompt_fps')?['value']",
+                            "select": "@item()?['crdr_name']"
+                          }
+                        },
+                        "Prompt_create": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Prompt_existing": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@outputs('Prompt_facets')",
+                            "where": "@not(contains(body('Prompt_existing'), concat(item()?['facet'], ': ', item()?['value'])))"
+                          }
+                        },
+                        "Prompt_delete": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Prompt_create": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Prompt_fps')?['value']",
+                            "where": "@not(contains(body('Prompt_names'), item()?['crdr_name']))"
+                          }
+                        },
+                        "Create_prompt_fps": {
+                          "type": "Foreach",
+                          "foreach": "@body('Prompt_create')",
+                          "runAfter": {
+                            "Prompt_delete": [
+                              "Succeeded"
+                            ]
+                          },
+                          "actions": {
+                            "Create_prompt_fp": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_assetfingerprints",
+                                  "item/crdr_asset@odata.bind": "@concat('/crdr_assets(', outputs('Prompt_id'), ')')",
+                                  "item/crdr_evidence": "@if(greater(length(coalesce(items('Create_prompt_fps')?['evidence'], '')), 1000), substring(items('Create_prompt_fps')?['evidence'], 0, 1000), coalesce(items('Create_prompt_fps')?['evidence'], ''))",
+                                  "item/crdr_facet": "@json('{\"product\":169890000,\"resource_type\":169890001,\"connector\":169890002,\"capability\":169890003,\"auth_mode\":169890004,\"harness\":169890005,\"setting\":169890006,\"environment_type\":169890007,\"model\":169890008}')?[items('Create_prompt_fps')?['facet']]",
+                                  "item/crdr_name": "@if(greater(length(coalesce(concat(items('Create_prompt_fps')?['facet'], ': ', items('Create_prompt_fps')?['value']), '')), 200), substring(concat(items('Create_prompt_fps')?['facet'], ': ', items('Create_prompt_fps')?['value']), 0, 200), coalesce(concat(items('Create_prompt_fps')?['facet'], ': ', items('Create_prompt_fps')?['value']), ''))",
+                                  "item/crdr_value": "@items('Create_prompt_fps')?['value']"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          }
+                        },
+                        "Delete_prompt_fps": {
+                          "type": "Foreach",
+                          "foreach": "@body('Prompt_delete')",
+                          "runAfter": {
+                            "Create_prompt_fps": [
+                              "Succeeded"
+                            ]
+                          },
+                          "actions": {
+                            "Delete_prompt_fp": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "DeleteRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_assetfingerprints",
+                                  "recordId": "@items('Delete_prompt_fps')?['crdr_assetfingerprintid']"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          }
+                        },
+                        "Count_prompt": {
+                          "type": "IncrementVariable",
+                          "runAfter": {
+                            "Delete_prompt_fps": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "Prompts",
+                            "value": 1
+                          }
+                        },
+                        "Note_prompt": {
+                          "type": "AppendToArrayVariable",
+                          "runAfter": {
+                            "Count_prompt": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "PromptInfo",
+                            "value": {
+                              "id": "@toLower(items('Each_prompt')?['msdyn_aimodelid'])",
+                              "name": "@coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid'])",
+                              "modelType": "@outputs('Model_type')",
+                              "model": "@outputs('Model_id')"
+                            }
+                          }
+                        },
+                        "Caller_rows": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Note_prompt": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@variables('Calls')",
+                            "where": "@equals(item()?['id'], toLower(items('Each_prompt')?['msdyn_aimodelid']))"
+                          }
+                        },
+                        "Caller_flow_names": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Caller_rows": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Caller_rows')",
+                            "select": "@item()?['name']"
+                          }
+                        },
+                        "Gap_model": {
+                          "type": "If",
+                          "runAfter": {
+                            "Caller_flow_names": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "equals": [
+                              "@empty(outputs('Model_id'))",
+                              true
+                            ]
+                          },
+                          "actions": {
+                            "Log_gap": {
+                              "type": "AppendToArrayVariable",
+                              "runAfter": {},
+                              "inputs": {
+                                "name": "Log",
+                                "value": "@concat('unmapped model ''', outputs('Model_type'), ''' on prompt ', items('Each_prompt')?['msdyn_aimodelid'])"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          }
+                        },
+                        "Model_change_old": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Gap_model": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Prompt_fps')?['value']",
+                            "where": "@and(startsWith(coalesce(item()?['crdr_name'], ''), 'model: '), not(startsWith(coalesce(item()?['crdr_evidence'], ''), 'flow definition: ')))"
+                          }
+                        },
+                        "Model_change_new": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Model_change_old": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@outputs('Prompt_facets')",
+                            "where": "@equals(item()?['facet'], 'model')"
+                          }
+                        },
+                        "Model_change_if": {
+                          "type": "If",
+                          "runAfter": {
+                            "Model_change_new": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "and": [
+                              {
+                                "equals": [
+                                  "@empty(body('Model_change_old'))",
+                                  false
+                                ]
+                              },
+                              {
+                                "equals": [
+                                  "@empty(body('Model_change_new'))",
+                                  false
+                                ]
+                              },
+                              {
+                                "not": {
+                                  "equals": [
+                                    "@substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7)",
+                                    "@coalesce(first(body('Model_change_new'))?['value'], '')"
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          "actions": {
+                            "Model_change_raise_payload": {
+                              "type": "Compose",
+                              "runAfter": {},
+                              "inputs": {
+                                "estate": "@if(equals(first(body('Prompt_found'))?['crdr_source'], 169890001), 'fixture', 'live')",
+                                "assetId": "@outputs('Prompt_id')",
+                                "assetName": "@coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid'])",
+                                "assetType": "@'prompt'",
+                                "environmentName": "@coalesce(outputs('Env_row')?['crdr_environmentname'], '')",
+                                "fromModel": "@substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7)",
+                                "toModel": "@coalesce(first(body('Model_change_new'))?['value'], '')",
+                                "callers": "@union(body('Caller_flow_names'), body('Caller_flow_names'))"
+                              }
+                            },
+                            "Model_change_raise": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {
+                                "Model_change_raise_payload": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_events",
+                                  "item/crdr_asset@odata.bind": "@concat('/crdr_assets(', outputs('Prompt_id'), ')')",
+                                  "item/crdr_correlationid": "@if(greater(length(coalesce(concat('asset.modelchanged|', outputs('Prompt_id'), '|', coalesce(first(body('Model_change_new'))?['value'], ''), '|', formatDateTime(utcNow(), 'yyyy-MM-dd')), '')), 100), substring(concat('asset.modelchanged|', outputs('Prompt_id'), '|', coalesce(first(body('Model_change_new'))?['value'], ''), '|', formatDateTime(utcNow(), 'yyyy-MM-dd')), 0, 100), coalesce(concat('asset.modelchanged|', outputs('Prompt_id'), '|', coalesce(first(body('Model_change_new'))?['value'], ''), '|', formatDateTime(utcNow(), 'yyyy-MM-dd')), ''))",
+                                  "item/crdr_eventtype": 169890008,
+                                  "item/crdr_name": "@if(greater(length(coalesce(concat('asset.modelchanged | ', coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), ' | ', substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7), ' | ', coalesce(first(body('Model_change_new'))?['value'], '')), '')), 200), substring(concat('asset.modelchanged | ', coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), ' | ', substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7), ' | ', coalesce(first(body('Model_change_new'))?['value'], '')), 0, 200), coalesce(concat('asset.modelchanged | ', coalesce(items('Each_prompt')?['msdyn_name'], items('Each_prompt')?['msdyn_aimodelid']), ' | ', substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7), ' | ', coalesce(first(body('Model_change_new'))?['value'], '')), ''))",
+                                  "item/crdr_payloadjson": "@string(outputs('Model_change_raise_payload'))",
+                                  "item/crdr_raisedon": "@utcNow()"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      }
+                    }
+                  }
+                },
+                "Log_prompts": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {
+                    "Each_prompt": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Log",
+                    "value": "@concat(outputs('Env_id'), ': prompts ', string(variables('Prompts')))"
+                  }
+                },
+                "Existing_callers": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Log_prompts": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('startswith(crdr_evidence,''flow definition: '') and crdr_asset/crdr_environmentid eq ''', outputs('Env_id'), '''')",
+                      "$select": "crdr_assetfingerprintid,_crdr_asset_value,crdr_name,crdr_evidence",
+                      "entityName": "crdr_assetfingerprints"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Call_flow_ids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Existing_callers": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@variables('Calls')",
+                    "select": "@item()?['wf']"
+                  }
+                },
+                "Caller_assets": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Call_flow_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Env_assets')?['value']",
+                    "where": "@and(not(empty(item()?['crdr_componentid'])), contains(body('Call_flow_ids'), toLower(coalesce(item()?['crdr_componentid'], ''))))"
+                  }
+                },
+                "Each_caller": {
+                  "type": "Foreach",
+                  "foreach": "@body('Caller_assets')",
+                  "runAfter": {
+                    "Caller_assets": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Reset_desired": {
+                      "type": "SetVariable",
+                      "runAfter": {},
+                      "inputs": {
+                        "name": "Desired",
+                        "value": []
+                      }
+                    },
+                    "Reset_seen": {
+                      "type": "SetVariable",
+                      "runAfter": {
+                        "Reset_desired": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Seen",
+                        "value": []
+                      }
+                    },
+                    "My_calls": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Reset_seen": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@variables('Calls')",
+                        "where": "@equals(item()?['wf'], toLower(items('Each_caller')?['crdr_componentid']))"
+                      }
+                    },
+                    "My_ops": {
+                      "type": "Select",
+                      "runAfter": {
+                        "My_calls": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('My_calls')",
+                        "select": "@concat('aibuilderpredict_', item()?['op'])"
+                      }
+                    },
+                    "Want_ai": {
+                      "type": "AppendToArrayVariable",
+                      "runAfter": {
+                        "My_ops": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Desired",
+                        "value": {
+                          "facet": "capability",
+                          "value": "ai_prompt",
+                          "evidence": "@concat('flow definition: ', join(union(body('My_ops'), body('My_ops')), ', '))"
+                        }
+                      }
+                    },
+                    "Each_call": {
+                      "type": "Foreach",
+                      "foreach": "@body('My_calls')",
+                      "runAfter": {
+                        "Want_ai": [
+                          "Succeeded"
+                        ]
+                      },
+                      "runtimeConfiguration": {
+                        "concurrency": {
+                          "repetitions": 1
+                        }
+                      },
+                      "actions": {
+                        "Call_info": {
+                          "type": "Query",
+                          "runAfter": {},
+                          "inputs": {
+                            "from": "@variables('PromptInfo')",
+                            "where": "@and(not(empty(items('Each_call')?['id'])), equals(item()?['id'], items('Each_call')?['id']))"
+                          }
+                        },
+                        "If_new_model": {
+                          "type": "If",
+                          "runAfter": {
+                            "Call_info": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "and": [
+                              {
+                                "equals": [
+                                  "@empty(body('Call_info'))",
+                                  false
+                                ]
+                              },
+                              {
+                                "equals": [
+                                  "@empty(coalesce(first(body('Call_info'))?['model'], ''))",
+                                  false
+                                ]
+                              },
+                              {
+                                "equals": [
+                                  "@contains(variables('Seen'), coalesce(first(body('Call_info'))?['model'], ''))",
+                                  false
+                                ]
+                              }
+                            ]
+                          },
+                          "actions": {
+                            "Mark_seen": {
+                              "type": "AppendToArrayVariable",
+                              "runAfter": {},
+                              "inputs": {
+                                "name": "Seen",
+                                "value": "@first(body('Call_info'))?['model']"
+                              }
+                            },
+                            "Want_model": {
+                              "type": "AppendToArrayVariable",
+                              "runAfter": {
+                                "Mark_seen": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "inputs": {
+                                "name": "Desired",
+                                "value": {
+                                  "facet": "model",
+                                  "value": "@first(body('Call_info'))?['model']",
+                                  "evidence": "@concat('flow definition: calls prompt ''', first(body('Call_info'))?['name'], ''' on ', first(body('Call_info'))?['modelType'])"
+                                }
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          }
+                        }
+                      }
+                    },
+                    "Desired_names": {
+                      "type": "Select",
+                      "runAfter": {
+                        "Each_call": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@variables('Desired')",
+                        "select": "@concat(item()?['facet'], ': ', item()?['value'])"
+                      }
+                    },
+                    "Mine": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Desired_names": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Existing_callers')?['value']",
+                        "where": "@equals(item()?['_crdr_asset_value'], items('Each_caller')?['crdr_assetid'])"
+                      }
+                    },
+                    "Each_desired": {
+                      "type": "Foreach",
+                      "foreach": "@variables('Desired')",
+                      "runAfter": {
+                        "Mine": [
+                          "Succeeded"
+                        ]
+                      },
+                      "runtimeConfiguration": {
+                        "concurrency": {
+                          "repetitions": 1
+                        }
+                      },
+                      "actions": {
+                        "Same": {
+                          "type": "Query",
+                          "runAfter": {},
+                          "inputs": {
+                            "from": "@body('Mine')",
+                            "where": "@equals(item()?['crdr_name'], concat(items('Each_desired')?['facet'], ': ', items('Each_desired')?['value']))"
+                          }
+                        },
+                        "If_missing": {
+                          "type": "If",
+                          "runAfter": {
+                            "Same": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "equals": [
+                              "@empty(body('Same'))",
+                              true
+                            ]
+                          },
+                          "actions": {
+                            "Create_caller_fp": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_assetfingerprints",
+                                  "item/crdr_asset@odata.bind": "@concat('/crdr_assets(', items('Each_caller')?['crdr_assetid'], ')')",
+                                  "item/crdr_evidence": "@if(greater(length(coalesce(items('Each_desired')?['evidence'], '')), 1000), substring(items('Each_desired')?['evidence'], 0, 1000), coalesce(items('Each_desired')?['evidence'], ''))",
+                                  "item/crdr_facet": "@json('{\"product\":169890000,\"resource_type\":169890001,\"connector\":169890002,\"capability\":169890003,\"auth_mode\":169890004,\"harness\":169890005,\"setting\":169890006,\"environment_type\":169890007,\"model\":169890008}')?[items('Each_desired')?['facet']]",
+                                  "item/crdr_name": "@if(greater(length(coalesce(concat(items('Each_desired')?['facet'], ': ', items('Each_desired')?['value']), '')), 200), substring(concat(items('Each_desired')?['facet'], ': ', items('Each_desired')?['value']), 0, 200), coalesce(concat(items('Each_desired')?['facet'], ': ', items('Each_desired')?['value']), ''))",
+                                  "item/crdr_value": "@items('Each_desired')?['value']"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {
+                              "If_evidence_changed": {
+                                "type": "If",
+                                "runAfter": {},
+                                "expression": {
+                                  "not": {
+                                    "equals": [
+                                      "@first(body('Same'))?['crdr_evidence']",
+                                      "@if(greater(length(coalesce(items('Each_desired')?['evidence'], '')), 1000), substring(items('Each_desired')?['evidence'], 0, 1000), coalesce(items('Each_desired')?['evidence'], ''))"
+                                    ]
+                                  }
+                                },
+                                "actions": {
+                                  "Update_caller_fp": {
+                                    "type": "OpenApiConnection",
+                                    "runAfter": {},
+                                    "inputs": {
+                                      "host": {
+                                        "connectionName": "shared_commondataserviceforapps",
+                                        "operationId": "UpdateRecord",
+                                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                      },
+                                      "parameters": {
+                                        "entityName": "crdr_assetfingerprints",
+                                        "item/crdr_evidence": "@if(greater(length(coalesce(items('Each_desired')?['evidence'], '')), 1000), substring(items('Each_desired')?['evidence'], 0, 1000), coalesce(items('Each_desired')?['evidence'], ''))",
+                                        "recordId": "@first(body('Same'))?['crdr_assetfingerprintid']"
+                                      },
+                                      "authentication": "@parameters('$authentication')"
+                                    }
+                                  }
+                                },
+                                "else": {
+                                  "actions": {}
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Not_wanted": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Each_desired": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Mine')",
+                        "where": "@not(contains(body('Desired_names'), item()?['crdr_name']))"
+                      }
+                    },
+                    "Remove_unwanted": {
+                      "type": "Foreach",
+                      "foreach": "@body('Not_wanted')",
+                      "runAfter": {
+                        "Not_wanted": [
+                          "Succeeded"
+                        ]
+                      },
+                      "actions": {
+                        "Delete_unwanted": {
+                          "type": "OpenApiConnection",
+                          "runAfter": {},
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "DeleteRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "crdr_assetfingerprints",
+                              "recordId": "@items('Remove_unwanted')?['crdr_assetfingerprintid']"
+                            },
+                            "authentication": "@parameters('$authentication')"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "Caller_ids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Each_caller": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Caller_assets')",
+                    "select": "@item()?['crdr_assetid']"
+                  }
+                },
+                "Stale_callers": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Caller_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Existing_callers')?['value']",
+                    "where": "@not(contains(body('Caller_ids'), item()?['_crdr_asset_value']))"
+                  }
+                },
+                "Remove_stale": {
+                  "type": "Foreach",
+                  "foreach": "@body('Stale_callers')",
+                  "runAfter": {
+                    "Stale_callers": [
+                      "Succeeded"
+                    ]
+                  },
+                  "actions": {
+                    "Delete_stale": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "DeleteRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_assetfingerprints",
+                          "recordId": "@items('Remove_stale')?['crdr_assetfingerprintid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Log_callers": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {
+                    "Remove_stale": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Log",
+                    "value": "@concat(outputs('Env_id'), ': flows calling prompts ', string(length(body('Caller_assets'))), ' (prompt actions ', string(length(variables('Calls'))), ')')"
+                  }
+                },
+                "Reset_sol_rows": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Log_callers": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "SolRows",
+                    "value": []
+                  }
+                },
+                "Reset_sol_pairs": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Reset_sol_rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "SolPairs",
+                    "value": []
+                  }
+                },
+                "Sol_oids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Reset_sol_pairs": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Env_assets')?['value']",
+                    "select": {
+                      "aid": "@item()?['crdr_assetid']",
+                      "name": "@item()?['crdr_name']",
+                      "src": "@item()?['crdr_source']",
+                      "oid": "@toLower(if(empty(coalesce(item()?['crdr_componentid'], '')), coalesce(split(coalesce(item()?['crdr_sourceid'], ''), '|')?[1], ''), item()?['crdr_componentid']))"
+                    }
+                  }
+                },
+                "Sol_known": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Sol_oids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Sol_oids')",
+                    "where": "@not(empty(trim(item()?['oid'])))"
+                  }
+                },
+                "Sol_oid_list": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Sol_known": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Sol_known')",
+                    "select": "@item()?['oid']"
+                  }
+                },
+                "Sol_chunks": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Sol_oid_list": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@chunk(body('Sol_oid_list'), 25)"
+                },
+                "Each_sol_chunk": {
+                  "type": "Foreach",
+                  "foreach": "@outputs('Sol_chunks')",
+                  "runAfter": {
+                    "Sol_chunks": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Sol_filter": {
+                      "type": "Select",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@items('Each_sol_chunk')",
+                        "select": "@concat('objectid eq ', item())"
+                      }
+                    },
+                    "Sol_components": {
+                      "type": "Http",
+                      "runAfter": {
+                        "Sol_filter": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "method": "GET",
+                        "uri": "@{items('Each_env')}/api/data/v9.2/solutioncomponents?$select=objectid&$expand=solutionid($select=uniquename,friendlyname,ismanaged;$expand=publisherid($select=uniquename))&$filter=@{join(body('Sol_filter'), ' or ')}",
+                        "headers": {
+                          "Accept": "application/json",
+                          "Prefer": "odata.maxpagesize=5000"
+                        },
+                        "authentication": {
+                          "type": "ActiveDirectoryOAuth",
+                          "authority": "https://login.microsoftonline.com",
+                          "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                          "audience": "@{items('Each_env')}",
+                          "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                          "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                          "password": "@string('')"
+                        }
+                      },
+                      "runtimeConfiguration": {
+                        "paginationPolicy": {
+                          "minimumItemCount": 100000
+                        },
+                        "secureData": {
+                          "properties": [
+                            "inputs"
+                          ]
+                        }
+                      }
+                    },
+                    "Sol_chunk_rows": {
+                      "type": "Select",
+                      "runAfter": {
+                        "Sol_components": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Sol_components')?['value']",
+                        "select": {
+                          "oid": "@toLower(item()?['objectid'])",
+                          "u": "@item()?['solutionid']?['uniquename']",
+                          "f": "@item()?['solutionid']?['friendlyname']",
+                          "m": "@item()?['solutionid']?['ismanaged']",
+                          "p": "@item()?['solutionid']?['publisherid']?['uniquename']"
+                        }
+                      }
+                    },
+                    "Sol_rows_now": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Sol_chunk_rows": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@union(variables('SolRows'), body('Sol_chunk_rows'))"
+                    },
+                    "Set_sol_rows": {
+                      "type": "SetVariable",
+                      "runAfter": {
+                        "Sol_rows_now": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "SolRows",
+                        "value": "@outputs('Sol_rows_now')"
+                      }
+                    }
+                  }
+                },
+                "Sol_counted": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Each_sol_chunk": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@variables('SolRows')",
+                    "where": "@and(not(contains(createArray('Default', 'Active'), coalesce(item()?['u'], ''))), not(equals(coalesce(item()?['f'], ''), 'Common Data Services Default Solution')), not(and(startsWith(coalesce(item()?['u'], ''), 'Cr'), startsWith(coalesce(item()?['p'], ''), 'Cr'), greaterOrEquals(length(coalesce(item()?['u'], '')), 6), greaterOrEquals(length(coalesce(item()?['p'], '')), 6), empty(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(coalesce(item()?['u'], ''), 'Cr', ''), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', ''), 'a', ''), 'b', ''), 'c', ''), 'd', ''), 'e', ''), 'f', '')), empty(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(coalesce(item()?['p'], ''), 'Cr', ''), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', ''), 'a', ''), 'b', ''), 'c', ''), 'd', ''), 'e', ''), 'f', '')))))"
+                  }
+                },
+                "Sol_names": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Sol_counted": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Sol_counted')",
+                    "select": "@item()?['u']"
+                  }
+                },
+                "Sol_distinct": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Sol_names": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@union(body('Sol_names'), body('Sol_names'))"
+                },
+                "Existing_solutions": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Sol_distinct": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_environmentid eq ''', outputs('Env_id'), '''')",
+                      "$select": "crdr_solutionid,crdr_uniquename",
+                      "entityName": "crdr_solutions"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Each_new_solution": {
+                  "type": "Foreach",
+                  "foreach": "@outputs('Sol_distinct')",
+                  "runAfter": {
+                    "Existing_solutions": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Sol_exists": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@body('Existing_solutions')?['value']",
+                        "where": "@equals(item()?['crdr_uniquename'], items('Each_new_solution'))"
+                      }
+                    },
+                    "Sol_first": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Sol_exists": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Sol_counted')",
+                        "where": "@equals(item()?['u'], items('Each_new_solution'))"
+                      }
+                    },
+                    "If_new_solution": {
+                      "type": "If",
+                      "runAfter": {
+                        "Sol_first": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "equals": [
+                          "@empty(body('Sol_exists'))",
+                          true
+                        ]
+                      },
+                      "actions": {
+                        "Create_solution": {
+                          "type": "OpenApiConnection",
+                          "runAfter": {},
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "CreateRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "crdr_solutions",
+                              "item/crdr_environmentid": "@outputs('Env_id')",
+                              "item/crdr_environmentname": "@outputs('Env_row')?['crdr_environmentname']",
+                              "item/crdr_managed": "@equals(first(body('Sol_first'))?['m'], true)",
+                              "item/crdr_microsoft": "@contains(json('[\"microsoftdynamics\",\"MicrosoftCorporation\",\"microsoftfirstparty\"]'), coalesce(first(body('Sol_first'))?['p'], ''))",
+                              "item/crdr_name": "@if(greater(length(coalesce(coalesce(first(body('Sol_first'))?['f'], items('Each_new_solution')), '')), 200), substring(coalesce(first(body('Sol_first'))?['f'], items('Each_new_solution')), 0, 200), coalesce(coalesce(first(body('Sol_first'))?['f'], items('Each_new_solution')), ''))",
+                              "item/crdr_publisher": "@first(body('Sol_first'))?['p']",
+                              "item/crdr_source": 169890000,
+                              "item/crdr_uniquename": "@items('Each_new_solution')"
+                            },
+                            "authentication": "@parameters('$authentication')"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      }
+                    }
+                  }
+                },
+                "Solutions_now": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Each_new_solution": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_environmentid eq ''', outputs('Env_id'), '''')",
+                      "$select": "crdr_solutionid,crdr_uniquename",
+                      "entityName": "crdr_solutions"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Existing_members": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Solutions_now": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_solution/crdr_environmentid eq ''', outputs('Env_id'), '''')",
+                      "$select": "crdr_solutionmemberid,_crdr_asset_value,_crdr_solution_value",
+                      "entityName": "crdr_solutionmembers"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Each_sol_asset": {
+                  "type": "Foreach",
+                  "foreach": "@body('Sol_known')",
+                  "runAfter": {
+                    "Existing_members": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Sol_mine": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@body('Sol_counted')",
+                        "where": "@equals(item()?['oid'], items('Each_sol_asset')?['oid'])"
+                      }
+                    },
+                    "Each_sol_mine": {
+                      "type": "Foreach",
+                      "foreach": "@body('Sol_mine')",
+                      "runAfter": {
+                        "Sol_mine": [
+                          "Succeeded"
+                        ]
+                      },
+                      "runtimeConfiguration": {
+                        "concurrency": {
+                          "repetitions": 1
+                        }
+                      },
+                      "actions": {
+                        "Sol_target": {
+                          "type": "Query",
+                          "runAfter": {},
+                          "inputs": {
+                            "from": "@body('Solutions_now')?['value']",
+                            "where": "@equals(item()?['crdr_uniquename'], items('Each_sol_mine')?['u'])"
+                          }
+                        },
+                        "Sol_target_id": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Sol_target": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@first(body('Sol_target'))?['crdr_solutionid']"
+                        },
+                        "Note_pair": {
+                          "type": "AppendToArrayVariable",
+                          "runAfter": {
+                            "Sol_target_id": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "SolPairs",
+                            "value": "@concat(items('Each_sol_asset')?['aid'], '|', outputs('Sol_target_id'))"
+                          }
+                        },
+                        "Member_exists": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Note_pair": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Existing_members')?['value']",
+                            "where": "@and(equals(item()?['_crdr_asset_value'], items('Each_sol_asset')?['aid']), equals(item()?['_crdr_solution_value'], outputs('Sol_target_id')))"
+                          }
+                        },
+                        "If_new_member": {
+                          "type": "If",
+                          "runAfter": {
+                            "Member_exists": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "and": [
+                              {
+                                "equals": [
+                                  "@empty(body('Member_exists'))",
+                                  true
+                                ]
+                              },
+                              {
+                                "equals": [
+                                  "@empty(coalesce(outputs('Sol_target_id'), ''))",
+                                  false
+                                ]
+                              }
+                            ]
+                          },
+                          "actions": {
+                            "Create_member": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_solutionmembers",
+                                  "item/crdr_asset@odata.bind": "@concat('/crdr_assets(', items('Each_sol_asset')?['aid'], ')')",
+                                  "item/crdr_name": "@if(greater(length(coalesce(concat(coalesce(items('Each_sol_asset')?['name'], ''), ' in ', coalesce(items('Each_sol_mine')?['f'], items('Each_sol_mine')?['u'])), '')), 400), substring(concat(coalesce(items('Each_sol_asset')?['name'], ''), ' in ', coalesce(items('Each_sol_mine')?['f'], items('Each_sol_mine')?['u'])), 0, 400), coalesce(concat(coalesce(items('Each_sol_asset')?['name'], ''), ' in ', coalesce(items('Each_sol_mine')?['f'], items('Each_sol_mine')?['u'])), ''))",
+                                  "item/crdr_solution@odata.bind": "@concat('/crdr_solutions(', outputs('Sol_target_id'), ')')",
+                                  "item/crdr_source": "@items('Each_sol_asset')?['src']"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "Stale_members": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Each_sol_asset": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Existing_members')?['value']",
+                    "where": "@not(contains(variables('SolPairs'), concat(item()?['_crdr_asset_value'], '|', item()?['_crdr_solution_value'])))"
+                  }
+                },
+                "Remove_stale_members": {
+                  "type": "Foreach",
+                  "foreach": "@body('Stale_members')",
+                  "runAfter": {
+                    "Stale_members": [
+                      "Succeeded"
+                    ]
+                  },
+                  "actions": {
+                    "Delete_member": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "DeleteRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_solutionmembers",
+                          "recordId": "@items('Remove_stale_members')?['crdr_solutionmemberid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Stale_solutions": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Remove_stale_members": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Solutions_now')?['value']",
+                    "where": "@not(contains(outputs('Sol_distinct'), item()?['crdr_uniquename']))"
+                  }
+                },
+                "Remove_stale_solutions": {
+                  "type": "Foreach",
+                  "foreach": "@body('Stale_solutions')",
+                  "runAfter": {
+                    "Stale_solutions": [
+                      "Succeeded"
+                    ]
+                  },
+                  "actions": {
+                    "Delete_solution": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "DeleteRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_solutions",
+                          "recordId": "@items('Remove_stale_solutions')?['crdr_solutionid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Log_solutions": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {
+                    "Remove_stale_solutions": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Log",
+                    "value": "@concat(outputs('Env_id'), ': solutions ', string(length(outputs('Sol_distinct'))), ', memberships ', string(length(variables('SolPairs'))))"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Record_run": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Collect": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_collectionruns",
+              "item/crdr_accesstier": 169890000,
+              "item/crdr_collector": "dataverse-detail",
+              "item/crdr_gaps": "@if(equals(actions('Collect')?['status'], 'Succeeded'), 'Not attributed: code components on forms of a table an app includes without listing its forms. Canvas detection not yet proven against a fixture. Fixtures are not relabelled live if they leave a fixture solution.', concat('Collect scope: ', actions('Collect')?['status'], '. See the run for the failing environment.'))",
+              "item/crdr_itemcount": "@if(equals(actions('Collect')?['status'], 'Succeeded'), length(variables('Log')), 0)",
+              "item/crdr_name": "@if(greater(length(coalesce(concat('dataverse-detail ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), if(empty(variables('Log')), 'no environments in detail_environments', join(variables('Log'), '; '))), '')), 200), substring(concat('dataverse-detail ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), if(empty(variables('Log')), 'no environments in detail_environments', join(variables('Log'), '; '))), 0, 200), coalesce(concat('dataverse-detail ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), if(empty(variables('Log')), 'no environments in detail_environments', join(variables('Log'), '; '))), ''))",
+              "item/crdr_startedon": "@trigger()?['startTime']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Fail_if_collect_failed": {
+          "type": "If",
+          "runAfter": {
+            "Record_run": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@actions('Collect')?['status']",
+                "Succeeded"
+              ]
+            }
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "CollectFailed",
+                  "message": "Dataverse detail failed: see the Collect scope and the crdr_collectionrun row."
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: collect Dataverse component detail per environment as the reader app: fixture labels, maker-built code components, prompts and their models, and the flows that call them (ADR 0008 addendum 2, ADR 0013, ADR 0017)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

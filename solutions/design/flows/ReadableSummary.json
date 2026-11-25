@@ -1,0 +1,125 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "When_a_summary_is_written": {
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "crdr_signal",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "crdr_summary"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "type": "OpenApiConnectionWebhook"
+        }
+      },
+      "actions": {
+        "Breaks": {
+          "type": "Compose",
+          "runAfter": {},
+          "inputs": "@replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(coalesce(triggerOutputs()?['body/crdr_summary'], ''), decodeUriComponent('%0D'), ' '), decodeUriComponent('%0A'), ' '), '</p>', decodeUriComponent('%0A')), '</li>', decodeUriComponent('%0A')), '</div>', decodeUriComponent('%0A')), '</tr>', decodeUriComponent('%0A')), '</h1>', decodeUriComponent('%0A')), '</h2>', decodeUriComponent('%0A')), '</h3>', decodeUriComponent('%0A')), '</h4>', decodeUriComponent('%0A')), '</h5>', decodeUriComponent('%0A')), '</h6>', decodeUriComponent('%0A')), '<br />', decodeUriComponent('%0A')), '<br/>', decodeUriComponent('%0A')), '<br>', decodeUriComponent('%0A')), '<li>', '• ')"
+        },
+        "Parts": {
+          "type": "Select",
+          "runAfter": {
+            "Breaks": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@skip(split(outputs('Breaks'), '<'), 1)",
+            "select": "@if(contains(item(), '>'), join(skip(split(item(), '>'), 1), '>'), concat('<', item()))"
+          }
+        },
+        "Decoded": {
+          "type": "Compose",
+          "runAfter": {
+            "Parts": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(concat(first(split(outputs('Breaks'), '<')), join(body('Parts'), '')), '&nbsp;', ' '), '&lt;', '<'), '&gt;', '>'), '&quot;', '\"'), '&#39;', ''''), '&rsquo;', '’'), '&lsquo;', '‘'), '&ldquo;', '“'), '&rdquo;', '”'), '&mdash;', '—'), '&ndash;', '–'), '&hellip;', '…'), '&#160;', ' '), '&#8216;', '‘'), '&#8217;', '’'), '&#8220;', '“'), '&#8221;', '”'), '&#8211;', '–'), '&#8212;', '—'), '&#8230;', '…'), '&#038;', '&'), '&amp;', '&')"
+        },
+        "Readable": {
+          "type": "Compose",
+          "runAfter": {
+            "Decoded": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(outputs('Decoded'), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), concat(' ', decodeUriComponent('%0A')), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), ' '), decodeUriComponent('%0A')), concat(' ', decodeUriComponent('%0A')), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), ' '), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'))), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'))), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'))))"
+        },
+        "Write_readable": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Readable": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_signals",
+              "item/crdr_summarytext": "@if(greater(length(coalesce(outputs('Readable'), '')), 20000), substring(outputs('Readable'), 0, 20000), coalesce(outputs('Readable'), ''))",
+              "recordId": "@triggerOutputs()?['body/crdr_signalid']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "description": "Change Radar: write a readable plain-text copy of a signal's summary (crdr_summarytext) whenever the summary is written (engine ConvertTo-ReadableText)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

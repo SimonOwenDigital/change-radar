@@ -1,0 +1,35 @@
+{
+  "id": "engine-guards",
+  "workedExample": "spec §5 rules 2 and 3: vocabulary and confidence guards",
+  "signal": {
+    "id": "TEST-GUARDS",
+    "source": "manual",
+    "title": "Guard tests: out-of-vocabulary and low-confidence facets",
+    "fingerprint": [
+      { "group": "A", "facet": "capability", "value": "uses_mcp_v2", "confidence": 0.99, "extractedBy": "llm" },
+      { "group": "B", "facet": "capability", "value": "uses_mcp", "confidence": 0.4, "extractedBy": "llm" },
+      { "group": "C", "facet": "product", "value": "Copilot Studio", "confidence": 0.95, "extractedBy": "llm" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "agt-mcp-guard", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Guard test agent", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "channels": ["Teams"], "powerPlatformConnectors": [] } }
+    ],
+    "agentKit": [
+      { "resourceId": "agt-mcp-guard", "usesMcp": true, "hasAutonomousTriggers": false, "hasHttpActions": false }
+    ]
+  },
+  "cases": [
+    { "id": "guard-01", "kind": "near_miss", "assetId": "agt-mcp-guard",
+      "description": "Group A uses a value outside the vocabulary (rejected), group B is below the confidence threshold (review queue), group C is scope-only (product alone never exposes). Result: no exposure.",
+      "expect": { "match": false } },
+    { "id": "guard-02", "kind": "positive", "target": "rejected:capability=uses_mcp_v2",
+      "description": "Out-of-vocabulary value is reported as rejected",
+      "expect": { "match": true } },
+    { "id": "guard-03", "kind": "positive", "target": "review:capability=uses_mcp",
+      "description": "Low-confidence value goes to the review queue",
+      "expect": { "match": true } }
+  ]
+}

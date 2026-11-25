@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModuleSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SiteMapUniqueName>crdr_ChangeRadar</SiteMapUniqueName>
+  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <ShowHome>True</ShowHome>
+  <ShowPinned>True</ShowPinned>
+  <ShowRecents>True</ShowRecents>
+  <SiteMap IntroducedVersion="7.0.0.0">
+    <Area Id="area_radar" ShowGroups="true" IntroducedVersion="7.0.0.0">
+      <Titles>
+        <Title LCID="1033" Title="Change Radar" />
+      </Titles>
+      <Group Id="group_radar" IsProfile="false" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Radar" />
+        </Titles>
+        <SubArea Id="genpage_7af107f2bb094dfb8dc28a69c9db6db3" GenPageId="7af107f2-bb09-4dfb-8dc2-8a69c9db6db3" ResourceId="SitemapDesigner.NewSubArea" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" Sku="All,OnPremise,Live,SPLA" AvailableOffline="true" PassParams="false" VectorIcon="/_imgs/TableIconsFluentV9/document_one_page_sparkle.svg">
+          <Titles>
+            <Title LCID="1033" Title="Radar" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="genpage_a29510f5c49b4875995eb8876d751cf0" GenPageId="a29510f5-c49b-4875-995e-b8876d751cf0" ResourceId="SitemapDesigner.NewSubArea" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" Sku="All,OnPremise,Live,SPLA" AvailableOffline="true" PassParams="false" VectorIcon="/_imgs/TableIconsFluentV9/document_one_page_sparkle.svg">
+          <Titles>
+            <Title LCID="1033" Title="Fingerprint review" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_signals" Entity="crdr_signal" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Signals" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_watched" Url="/main.aspx?pagetype=entitylist&amp;etn=crdr_signal&amp;viewid=7a6cafb1-21e7-f111-84ea-002248db5401&amp;viewtype=1039" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Watched signals" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_watchlist" Entity="crdr_watch" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Watch list" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_exposures" Entity="crdr_exposure" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Exposures" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_assessments" Url="/main.aspx?pagetype=entitylist&amp;etn=crdr_assessment&amp;viewid=23da1aea-ade5-f111-84ea-002248db5401&amp;viewtype=1039" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Assessments" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="group_review" IsProfile="false" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Review" />
+        </Titles>
+        <SubArea Id="sub_review" Url="/main.aspx?pagetype=entitylist&amp;etn=crdr_signalfingerprint&amp;viewid=854c672c-78e5-f111-84ea-002248db5401&amp;viewtype=1039" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Fingerprints to review" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_fingerprints" Entity="crdr_signalfingerprint" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Signal fingerprints" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="group_estate" IsProfile="false" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Estate" />
+        </Titles>
+        <SubArea Id="sub_assets" Entity="crdr_asset" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Assets" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="group_operations" IsProfile="false" IntroducedVersion="7.0.0.0">
+        <Titles>
+          <Title LCID="1033" Title="Operations" />
+        </Titles>
+        <SubArea Id="sub_runs" Entity="crdr_collectionrun" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Collection runs" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_config" Entity="crdr_config" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Config" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_settings" Entity="crdr_tenantsetting" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Tenant settings" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_rules" Entity="crdr_rule" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Rules" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_vocabulary" Entity="crdr_facetvalue" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Vocabulary" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_feeds" Entity="crdr_feed" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Feeds" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="sub_subscriptions" Entity="crdr_subscription" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Subscriptions" />
+          </Titles>
+        </SubArea>
+      </Group>
+    </Area>
+  </SiteMap>
+  <LocalizedNames>
+    <LocalizedName description="Change Radar" languagecode="1033" />
+  </LocalizedNames>
+</AppModuleSiteMap>

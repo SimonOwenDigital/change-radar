@@ -1,0 +1,4 @@
+signal_id,group,facet,value,reason
+MC1551122,M1,capability,pcf_control,"Manual (ADR 0009 omission path, spike T7): apps whose code components load SharePoint content are affected. The model consistently uses sharepoint_tempauth for apps instead, so this group never comes from the prompt."
+MC1551122,M1,connector,shared_sharepointonline,"Manual (ADR 0009 omission path, spike T7): together with pcf_control, the code component loads SharePoint content."
+RM570671,M1,capability,uses_mcp,"Manual (ADR 0009 omission path, spike T7): admin policies for MCP servers affect agents that invoke MCP tools. The roadmap text (111 characters) is too short for the model to infer this."

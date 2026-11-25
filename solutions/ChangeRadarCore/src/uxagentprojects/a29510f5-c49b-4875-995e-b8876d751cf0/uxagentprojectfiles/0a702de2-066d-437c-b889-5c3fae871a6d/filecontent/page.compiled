@@ -1,0 +1,1250 @@
+// --- BEGIN GENERATED RUNTIME TYPES ---
+
+var crdr_signalfingerprint_statecode;
+(function (crdr_signalfingerprint_statecode) {
+    crdr_signalfingerprint_statecode[crdr_signalfingerprint_statecode["Active"] = 0] = "Active";
+    crdr_signalfingerprint_statecode[crdr_signalfingerprint_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_signalfingerprint_statecode || (crdr_signalfingerprint_statecode = {}));
+var crdr_signalfingerprint_statuscode;
+(function (crdr_signalfingerprint_statuscode) {
+    crdr_signalfingerprint_statuscode[crdr_signalfingerprint_statuscode["Active"] = 1] = "Active";
+    crdr_signalfingerprint_statuscode[crdr_signalfingerprint_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_signalfingerprint_statuscode || (crdr_signalfingerprint_statuscode = {}));
+var crdr_signalfingerprint_crdr_extractedby;
+(function (crdr_signalfingerprint_crdr_extractedby) {
+    crdr_signalfingerprint_crdr_extractedby[crdr_signalfingerprint_crdr_extractedby["Rule"] = 169890000] = "Rule";
+    crdr_signalfingerprint_crdr_extractedby[crdr_signalfingerprint_crdr_extractedby["LLM"] = 169890001] = "LLM";
+    crdr_signalfingerprint_crdr_extractedby[crdr_signalfingerprint_crdr_extractedby["Manual"] = 169890002] = "Manual";
+})(crdr_signalfingerprint_crdr_extractedby || (crdr_signalfingerprint_crdr_extractedby = {}));
+var crdr_signalfingerprint_crdr_facet;
+(function (crdr_signalfingerprint_crdr_facet) {
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Product"] = 169890000] = "Product";
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Resource type"] = 169890001] = "Resource type";
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Connector"] = 169890002] = "Connector";
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Capability"] = 169890003] = "Capability";
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Auth mode"] = 169890004] = "Auth mode";
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Harness"] = 169890005] = "Harness";
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Setting"] = 169890006] = "Setting";
+    crdr_signalfingerprint_crdr_facet[crdr_signalfingerprint_crdr_facet["Environment type"] = 169890007] = "Environment type";
+})(crdr_signalfingerprint_crdr_facet || (crdr_signalfingerprint_crdr_facet = {}));
+var crdr_signalfingerprint_crdr_status;
+(function (crdr_signalfingerprint_crdr_status) {
+    crdr_signalfingerprint_crdr_status[crdr_signalfingerprint_crdr_status["Accepted"] = 169890000] = "Accepted";
+    crdr_signalfingerprint_crdr_status[crdr_signalfingerprint_crdr_status["Review"] = 169890001] = "Review";
+    crdr_signalfingerprint_crdr_status[crdr_signalfingerprint_crdr_status["Rejected"] = 169890002] = "Rejected";
+})(crdr_signalfingerprint_crdr_status || (crdr_signalfingerprint_crdr_status = {}));
+var crdr_signal_statecode;
+(function (crdr_signal_statecode) {
+    crdr_signal_statecode[crdr_signal_statecode["Active"] = 0] = "Active";
+    crdr_signal_statecode[crdr_signal_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_signal_statecode || (crdr_signal_statecode = {}));
+var crdr_signal_statuscode;
+(function (crdr_signal_statuscode) {
+    crdr_signal_statuscode[crdr_signal_statuscode["Active"] = 1] = "Active";
+    crdr_signal_statuscode[crdr_signal_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_signal_statuscode || (crdr_signal_statuscode = {}));
+var crdr_signal_crdr_actionrequired;
+(function (crdr_signal_crdr_actionrequired) {
+    crdr_signal_crdr_actionrequired[crdr_signal_crdr_actionrequired["No"] = 0] = "No";
+    crdr_signal_crdr_actionrequired[crdr_signal_crdr_actionrequired["Yes"] = 1] = "Yes";
+})(crdr_signal_crdr_actionrequired || (crdr_signal_crdr_actionrequired = {}));
+var crdr_signal_crdr_genericimpact;
+(function (crdr_signal_crdr_genericimpact) {
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["None"] = 169890000] = "None";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["Low"] = 169890001] = "Low";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["Medium"] = 169890002] = "Medium";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["High"] = 169890003] = "High";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["Critical"] = 169890004] = "Critical";
+})(crdr_signal_crdr_genericimpact || (crdr_signal_crdr_genericimpact = {}));
+var crdr_signal_crdr_horizon;
+(function (crdr_signal_crdr_horizon) {
+    crdr_signal_crdr_horizon[crdr_signal_crdr_horizon["Now"] = 169890000] = "Now";
+    crdr_signal_crdr_horizon[crdr_signal_crdr_horizon["Imminent"] = 169890001] = "Imminent";
+    crdr_signal_crdr_horizon[crdr_signal_crdr_horizon["Future"] = 169890002] = "Future";
+})(crdr_signal_crdr_horizon || (crdr_signal_crdr_horizon = {}));
+var crdr_signal_crdr_impacttype;
+(function (crdr_signal_crdr_impacttype) {
+    crdr_signal_crdr_impacttype[crdr_signal_crdr_impacttype["Risk"] = 169890000] = "Risk";
+    crdr_signal_crdr_impacttype[crdr_signal_crdr_impacttype["Opportunity"] = 169890001] = "Opportunity";
+    crdr_signal_crdr_impacttype[crdr_signal_crdr_impacttype["Risk and opportunity"] = 169890002] = "Risk and opportunity";
+})(crdr_signal_crdr_impacttype || (crdr_signal_crdr_impacttype = {}));
+var crdr_signal_crdr_nature;
+(function (crdr_signal_crdr_nature) {
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Breaking"] = 169890000] = "Breaking";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Deprecation"] = 169890001] = "Deprecation";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Behaviour change"] = 169890002] = "Behaviour change";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["New capability"] = 169890003] = "New capability";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Licensing"] = 169890004] = "Licensing";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Incident"] = 169890005] = "Incident";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Informational"] = 169890006] = "Informational";
+})(crdr_signal_crdr_nature || (crdr_signal_crdr_nature = {}));
+var crdr_signal_crdr_source;
+(function (crdr_signal_crdr_source) {
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Message Center (Graph)"] = 169890000] = "Message Center (Graph)";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Service health (Graph)"] = 169890001] = "Service health (Graph)";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Roadmap"] = 169890002] = "Roadmap";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Blog"] = 169890003] = "Blog";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Community archive"] = 169890004] = "Community archive";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Manual"] = 169890005] = "Manual";
+})(crdr_signal_crdr_source || (crdr_signal_crdr_source = {}));
+var crdr_rule_statecode;
+(function (crdr_rule_statecode) {
+    crdr_rule_statecode[crdr_rule_statecode["Active"] = 0] = "Active";
+    crdr_rule_statecode[crdr_rule_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_rule_statecode || (crdr_rule_statecode = {}));
+var crdr_rule_statuscode;
+(function (crdr_rule_statuscode) {
+    crdr_rule_statuscode[crdr_rule_statuscode["Active"] = 1] = "Active";
+    crdr_rule_statuscode[crdr_rule_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_rule_statuscode || (crdr_rule_statuscode = {}));
+var crdr_rule_crdr_active;
+(function (crdr_rule_crdr_active) {
+    crdr_rule_crdr_active[crdr_rule_crdr_active["No"] = 0] = "No";
+    crdr_rule_crdr_active[crdr_rule_crdr_active["Yes"] = 1] = "Yes";
+})(crdr_rule_crdr_active || (crdr_rule_crdr_active = {}));
+var crdr_rule_crdr_assetfacet;
+(function (crdr_rule_crdr_assetfacet) {
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Product"] = 169890000] = "Product";
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Resource type"] = 169890001] = "Resource type";
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Connector"] = 169890002] = "Connector";
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Capability"] = 169890003] = "Capability";
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Auth mode"] = 169890004] = "Auth mode";
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Harness"] = 169890005] = "Harness";
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Setting"] = 169890006] = "Setting";
+    crdr_rule_crdr_assetfacet[crdr_rule_crdr_assetfacet["Environment type"] = 169890007] = "Environment type";
+})(crdr_rule_crdr_assetfacet || (crdr_rule_crdr_assetfacet = {}));
+var crdr_rule_crdr_condition;
+(function (crdr_rule_crdr_condition) {
+    crdr_rule_crdr_condition[crdr_rule_crdr_condition["Any"] = 169890000] = "Any";
+    crdr_rule_crdr_condition[crdr_rule_crdr_condition["Setting absent"] = 169890001] = "Setting absent";
+})(crdr_rule_crdr_condition || (crdr_rule_crdr_condition = {}));
+var crdr_rule_crdr_role;
+(function (crdr_rule_crdr_role) {
+    crdr_rule_crdr_role[crdr_rule_crdr_role["Scope"] = 169890000] = "Scope";
+    crdr_rule_crdr_role[crdr_rule_crdr_role["Trigger"] = 169890001] = "Trigger";
+    crdr_rule_crdr_role[crdr_rule_crdr_role["Setting"] = 169890002] = "Setting";
+})(crdr_rule_crdr_role || (crdr_rule_crdr_role = {}));
+var crdr_rule_crdr_signalfacet;
+(function (crdr_rule_crdr_signalfacet) {
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Product"] = 169890000] = "Product";
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Resource type"] = 169890001] = "Resource type";
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Connector"] = 169890002] = "Connector";
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Capability"] = 169890003] = "Capability";
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Auth mode"] = 169890004] = "Auth mode";
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Harness"] = 169890005] = "Harness";
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Setting"] = 169890006] = "Setting";
+    crdr_rule_crdr_signalfacet[crdr_rule_crdr_signalfacet["Environment type"] = 169890007] = "Environment type";
+})(crdr_rule_crdr_signalfacet || (crdr_rule_crdr_signalfacet = {}));
+var crdr_exposure_statecode;
+(function (crdr_exposure_statecode) {
+    crdr_exposure_statecode[crdr_exposure_statecode["Active"] = 0] = "Active";
+    crdr_exposure_statecode[crdr_exposure_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_exposure_statecode || (crdr_exposure_statecode = {}));
+var crdr_exposure_statuscode;
+(function (crdr_exposure_statuscode) {
+    crdr_exposure_statuscode[crdr_exposure_statuscode["Active"] = 1] = "Active";
+    crdr_exposure_statuscode[crdr_exposure_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_exposure_statuscode || (crdr_exposure_statuscode = {}));
+var crdr_exposure_crdr_source;
+(function (crdr_exposure_crdr_source) {
+    crdr_exposure_crdr_source[crdr_exposure_crdr_source["Live"] = 169890000] = "Live";
+    crdr_exposure_crdr_source[crdr_exposure_crdr_source["Fixture"] = 169890001] = "Fixture";
+    crdr_exposure_crdr_source[crdr_exposure_crdr_source["Synthetic"] = 169890002] = "Synthetic";
+})(crdr_exposure_crdr_source || (crdr_exposure_crdr_source = {}));
+var crdr_exposure_crdr_status;
+(function (crdr_exposure_crdr_status) {
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["New"] = 169890000] = "New";
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["Confirmed"] = 169890001] = "Confirmed";
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["Dismissed"] = 169890002] = "Dismissed";
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["No longer matches"] = 169890003] = "No longer matches";
+})(crdr_exposure_crdr_status || (crdr_exposure_crdr_status = {}));
+var crdr_config_statecode;
+(function (crdr_config_statecode) {
+    crdr_config_statecode[crdr_config_statecode["Active"] = 0] = "Active";
+    crdr_config_statecode[crdr_config_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_config_statecode || (crdr_config_statecode = {}));
+var crdr_config_statuscode;
+(function (crdr_config_statuscode) {
+    crdr_config_statuscode[crdr_config_statuscode["Active"] = 1] = "Active";
+    crdr_config_statuscode[crdr_config_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_config_statuscode || (crdr_config_statuscode = {}));
+var crdr_facetvalue_statecode;
+(function (crdr_facetvalue_statecode) {
+    crdr_facetvalue_statecode[crdr_facetvalue_statecode["Active"] = 0] = "Active";
+    crdr_facetvalue_statecode[crdr_facetvalue_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_facetvalue_statecode || (crdr_facetvalue_statecode = {}));
+var crdr_facetvalue_statuscode;
+(function (crdr_facetvalue_statuscode) {
+    crdr_facetvalue_statuscode[crdr_facetvalue_statuscode["Active"] = 1] = "Active";
+    crdr_facetvalue_statuscode[crdr_facetvalue_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_facetvalue_statuscode || (crdr_facetvalue_statuscode = {}));
+var crdr_facetvalue_crdr_active;
+(function (crdr_facetvalue_crdr_active) {
+    crdr_facetvalue_crdr_active[crdr_facetvalue_crdr_active["No"] = 0] = "No";
+    crdr_facetvalue_crdr_active[crdr_facetvalue_crdr_active["Yes"] = 1] = "Yes";
+})(crdr_facetvalue_crdr_active || (crdr_facetvalue_crdr_active = {}));
+var crdr_facetvalue_crdr_facet;
+(function (crdr_facetvalue_crdr_facet) {
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Product"] = 169890000] = "Product";
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Resource type"] = 169890001] = "Resource type";
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Connector"] = 169890002] = "Connector";
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Capability"] = 169890003] = "Capability";
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Auth mode"] = 169890004] = "Auth mode";
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Harness"] = 169890005] = "Harness";
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Setting"] = 169890006] = "Setting";
+    crdr_facetvalue_crdr_facet[crdr_facetvalue_crdr_facet["Environment type"] = 169890007] = "Environment type";
+})(crdr_facetvalue_crdr_facet || (crdr_facetvalue_crdr_facet = {}));
+export {};
+
+
+// --- END GENERATED RUNTIME TYPES ---
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+import * as React from 'react';
+import { makeStyles, tokens, Badge, Button, Caption1, Card, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, Label, Link, MessageBar, MessageBarActions, MessageBarBody, Select, Spinner, Subtitle2, Tab, TabList, Text, Title2, } from '@fluentui/react-components';
+import { ArrowClockwiseRegular, ArrowUndoRegular, CheckmarkRegular, DismissRegular, OpenRegular, WarningRegular } from '@fluentui/react-icons';
+var OPEN_EXPOSURE_STATUSES = ['new', 'confirmed'];
+function statusAfter(decision) {
+    return decision === 'accept' ? 'accepted' : decision === 'reject' ? 'rejected' : 'review';
+}
+function roleOf(rules, facet) {
+    var e_1, _a;
+    try {
+        for (var rules_1 = __values(rules), rules_1_1 = rules_1.next(); !rules_1_1.done; rules_1_1 = rules_1.next()) {
+            var r = rules_1_1.value;
+            if (r.facet === facet)
+                return r.role;
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (rules_1_1 && !rules_1_1.done && (_a = rules_1.return)) _a.call(rules_1);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    return null;
+}
+// Facet -> sorted, lower-cased, de-duplicated values, from the accepted rows of one group (facets with a rule only).
+function buildClauses(rows, rules, group) {
+    var e_2, _a;
+    var clauses = {};
+    try {
+        for (var rows_1 = __values(rows), rows_1_1 = rows_1.next(); !rows_1_1.done; rows_1_1 = rows_1.next()) {
+            var r = rows_1_1.value;
+            if (r.status !== 'accepted' || r.group !== group || !roleOf(rules, r.facet))
+                continue;
+            var v = String(r.value).trim().toLowerCase();
+            var list = clauses[r.facet] || (clauses[r.facet] = []);
+            if (list.indexOf(v) < 0)
+                list.push(v);
+        }
+    }
+    catch (e_2_1) { e_2 = { error: e_2_1 }; }
+    finally {
+        try {
+            if (rows_1_1 && !rows_1_1.done && (_a = rows_1.return)) _a.call(rows_1);
+        }
+        finally { if (e_2) throw e_2.error; }
+    }
+    Object.keys(clauses).forEach(function (k) { return clauses[k].sort(); });
+    return clauses;
+}
+function hasTrigger(clauses, rules) {
+    return Object.keys(clauses).some(function (f) { return roleOf(rules, f) === 'trigger' && clauses[f].length > 0; });
+}
+function sameValues(a, b) {
+    return a.length === b.length && a.every(function (v, i) { return v === b[i]; });
+}
+function compareGroups(a, b) {
+    return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+}
+function previewEffect(input) {
+    var e_3, _a, e_4, _b;
+    var rows = input.rows, rules = input.rules, vocabulary = input.vocabulary, exposures = input.exposures, target = input.target, decision = input.decision;
+    var row = rows.filter(function (r) { return r.id === target; })[0];
+    var none = { kind: 'none', notInVocabulary: false, signalLeftEmpty: false, groupOpen: { live: 0, other: 0 }, otherTriggerGroups: [] };
+    if (!row)
+        return none;
+    var next = statusAfter(decision);
+    var after = rows.map(function (r) { return (r.id === target ? { id: r.id, group: r.group, facet: r.facet, value: r.value, status: next } : r); });
+    var before = buildClauses(rows, rules, row.group);
+    var afterClauses = buildClauses(after, rules, row.group);
+    var role = roleOf(rules, row.facet);
+    var kind = 'none';
+    if (role) {
+        var was = before[row.facet] || [];
+        var now = afterClauses[row.facet] || [];
+        if (!sameValues(was, now)) {
+            if (role === 'setting') {
+                kind = now.length > was.length ? 'setting-added' : 'setting-removed';
+            }
+            else {
+                var triggerBefore = hasTrigger(before, rules);
+                var triggerAfter = hasTrigger(afterClauses, rules);
+                if (!triggerBefore && triggerAfter)
+                    kind = 'opens';
+                else if (triggerBefore && !triggerAfter)
+                    kind = 'closes';
+                else if (!triggerBefore && !triggerAfter)
+                    kind = 'none';
+                else if (was.length === 0)
+                    kind = 'narrows';
+                else if (now.length === 0)
+                    kind = 'widens';
+                else
+                    kind = now.length > was.length ? 'widens' : 'narrows';
+            }
+        }
+    }
+    var value = String(row.value).trim().toLowerCase();
+    var notInVocabulary = !vocabulary.some(function (v) { return v.facet === row.facet && String(v.value).trim().toLowerCase() === value; });
+    var acceptedBefore = rows.some(function (r) { return r.status === 'accepted'; });
+    var acceptedAfter = after.some(function (r) { return r.status === 'accepted'; });
+    var groupOpen = { live: 0, other: 0 };
+    try {
+        for (var exposures_1 = __values(exposures), exposures_1_1 = exposures_1.next(); !exposures_1_1.done; exposures_1_1 = exposures_1.next()) {
+            var e = exposures_1_1.value;
+            if (e.group !== row.group || OPEN_EXPOSURE_STATUSES.indexOf(e.status) < 0)
+                continue;
+            if (e.source === 'live')
+                groupOpen.live++;
+            else
+                groupOpen.other++;
+        }
+    }
+    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+    finally {
+        try {
+            if (exposures_1_1 && !exposures_1_1.done && (_a = exposures_1.return)) _a.call(exposures_1);
+        }
+        finally { if (e_3) throw e_3.error; }
+    }
+    var groups = [];
+    try {
+        for (var after_1 = __values(after), after_1_1 = after_1.next(); !after_1_1.done; after_1_1 = after_1.next()) {
+            var r = after_1_1.value;
+            if (r.group !== row.group && groups.indexOf(r.group) < 0)
+                groups.push(r.group);
+        }
+    }
+    catch (e_4_1) { e_4 = { error: e_4_1 }; }
+    finally {
+        try {
+            if (after_1_1 && !after_1_1.done && (_b = after_1.return)) _b.call(after_1);
+        }
+        finally { if (e_4) throw e_4.error; }
+    }
+    var otherTriggerGroups = groups.filter(function (g) { return hasTrigger(buildClauses(after, rules, g), rules); }).sort(compareGroups);
+    return { kind: kind, notInVocabulary: notInVocabulary, signalLeftEmpty: acceptedBefore && !acceptedAfter, groupOpen: groupOpen, otherTriggerGroups: otherTriggerGroups };
+}
+var PAGE_NAME = 'Fingerprint review';
+var ERROR_COPY = {
+    'error.read': 'Unable to load data. Please try again.',
+    'error.write': 'The change could not be saved. Refresh before trying again.',
+    'error.network': 'The request did not go through. You can try again.',
+    'error.indeterminate': "We couldn't confirm this completed — refresh before retrying.",
+    'error.render': 'This page hit a problem and could not render. Refresh the page.',
+    'error.tryAgain': 'Try again',
+};
+function translate(key) {
+    return ERROR_COPY[key] || key;
+}
+function reportPageError(pageName, operation, code, message, kind, retry, appInsights) {
+    var e_5, _a, e_6, _b, e_7, _c, e_8, _d;
+    var fields = {};
+    try {
+        for (var _e = __values(['code', 'errorCode', 'message', 'error.code', 'error.message']), _f = _e.next(); !_f.done; _f = _e.next()) {
+            var path = _f.value;
+            try {
+                var value = message;
+                try {
+                    for (var _g = (e_6 = void 0, __values(path.split('.'))), _h = _g.next(); !_h.done; _h = _g.next()) {
+                        var part = _h.value;
+                        value = value !== null && typeof value === 'object' ? value[part] : undefined;
+                    }
+                }
+                catch (e_6_1) { e_6 = { error: e_6_1 }; }
+                finally {
+                    try {
+                        if (_h && !_h.done && (_b = _g.return)) _b.call(_g);
+                    }
+                    finally { if (e_6) throw e_6.error; }
+                }
+                fields[path] = value;
+            }
+            catch (_j) {
+                fields[path] = undefined;
+            }
+        }
+    }
+    catch (e_5_1) { e_5 = { error: e_5_1 }; }
+    finally {
+        try {
+            if (_f && !_f.done && (_a = _e.return)) _a.call(_e);
+        }
+        finally { if (e_5) throw e_5.error; }
+    }
+    var normalizedCode = '';
+    try {
+        for (var _k = __values([code, fields['code'], fields['errorCode'], fields['error.code']]), _l = _k.next(); !_l.done; _l = _k.next()) {
+            var candidate = _l.value;
+            var text = typeof candidate === 'string' ? candidate : typeof candidate === 'number' && Number.isFinite(candidate) ? String(candidate) : '';
+            normalizedCode = text.replace(/[\s\u0000-\u001f\u007f-\u009f]+/g, ' ').trim().slice(0, 80);
+            if (normalizedCode)
+                break;
+        }
+    }
+    catch (e_7_1) { e_7 = { error: e_7_1 }; }
+    finally {
+        try {
+            if (_l && !_l.done && (_c = _k.return)) _c.call(_k);
+        }
+        finally { if (e_7) throw e_7.error; }
+    }
+    var normalizedMessage = '';
+    try {
+        for (var _m = __values([message, fields['message'], fields['error.message']]), _o = _m.next(); !_o.done; _o = _m.next()) {
+            var candidate = _o.value;
+            var line = typeof candidate === 'string' ? candidate.trim().split(/[\r\n\u2028\u2029]/)[0].replace(/[\s\u0000-\u001f\u007f-\u009f]+/g, ' ').trim() : '';
+            if (!line || /^\[object [^\]]*\]$/.test(line) || /^at\s.*(?::\d+:\d+\)?|\((?:native|<anonymous>)\))$/.test(line))
+                continue;
+            normalizedMessage = line.length > 300 ? line.slice(0, 299) + '\u2026' : line;
+            break;
+        }
+    }
+    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+    finally {
+        try {
+            if (_o && !_o.done && (_d = _m.return)) _d.call(_m);
+        }
+        finally { if (e_8) throw e_8.error; }
+    }
+    console.error('[' + String(pageName).replace(/[\r\n\]]/g, '') + '] ' + operation + ' failed', { code: normalizedCode, message: normalizedMessage });
+    void appInsights;
+    var quiet = kind === 'indeterminate' || kind === 'render';
+    var view = { operation: operation, message: quiet ? '' : normalizedMessage, fallbackKey: 'error.' + kind, kind: kind };
+    if (normalizedCode)
+        view.code = normalizedCode;
+    if (typeof retry === 'function' && (kind === 'read' || kind === 'network'))
+        view.retry = retry;
+    return view;
+}
+function PageErrorBar(props) {
+    var error = props.error;
+    if (!error)
+        return null;
+    return (React.createElement(MessageBar, { intent: "error" },
+        React.createElement(MessageBarBody, null, error.message || translate(error.fallbackKey)),
+        error.retry && (React.createElement(MessageBarActions, null,
+            React.createElement(Button, { onClick: error.retry }, translate('error.tryAgain'))))));
+}
+var PageErrorBoundary = /** @class */ (function (_super) {
+    __extends(PageErrorBoundary, _super);
+    function PageErrorBoundary() {
+        var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
+        _this.state = { failed: false };
+        return _this;
+    }
+    PageErrorBoundary.getDerivedStateFromError = function () {
+        return { failed: true };
+    };
+    PageErrorBoundary.prototype.componentDidCatch = function (error) {
+        reportPageError(PAGE_NAME, 'render', undefined, error, 'render');
+    };
+    PageErrorBoundary.prototype.render = function () {
+        if (this.state.failed) {
+            return (React.createElement(MessageBar, { intent: "error" },
+                React.createElement(MessageBarBody, null, translate('error.render'))));
+        }
+        return this.props.children;
+    };
+    return PageErrorBoundary;
+}(React.Component));
+var LOOKUP_GUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+var LOOKUP_QUALIFIED = /^\/([a-z_][a-z0-9_]*)\(([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})\)$/;
+function normalizeLookupReference(row, property, allowedTargets) {
+    var _a;
+    if (typeof row !== 'object' || row === null || Array.isArray(row) || allowedTargets.length === 0)
+        return { state: 'invalid' };
+    var record = row;
+    if (!Object.prototype.hasOwnProperty.call(record, property))
+        return { state: 'invalid' };
+    var raw = record[property];
+    if (raw === null)
+        return { state: 'unset' };
+    if (typeof raw !== 'string')
+        return { state: 'invalid' };
+    var value = raw.trim();
+    var qualified = LOOKUP_QUALIFIED.exec(value);
+    if (!qualified && !LOOKUP_GUID.test(value))
+        return { state: 'invalid' };
+    var prefix = qualified ? qualified[1] : undefined;
+    var id = (qualified ? qualified[2] : value).toLowerCase();
+    if (prefix !== undefined && !allowedTargets.includes(prefix))
+        return { state: 'invalid' };
+    var annotationKey = "".concat(property, "@Microsoft.Dynamics.CRM.lookuplogicalname");
+    var annotation;
+    if (Object.prototype.hasOwnProperty.call(record, annotationKey)) {
+        var named = record[annotationKey];
+        if (typeof named !== 'string' || !allowedTargets.includes(named))
+            return { state: 'invalid' };
+        annotation = named;
+    }
+    if (annotation !== undefined && prefix !== undefined && annotation !== prefix)
+        return { state: 'invalid' };
+    var table = (_a = annotation !== null && annotation !== void 0 ? annotation : prefix) !== null && _a !== void 0 ? _a : (allowedTargets.length === 1 ? allowedTargets[0] : undefined);
+    return table === undefined ? { state: 'needs-target', id: id } : { state: 'resolved', reference: { table: table, id: id } };
+}
+// ---------------------------------------------------------------------------------------------
+// Choice values (schema.json order; option value = 169890000 + ordinal) and labels.
+var FACET_CODES = {
+    169890000: 'product', 169890001: 'resource_type', 169890002: 'connector', 169890003: 'capability',
+    169890004: 'auth_mode', 169890005: 'harness', 169890006: 'setting', 169890007: 'environment_type',
+};
+var FACET_LABELS = {
+    product: 'Product', resource_type: 'Resource type', connector: 'Connector', capability: 'Capability',
+    auth_mode: 'Auth mode', harness: 'Harness', setting: 'Setting', environment_type: 'Environment type',
+};
+var FACET_ORDER = ['product', 'resource_type', 'environment_type', 'harness', 'connector', 'capability', 'auth_mode', 'setting'];
+var ROLE_CODES = { 169890000: 'scope', 169890001: 'trigger', 169890002: 'setting' };
+var ROLE_LABELS = { scope: 'scope', trigger: 'trigger', setting: 'setting check' };
+var STATUS_CODES = { 169890000: 'accepted', 169890001: 'review', 169890002: 'rejected' };
+var STATUS_VALUES = { accepted: 169890000, review: 169890001, rejected: 169890002 };
+var STATUS_LABELS = { accepted: 'Accepted', review: 'To review', rejected: 'Rejected' };
+var EXTRACTED_CODES = { 169890000: 'rule', 169890001: 'llm', 169890002: 'manual' };
+var EXTRACTED_LABELS = { rule: 'Rule', llm: 'LLM', manual: 'Manual' };
+var EXPOSURE_STATUS_CODES = { 169890000: 'new', 169890001: 'confirmed', 169890002: 'dismissed', 169890003: 'unmatched' };
+var ASSET_SOURCE_CODES = { 169890000: 'live', 169890001: 'fixture', 169890002: 'synthetic' };
+var THRESHOLD_KEY = 'fingerprint_confidence_threshold';
+var DEFAULT_THRESHOLD = 0.7;
+// ---------------------------------------------------------------------------------------------
+// Row mapping helpers.
+function codeOf(value, map) {
+    var n = typeof value === 'number' ? value : typeof value === 'string' && value !== '' ? Number(value) : NaN;
+    return isNaN(n) ? null : map[n] || null;
+}
+function textOf(value) {
+    return typeof value === 'string' ? value : value === null || value === undefined ? '' : String(value);
+}
+function numberOf(value) {
+    if (value === null || value === undefined || value === '')
+        return null;
+    var n = typeof value === 'number' ? value : Number(value);
+    return isNaN(n) ? null : n;
+}
+function lookupId(row, property, target) {
+    var n = normalizeLookupReference(row, property, [target]);
+    return n.state === 'resolved' ? n.reference.id : null;
+}
+function formatted(row, property) {
+    var r = row;
+    return textOf(r[property + '@OData.Community.Display.V1.FormattedValue']);
+}
+function toFingerprint(row) {
+    var r = row;
+    return {
+        id: textOf(r.crdr_signalfingerprintid).toLowerCase(),
+        signalId: lookupId(row, '_crdr_signal_value', 'crdr_signal'),
+        group: textOf(r.crdr_group).trim() || 'A',
+        facet: codeOf(r.crdr_facet, FACET_CODES) || '',
+        value: textOf(r.crdr_value),
+        extractedBy: codeOf(r.crdr_extractedby, EXTRACTED_CODES) || '',
+        confidence: numberOf(r.crdr_confidence),
+        reason: textOf(r.crdr_reason),
+        status: codeOf(r.crdr_status, STATUS_CODES) || 'review',
+    };
+}
+function openSignalForm(id, onError) {
+    var _a, _b;
+    try {
+        var xrm = window.Xrm;
+        var result = (_b = (_a = xrm === null || xrm === void 0 ? void 0 : xrm.Navigation) === null || _a === void 0 ? void 0 : _a.openForm) === null || _b === void 0 ? void 0 : _b.call(_a, { entityName: 'crdr_signal', entityId: id });
+        if (result && typeof result.catch === 'function') {
+            result.catch(function (error) { return onError(reportPageError(PAGE_NAME, 'openSignal', undefined, error, 'read')); });
+        }
+    }
+    catch (error) {
+        onError(reportPageError(PAGE_NAME, 'openSignal', undefined, error, 'read'));
+    }
+}
+function describeEffect(effect, group, role, signalOpen) {
+    var open = effect.groupOpen.live + effect.groupOpen.other;
+    var openText = open === 0
+        ? 'it has no open exposures'
+        : 'up to ' + open + ' open exposure' + (open === 1 ? '' : 's') + ' (' + effect.groupOpen.live + ' live, ' + effect.groupOpen.other + ' demo) will close';
+    var others = effect.otherTriggerGroups.length > 0
+        ? ' Assets that group ' + effect.otherTriggerGroups.join(' or ') + ' also matches stay open.'
+        : '';
+    var text;
+    switch (effect.kind) {
+        case 'closes':
+            text = 'Group ' + group + ' stops matching assets: ' + openText + '.' + others;
+            break;
+        case 'opens':
+            text = 'Group ' + group + ' starts matching assets: new exposures may appear.';
+            break;
+        case 'widens':
+            text = 'Group ' + group + ' widens: it may match more assets.';
+            break;
+        case 'narrows':
+            text = 'Group ' + group + ' narrows: some exposures may close.';
+            break;
+        case 'setting-added':
+            text = 'Adds a tenant setting check to group ' + group + '.';
+            break;
+        case 'setting-removed':
+            text = 'Removes a tenant setting check from group ' + group + (open > 0 ? ': ' + openText : '') + '.';
+            break;
+        default: text = role ? 'No change to matching.' : 'No change to matching: no active rule uses this facet.';
+    }
+    if (effect.signalLeftEmpty) {
+        text += signalOpen > 0
+            ? ' The signal is left with no accepted fingerprint, so all ' + signalOpen + ' of its open exposures will close.'
+            : ' The signal is left with no accepted fingerprint.';
+    }
+    if (effect.notInVocabulary)
+        text += ' This value is not in the vocabulary, so it can\u2019t match any asset.';
+    return text;
+}
+// ---------------------------------------------------------------------------------------------
+// Data loading: one cached bundle, de-duplicated across the host double-mount (data-caching.md).
+var winAny = window;
+var CACHE_KEY = '__ppFingerprintReview_bundleCache';
+var INFLIGHT_KEY = '__ppFingerprintReview_bundleInflight';
+function readAllRows(first) {
+    return __awaiter(this, void 0, Promise, function () {
+        var page, rows;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    page = first;
+                    rows = page.rows.slice();
+                    _a.label = 1;
+                case 1:
+                    if (!(page.hasMoreRows && page.loadMoreRows)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, page.loadMoreRows()];
+                case 2:
+                    page = _a.sent();
+                    page.rows.forEach(function (r) { return rows.push(r); });
+                    return [3 /*break*/, 1];
+                case 3: return [2 /*return*/, rows];
+            }
+        });
+    });
+}
+// Last changed by / on (A2). Read separately so the page still works if the host declines these system columns.
+function loadAudit(dataApi) {
+    return __awaiter(this, void 0, Promise, function () {
+        var select, rows, _a, audit_1, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    _c.trys.push([0, 3, , 4]);
+                    select = ['crdr_signalfingerprintid', 'modifiedon', '_modifiedby_value'];
+                    _a = readAllRows;
+                    return [4 /*yield*/, dataApi.queryTable('crdr_signalfingerprint', { select: select, pageSize: 500 })];
+                case 1: return [4 /*yield*/, _a.apply(void 0, [_c.sent()])];
+                case 2:
+                    rows = _c.sent();
+                    audit_1 = {};
+                    rows.forEach(function (row) {
+                        var r = row;
+                        var by = formatted(row, '_modifiedby_value');
+                        var on = formatted(row, 'modifiedon') || textOf(r.modifiedon);
+                        if (by || on)
+                            audit_1[textOf(r.crdr_signalfingerprintid).toLowerCase()] = { by: by, on: on };
+                    });
+                    return [2 /*return*/, audit_1];
+                case 3:
+                    _b = _c.sent();
+                    return [2 /*return*/, null];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function loadBundle(dataApi) {
+    return __awaiter(this, void 0, Promise, function () {
+        var results, operations, firstFailure, fingerprints, ruleRows, exposureRows, configRows, vocabularyRows, audit, rules, vocabulary, exposuresBySignal, parsed, thresholdIsDefault, signalIds, signals, i, chunk, page, reason_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Promise.allSettled([
+                        dataApi
+                            .queryTable('crdr_signalfingerprint', {
+                            select: ['crdr_signalfingerprintid', 'crdr_name', '_crdr_signal_value', 'crdr_group', 'crdr_facet', 'crdr_value', 'crdr_extractedby', 'crdr_confidence', 'crdr_reason', 'crdr_status'],
+                            pageSize: 500,
+                        })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi.queryTable('crdr_rule', { select: ['crdr_ruleid', 'crdr_signalfacet', 'crdr_role', 'crdr_rulecode', 'crdr_name'], filter: 'crdr_active eq true', pageSize: 100 }).then(function (t) { return readAllRows(t); }),
+                        dataApi
+                            .queryTable('crdr_exposure', {
+                            select: ['crdr_exposureid', '_crdr_signal_value', 'crdr_group', 'crdr_status', 'crdr_source'],
+                            filter: 'crdr_status eq 169890000 or crdr_status eq 169890001',
+                            pageSize: 500,
+                        })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi.queryTable('crdr_config', { select: ['crdr_configid', 'crdr_value'], filter: "crdr_key eq '" + THRESHOLD_KEY + "'", pageSize: 1 }),
+                        dataApi.queryTable('crdr_facetvalue', { select: ['crdr_facetvalueid', 'crdr_facet', 'crdr_value'], filter: 'crdr_active eq true', pageSize: 500 }).then(function (t) { return readAllRows(t); }),
+                        loadAudit(dataApi),
+                    ])];
+                case 1:
+                    results = _a.sent();
+                    operations = ['loadFingerprints', 'loadRules', 'loadExposures', 'loadThreshold', 'loadVocabulary', 'loadAudit'];
+                    firstFailure = null;
+                    results.forEach(function (r, i) {
+                        if (r.status === 'rejected' && !firstFailure)
+                            firstFailure = { operation: operations[i], reason: r.reason };
+                    });
+                    if (firstFailure)
+                        throw firstFailure;
+                    fingerprints = results[0].value.map(toFingerprint).filter(function (f) { return f.id; });
+                    ruleRows = results[1].value;
+                    exposureRows = results[2].value;
+                    configRows = results[3].value.rows;
+                    vocabularyRows = results[4].value;
+                    audit = results[5].value;
+                    rules = [];
+                    ruleRows.forEach(function (row) {
+                        var r = row;
+                        var facet = codeOf(r.crdr_signalfacet, FACET_CODES);
+                        var role = codeOf(r.crdr_role, ROLE_CODES);
+                        if (facet && role)
+                            rules.push({ facet: facet, role: role });
+                    });
+                    vocabulary = [];
+                    vocabularyRows.forEach(function (row) {
+                        var r = row;
+                        var facet = codeOf(r.crdr_facet, FACET_CODES);
+                        if (facet)
+                            vocabulary.push({ facet: facet, value: textOf(r.crdr_value) });
+                    });
+                    exposuresBySignal = {};
+                    exposureRows.forEach(function (row) {
+                        var r = row;
+                        var sid = lookupId(row, '_crdr_signal_value', 'crdr_signal');
+                        if (!sid)
+                            return;
+                        (exposuresBySignal[sid] = exposuresBySignal[sid] || []).push({
+                            group: textOf(r.crdr_group).trim(),
+                            status: codeOf(r.crdr_status, EXPOSURE_STATUS_CODES) || '',
+                            source: codeOf(r.crdr_source, ASSET_SOURCE_CODES) || '',
+                        });
+                    });
+                    parsed = configRows.length > 0 ? Number(textOf(configRows[0].crdr_value).trim()) : NaN;
+                    thresholdIsDefault = isNaN(parsed) || textOf(configRows[0] ? configRows[0].crdr_value : '').trim() === '';
+                    signalIds = Array.from(new Set(fingerprints.map(function (f) { return f.signalId; }).filter(function (id) { return !!id; })));
+                    signals = {};
+                    i = 0;
+                    _a.label = 2;
+                case 2:
+                    if (!(i < signalIds.length)) return [3 /*break*/, 8];
+                    chunk = signalIds.slice(i, i + 15);
+                    _a.label = 3;
+                case 3:
+                    _a.trys.push([3, 6, , 7]);
+                    return [4 /*yield*/, dataApi.queryTable('crdr_signal', {
+                            select: ['crdr_signalid', 'crdr_externalid', 'crdr_title'],
+                            filter: chunk.map(function (id) { return 'crdr_signalid eq ' + id; }).join(' or '),
+                            pageSize: 50,
+                        })];
+                case 4:
+                    page = _a.sent();
+                    return [4 /*yield*/, readAllRows(page)];
+                case 5:
+                    (_a.sent()).forEach(function (s) {
+                        var r = s;
+                        signals[textOf(r.crdr_signalid).toLowerCase()] = { code: textOf(r.crdr_externalid), title: textOf(r.crdr_title) };
+                    });
+                    return [3 /*break*/, 7];
+                case 6:
+                    reason_1 = _a.sent();
+                    throw { operation: 'loadSignals', reason: reason_1 };
+                case 7:
+                    i += 15;
+                    return [3 /*break*/, 2];
+                case 8: return [2 /*return*/, { fingerprints: fingerprints, signals: signals, rules: rules, vocabulary: vocabulary, exposuresBySignal: exposuresBySignal, threshold: thresholdIsDefault ? DEFAULT_THRESHOLD : parsed, thresholdIsDefault: thresholdIsDefault, audit: audit }];
+            }
+        });
+    });
+}
+// ---------------------------------------------------------------------------------------------
+// Styles.
+var useStyles = makeStyles({
+    root: {
+        height: '100%',
+        overflowY: 'auto',
+        boxSizing: 'border-box',
+        position: 'relative',
+        contain: 'layout',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: tokens.spacingVerticalL,
+        padding: tokens.spacingHorizontalL,
+        color: tokens.colorNeutralForeground1,
+        backgroundColor: tokens.colorNeutralBackground2,
+    },
+    header: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacingHorizontalM, flexShrink: 0 },
+    headerTitle: { marginRight: 'auto' },
+    muted: { color: tokens.colorNeutralForeground3 },
+    counts: { display: 'flex', flexWrap: 'wrap', gap: tokens.spacingHorizontalS, alignItems: 'center', flexShrink: 0 },
+    filters: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: tokens.spacingHorizontalL, flexShrink: 0 },
+    field: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalXXS, minWidth: '160px' },
+    signal: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalM, flexShrink: 0 },
+    signalHead: { display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: tokens.spacingHorizontalS },
+    group: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: tokens.spacingVerticalS,
+        paddingLeft: tokens.spacingHorizontalM,
+        borderLeftWidth: '3px',
+        borderLeftStyle: 'solid',
+        borderLeftColor: tokens.colorNeutralStroke2,
+    },
+    groupHead: { display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: tokens.spacingHorizontalS },
+    row: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: tokens.spacingVerticalXS,
+        padding: tokens.spacingHorizontalM,
+        backgroundColor: tokens.colorNeutralBackground1,
+        borderRadius: tokens.borderRadiusMedium,
+        boxShadow: tokens.shadow2,
+    },
+    rowTop: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacingHorizontalS },
+    facetValue: { fontWeight: tokens.fontWeightSemibold, overflowWrap: 'anywhere' },
+    reason: { overflowWrap: 'anywhere' },
+    actions: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacingHorizontalS },
+    preview: { color: tokens.colorNeutralForeground2, flexBasis: '100%' },
+    warning: { display: 'flex', alignItems: 'center', gap: tokens.spacingHorizontalXS, color: tokens.colorPaletteDarkOrangeForeground1 },
+    empty: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: tokens.spacingVerticalM, padding: tokens.spacingHorizontalL },
+    srOnly: {
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        overflow: 'hidden',
+        clip: 'rect(0 0 0 0)',
+        whiteSpace: 'nowrap',
+    },
+});
+function PageBody(props) {
+    var dataApi = props.dataApi;
+    var styles = useStyles();
+    var dataReady = !!dataApi;
+    var _a = __read(React.useState(null), 2), mountNode = _a[0], setMountNode = _a[1];
+    var setContainer = React.useCallback(function (node) { return setMountNode(node); }, []);
+    var _b = __read(React.useState(0), 2), reloadKey = _b[0], setReloadKey = _b[1];
+    var _c = __read(React.useState(function () {
+        var cached = winAny[CACHE_KEY];
+        return { bundle: cached !== null && cached !== void 0 ? cached : null, loading: cached === undefined, error: null };
+    }), 2), _d = _c[0], bundle = _d.bundle, loading = _d.loading, error = _d.error, setData = _c[1];
+    var _e = __read(React.useState({}), 2), statuses = _e[0], setStatuses = _e[1];
+    var _f = __read(React.useState({}), 2), inFlight = _f[0], setInFlight = _f[1];
+    var _g = __read(React.useState(null), 2), writeError = _g[0], setWriteError = _g[1];
+    var _h = __read(React.useState(null), 2), navError = _h[0], setNavError = _h[1];
+    var _j = __read(React.useState(''), 2), announcement = _j[0], setAnnouncement = _j[1];
+    var _k = __read(React.useState('review'), 2), tab = _k[0], setTab = _k[1];
+    var _l = __read(React.useState(''), 2), extractedBy = _l[0], setExtractedBy = _l[1];
+    var _m = __read(React.useState(null), 2), confirm = _m[0], setConfirm = _m[1];
+    function reload() {
+        delete winAny[CACHE_KEY];
+        delete winAny[INFLIGHT_KEY];
+        setData({ bundle: null, loading: true, error: null });
+        setStatuses({});
+        setWriteError(null);
+        setReloadKey(function (k) { return k + 1; });
+    }
+    React.useEffect(function () {
+        if (!dataReady)
+            return;
+        var cached = winAny[CACHE_KEY];
+        if (cached !== undefined) {
+            if (bundle !== cached)
+                setData({ bundle: cached, loading: false, error: null });
+            return;
+        }
+        var cancelled = false;
+        var inflight = winAny[INFLIGHT_KEY];
+        if (!inflight) {
+            inflight = loadBundle(dataApi)
+                .then(function (b) {
+                winAny[CACHE_KEY] = b;
+                return b;
+            })
+                .finally(function () { if (winAny[INFLIGHT_KEY] === inflight)
+                delete winAny[INFLIGHT_KEY]; });
+            winAny[INFLIGHT_KEY] = inflight;
+        }
+        inflight
+            .then(function (b) { if (!cancelled)
+            setData({ bundle: b, loading: false, error: null }); })
+            .catch(function (failure) {
+            if (cancelled)
+                return;
+            var operation = failure && failure.operation ? failure.operation : 'loadFingerprintReview';
+            var reason = failure && 'reason' in failure ? failure.reason : failure;
+            setData({ bundle: null, loading: false, error: reportPageError(PAGE_NAME, operation, undefined, reason, 'read', reload) });
+        });
+        return function () { cancelled = true; };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dataReady, reloadKey]);
+    // Fingerprints with any local decisions applied.
+    var fingerprints = React.useMemo(function () {
+        if (!bundle)
+            return [];
+        return bundle.fingerprints.map(function (f) { return (statuses[f.id] && statuses[f.id] !== f.status ? __assign(__assign({}, f), { status: statuses[f.id] }) : f); });
+    }, [bundle, statuses]);
+    var bySignal = React.useMemo(function () {
+        var map = {};
+        fingerprints.forEach(function (f) {
+            var key = f.signalId || '';
+            (map[key] = map[key] || []).push(f);
+        });
+        return map;
+    }, [fingerprints]);
+    var counts = React.useMemo(function () {
+        var c = { review: 0, accepted: 0, acceptedLlm: 0, acceptedManual: 0, rejected: 0 };
+        fingerprints.forEach(function (f) {
+            if (f.status === 'review')
+                c.review++;
+            else if (f.status === 'rejected')
+                c.rejected++;
+            else {
+                c.accepted++;
+                if (f.extractedBy === 'llm')
+                    c.acceptedLlm++;
+                if (f.extractedBy === 'manual')
+                    c.acceptedManual++;
+            }
+        });
+        return c;
+    }, [fingerprints]);
+    var previewFor = React.useCallback(function (f, decision) {
+        var rows = (bySignal[f.signalId || ''] || []).map(function (r) { return ({ id: r.id, group: r.group, facet: r.facet, value: r.value, status: r.status }); });
+        return previewEffect({
+            rows: rows,
+            rules: bundle ? bundle.rules : [],
+            vocabulary: bundle ? bundle.vocabulary : [],
+            exposures: bundle && f.signalId ? bundle.exposuresBySignal[f.signalId] || [] : [],
+            target: f.id,
+            decision: decision,
+        });
+    }, [bySignal, bundle]);
+    // Visible sections: signal -> group -> rows, after the status and extracted-by filters.
+    var sections = React.useMemo(function () {
+        if (!bundle)
+            return [];
+        var visible = fingerprints.filter(function (f) { return f.status === tab && (!extractedBy || f.extractedBy === extractedBy); });
+        var signalKeys = Array.from(new Set(visible.map(function (f) { return f.signalId || ''; })));
+        var list = signalKeys.map(function (sid) {
+            var rows = visible.filter(function (f) { return (f.signalId || '') === sid; });
+            var groups = Array.from(new Set(rows.map(function (r) { return r.group; }))).sort(compareGroups).map(function (g) { return ({
+                group: g,
+                rows: rows
+                    .filter(function (r) { return r.group === g; })
+                    .sort(function (a, b) { return FACET_ORDER.indexOf(a.facet) - FACET_ORDER.indexOf(b.facet) || a.value.localeCompare(b.value); }),
+            }); });
+            return { signalId: sid, info: sid ? bundle.signals[sid] || null : null, groups: groups };
+        });
+        return list.sort(function (a, b) {
+            if (!a.signalId)
+                return 1;
+            if (!b.signalId)
+                return -1;
+            return (a.info ? a.info.code : a.signalId).localeCompare(b.info ? b.info.code : b.signalId, undefined, { numeric: true });
+        });
+    }, [bundle, fingerprints, tab, extractedBy]);
+    var visibleCount = sections.reduce(function (n, s) { return n + s.groups.reduce(function (m, g) { return m + g.rows.length; }, 0); }, 0);
+    function signalLabel(f) {
+        var info = bundle && f.signalId ? bundle.signals[f.signalId] : null;
+        return info ? info.code || info.title : 'a signal';
+    }
+    function commit(f, decision, effectText) {
+        var previous = f.status;
+        var next = statusAfter(decision);
+        setStatuses(function (s) {
+            var _a;
+            return (__assign(__assign({}, s), (_a = {}, _a[f.id] = next, _a)));
+        });
+        setInFlight(function (s) {
+            var _a;
+            return (__assign(__assign({}, s), (_a = {}, _a[f.id] = true, _a)));
+        });
+        setWriteError(null);
+        var label = (FACET_LABELS[f.facet] || f.facet) + ' ' + f.value + ' on ' + signalLabel(f);
+        dataApi
+            .updateRow('crdr_signalfingerprint', f.id, { crdr_status: STATUS_VALUES[next] })
+            .then(function () {
+            var cached = winAny[CACHE_KEY];
+            if (cached)
+                cached.fingerprints.forEach(function (c) { if (c.id === f.id)
+                    c.status = next; });
+            setInFlight(function (s) {
+                var _a;
+                return (__assign(__assign({}, s), (_a = {}, _a[f.id] = false, _a)));
+            });
+            setAnnouncement(STATUS_LABELS[next] + ': ' + label + '. ' + effectText + ' Takes effect at the next match run.');
+        })
+            .catch(function (err) {
+            setStatuses(function (s) {
+                var _a;
+                return (__assign(__assign({}, s), (_a = {}, _a[f.id] = previous, _a)));
+            });
+            setInFlight(function (s) {
+                var _a;
+                return (__assign(__assign({}, s), (_a = {}, _a[f.id] = false, _a)));
+            });
+            setWriteError(reportPageError(PAGE_NAME, 'setFingerprintStatus', undefined, err, 'write'));
+            setAnnouncement('The change to ' + label + ' was not saved.');
+        });
+    }
+    function signalOpenCount(f) {
+        var list = bundle && f.signalId ? bundle.exposuresBySignal[f.signalId] || [] : [];
+        return list.filter(function (e) { return OPEN_EXPOSURE_STATUSES.indexOf(e.status) >= 0; }).length;
+    }
+    function describe(f, decision) {
+        var effect = previewFor(f, decision);
+        return { effect: effect, text: describeEffect(effect, f.group, bundle ? roleOf(bundle.rules, f.facet) : null, signalOpenCount(f)) };
+    }
+    function decide(f, decision) {
+        var _a = describe(f, decision), effect = _a.effect, text = _a.text;
+        if (effect.kind === 'closes' || effect.kind === 'widens') {
+            setConfirm({ fingerprint: f, decision: decision, effect: effect, text: text });
+            return;
+        }
+        commit(f, decision, text);
+    }
+    var decisionsFor = function (f) {
+        var list = f.status === 'review' ? ['accept', 'reject'] : f.status === 'accepted' ? ['reject'] : ['accept'];
+        if (f.status !== 'review' && f.extractedBy === 'llm')
+            list.push('review');
+        return list;
+    };
+    var decisionLabel = { accept: 'Accept', reject: 'Reject', review: 'Back to review' };
+    var decisionIcon = { accept: React.createElement(CheckmarkRegular, null), reject: React.createElement(DismissRegular, null), review: React.createElement(ArrowUndoRegular, null) };
+    if (!dataReady) {
+        return (React.createElement("div", { className: styles.root, ref: setContainer },
+            React.createElement(Spinner, { label: 'Connecting\u2026' })));
+    }
+    return (React.createElement("div", { className: styles.root, ref: setContainer },
+        React.createElement("div", { className: styles.header },
+            React.createElement(Title2, { as: "h1", className: styles.headerTitle }, "Fingerprint review"),
+            React.createElement(Button, { icon: React.createElement(ArrowClockwiseRegular, null), onClick: reload, disabled: loading }, "Refresh")),
+        React.createElement(Text, { className: styles.muted }, "What each signal touches, in the shared vocabulary. Facets in a group must all match; any group can match. Changes take effect at the next daily match run (06:00 UTC)."),
+        React.createElement(Text, { role: "status", "aria-live": "polite", className: styles.srOnly }, announcement),
+        React.createElement(PageErrorBar, { error: error }),
+        React.createElement(PageErrorBar, { error: writeError }),
+        React.createElement(PageErrorBar, { error: navError }),
+        loading && React.createElement(Spinner, { label: 'Loading fingerprints\u2026' }),
+        bundle && (React.createElement(React.Fragment, null,
+            React.createElement("div", { className: styles.counts },
+                React.createElement(Badge, { appearance: "tint", color: counts.review > 0 ? 'warning' : 'informative' },
+                    "To review: ",
+                    counts.review),
+                React.createElement(Badge, { appearance: "tint", color: "success" },
+                    "Accepted: ",
+                    counts.accepted,
+                    " (LLM ",
+                    counts.acceptedLlm,
+                    ", manual ",
+                    counts.acceptedManual,
+                    ")"),
+                React.createElement(Badge, { appearance: "tint", color: "danger" },
+                    "Rejected: ",
+                    counts.rejected),
+                React.createElement(Caption1, { className: styles.muted },
+                    "Confidence threshold ",
+                    bundle.threshold.toFixed(2),
+                    bundle.thresholdIsDefault ? ' (default)' : '')),
+            React.createElement("div", { className: styles.filters },
+                React.createElement(TabList, { selectedValue: tab, onTabSelect: function (_, d) { return setTab(d.value); }, "aria-label": "Fingerprint status" },
+                    React.createElement(Tab, { value: "review" },
+                        "To review (",
+                        counts.review,
+                        ")"),
+                    React.createElement(Tab, { value: "accepted" },
+                        "Accepted (",
+                        counts.accepted,
+                        ")"),
+                    React.createElement(Tab, { value: "rejected" },
+                        "Rejected (",
+                        counts.rejected,
+                        ")")),
+                React.createElement("div", { className: styles.field },
+                    React.createElement(Label, { htmlFor: "fr-extractedby" }, "Extracted by"),
+                    React.createElement(Select, { id: "fr-extractedby", value: extractedBy, onChange: function (_, d) { return setExtractedBy(d.value); } },
+                        React.createElement("option", { value: "" }, "All"),
+                        React.createElement("option", { value: "llm" }, "LLM"),
+                        React.createElement("option", { value: "manual" }, "Manual"),
+                        React.createElement("option", { value: "rule" }, "Rule")))),
+            visibleCount === 0 && (React.createElement(Card, { className: styles.empty },
+                React.createElement(Subtitle2, { as: "h2" }, tab === 'review' ? 'Nothing to review.' : 'No fingerprints match these filters.'),
+                tab === 'review' && (React.createElement(React.Fragment, null,
+                    React.createElement(Text, null, "No fingerprint is below the confidence threshold. You can still check what the LLM accepted."),
+                    counts.acceptedLlm > 0 && (React.createElement(Button, { appearance: "primary", onClick: function () { setTab('accepted'); setExtractedBy('llm'); } },
+                        "Check accepted LLM fingerprints (",
+                        counts.acceptedLlm,
+                        ")")))),
+                tab !== 'review' && extractedBy && React.createElement(Button, { onClick: function () { return setExtractedBy(''); } }, "Show all extraction methods"))),
+            sections.map(function (s) { return (React.createElement(Card, { key: s.signalId || 'none', className: styles.signal },
+                React.createElement("div", { className: styles.signalHead },
+                    s.signalId ? (React.createElement(Link, { as: "button", onClick: function () { return openSignalForm(s.signalId, setNavError); } },
+                        React.createElement(Subtitle2, { as: "h2" }, s.info ? s.info.code : 'Signal'))) : (React.createElement(Subtitle2, { as: "h2" }, "No signal")),
+                    s.info && React.createElement(Text, null, s.info.title),
+                    s.signalId && React.createElement(OpenRegular, { "aria-hidden": "true" })),
+                s.groups.map(function (g) { return (React.createElement("section", { key: g.group, className: styles.group, "aria-label": 'Group ' + g.group },
+                    React.createElement("div", { className: styles.groupHead },
+                        React.createElement(Text, { weight: "semibold" },
+                            "Group ",
+                            g.group),
+                        React.createElement(Caption1, { className: styles.muted }, "All of its accepted facets must match; another group can match instead.")),
+                    g.rows.map(function (f) {
+                        var role = roleOf(bundle.rules, f.facet);
+                        var below = f.confidence !== null && f.confidence < bundle.threshold;
+                        var audit = bundle.audit ? bundle.audit[f.id] : undefined;
+                        var busy = !!inFlight[f.id];
+                        var vocabularyMiss = !bundle.vocabulary.some(function (v) { return v.facet === f.facet && v.value.trim().toLowerCase() === f.value.trim().toLowerCase(); });
+                        return (React.createElement("div", { key: f.id, className: styles.row },
+                            React.createElement("div", { className: styles.rowTop },
+                                React.createElement(Text, { className: styles.facetValue }, (FACET_LABELS[f.facet] || 'Facet') + ': ' + f.value),
+                                React.createElement(Badge, { appearance: "outline", color: "informative" }, role ? ROLE_LABELS[role] : 'no active rule'),
+                                React.createElement(Badge, { appearance: "tint", color: f.status === 'accepted' ? 'success' : f.status === 'rejected' ? 'danger' : 'warning' }, STATUS_LABELS[f.status]),
+                                React.createElement(Caption1, null,
+                                    EXTRACTED_LABELS[f.extractedBy] || 'Unknown',
+                                    f.confidence !== null ? ', confidence ' + f.confidence.toFixed(2) : ''),
+                                below && React.createElement(Badge, { appearance: "filled", color: "warning" }, "Below threshold")),
+                            f.reason && React.createElement(Text, { className: styles.reason }, f.reason),
+                            vocabularyMiss && (React.createElement(Text, { className: styles.warning },
+                                React.createElement(WarningRegular, { "aria-hidden": "true" }),
+                                " Not in the vocabulary, so it can\u2019t match any asset.")),
+                            audit && React.createElement(Caption1, { className: styles.muted },
+                                "Last changed by ",
+                                audit.by || 'unknown',
+                                audit.on ? ' on ' + audit.on : ''),
+                            React.createElement("div", { className: styles.actions },
+                                decisionsFor(f).map(function (d) { return (React.createElement(Button, { key: d, icon: decisionIcon[d], appearance: d === 'accept' ? 'primary' : 'secondary', disabled: busy, "aria-describedby": 'fr-' + f.id + '-' + d, onClick: function () { return decide(f, d); } }, decisionLabel[d])); }),
+                                busy && React.createElement(Spinner, { size: "tiny", label: 'Saving\u2026' })),
+                            decisionsFor(f).map(function (d) { return (React.createElement(Caption1, { key: d, id: 'fr-' + f.id + '-' + d, className: styles.preview },
+                                React.createElement("strong", null,
+                                    decisionLabel[d],
+                                    ":"),
+                                " ",
+                                describe(f, d).text)); })));
+                    }))); }))); }))),
+        React.createElement(Dialog, { open: !!confirm, onOpenChange: function (_, d) { if (!d.open)
+                setConfirm(null); }, modalType: "non-modal" },
+            React.createElement(DialogSurface, { mountNode: mountNode },
+                React.createElement(DialogBody, null,
+                    React.createElement(DialogTitle, null, confirm ? decisionLabel[confirm.decision] + ' ' + (FACET_LABELS[confirm.fingerprint.facet] || '') + ': ' + confirm.fingerprint.value + '?' : ''),
+                    React.createElement(DialogContent, null,
+                        React.createElement(Text, null, confirm ? confirm.text : ''),
+                        React.createElement("br", null),
+                        React.createElement(Caption1, { className: styles.muted }, "Exposures change at the next daily match run (06:00 UTC), not straight away.")),
+                    React.createElement(DialogActions, null,
+                        React.createElement(Button, { appearance: "primary", onClick: function () {
+                                if (confirm)
+                                    commit(confirm.fingerprint, confirm.decision, confirm.text);
+                                setConfirm(null);
+                            } }, confirm ? decisionLabel[confirm.decision] : 'Confirm'),
+                        React.createElement(Button, { onClick: function () { return setConfirm(null); } }, "Cancel")))))));
+}
+var GeneratedComponent = function (props) { return (React.createElement(PageErrorBoundary, null,
+    React.createElement(PageBody, __assign({}, props)))); };
+export default GeneratedComponent;

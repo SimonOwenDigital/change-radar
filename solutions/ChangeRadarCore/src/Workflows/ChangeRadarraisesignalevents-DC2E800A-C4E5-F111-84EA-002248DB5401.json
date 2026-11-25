@@ -1,0 +1,875 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "When_a_signal_version_is_added": {
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "crdr_signalversion",
+              "subscriptionRequest/scope": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "type": "OpenApiConnectionWebhook"
+        }
+      },
+      "actions": {
+        "Signal": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_externalid,crdr_title,crdr_source,crdr_horizon,crdr_summary,crdr_products,crdr_watched,_crdr_watch_value",
+              "entityName": "crdr_signals",
+              "recordId": "@triggerOutputs()?['body/_crdr_signal_value']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Changed": {
+          "type": "Compose",
+          "runAfter": {
+            "Signal": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@toLower(coalesce(triggerOutputs()?['body/crdr_changedfields'], ''))"
+        },
+        "Created_or_updated": {
+          "type": "If",
+          "runAfter": {
+            "Changed": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Changed')",
+              "created"
+            ]
+          },
+          "actions": {
+            "Raise_new_payload": {
+              "type": "Compose",
+              "runAfter": {},
+              "inputs": {
+                "externalId": "@body('Signal')?['crdr_externalid']",
+                "title": "@body('Signal')?['crdr_title']",
+                "source": "@json('{\"169890000\":\"graph_mc\",\"169890001\":\"graph_health\",\"169890002\":\"roadmap\",\"169890003\":\"blog\",\"169890004\":\"community_archive\",\"169890005\":\"manual\",\"169890006\":\"feed\"}')?[string(body('Signal')?['crdr_source'])]",
+                "estate": null,
+                "changedFields": "@outputs('Changed')"
+              }
+            },
+            "Raise_new": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Raise_new_payload": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "crdr_events",
+                  "item/crdr_correlationid": "@if(greater(length(coalesce(concat('signal.new|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), '')), 100), substring(concat('signal.new|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), 0, 100), coalesce(concat('signal.new|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), ''))",
+                  "item/crdr_eventtype": 169890000,
+                  "item/crdr_name": "@if(greater(length(coalesce(concat('signal.new | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), '')), 200), substring(concat('signal.new | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), 0, 200), coalesce(concat('signal.new | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), ''))",
+                  "item/crdr_payloadjson": "@string(outputs('Raise_new_payload'))",
+                  "item/crdr_raisedon": "@utcNow()",
+                  "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', triggerOutputs()?['body/_crdr_signal_value'], ')')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "If_incident_opened": {
+              "type": "If",
+              "runAfter": {
+                "Raise_new": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@and(equals(body('Signal')?['crdr_source'], 169890001), not(equals(body('Signal')?['crdr_horizon'], 169890002)))",
+                  true
+                ]
+              },
+              "actions": {
+                "Raise_opened_payload": {
+                  "type": "Compose",
+                  "runAfter": {},
+                  "inputs": {
+                    "externalId": "@body('Signal')?['crdr_externalid']",
+                    "title": "@body('Signal')?['crdr_title']",
+                    "source": "@json('{\"169890000\":\"graph_mc\",\"169890001\":\"graph_health\",\"169890002\":\"roadmap\",\"169890003\":\"blog\",\"169890004\":\"community_archive\",\"169890005\":\"manual\",\"169890006\":\"feed\"}')?[string(body('Signal')?['crdr_source'])]",
+                    "estate": null,
+                    "changedFields": "@outputs('Changed')"
+                  }
+                },
+                "Raise_opened": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Raise_opened_payload": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "CreateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "crdr_events",
+                      "item/crdr_correlationid": "@if(greater(length(coalesce(concat('incident.opened|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), '')), 100), substring(concat('incident.opened|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), 0, 100), coalesce(concat('incident.opened|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), ''))",
+                      "item/crdr_eventtype": 169890002,
+                      "item/crdr_name": "@if(greater(length(coalesce(concat('incident.opened | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), '')), 200), substring(concat('incident.opened | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), 0, 200), coalesce(concat('incident.opened | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), ''))",
+                      "item/crdr_payloadjson": "@string(outputs('Raise_opened_payload'))",
+                      "item/crdr_raisedon": "@utcNow()",
+                      "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', triggerOutputs()?['body/_crdr_signal_value'], ')')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "If_key_change": {
+                "type": "If",
+                "runAfter": {},
+                "expression": {
+                  "equals": [
+                    "@or(contains(outputs('Changed'), 'title;'), contains(outputs('Changed'), 'key date;'), contains(outputs('Changed'), 'date label;'), contains(outputs('Changed'), 'action required;'))",
+                    true
+                  ]
+                },
+                "actions": {
+                  "Raise_changed_payload": {
+                    "type": "Compose",
+                    "runAfter": {},
+                    "inputs": {
+                      "externalId": "@body('Signal')?['crdr_externalid']",
+                      "title": "@body('Signal')?['crdr_title']",
+                      "source": "@json('{\"169890000\":\"graph_mc\",\"169890001\":\"graph_health\",\"169890002\":\"roadmap\",\"169890003\":\"blog\",\"169890004\":\"community_archive\",\"169890005\":\"manual\",\"169890006\":\"feed\"}')?[string(body('Signal')?['crdr_source'])]",
+                      "estate": null,
+                      "changedFields": "@outputs('Changed')"
+                    }
+                  },
+                  "Raise_changed": {
+                    "type": "OpenApiConnection",
+                    "runAfter": {
+                      "Raise_changed_payload": [
+                        "Succeeded"
+                      ]
+                    },
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "CreateRecord",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "crdr_events",
+                        "item/crdr_correlationid": "@if(greater(length(coalesce(concat('signal.changed|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), '')), 100), substring(concat('signal.changed|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), 0, 100), coalesce(concat('signal.changed|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), ''))",
+                        "item/crdr_eventtype": 169890001,
+                        "item/crdr_name": "@if(greater(length(coalesce(concat('signal.changed | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), '')), 200), substring(concat('signal.changed | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), 0, 200), coalesce(concat('signal.changed | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), ''))",
+                        "item/crdr_payloadjson": "@string(outputs('Raise_changed_payload'))",
+                        "item/crdr_raisedon": "@utcNow()",
+                        "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', triggerOutputs()?['body/_crdr_signal_value'], ')')"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {}
+                }
+              },
+              "If_resolved": {
+                "type": "If",
+                "runAfter": {
+                  "If_key_change": [
+                    "Succeeded"
+                  ]
+                },
+                "expression": {
+                  "equals": [
+                    "@and(equals(body('Signal')?['crdr_source'], 169890001), contains(outputs('Changed'), 'horizon;'), equals(body('Signal')?['crdr_horizon'], 169890002))",
+                    true
+                  ]
+                },
+                "actions": {
+                  "Raise_resolved_payload": {
+                    "type": "Compose",
+                    "runAfter": {},
+                    "inputs": {
+                      "externalId": "@body('Signal')?['crdr_externalid']",
+                      "title": "@body('Signal')?['crdr_title']",
+                      "source": "@json('{\"169890000\":\"graph_mc\",\"169890001\":\"graph_health\",\"169890002\":\"roadmap\",\"169890003\":\"blog\",\"169890004\":\"community_archive\",\"169890005\":\"manual\",\"169890006\":\"feed\"}')?[string(body('Signal')?['crdr_source'])]",
+                      "estate": null,
+                      "changedFields": "@outputs('Changed')"
+                    }
+                  },
+                  "Raise_resolved": {
+                    "type": "OpenApiConnection",
+                    "runAfter": {
+                      "Raise_resolved_payload": [
+                        "Succeeded"
+                      ]
+                    },
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "CreateRecord",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "crdr_events",
+                        "item/crdr_correlationid": "@if(greater(length(coalesce(concat('incident.resolved|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), '')), 100), substring(concat('incident.resolved|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), 0, 100), coalesce(concat('incident.resolved|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), ''))",
+                        "item/crdr_eventtype": 169890003,
+                        "item/crdr_name": "@if(greater(length(coalesce(concat('incident.resolved | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), '')), 200), substring(concat('incident.resolved | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), 0, 200), coalesce(concat('incident.resolved | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title']), ''))",
+                        "item/crdr_payloadjson": "@string(outputs('Raise_resolved_payload'))",
+                        "item/crdr_raisedon": "@utcNow()",
+                        "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', triggerOutputs()?['body/_crdr_signal_value'], ')')"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {}
+                }
+              }
+            }
+          }
+        },
+        "Watch_breaks": {
+          "type": "Compose",
+          "runAfter": {
+            "Created_or_updated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(coalesce(body('Signal')?['crdr_summary'], ''), decodeUriComponent('%0D'), ' '), decodeUriComponent('%0A'), ' '), '</p>', decodeUriComponent('%0A')), '</li>', decodeUriComponent('%0A')), '</div>', decodeUriComponent('%0A')), '</tr>', decodeUriComponent('%0A')), '</h1>', decodeUriComponent('%0A')), '</h2>', decodeUriComponent('%0A')), '</h3>', decodeUriComponent('%0A')), '</h4>', decodeUriComponent('%0A')), '</h5>', decodeUriComponent('%0A')), '</h6>', decodeUriComponent('%0A')), '<br />', decodeUriComponent('%0A')), '<br/>', decodeUriComponent('%0A')), '<br>', decodeUriComponent('%0A')), '<li>', '• ')"
+        },
+        "Watch_parts": {
+          "type": "Select",
+          "runAfter": {
+            "Watch_breaks": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@skip(split(outputs('Watch_breaks'), '<'), 1)",
+            "select": "@if(contains(item(), '>'), join(skip(split(item(), '>'), 1), '>'), concat('<', item()))"
+          }
+        },
+        "Watch_decoded": {
+          "type": "Compose",
+          "runAfter": {
+            "Watch_parts": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(concat(first(split(outputs('Watch_breaks'), '<')), join(body('Watch_parts'), '')), '&nbsp;', ' '), '&lt;', '<'), '&gt;', '>'), '&quot;', '\"'), '&#39;', ''''), '&rsquo;', '’'), '&lsquo;', '‘'), '&ldquo;', '“'), '&rdquo;', '”'), '&mdash;', '—'), '&ndash;', '–'), '&hellip;', '…'), '&#160;', ' '), '&#8216;', '‘'), '&#8217;', '’'), '&#8220;', '“'), '&#8221;', '”'), '&#8211;', '–'), '&#8212;', '—'), '&#8230;', '…'), '&#038;', '&'), '&amp;', '&')"
+        },
+        "Watch_readable": {
+          "type": "Compose",
+          "runAfter": {
+            "Watch_decoded": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(outputs('Watch_decoded'), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), concat(' ', decodeUriComponent('%0A')), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), ' '), decodeUriComponent('%0A')), concat(' ', decodeUriComponent('%0A')), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), ' '), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'))), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'))), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'), decodeUriComponent('%0A')), concat(decodeUriComponent('%0A'), decodeUriComponent('%0A'))))"
+        },
+        "Watch_text": {
+          "type": "Compose",
+          "runAfter": {
+            "Watch_readable": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@concat(' ', trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(toLower(string(concat(coalesce(body('Signal')?['crdr_title'], ''), ' ', outputs('Watch_readable')))), decodeUriComponent('%0D'), ' '), decodeUriComponent('%0A'), ' '), decodeUriComponent('%09'), ' '), decodeUriComponent('%C2%A0'), ' '), '.', ' '), ',', ' '), ';', ' '), ':', ' '), '!', ' '), '?', ' '), '(', ' '), ')', ' '), '[', ' '), ']', ' '), '{', ' '), '}', ' '), '\"', ' '), '''', ' '), '‘', ' '), '’', ' '), '“', ' '), '”', ' '), '/', ' '), '\\', ' '), '|', ' '), '-', ' '), '–', ' '), '—', ' '), '_', ' '), '&', ' '), '+', ' '), '*', ' '), '#', ' '), '@', ' '), '<', ' '), '>', ' '), '=', ' '), '~', ' '), '`', ' '), '^', ' '), '%', ' '), '$', ' '), '…', ' '), '•', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' ')), ' ')"
+        },
+        "Init_watch_text": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Watch_text": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "WatchText",
+                "type": "string",
+                "value": "@outputs('Watch_text')"
+              }
+            ]
+          }
+        },
+        "Init_matched_id": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_watch_text": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "MatchedWatchId",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          }
+        },
+        "Init_matched_name": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_matched_id": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "MatchedWatchName",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          }
+        },
+        "Watches": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Init_matched_name": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$filter": "crdr_active eq true",
+              "$select": "crdr_watchid,crdr_name,crdr_anyof,crdr_alsooneof,crdr_ignorephrases,crdr_products",
+              "entityName": "crdr_watchs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Watch_words": {
+          "type": "Compose",
+          "runAfter": {
+            "Watches": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@concat(if(contains(outputs('Changed'), 'title;'), 'title, ', ''), if(contains(outputs('Changed'), 'horizon;'), 'horizon, ', ''), if(contains(outputs('Changed'), 'date label;'), 'status, ', ''), if(contains(outputs('Changed'), 'action required;'), 'action required, ', ''), if(contains(outputs('Changed'), 'key date;'), 'key date, ', ''))"
+        },
+        "Watch_changes": {
+          "type": "Compose",
+          "runAfter": {
+            "Watch_words": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@if(equals(outputs('Watch_words'), ''), 'wording', substring(outputs('Watch_words'), 0, sub(length(outputs('Watch_words')), 2)))"
+        },
+        "Watch_list": {
+          "type": "If",
+          "runAfter": {
+            "Watch_changes": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@equals(body('Signal')?['crdr_watched'], true)",
+              true
+            ]
+          },
+          "actions": {
+            "If_changed": {
+              "type": "If",
+              "runAfter": {},
+              "expression": {
+                "not": {
+                  "equals": [
+                    "@outputs('Changed')",
+                    "created"
+                  ]
+                }
+              },
+              "actions": {
+                "Raise_watch_updated_payload": {
+                  "type": "Compose",
+                  "runAfter": {},
+                  "inputs": {
+                    "externalId": "@body('Signal')?['crdr_externalid']",
+                    "title": "@body('Signal')?['crdr_title']",
+                    "source": "@json('{\"169890000\":\"graph_mc\",\"169890001\":\"graph_health\",\"169890002\":\"roadmap\",\"169890003\":\"blog\",\"169890004\":\"community_archive\",\"169890005\":\"manual\",\"169890006\":\"feed\"}')?[string(body('Signal')?['crdr_source'])]",
+                    "estate": null,
+                    "changedFields": "@outputs('Changed')",
+                    "changes": "@outputs('Watch_changes')"
+                  }
+                },
+                "Raise_watch_updated": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Raise_watch_updated_payload": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "CreateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "crdr_events",
+                      "item/crdr_correlationid": "@if(greater(length(coalesce(concat('watch.updated|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), '')), 100), substring(concat('watch.updated|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), 0, 100), coalesce(concat('watch.updated|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), ''))",
+                      "item/crdr_eventtype": 169890010,
+                      "item/crdr_name": "@if(greater(length(coalesce(concat('watch.updated | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title'], ' | ', outputs('Watch_changes')), '')), 200), substring(concat('watch.updated | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title'], ' | ', outputs('Watch_changes')), 0, 200), coalesce(concat('watch.updated | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title'], ' | ', outputs('Watch_changes')), ''))",
+                      "item/crdr_payloadjson": "@string(outputs('Raise_watch_updated_payload'))",
+                      "item/crdr_raisedon": "@utcNow()",
+                      "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', triggerOutputs()?['body/_crdr_signal_value'], ')')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "If_never_matched": {
+                "type": "If",
+                "runAfter": {},
+                "expression": {
+                  "equals": [
+                    "@empty(body('Signal')?['_crdr_watch_value'])",
+                    true
+                  ]
+                },
+                "actions": {
+                  "Each_watch": {
+                    "type": "Foreach",
+                    "foreach": "@sort(coalesce(body('Watches')?['value'], json('[]')), 'crdr_name')",
+                    "runAfter": {},
+                    "runtimeConfiguration": {
+                      "concurrency": {
+                        "repetitions": 1
+                      }
+                    },
+                    "actions": {
+                      "If_none_yet": {
+                        "type": "If",
+                        "runAfter": {},
+                        "expression": {
+                          "equals": [
+                            "@variables('MatchedWatchId')",
+                            ""
+                          ]
+                        },
+                        "actions": {
+                          "Reset_text": {
+                            "type": "SetVariable",
+                            "runAfter": {},
+                            "inputs": {
+                              "name": "WatchText",
+                              "value": "@outputs('Watch_text')"
+                            }
+                          },
+                          "Ignore_terms": {
+                            "type": "Select",
+                            "runAfter": {
+                              "Reset_text": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@split(coalesce(items('Each_watch')?['crdr_ignorephrases'], ''), ';')",
+                              "select": "@concat(' ', trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(toLower(string(item())), decodeUriComponent('%0D'), ' '), decodeUriComponent('%0A'), ' '), decodeUriComponent('%09'), ' '), decodeUriComponent('%C2%A0'), ' '), '.', ' '), ',', ' '), ';', ' '), ':', ' '), '!', ' '), '?', ' '), '(', ' '), ')', ' '), '[', ' '), ']', ' '), '{', ' '), '}', ' '), '\"', ' '), '''', ' '), '‘', ' '), '’', ' '), '“', ' '), '”', ' '), '/', ' '), '\\', ' '), '|', ' '), '-', ' '), '–', ' '), '—', ' '), '_', ' '), '&', ' '), '+', ' '), '*', ' '), '#', ' '), '@', ' '), '<', ' '), '>', ' '), '=', ' '), '~', ' '), '`', ' '), '^', ' '), '%', ' '), '$', ' '), '…', ' '), '•', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' ')), ' ')"
+                            }
+                          },
+                          "Ignore_real": {
+                            "type": "Query",
+                            "runAfter": {
+                              "Ignore_terms": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@body('Ignore_terms')",
+                              "where": "@not(equals(trim(item()), ''))"
+                            }
+                          },
+                          "Each_ignore": {
+                            "type": "Foreach",
+                            "foreach": "@body('Ignore_real')",
+                            "runAfter": {
+                              "Ignore_real": [
+                                "Succeeded"
+                              ]
+                            },
+                            "runtimeConfiguration": {
+                              "concurrency": {
+                                "repetitions": 1
+                              }
+                            },
+                            "actions": {
+                              "Strip": {
+                                "type": "Compose",
+                                "runAfter": {},
+                                "inputs": "@replace(variables('WatchText'), items('Each_ignore'), ' ')"
+                              },
+                              "Set_text": {
+                                "type": "SetVariable",
+                                "runAfter": {
+                                  "Strip": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "inputs": {
+                                  "name": "WatchText",
+                                  "value": "@outputs('Strip')"
+                                }
+                              }
+                            }
+                          },
+                          "Any_terms": {
+                            "type": "Select",
+                            "runAfter": {
+                              "Each_ignore": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@split(coalesce(items('Each_watch')?['crdr_anyof'], ''), ';')",
+                              "select": "@concat(' ', trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(toLower(string(item())), decodeUriComponent('%0D'), ' '), decodeUriComponent('%0A'), ' '), decodeUriComponent('%09'), ' '), decodeUriComponent('%C2%A0'), ' '), '.', ' '), ',', ' '), ';', ' '), ':', ' '), '!', ' '), '?', ' '), '(', ' '), ')', ' '), '[', ' '), ']', ' '), '{', ' '), '}', ' '), '\"', ' '), '''', ' '), '‘', ' '), '’', ' '), '“', ' '), '”', ' '), '/', ' '), '\\', ' '), '|', ' '), '-', ' '), '–', ' '), '—', ' '), '_', ' '), '&', ' '), '+', ' '), '*', ' '), '#', ' '), '@', ' '), '<', ' '), '>', ' '), '=', ' '), '~', ' '), '`', ' '), '^', ' '), '%', ' '), '$', ' '), '…', ' '), '•', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' ')), ' ')"
+                            }
+                          },
+                          "Any_real": {
+                            "type": "Query",
+                            "runAfter": {
+                              "Any_terms": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@body('Any_terms')",
+                              "where": "@not(equals(trim(item()), ''))"
+                            }
+                          },
+                          "Any_hits": {
+                            "type": "Query",
+                            "runAfter": {
+                              "Any_real": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@body('Any_real')",
+                              "where": "@contains(variables('WatchText'), item())"
+                            }
+                          },
+                          "Also_terms": {
+                            "type": "Select",
+                            "runAfter": {
+                              "Any_hits": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@split(coalesce(items('Each_watch')?['crdr_alsooneof'], ''), ';')",
+                              "select": "@concat(' ', trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(toLower(string(item())), decodeUriComponent('%0D'), ' '), decodeUriComponent('%0A'), ' '), decodeUriComponent('%09'), ' '), decodeUriComponent('%C2%A0'), ' '), '.', ' '), ',', ' '), ';', ' '), ':', ' '), '!', ' '), '?', ' '), '(', ' '), ')', ' '), '[', ' '), ']', ' '), '{', ' '), '}', ' '), '\"', ' '), '''', ' '), '‘', ' '), '’', ' '), '“', ' '), '”', ' '), '/', ' '), '\\', ' '), '|', ' '), '-', ' '), '–', ' '), '—', ' '), '_', ' '), '&', ' '), '+', ' '), '*', ' '), '#', ' '), '@', ' '), '<', ' '), '>', ' '), '=', ' '), '~', ' '), '`', ' '), '^', ' '), '%', ' '), '$', ' '), '…', ' '), '•', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' '), '  ', ' ')), ' ')"
+                            }
+                          },
+                          "Also_real": {
+                            "type": "Query",
+                            "runAfter": {
+                              "Also_terms": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@body('Also_terms')",
+                              "where": "@not(equals(trim(item()), ''))"
+                            }
+                          },
+                          "Also_hits": {
+                            "type": "Query",
+                            "runAfter": {
+                              "Also_real": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@body('Also_real')",
+                              "where": "@contains(variables('WatchText'), item())"
+                            }
+                          },
+                          "Product_terms": {
+                            "type": "Select",
+                            "runAfter": {
+                              "Also_hits": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@split(coalesce(items('Each_watch')?['crdr_products'], ''), ';')",
+                              "select": "@toLower(trim(item()))"
+                            }
+                          },
+                          "Product_real": {
+                            "type": "Query",
+                            "runAfter": {
+                              "Product_terms": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@body('Product_terms')",
+                              "where": "@not(equals(item(), ''))"
+                            }
+                          },
+                          "Product_hits": {
+                            "type": "Query",
+                            "runAfter": {
+                              "Product_real": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "from": "@body('Product_real')",
+                              "where": "@contains(toLower(coalesce(body('Signal')?['crdr_products'], '')), item())"
+                            }
+                          },
+                          "If_match": {
+                            "type": "If",
+                            "runAfter": {
+                              "Product_hits": [
+                                "Succeeded"
+                              ]
+                            },
+                            "expression": {
+                              "and": [
+                                {
+                                  "greater": [
+                                    "@length(body('Any_hits'))",
+                                    0
+                                  ]
+                                },
+                                {
+                                  "equals": [
+                                    "@or(equals(length(body('Also_real')), 0), greater(length(body('Also_hits')), 0))",
+                                    true
+                                  ]
+                                },
+                                {
+                                  "equals": [
+                                    "@or(equals(length(body('Product_real')), 0), greater(length(body('Product_hits')), 0))",
+                                    true
+                                  ]
+                                }
+                              ]
+                            },
+                            "actions": {
+                              "Set_matched_id": {
+                                "type": "SetVariable",
+                                "runAfter": {},
+                                "inputs": {
+                                  "name": "MatchedWatchId",
+                                  "value": "@items('Each_watch')?['crdr_watchid']"
+                                }
+                              },
+                              "Set_matched_name": {
+                                "type": "SetVariable",
+                                "runAfter": {
+                                  "Set_matched_id": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "inputs": {
+                                  "name": "MatchedWatchName",
+                                  "value": "@items('Each_watch')?['crdr_name']"
+                                }
+                              }
+                            },
+                            "else": {
+                              "actions": {}
+                            }
+                          }
+                        },
+                        "else": {
+                          "actions": {}
+                        }
+                      }
+                    }
+                  },
+                  "If_matched": {
+                    "type": "If",
+                    "runAfter": {
+                      "Each_watch": [
+                        "Succeeded"
+                      ]
+                    },
+                    "expression": {
+                      "not": {
+                        "equals": [
+                          "@variables('MatchedWatchId')",
+                          ""
+                        ]
+                      }
+                    },
+                    "actions": {
+                      "Mark_watched": {
+                        "type": "OpenApiConnection",
+                        "runAfter": {},
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "crdr_signals",
+                            "item/crdr_watch@odata.bind": "@concat('/crdr_watchs(', variables('MatchedWatchId'), ')')",
+                            "item/crdr_watched": true,
+                            "item/crdr_watchedon": "@utcNow()",
+                            "recordId": "@triggerOutputs()?['body/_crdr_signal_value']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      },
+                      "Raise_watch_matched_payload": {
+                        "type": "Compose",
+                        "runAfter": {
+                          "Mark_watched": [
+                            "Succeeded"
+                          ]
+                        },
+                        "inputs": {
+                          "externalId": "@body('Signal')?['crdr_externalid']",
+                          "title": "@body('Signal')?['crdr_title']",
+                          "source": "@json('{\"169890000\":\"graph_mc\",\"169890001\":\"graph_health\",\"169890002\":\"roadmap\",\"169890003\":\"blog\",\"169890004\":\"community_archive\",\"169890005\":\"manual\",\"169890006\":\"feed\"}')?[string(body('Signal')?['crdr_source'])]",
+                          "estate": null,
+                          "changedFields": "@outputs('Changed')",
+                          "watchName": "@variables('MatchedWatchName')",
+                          "watchId": "@variables('MatchedWatchId')"
+                        }
+                      },
+                      "Raise_watch_matched": {
+                        "type": "OpenApiConnection",
+                        "runAfter": {
+                          "Raise_watch_matched_payload": [
+                            "Succeeded"
+                          ]
+                        },
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "crdr_events",
+                            "item/crdr_correlationid": "@if(greater(length(coalesce(concat('watch.matched|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), '')), 100), substring(concat('watch.matched|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), 0, 100), coalesce(concat('watch.matched|', triggerOutputs()?['body/_crdr_signal_value'], '|', triggerOutputs()?['body/crdr_signalversionid']), ''))",
+                            "item/crdr_eventtype": 169890009,
+                            "item/crdr_name": "@if(greater(length(coalesce(concat('watch.matched | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title'], ' | ', variables('MatchedWatchName')), '')), 200), substring(concat('watch.matched | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title'], ' | ', variables('MatchedWatchName')), 0, 200), coalesce(concat('watch.matched | ', body('Signal')?['crdr_externalid'], ' | ', body('Signal')?['crdr_title'], ' | ', variables('MatchedWatchName')), ''))",
+                            "item/crdr_payloadjson": "@string(outputs('Raise_watch_matched_payload'))",
+                            "item/crdr_raisedon": "@utcNow()",
+                            "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', triggerOutputs()?['body/_crdr_signal_value'], ')')"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      }
+                    },
+                    "else": {
+                      "actions": {}
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "description": "Change Radar: raise signal.new, incident.opened, signal.changed and incident.resolved events from new signal version rows (ADR 0011), and the watch list events watch.matched and watch.updated (ADR 0015)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

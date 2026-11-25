@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{b1487bcc-0a3a-451e-a7ec-4e07a6b503d5}</savedqueryid>
+    <layoutxml>
+      <grid name="crdr_signalfingerprints" jump="crdr_name" select="1" icon="1" preview="1">
+        <row name="crdr_signalfingerprint" id="crdr_signalfingerprintid">
+          <cell name="crdr_name" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="crdr_signalfingerprint">
+          <attribute name="crdr_signalfingerprintid" />
+          <attribute name="crdr_name" />
+          <attribute name="createdon" />
+          <order attribute="crdr_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Signal fingerprint Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

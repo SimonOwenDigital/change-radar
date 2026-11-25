@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{af08b354-78e5-f111-84ea-002248db5401}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="crdr_name" select="1" icon="1" preview="1">
+        <row name="result" id="crdr_signalfingerprintid">
+          <cell name="crdr_name" width="240" />
+          <cell name="sig.crdr_externalid" width="110" />
+          <cell name="crdr_signal" width="280" />
+          <cell name="crdr_group" width="60" />
+          <cell name="crdr_extractedby" width="90" />
+          <cell name="crdr_confidence" width="90" />
+          <cell name="crdr_status" width="90" />
+          <cell name="crdr_reason" width="400" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="crdr_signalfingerprint">
+          <attribute name="crdr_name" />
+          <attribute name="crdr_signal" />
+          <attribute name="crdr_group" />
+          <attribute name="crdr_extractedby" />
+          <attribute name="crdr_confidence" />
+          <attribute name="crdr_status" />
+          <attribute name="crdr_reason" />
+          <link-entity name="crdr_signal" from="crdr_signalid" to="crdr_signal" link-type="outer" alias="sig">
+            <attribute name="crdr_externalid" />
+          </link-entity>
+          <attribute name="crdr_signalfingerprintid" />
+          <order attribute="crdr_group" descending="false" />
+          <order attribute="crdr_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>0.1.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Signal fingerprints" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Every signal fingerprint: LLM and manual, accepted, in review and rejected." languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

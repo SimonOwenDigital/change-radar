@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{36201ff0-ade5-f111-84ea-002248db5401}</WebResourceId>
+  <Name>crdr_/scripts/assessment.js</Name>
+  <DisplayName>Change Radar assessment form</DisplayName>
+  <WebResourceType>3</WebResourceType>
+  <IntroducedVersion>0.1.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/crdr_scriptsassessmentjs36201FF0-ADE5-F111-84EA-002248DB5401</FileName>
+</WebResource>

@@ -1,0 +1,5 @@
+match,value,theme,nature,description
+source,graph_health,Service incidents,,"Every service health incident or advisory (ADR 0012 addendum, 2026-11-22)"
+feed,ML-CS,AI models and lifecycle,breaking,"Copilot Studio model retirements, standard harness: only agents on the GPT Chat Latest alias or in a managed solution move automatically (ADR 0013)"
+feed,ML-CSM,AI models and lifecycle,behaviour_change,"Copilot Studio model lifecycle, Microsoft Copilot harness: agents move to the replacement model (ADR 0013)"
+feed,ML-PR,AI models and lifecycle,behaviour_change,"Prompt model retirements: prompts move to the tier's replacement automatically (ADR 0013)"

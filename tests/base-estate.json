@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.2",
+  "meta": {
+    "source": "fixture",
+    "syntheticOrg": "Test Fixture Org (synthetic)",
+    "profile": "unit-test-base",
+    "asOf": "2026-11-18T00:00:00Z",
+    "notice": "Hand-written test fixture. Not real data."
+  },
+  "environments": [
+    { "name": "env-prod", "type": "microsoft.powerplatform/environments",
+      "properties": { "displayName": "Fixture Production", "environmentType": "Production", "isDefault": false, "isManaged": true } },
+    { "name": "env-dev", "type": "microsoft.powerplatform/environments",
+      "properties": { "displayName": "Fixture Developer", "environmentType": "Developer", "isDefault": false, "isManaged": false } },
+    { "name": "env-default", "type": "microsoft.powerplatform/environments",
+      "properties": { "displayName": "Fixture (default)", "environmentType": "Default", "isDefault": true, "isManaged": false } },
+    { "name": "env-sandbox", "type": "microsoft.powerplatform/environments",
+      "properties": { "displayName": "Fixture Sandbox", "environmentType": "Sandbox", "isDefault": false, "isManaged": true } }
+  ],
+  "principals": [
+    { "id": "usr-maker-a", "kind": "user", "displayName": "Fixture Maker A", "department": "Finance", "accountEnabled": true },
+    { "id": "usr-maker-b", "kind": "user", "displayName": "Fixture Maker B", "department": "Operations", "accountEnabled": true },
+    { "id": "spn-ops", "kind": "servicePrincipal", "displayName": "Fixture automation identity", "department": null, "accountEnabled": true }
+  ],
+  "inventory": [],
+  "codeComponents": [],
+  "connectorDefinitions": [],
+  "agentKit": [],
+  "flowActivity": [],
+  "tenantSettings": []
+}

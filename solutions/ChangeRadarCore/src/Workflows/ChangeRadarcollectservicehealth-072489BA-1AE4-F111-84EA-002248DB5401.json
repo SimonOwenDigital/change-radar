@@ -1,0 +1,500 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 15
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_services": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'graph_services')"
+          }
+        },
+        "Config_now_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_now_days')"
+          }
+        },
+        "Config_imminent_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_imminent_days')"
+          }
+        },
+        "Config_recent_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_recent_days')"
+          }
+        },
+        "Collect": {
+          "type": "Scope",
+          "runAfter": {
+            "Config_services": [
+              "Succeeded"
+            ],
+            "Config_now_days": [
+              "Succeeded"
+            ],
+            "Config_imminent_days": [
+              "Succeeded"
+            ],
+            "Config_recent_days": [
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Get_certificate": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "RetrieveEnvironmentVariableSecretValue",
+                  "item/EnvironmentVariableName": "crdr_readercertificate"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "secureData": {
+                  "properties": [
+                    "inputs",
+                    "outputs"
+                  ]
+                }
+              }
+            },
+            "Get_items": {
+              "type": "Http",
+              "runAfter": {
+                "Get_certificate": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "method": "GET",
+                "uri": "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues",
+                "authentication": {
+                  "type": "ActiveDirectoryOAuth",
+                  "authority": "https://login.microsoftonline.com",
+                  "tenant": "@parameters('Tenant ID (crdr_tenantid)')",
+                  "audience": "https://graph.microsoft.com",
+                  "clientId": "@parameters('Reader client ID (crdr_readerclientid)')",
+                  "pfx": "@body('Get_certificate')?['EnvironmentVariableSecretValue']",
+                  "password": "@string('')"
+                }
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                },
+                "secureData": {
+                  "properties": [
+                    "inputs"
+                  ]
+                }
+              }
+            },
+            "Services": {
+              "type": "Compose",
+              "runAfter": {
+                "Get_items": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@split(coalesce(first(body('Config_services'))?['crdr_value'], ''), ';')"
+            },
+            "In_scope": {
+              "type": "Query",
+              "runAfter": {
+                "Services": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Get_items')?['value']",
+                "where": "@contains(outputs('Services'), item()?['service'])"
+              }
+            },
+            "Shape": {
+              "type": "Select",
+              "runAfter": {
+                "In_scope": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('In_scope')",
+                "select": {
+                  "actionrequired": false,
+                  "datelabel": "@if(greater(length(coalesce(concat(item()?['classification'], ' · ', item()?['status']), '')), 100), substring(concat(item()?['classification'], ' · ', item()?['status']), 0, 100), coalesce(concat(item()?['classification'], ' · ', item()?['status']), ''))",
+                  "externalid": "@item()?['id']",
+                  "horizon": "@if(equals(item()?['isResolved'], true), 169890002, 169890000)",
+                  "key": "@concat(item()?['id'], '|', if(empty(item()?['lastModifiedDateTime']), '', formatDateTime(item()?['lastModifiedDateTime'], 'yyyy-MM-ddTHH:mm:ss')))",
+                  "keydate": "@item()?['startDateTime']",
+                  "lastchanged": "@item()?['lastModifiedDateTime']",
+                  "products": "@if(greater(length(coalesce(item()?['service'], '')), 400), substring(item()?['service'], 0, 400), coalesce(item()?['service'], ''))",
+                  "snapshot": "@if(greater(length(string(item())), 100000), substring(string(item()), 0, 100000), string(item()))",
+                  "summary": "@if(greater(length(coalesce(item()?['impactDescription'], '')), 20000), substring(item()?['impactDescription'], 0, 20000), coalesce(item()?['impactDescription'], ''))",
+                  "title": "@if(greater(length(coalesce(item()?['title'], '')), 400), substring(item()?['title'], 0, 400), coalesce(item()?['title'], ''))",
+                  "url": "@concat('https://admin.microsoft.com/#/servicehealth/:/alerts/', item()?['id'])"
+                }
+              }
+            },
+            "List_existing": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Shape": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_source eq 169890001",
+                  "$select": "crdr_signalid,crdr_externalid,crdr_lastchanged,crdr_title,crdr_keydate,crdr_datelabel,crdr_horizon,crdr_actionrequired",
+                  "entityName": "crdr_signals"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "Existing_keys": {
+              "type": "Select",
+              "runAfter": {
+                "List_existing": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('List_existing')?['value']",
+                "select": "@concat(item()?['crdr_externalid'], '|', if(empty(item()?['crdr_lastchanged']), '', formatDateTime(item()?['crdr_lastchanged'], 'yyyy-MM-ddTHH:mm:ss')))"
+              }
+            },
+            "Changed": {
+              "type": "Query",
+              "runAfter": {
+                "Existing_keys": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Shape')",
+                "where": "@not(contains(body('Existing_keys'), item()?['key']))"
+              }
+            },
+            "Upsert": {
+              "type": "Foreach",
+              "foreach": "@body('Changed')",
+              "runAfter": {
+                "Changed": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 10
+                }
+              },
+              "actions": {
+                "Find_existing": {
+                  "type": "Query",
+                  "runAfter": {},
+                  "inputs": {
+                    "from": "@body('List_existing')?['value']",
+                    "where": "@equals(item()?['crdr_externalid'], items('Upsert')?['externalid'])"
+                  }
+                },
+                "Is_new": {
+                  "type": "If",
+                  "runAfter": {
+                    "Find_existing": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@empty(body('Find_existing'))",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Create_signal": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signals",
+                          "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                          "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                          "item/crdr_externalid": "@items('Upsert')?['externalid']",
+                          "item/crdr_firstseen": "@utcNow()",
+                          "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                          "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                          "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                          "item/crdr_products": "@items('Upsert')?['products']",
+                          "item/crdr_source": 169890001,
+                          "item/crdr_summary": "@items('Upsert')?['summary']",
+                          "item/crdr_title": "@items('Upsert')?['title']",
+                          "item/crdr_url": "@items('Upsert')?['url']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Create_version": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {
+                        "Create_signal": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signalversions",
+                          "item/crdr_capturedon": "@utcNow()",
+                          "item/crdr_changedfields": "created",
+                          "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                          "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', body('Create_signal')?['crdr_signalid'], ')')",
+                          "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Update_signal": {
+                        "type": "OpenApiConnection",
+                        "runAfter": {},
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "crdr_signals",
+                            "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                            "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                            "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                            "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                            "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                            "item/crdr_products": "@items('Upsert')?['products']",
+                            "item/crdr_summary": "@items('Upsert')?['summary']",
+                            "item/crdr_title": "@items('Upsert')?['title']",
+                            "item/crdr_url": "@items('Upsert')?['url']",
+                            "recordId": "@first(body('Find_existing'))?['crdr_signalid']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      },
+                      "Update_version": {
+                        "type": "OpenApiConnection",
+                        "runAfter": {
+                          "Update_signal": [
+                            "Succeeded"
+                          ]
+                        },
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "crdr_signalversions",
+                            "item/crdr_capturedon": "@utcNow()",
+                            "item/crdr_changedfields": "@concat(if(equals(first(body('Find_existing'))?['crdr_title'], items('Upsert')?['title']), '', 'title; '), if(equals(first(body('Find_existing'))?['crdr_horizon'], items('Upsert')?['horizon']), '', 'horizon; '), if(equals(coalesce(first(body('Find_existing'))?['crdr_datelabel'], ''), items('Upsert')?['datelabel']), '', 'date label; '), if(equals(first(body('Find_existing'))?['crdr_actionrequired'], items('Upsert')?['actionrequired']), '', 'action required; '), if(equals(if(empty(first(body('Find_existing'))?['crdr_keydate']), '', formatDateTime(first(body('Find_existing'))?['crdr_keydate'], 'yyyy-MM-ddTHH:mm:ss')), if(empty(items('Upsert')?['keydate']), '', formatDateTime(items('Upsert')?['keydate'], 'yyyy-MM-ddTHH:mm:ss'))), '', 'key date; '), 'last modified')",
+                            "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                            "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', first(body('Find_existing'))?['crdr_signalid'], ')')",
+                            "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Record_run": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Collect": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_collectionruns",
+              "item/crdr_accesstier": "@if(equals(actions('Get_items')?['status'], 'Succeeded'), 169890000, 169890003)",
+              "item/crdr_collector": "service-health",
+              "item/crdr_gaps": "@if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat('Get_items ', coalesce(actions('Get_items')?['status'], 'not run'), ' HTTP ', string(coalesce(outputs('Get_items')?['statusCode'], '-')), '. ', string(coalesce(outputs('Get_items')?['body']?['error']?['message'], '')), ' Collect scope: ', actions('Collect')?['status']))",
+              "item/crdr_itemcount": "@length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))",
+              "item/crdr_name": "@concat('service-health ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), ': fetched ', string(length(coalesce(body('Get_items')?['value'], json('[]')))), ', in scope ', string(length(coalesce(actions('In_scope')?['outputs']?['body'], json('[]')))), ', new or changed ', string(length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))))",
+              "item/crdr_startedon": "@trigger()?['startTime']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Fail_if_collect_failed": {
+          "type": "If",
+          "runAfter": {
+            "Record_run": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@actions('Collect')?['status']",
+                "Succeeded"
+              ]
+            }
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "CollectFailed",
+                  "message": "@{coalesce(string(outputs('Get_items')?['body']?['error']?['message']), 'See the Collect scope')}"
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: collect Graph service health issues for the services in crdr_config graph_services."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

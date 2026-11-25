@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<!-- Trimmed copy of a public Microsoft Learn page (headings and tables only), saved 2026-11-22 for spike T9 / ADR 0013 tests. Source: https://learn.microsoft.com/en-us/... authoring-select-agent-model -->
+<html><head>
+<meta name="updated_at" content="2026-11-20T07:04:00Z" />
+<meta name="git_commit_id" content="5d702e92ba61a4756d3656e743bf5a04d53eae79" />
+</head><body>
+<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				In this article
+			</h2>
+<h2 id="model-availability-by-region">Model availability by region</h2>
+<h3 id="standard-harness-availability">Standard harness availability</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Tag/Category</th>
+<th>Asia</th>
+<th>Australia</th>
+<th>Brazil</th>
+<th>Canada</th>
+<th>Europe (Except UK)</th>
+<th>India</th>
+<th>Japan</th>
+<th>Korea</th>
+<th>Saudi Arabia</th>
+<th>Singapore</th>
+<th>South Africa</th>
+<th>United Kingdom</th>
+<th>United States</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT Chat Latest</td>
+<td>General</td>
+<td>Default (cross-geo)</td>
+<td>Default</td>
+<td>Default (cross-geo)</td>
+<td>Default (cross-geo)</td>
+<td>Default</td>
+<td>Default (cross-geo)</td>
+<td>Default (cross-geo)</td>
+<td>Default (cross-geo)</td>
+<td>Default (cross-geo)</td>
+<td>Default (cross-geo)</td>
+<td>Default (cross-geo)</td>
+<td>Default</td>
+<td>Default</td>
+</tr>
+<tr>
+<td>GPT-4.1</td>
+<td>General</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>GPT-5 Chat</td>
+<td>General</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>GPT-5 Reasoning</td>
+<td>Deep</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview</td>
+</tr>
+<tr>
+<td>GPT-5 Auto</td>
+<td>Auto</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview</td>
+</tr>
+<tr>
+<td>GPT-5.3 Chat</td>
+<td>General</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview (cross-geo)</td>
+<td>Preview</td>
+</tr>
+<tr>
+<td>GPT-5.5 Chat</td>
+<td>General</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>General</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>Claude Opus 4.6</td>
+<td>Deep</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>Claude Opus 4.7</td>
+<td>Deep</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>Claude Opus 4.8</td>
+<td>Deep</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>Grok 4.2</td>
+<td>Deep</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Experimental (early access environment)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="us-government-availability">US Government availability</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Government Community Cloud (GCC)</th>
+<th>Government Community Cloud - High (GCC High)</th>
+<th>Department of Defense (DoD)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-4o</td>
+<td>Default</td>
+<td>Default</td>
+<td>Default</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-use-categories">Model use categories</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tag</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Strengths</th>
+<th style="text-align: left;">Latency</th>
+<th style="text-align: left;">Cost</th>
+<th style="text-align: left;">Reasoning depth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Deep</td>
+<td style="text-align: left;">Optimized for deliberate, multistep reasoning and tool-supported workflows.</td>
+<td style="text-align: left;">Complex analytics, multistep reasoning, policy and contract analysis, troubleshooting with multi-system steps, and synthesis of long documents with citations</td>
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Multistep, tool-rich</td>
+</tr>
+<tr>
+<td style="text-align: left;">Auto</td>
+<td style="text-align: left;">Optimized for coverage across mixed workloads; routes queries dynamically.</td>
+<td style="text-align: left;">Helpdesk and employee agents with mixed intents, blending knowledge and actions, and tier-0 customer support with unpredictable complexity</td>
+<td style="text-align: left;">Variable</td>
+<td style="text-align: left;">Variable</td>
+<td style="text-align: left;">Adaptive per turn</td>
+</tr>
+<tr>
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">Optimized for speed and cost on everyday chat and light grounding.</td>
+<td style="text-align: left;">Drafting, rewriting, summarizing, and translation, FAQ-style grounded answers, and simple action automation</td>
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Shallow-to-moderate</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-release-types">Model release types</h3>
+<h3 id="external-models">External models</h3>
+<h2 id="model-retirement-dates-and-extension-availability">Model retirement dates and extension availability</h2>
+<table>
+<thead>
+<tr>
+<th>Retiring model</th>
+<th>Harness</th>
+<th>Planned replacement</th>
+<th>Retirement date</th>
+<th>Extension available (up to 30 days)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-5.3 Chat</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>October 15, 2026</td>
+<td>Yes (<a href="authoring-retired-model" data-linktype="relative-path">Continue using a retired AI model</a>)</td>
+</tr>
+<tr>
+<td>GPT-5.4 Reasoning</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>October 15, 2026</td>
+<td>Yes (<a href="authoring-retired-model" data-linktype="relative-path">Continue using a retired AI model</a>)</td>
+</tr>
+<tr>
+<td>GPT-5.5 Chat</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>October 31, 2026</td>
+<td>No</td>
+</tr>
+<tr>
+<td>GPT-4.1</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>November 12, 2026</td>
+<td>Yes (<a href="authoring-retired-model" data-linktype="relative-path">Continue using a retired AI model</a>)</td>
+</tr>
+<tr>
+<td>GPT-4.1 Mini</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>November 12, 2026</td>
+<td>Yes (<a href="authoring-retired-model" data-linktype="relative-path">Continue using a retired AI model</a>)</td>
+</tr>
+<tr>
+<td>GPT-5 Chat</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>November 12, 2026</td>
+<td>Yes (<a href="authoring-retired-model" data-linktype="relative-path">Continue using a retired AI model</a>)</td>
+</tr>
+<tr>
+<td>GPT-5 Auto</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>November 12, 2026</td>
+<td>Yes (<a href="authoring-retired-model" data-linktype="relative-path">Continue using a retired AI model</a>)</td>
+</tr>
+<tr>
+<td>GPT-5 Reasoning</td>
+<td>Standard</td>
+<td>GPT Chat Latest</td>
+<td>November 12, 2026</td>
+<td>Yes (<a href="authoring-retired-model" data-linktype="relative-path">Continue using a retired AI model</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="limitations-of-experimental-and-preview-models">Limitations of experimental and preview models</h2>
+<h2 id="change-your-agents-ai-model">Change your agent's AI model</h2>
+<h2 id="admin-controls-for-ai-model-selection">Admin controls for AI model selection</h2>
+<h3 id="admin-controls-and-requirements-for-external-models">Admin controls and requirements for external models</h3>
+<h2 id="ms--feedback" class="title is-3">Feedback</h2>
+<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Additional resources
+			</h2>
+<h3>In this article</h3>
+</body></html>

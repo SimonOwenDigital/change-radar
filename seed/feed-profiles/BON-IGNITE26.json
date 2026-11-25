@@ -1,0 +1,36 @@
+{
+  "marker": "dateModified",
+  "contentStart": "<main",
+  "contentEnd": "</main>",
+  "unit": "leaf",
+  "minChars": 300,
+  "skipTitles": [
+    "Try Instant Summaries",
+    "Book of News",
+    "Introduction",
+    "What is the Book of News?"
+  ],
+  "scopeHead": [
+    "copilot",
+    "agent 365",
+    "power platform",
+    "power apps",
+    "power automate",
+    "power bi",
+    "dataverse",
+    "dynamics 365"
+  ],
+  "scopeBody": [
+    "copilot studio",
+    "power platform",
+    "power apps",
+    "power automate",
+    "dataverse",
+    "ai builder",
+    "power pages"
+  ],
+  "idFrom": "title",
+  "keydate": "2026-11-17",
+  "label": "Ignite 2026 announcement",
+  "confidenceLabel": "announcement"
+}

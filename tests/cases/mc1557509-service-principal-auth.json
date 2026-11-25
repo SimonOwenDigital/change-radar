@@ -1,0 +1,50 @@
+{
+  "id": "mc1557509-service-principal-auth",
+  "workedExample": "spec §5 row 2",
+  "signal": {
+    "id": "MC1557509",
+    "source": "graph_mc",
+    "title": "Copilot Studio workflows: service principal authentication",
+    "fingerprint": [
+      { "group": "A", "facet": "product", "value": "Copilot Studio", "confidence": 0.95, "extractedBy": "manual" },
+      { "group": "A", "facet": "auth_mode", "value": "user_owned_production", "confidence": 0.8, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "af-user-prod", "type": "microsoft.powerautomate/agentflows", "location": "europe",
+        "properties": { "displayName": "Approve supplier onboarding", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "trigger": { "connectorId": "shared_microsoftcopilotstudio", "operationId": "OnAgentInvoke" },
+          "powerPlatformConnectors": [ { "connectorId": "shared_commondataserviceforapps", "operations": [ { "operationId": "CreateRecord" } ] } ] } },
+      { "name": "af-user-dev", "type": "microsoft.powerautomate/agentflows", "location": "europe",
+        "properties": { "displayName": "Approve supplier onboarding (dev copy)", "environmentId": "env-dev", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "trigger": { "connectorId": "shared_microsoftcopilotstudio", "operationId": "OnAgentInvoke" }, "powerPlatformConnectors": [] } },
+      { "name": "af-spn-prod", "type": "microsoft.powerautomate/agentflows", "location": "europe",
+        "properties": { "displayName": "Ticket triage", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "spn-ops",
+          "trigger": { "connectorId": "shared_microsoftcopilotstudio", "operationId": "OnAgentInvoke" }, "powerPlatformConnectors": [] } },
+      { "name": "cf-user-prod", "type": "microsoft.powerautomate/cloudflows", "location": "europe",
+        "properties": { "displayName": "Weekly sales export", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "trigger": { "connectorId": "", "operationId": "Recurrence" }, "powerPlatformConnectors": [] } },
+      { "name": "af-user-default", "type": "microsoft.powerautomate/agentflows", "location": "europe",
+        "properties": { "displayName": "Personal helper", "environmentId": "env-default", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "trigger": { "connectorId": "shared_microsoftcopilotstudio", "operationId": "OnAgentInvoke" }, "powerPlatformConnectors": [] } }
+    ]
+  },
+  "cases": [
+    { "id": "spauth-01", "kind": "positive", "assetId": "af-user-prod",
+      "description": "Agent flow in production owned by a named user",
+      "expect": { "match": true, "matchedFacets": ["auth_mode", "product"] } },
+    { "id": "spauth-02", "kind": "near_miss", "assetId": "af-user-dev",
+      "description": "The same, in a developer environment (spec §15.2 example)",
+      "expect": { "match": false } },
+    { "id": "spauth-03", "kind": "near_miss", "assetId": "af-spn-prod",
+      "description": "Production agent flow already owned by a service principal",
+      "expect": { "match": false } },
+    { "id": "spauth-04", "kind": "near_miss", "assetId": "cf-user-prod",
+      "description": "User-owned production cloud flow: Power Automate, not Copilot Studio (QUESTIONS Q7)",
+      "expect": { "match": false } },
+    { "id": "spauth-05", "kind": "near_miss", "assetId": "af-user-default",
+      "description": "User-owned agent flow in the default environment",
+      "expect": { "match": false } }
+  ]
+}

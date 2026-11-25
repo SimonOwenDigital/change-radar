@@ -1,0 +1,24 @@
+{
+  "description": "Display labels for cards and the weekly digest (phase 6 polish, ADR 0011 polish list). Asset label: a Copilot-created flow's generated name OAI_<guid>_<Name>_... shows as '<Name> (created by Copilot)'; any other name is unchanged. Digest line: the event name 'type | part | part ...' without its type, parts joined by ' · '; in assessment.rated lines the source and rating are capitalised (matching the cards); in exposure.found lines the asset name gets the asset label.",
+  "assetLabel": [
+    { "id": "label-01", "name": "OAI_833cbcf1-a9f4-4abb-a27c-3e2ccfdac44b_MemoryAgent_OfficeAgent-Undefined_aud-Microsoft", "expected": "MemoryAgent (created by Copilot)" },
+    { "id": "label-02", "name": "OAI_833CBCF1-A9F4-4ABB-A27C-3E2CCFDAC44B_Inbox-Triage", "expected": "Inbox-Triage (created by Copilot)" },
+    { "id": "label-03", "name": "OAI_833cbcf1-a9f4-4abb-a27c-3e2ccfdac44b_", "expected": "Flow created by Copilot" },
+    { "id": "label-04", "name": "OAI_833cbcf1-a9f4-4abb-a27c-3e2ccfdac44b", "expected": "Flow created by Copilot" },
+    { "id": "label-05", "name": "OAI_not-a-guid_Something", "expected": "OAI_not-a-guid_Something", "note": "no GUID: left alone" },
+    { "id": "label-06", "name": "Expenses app", "expected": "Expenses app" },
+    { "id": "label-07", "name": "", "expected": "" }
+  ],
+  "digestLine": [
+    { "id": "digest-01", "eventName": "assessment.rated | RM570671 | synthetic | high", "expected": "RM570671 · Synthetic · High" },
+    { "id": "digest-02", "eventName": "assessment.rated | MC1550533 | live | critical (override)", "expected": "MC1550533 · Live · Critical (override)" },
+    { "id": "digest-03", "eventName": "exposure.found | MC1550533 | OAI_833cbcf1-a9f4-4abb-a27c-3e2ccfdac44b_MemoryAgent_OfficeAgent-Undefined_aud-Microsoft", "expected": "MC1550533 · MemoryAgent (created by Copilot)" },
+    { "id": "digest-04", "eventName": "exposure.found | MC1557754 | copilot_spending_policy", "expected": "MC1557754 · copilot_spending_policy" },
+    { "id": "digest-05", "eventName": "signal.new | MC1239927 | (Updated) Microsoft Teams: Consecutive interpretation", "expected": "MC1239927 · (Updated) Microsoft Teams: Consecutive interpretation" },
+    { "id": "digest-06", "eventName": "signal.changed | RM577859", "expected": "RM577859" },
+    {"id": "digest-mc-01", "eventName": "asset.modelchanged | Research helper | GPT-5 Chat | GPT-6 Luna", "expected": "Research helper · moved from GPT-5 Chat to GPT-6 Luna"},
+    {"id": "digest-mc-02", "eventName": "asset.modelchanged | OAI_833cbcf1-a9f4-4abb-a27c-3e2ccfdac44b_MemoryAgent_x | GPT-5 Chat | GPT-6 Luna", "expected": "MemoryAgent (created by Copilot) · moved from GPT-5 Chat to GPT-6 Luna"},
+    {"id": "digest-wm-01", "eventName": "watch.matched | MC2000001 | Copilot Autopilot rolling out in the UK | Copilot Autopilot in the UK", "expected": "MC2000001 · Copilot Autopilot rolling out in the UK · watch: Copilot Autopilot in the UK"},
+    {"id": "digest-wu-01", "eventName": "watch.updated | MC2000001 | Copilot Autopilot rolling out in the UK | key date", "expected": "MC2000001 · Copilot Autopilot rolling out in the UK · changed: key date"}
+  ]
+}

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{93ba3abf-f4eb-4e98-9127-5b0004e2c4be}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_assessment" verticallayout="true" id="{589318db-54c8-4be1-a105-80b46607fe04}" IsUserDefined="1">
+          <labels>
+            <label description="Assessment" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="40%">
+              <sections>
+                <section name="sec_override" showlabel="true" showbar="false" id="{5ad8d5f0-a27f-4e10-8d7a-4f85f23602bc}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Override (replaces the estate impact; None dismisses it)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a89f846a-7422-4162-a995-66739c6a6cf9}">
+                        <labels>
+                          <label description="Override impact" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_overrideimpact" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_overrideimpact" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6f543871-4b57-4e84-8909-f8954786c65f}" rowspan="8">
+                        <labels>
+                          <label description="Override reason (required with an override)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_overridereason" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_overridereason" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{343a7a42-c5b6-4947-a345-8eaec7e9b2f0}">
+                        <labels>
+                          <label description="Override set or cleared by" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_overriddenby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="crdr_overriddenby" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{513c5708-79bf-4376-869f-9f00f8ff93c7}">
+                        <labels>
+                          <label description="Override set or cleared on" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_overriddenon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_overriddenon" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="sec_rating" showlabel="true" showbar="false" id="{5b1d515e-7dca-4ca5-a867-204f8b1c6b44}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Rating: generic impact + 1 production + 1 action within 30 days, capped" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0962f944-4429-4a7d-93f1-39b189831cbc}">
+                        <labels>
+                          <label description="Estate impact" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_estateimpact" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_estateimpact" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{83b9024d-51b8-4f09-b2bf-401e6e830d62}">
+                        <labels>
+                          <label description="Generic impact (LLM)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_genericimpact" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_genericimpact" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{fa99efca-7f18-417d-b247-d1c83557dc73}">
+                        <labels>
+                          <label description="Nature (LLM)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_nature" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_nature" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1304adbb-c5d3-4f73-8c0d-8dd62e8e60eb}">
+                        <labels>
+                          <label description="Production bonus" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_productionbonus" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="crdr_productionbonus" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{528132a5-7f6f-40ef-a459-a36df00d397a}">
+                        <labels>
+                          <label description="Action bonus" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_actionbonus" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="crdr_actionbonus" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3c186bda-5a79-411b-a099-a7b39afd310c}">
+                        <labels>
+                          <label description="Affected count" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_affectedcount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="crdr_affectedcount" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ff211b38-2378-4f90-8f34-b4365a27f2fc}">
+                        <labels>
+                          <label description="Assets with unknown environment" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_unknownenvcount" classid="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}" datafieldname="crdr_unknownenvcount" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b9f75d55-3bdf-474a-8ebc-ee72d62923d3}">
+                        <labels>
+                          <label description="Source" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_source" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_source" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{34eba375-3dab-4e34-8a0f-0873e7694fdf}">
+                        <labels>
+                          <label description="Signal" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_signal" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="crdr_signal" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2c4cbd6c-3a9e-428a-97a5-2ffb0dedbdde}">
+                        <labels>
+                          <label description="Assessed on" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_assessedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_assessedon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b0be47b6-a610-4d35-a9fc-558bc4b780e2}">
+                        <labels>
+                          <label description="Prompt" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_model" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_model" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="60%">
+              <sections>
+                <section name="sec_llm" showlabel="true" showbar="false" id="{517c2d06-0beb-4da6-a73f-be0dbd561c5b}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Assessment written by the LLM: an assessment, not fact" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a938831d-5013-4d53-a5d2-449b28f077aa}" rowspan="8">
+                        <labels>
+                          <label description="Rationale" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_rationale" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_rationale" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{5faf8a38-0657-4e80-8dc0-4430f94427a9}" rowspan="8">
+                        <labels>
+                          <label description="Recommended action" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_recommendedaction" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_recommendedaction" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="sec_summary" showlabel="true" showbar="false" id="{fbb76ebd-a278-4a8a-bf6b-67537dd92d6f}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="What the prompt was told (no names leave the estate)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ed16d794-93dc-4452-83a4-a4987d69e797}" rowspan="8">
+                        <labels>
+                          <label description="Estate summary" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_exposuresummary" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_exposuresummary" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <formLibraries>
+        <Library name="crdr_/scripts/assessment.js" libraryUniqueId="{959966fe-1d16-4a59-97a4-fd1f5ebe617c}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="ChangeRadar.Assessment.onLoad" libraryName="crdr_/scripts/assessment.js" handlerUniqueId="{97383406-59fd-46ed-8bc8-1cedd7a8c85b}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

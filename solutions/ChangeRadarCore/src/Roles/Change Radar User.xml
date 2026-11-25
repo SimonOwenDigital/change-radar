@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{0056ef01-01e8-f111-84ea-002248db5401}" name="Change Radar User" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <Description>Uses Change Radar: reads every Change Radar table, and changes what the pages and forms let people act on: an exposure's status (confirm or dismiss), an assessment's override, a signal's Watched flag, and a fingerprint's review status. Can't change settings, rules, vocabulary, feeds or subscriptions.</Description>
+  <RolePrivileges>
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvReadcrdr_alertlog" level="Global" />
+    <RolePrivilege name="prvReadcrdr_assessment" level="Global" />
+    <RolePrivilege name="prvReadcrdr_asset" level="Global" />
+    <RolePrivilege name="prvReadcrdr_assetfingerprint" level="Global" />
+    <RolePrivilege name="prvReadcrdr_collectionrun" level="Global" />
+    <RolePrivilege name="prvReadcrdr_config" level="Global" />
+    <RolePrivilege name="prvReadcrdr_event" level="Global" />
+    <RolePrivilege name="prvReadcrdr_exposure" level="Global" />
+    <RolePrivilege name="prvReadcrdr_facetvalue" level="Global" />
+    <RolePrivilege name="prvReadcrdr_feed" level="Global" />
+    <RolePrivilege name="prvReadcrdr_handlerrun" level="Global" />
+    <RolePrivilege name="prvReadcrdr_rule" level="Global" />
+    <RolePrivilege name="prvReadcrdr_signal" level="Global" />
+    <RolePrivilege name="prvReadcrdr_signalfingerprint" level="Global" />
+    <RolePrivilege name="prvReadcrdr_signalversion" level="Global" />
+    <RolePrivilege name="prvReadcrdr_solution" level="Global" />
+    <RolePrivilege name="prvReadcrdr_solutionmember" level="Global" />
+    <RolePrivilege name="prvReadcrdr_subscription" level="Global" />
+    <RolePrivilege name="prvReadcrdr_tenantsetting" level="Global" />
+    <RolePrivilege name="prvReadcrdr_watch" level="Global" />
+    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
+    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadSdkMessage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvWritecrdr_assessment" level="Global" />
+    <RolePrivilege name="prvWritecrdr_exposure" level="Global" />
+    <RolePrivilege name="prvWritecrdr_signal" level="Global" />
+    <RolePrivilege name="prvWritecrdr_signalfingerprint" level="Global" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

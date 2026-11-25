@@ -1,0 +1,913 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "5"
+              ],
+              "minutes": [
+                "35"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_now_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_now_days')"
+          }
+        },
+        "Config_imminent_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_imminent_days')"
+          }
+        },
+        "Init_records": {
+          "type": "InitializeVariable",
+          "runAfter": {},
+          "inputs": {
+            "variables": [
+              {
+                "name": "records",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          }
+        },
+        "Init_gaps": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_records": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "gaps",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_failed": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_gaps": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "failed",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "List_feeds": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Config_imminent_days": [
+              "Succeeded"
+            ],
+            "Config_now_days": [
+              "Succeeded"
+            ],
+            "Init_failed": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$filter": "crdr_active eq true and crdr_kind eq 169890003",
+              "$select": "crdr_feedid,crdr_key,crdr_name,crdr_url,crdr_products,crdr_profile,crdr_lastmarker",
+              "entityName": "crdr_feeds"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Each_feed": {
+          "type": "Foreach",
+          "foreach": "@body('List_feeds')?['value']",
+          "runAfter": {
+            "List_feeds": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "repetitions": 1
+            }
+          },
+          "actions": {
+            "Reset_records": {
+              "type": "SetVariable",
+              "runAfter": {},
+              "inputs": {
+                "name": "records",
+                "value": ""
+              }
+            },
+            "Reset_gaps": {
+              "type": "SetVariable",
+              "runAfter": {
+                "Reset_records": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "name": "gaps",
+                "value": []
+              }
+            },
+            "Collect": {
+              "type": "Scope",
+              "runAfter": {
+                "Reset_gaps": [
+                  "Succeeded"
+                ]
+              },
+              "actions": {
+                "Get_page": {
+                  "type": "Http",
+                  "runAfter": {},
+                  "inputs": {
+                    "method": "GET",
+                    "uri": "@items('Each_feed')?['crdr_url']",
+                    "headers": {
+                      "User-Agent": "ChangeRadar/1.0 (signal collector)",
+                      "Accept": "text/html,application/xhtml+xml",
+                      "Accept-Language": "en-GB,en;q=0.9"
+                    }
+                  }
+                },
+                "Page": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Get_page": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@string(body('Get_page'))"
+                },
+                "Profile": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Page": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@json(coalesce(items('Each_feed')?['crdr_profile'], '{}'))"
+                },
+                "Marker": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Profile": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@if(equals(coalesce(outputs('Profile')?['marker'], 'git_commit_id'), 'dateModified'), if(contains(outputs('Page'), '\"dateModified\":\"'), first(split(last(split(outputs('Page'), '\"dateModified\":\"')), '\"')), ''), if(contains(outputs('Page'), 'name=\"git_commit_id\" content=\"'), first(split(last(split(outputs('Page'), 'name=\"git_commit_id\" content=\"')), '\"')), ''))"
+                },
+                "Changed_page": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Marker": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@not(equals(outputs('Marker'), coalesce(items('Each_feed')?['crdr_lastmarker'], '')))"
+                },
+                "Has_content": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Changed_page": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@and(outputs('Changed_page'), contains(outputs('Page'), coalesce(outputs('Profile')?['contentStart'], '<main')), contains(join(skip(split(outputs('Page'), coalesce(outputs('Profile')?['contentStart'], '<main')), 1), coalesce(outputs('Profile')?['contentStart'], '<main')), coalesce(outputs('Profile')?['contentEnd'], '</main>')))"
+                },
+                "Note_markers": {
+                  "type": "If",
+                  "runAfter": {
+                    "Has_content": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@outputs('Changed_page')",
+                          true
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@outputs('Has_content')",
+                          false
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Add_gap": {
+                      "type": "AppendToArrayVariable",
+                      "runAfter": {},
+                      "inputs": {
+                        "name": "gaps",
+                        "value": "content markers not found"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  }
+                },
+                "Content": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Note_markers": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@if(outputs('Has_content'), concat(coalesce(outputs('Profile')?['contentStart'], '<main'), first(split(join(skip(split(outputs('Page'), coalesce(outputs('Profile')?['contentStart'], '<main')), 1), coalesce(outputs('Profile')?['contentStart'], '<main')), coalesce(outputs('Profile')?['contentEnd'], '</main>')))), '')"
+                },
+                "No_script_parts": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Content": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@skip(split(outputs('Content'), '<script'), 1)",
+                    "select": "@join(skip(split(item(), '</script>'), 1), '</script>')"
+                  }
+                },
+                "No_script": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "No_script_parts": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@concat(first(split(outputs('Content'), '<script')), join(body('No_script_parts'), ''))"
+                },
+                "No_style_parts": {
+                  "type": "Select",
+                  "runAfter": {
+                    "No_script": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@skip(split(outputs('No_script'), '<style'), 1)",
+                    "select": "@join(skip(split(item(), '</style>'), 1), '</style>')"
+                  }
+                },
+                "No_style": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "No_style_parts": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@concat(first(split(outputs('No_script'), '<style')), join(body('No_style_parts'), ''))"
+                },
+                "No_svg_parts": {
+                  "type": "Select",
+                  "runAfter": {
+                    "No_style": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@skip(split(outputs('No_style'), '<svg'), 1)",
+                    "select": "@join(skip(split(item(), '</svg>'), 1), '</svg>')"
+                  }
+                },
+                "No_svg": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "No_svg_parts": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@concat(first(split(outputs('No_style'), '<svg')), join(body('No_svg_parts'), ''))"
+                },
+                "Chunks": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "No_svg": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@skip(split(replace(replace(replace(outputs('No_svg'), '<h2', '␞2'), '<h3', '␞3'), '<h4', '␞4'), '␞'), 1)"
+                },
+                "Parsed": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Chunks": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@outputs('Chunks')",
+                    "select": {
+                      "level": "@int(substring(item(), 0, 1))",
+                      "title": "@xpath(xml(concat('<t>', replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(first(split(join(skip(split(substring(concat(item(), ' '), 1), '>'), 1), '>'), concat('</h', substring(item(), 0, 1), '>'))), '&nbsp;', ' '), '&mdash;', ' '), '&ndash;', ' '), '&rsquo;', ' '), '&lsquo;', ' '), '&ldquo;', ' '), '&rdquo;', ' '), '&hellip;', ' '), '&copy;', ' '), '&reg;', ' '), '&trade;', ' '), '<br>', '<br/>'), '</t>')), 'normalize-space(/t)')",
+                      "id": "@if(contains(first(split(substring(concat(item(), ' '), 1), '>')), 'id=\"'), first(split(join(skip(split(first(split(substring(concat(item(), ' '), 1), '>')), 'id=\"'), 1), 'id=\"'), '\"')), '')",
+                      "body": "@trim(join(skip(split(join(skip(split(substring(concat(item(), ' '), 1), '>'), 1), '>'), concat('</h', substring(item(), 0, 1), '>')), 1), concat('</h', substring(item(), 0, 1), '>')))"
+                    }
+                  }
+                },
+                "Index_rows": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Parsed": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Parsed')",
+                    "select": "@concat('<c><l>', string(item()?['level']), '</l><t>', replace(replace(replace(item()?['title'], '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '</t></c>')"
+                  }
+                },
+                "Index": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Index_rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@xml(concat('<r>', join(body('Index_rows'), ''), '</r>'))"
+                },
+                "With_path": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Index": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@range(0, length(body('Parsed')))",
+                    "select": {
+                      "level": "@body('Parsed')[item()]?['level']",
+                      "title": "@body('Parsed')[item()]?['title']",
+                      "id": "@body('Parsed')[item()]?['id']",
+                      "body": "@body('Parsed')[item()]?['body']",
+                      "path": "@if(equals(body('Parsed')[item()]?['level'], 2), body('Parsed')[item()]?['title'], if(equals(body('Parsed')[item()]?['level'], 3), concat(xpath(outputs('Index'), concat('string((/r/c[position() <= ', string(add(item(), 1)), '][l=2])[last()]/t)')), ' > ', body('Parsed')[item()]?['title']), concat(xpath(outputs('Index'), concat('string((/r/c[position() <= ', string(add(item(), 1)), '][l=2])[last()]/t)')), ' > ', xpath(outputs('Index'), concat('string((/r/c[position() <= ', string(add(item(), 1)), '][l=3][count(preceding-sibling::c[l=2]) = count(/r/c[position() <= ', string(add(item(), 1)), '][l=2])])[last()]/t)')), ' > ', body('Parsed')[item()]?['title'])))",
+                      "leaf": "@or(greaterOrEquals(add(item(), 1), length(body('Parsed'))), lessOrEquals(body('Parsed')[add(item(), 1)]?['level'], body('Parsed')[item()]?['level']))"
+                    }
+                  }
+                },
+                "Kept": {
+                  "type": "Query",
+                  "runAfter": {
+                    "With_path": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('With_path')",
+                    "where": "@and(not(equals(item()?['title'], '')), not(contains(split(toLower(join(coalesce(outputs('Profile')?['skipTitles'], json('[]')), '␞')), '␞'), toLower(item()?['title']))), or(not(equals(coalesce(outputs('Profile')?['unit'], 'all'), 'leaf')), item()?['leaf']), greaterOrEquals(length(item()?['body']), int(coalesce(outputs('Profile')?['minChars'], 1))), or(and(empty(coalesce(outputs('Profile')?['scopeHead'], json('[]'))), empty(coalesce(outputs('Profile')?['scopeBody'], json('[]')))), or(contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[0], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[1], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[2], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[3], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[4], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[5], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[6], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[7], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[8], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[9], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[10], '␟')), contains(toLower(item()?['path']), coalesce(outputs('Profile')?['scopeHead']?[11], '␟'))), or(contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[0], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[1], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[2], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[3], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[4], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[5], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[6], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[7], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[8], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[9], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[10], '␟')), contains(toLower(item()?['body']), coalesce(outputs('Profile')?['scopeBody']?[11], '␟')))))"
+                  }
+                },
+                "Slugged": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Kept": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Kept')",
+                    "select": {
+                      "title": "@item()?['title']",
+                      "id": "@item()?['id']",
+                      "body": "@item()?['body']",
+                      "slug0": "@replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(toLower(if(equals(coalesce(outputs('Profile')?['idFrom'], 'title'), 'path'), item()?['path'], item()?['title'])), ' ', '-'), '.', '-'), '/', '-'), ',', '-'), '(', '-'), ')', '-'), ':', '-'), '''', '-'), '&', '-'), '+', '-'), '_', '-'), ';', '-'), '\"', '-'), '!', '-'), '?', '-'), '[', '-'), ']', '-'), '#', '-'), '*', '-'), '|', '-'), '>', '-'), '<', '-'), '%', '-'), '=', '-'), '@', '-'), '–', '-'), '—', '-'), '’', '-'), '‘', '-'), '--', '-'), '--', '-'), '--', '-'), '--', '-')"
+                    }
+                  }
+                },
+                "Keyed": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Slugged": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Slugged')",
+                    "select": {
+                      "title": "@item()?['title']",
+                      "id": "@item()?['id']",
+                      "body": "@item()?['body']",
+                      "idcut": "@substring(concat(items('Each_feed')?['crdr_key'], '-', if(endsWith(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), '-'), substring(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), 0, sub(length(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0'])), 1)), if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']))), 0, min(100, length(concat(items('Each_feed')?['crdr_key'], '-', if(endsWith(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), '-'), substring(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), 0, sub(length(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0'])), 1)), if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']))))))"
+                    }
+                  }
+                },
+                "Keydate": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Keyed": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@if(empty(coalesce(outputs('Profile')?['keydate'], '')), if(contains(outputs('Page'), 'name=\"updated_at\" content=\"'), formatDateTime(first(split(last(split(outputs('Page'), 'name=\"updated_at\" content=\"')), '\"')), 'yyyy-MM-ddTHH:mm:ssZ'), ''), outputs('Profile')?['keydate'])"
+                },
+                "Shaped": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Keydate": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Keyed')",
+                    "select": {
+                      "externalid": "@if(endsWith(item()?['idcut'], '-'), substring(item()?['idcut'], 0, sub(length(item()?['idcut']), 1)), item()?['idcut'])",
+                      "key": "@concat(if(endsWith(item()?['idcut'], '-'), substring(item()?['idcut'], 0, sub(length(item()?['idcut']), 1)), item()?['idcut']), '␞', if(greater(length(coalesce(item()?['body'], '')), 20000), substring(item()?['body'], 0, 20000), coalesce(item()?['body'], '')))",
+                      "title": "@if(greater(length(coalesce(if(empty(coalesce(outputs('Profile')?['titlePrefix'], '')), item()?['title'], concat(outputs('Profile')?['titlePrefix'], ': ', item()?['title'])), '')), 400), substring(if(empty(coalesce(outputs('Profile')?['titlePrefix'], '')), item()?['title'], concat(outputs('Profile')?['titlePrefix'], ': ', item()?['title'])), 0, 400), coalesce(if(empty(coalesce(outputs('Profile')?['titlePrefix'], '')), item()?['title'], concat(outputs('Profile')?['titlePrefix'], ': ', item()?['title'])), ''))",
+                      "summary": "@if(greater(length(coalesce(item()?['body'], '')), 20000), substring(item()?['body'], 0, 20000), coalesce(item()?['body'], ''))",
+                      "products": "@if(greater(length(coalesce(items('Each_feed')?['crdr_products'], '')), 400), substring(items('Each_feed')?['crdr_products'], 0, 400), coalesce(items('Each_feed')?['crdr_products'], ''))",
+                      "horizon": 169890002,
+                      "keydate": "@outputs('Keydate')",
+                      "datelabel": "@if(greater(length(coalesce(coalesce(outputs('Profile')?['label'], 'Web page'), '')), 100), substring(coalesce(outputs('Profile')?['label'], 'Web page'), 0, 100), coalesce(coalesce(outputs('Profile')?['label'], 'Web page'), ''))",
+                      "actionrequired": false,
+                      "url": "@if(empty(item()?['id']), items('Each_feed')?['crdr_url'], concat(items('Each_feed')?['crdr_url'], '#', item()?['id']))",
+                      "lastchanged": "@outputs('Keydate')",
+                      "snapshot": "@concat('{\"externalid\":\"', if(endsWith(item()?['idcut'], '-'), substring(item()?['idcut'], 0, sub(length(item()?['idcut']), 1)), item()?['idcut']), '\",\"keydate\":\"', outputs('Keydate'), '\"}')"
+                    }
+                  }
+                },
+                "Id_list": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Shaped": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Shaped')",
+                    "select": "@item()?['externalid']"
+                  }
+                },
+                "Ids": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Id_list": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@xml(concat('<r><i>', join(body('Id_list'), '</i><i>'), '</i></r>'))"
+                },
+                "First_ids": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@range(0, length(body('Shaped')))",
+                    "where": "@equals(int(xpath(outputs('Ids'), concat('count(/r/i[position() < ', string(add(item(), 1)), '][. = ''', body('Id_list')[item()], '''])'))), 0)"
+                  }
+                },
+                "Shape": {
+                  "type": "Select",
+                  "runAfter": {
+                    "First_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('First_ids')",
+                    "select": "@body('Shaped')[item()]"
+                  }
+                },
+                "List_existing": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Shape": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_source eq 169890006 and _crdr_feed_value eq ', items('Each_feed')?['crdr_feedid'])",
+                      "$select": "crdr_signalid,crdr_externalid,crdr_lastchanged,crdr_title,crdr_keydate,crdr_datelabel,crdr_horizon,crdr_actionrequired,crdr_summary",
+                      "entityName": "crdr_signals"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Existing_keys": {
+                  "type": "Select",
+                  "runAfter": {
+                    "List_existing": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('List_existing')?['value']",
+                    "select": "@concat(item()?['crdr_externalid'], '␞', coalesce(item()?['crdr_summary'], ''))"
+                  }
+                },
+                "Changed": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Existing_keys": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Shape')",
+                    "where": "@not(contains(body('Existing_keys'), item()?['key']))"
+                  }
+                },
+                "Upsert": {
+                  "type": "Foreach",
+                  "foreach": "@body('Changed')",
+                  "runAfter": {
+                    "Changed": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 10
+                    }
+                  },
+                  "actions": {
+                    "Find_existing": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@body('List_existing')?['value']",
+                        "where": "@equals(item()?['crdr_externalid'], items('Upsert')?['externalid'])"
+                      }
+                    },
+                    "Is_new": {
+                      "type": "If",
+                      "runAfter": {
+                        "Find_existing": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "equals": [
+                          "@empty(body('Find_existing'))",
+                          true
+                        ]
+                      },
+                      "actions": {
+                        "Create_signal": {
+                          "type": "OpenApiConnection",
+                          "runAfter": {},
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "CreateRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "crdr_signals",
+                              "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                              "item/crdr_confidencelabel": "@coalesce(outputs('Profile')?['confidenceLabel'], '')",
+                              "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                              "item/crdr_externalid": "@items('Upsert')?['externalid']",
+                              "item/crdr_feed@odata.bind": "@concat('/crdr_feeds(', items('Each_feed')?['crdr_feedid'], ')')",
+                              "item/crdr_firstseen": "@utcNow()",
+                              "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                              "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                              "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                              "item/crdr_nature": "@if(empty(coalesce(outputs('Profile')?['nature'], '')), null, json('{\"breaking\":169890000,\"deprecation\":169890001,\"behaviour_change\":169890002,\"new_capability\":169890003,\"licensing\":169890004,\"incident\":169890005,\"informational\":169890006}')?[outputs('Profile')?['nature']])",
+                              "item/crdr_products": "@items('Upsert')?['products']",
+                              "item/crdr_source": 169890006,
+                              "item/crdr_summary": "@items('Upsert')?['summary']",
+                              "item/crdr_title": "@items('Upsert')?['title']",
+                              "item/crdr_url": "@items('Upsert')?['url']"
+                            },
+                            "authentication": "@parameters('$authentication')"
+                          }
+                        },
+                        "Create_version": {
+                          "type": "If",
+                          "runAfter": {
+                            "Create_signal": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "equals": [
+                              "@empty(coalesce(items('Each_feed')?['crdr_lastmarker'], ''))",
+                              false
+                            ]
+                          },
+                          "actions": {
+                            "Create_version_row": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_signalversions",
+                                  "item/crdr_capturedon": "@utcNow()",
+                                  "item/crdr_changedfields": "created",
+                                  "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                                  "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', body('Create_signal')?['crdr_signalid'], ')')",
+                                  "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Update_signal": {
+                            "type": "OpenApiConnection",
+                            "runAfter": {},
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "UpdateRecord",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "crdr_signals",
+                                "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                                "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                                "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                                "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                                "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                                "item/crdr_products": "@items('Upsert')?['products']",
+                                "item/crdr_summary": "@items('Upsert')?['summary']",
+                                "item/crdr_title": "@items('Upsert')?['title']",
+                                "item/crdr_url": "@items('Upsert')?['url']",
+                                "recordId": "@first(body('Find_existing'))?['crdr_signalid']"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          },
+                          "Update_version": {
+                            "type": "OpenApiConnection",
+                            "runAfter": {
+                              "Update_signal": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "CreateRecord",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "crdr_signalversions",
+                                "item/crdr_capturedon": "@utcNow()",
+                                "item/crdr_changedfields": "@concat(if(equals(first(body('Find_existing'))?['crdr_title'], items('Upsert')?['title']), '', 'title; '), if(equals(first(body('Find_existing'))?['crdr_horizon'], items('Upsert')?['horizon']), '', 'horizon; '), if(equals(coalesce(first(body('Find_existing'))?['crdr_datelabel'], ''), items('Upsert')?['datelabel']), '', 'date label; '), if(equals(first(body('Find_existing'))?['crdr_actionrequired'], items('Upsert')?['actionrequired']), '', 'action required; '), if(equals(if(empty(first(body('Find_existing'))?['crdr_keydate']), '', formatDateTime(first(body('Find_existing'))?['crdr_keydate'], 'yyyy-MM-ddTHH:mm:ss')), if(empty(items('Upsert')?['keydate']), '', formatDateTime(items('Upsert')?['keydate'], 'yyyy-MM-ddTHH:mm:ss'))), '', 'key date; '), 'last modified')",
+                                "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                                "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', first(body('Find_existing'))?['crdr_signalid'], ')')",
+                                "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Record_run": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Collect": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "crdr_collectionruns",
+                  "item/crdr_accesstier": 169890000,
+                  "item/crdr_collector": "@concat('feed:', items('Each_feed')?['crdr_key'])",
+                  "item/crdr_gaps": "@if(greater(length(coalesce(concat(join(variables('gaps'), '; '), if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat(if(empty(variables('gaps')), '', '; '), 'collect ', coalesce(actions('Collect')?['status'], 'not run'), ' (HTTP ', string(coalesce(actions('Get_page')?['outputs']?['statusCode'], '-')), ')'))), '')), 4000), substring(concat(join(variables('gaps'), '; '), if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat(if(empty(variables('gaps')), '', '; '), 'collect ', coalesce(actions('Collect')?['status'], 'not run'), ' (HTTP ', string(coalesce(actions('Get_page')?['outputs']?['statusCode'], '-')), ')'))), 0, 4000), coalesce(concat(join(variables('gaps'), '; '), if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat(if(empty(variables('gaps')), '', '; '), 'collect ', coalesce(actions('Collect')?['status'], 'not run'), ' (HTTP ', string(coalesce(actions('Get_page')?['outputs']?['statusCode'], '-')), ')'))), ''))",
+                  "item/crdr_itemcount": "@length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))",
+                  "item/crdr_name": "@concat('feed ', items('Each_feed')?['crdr_key'], ' ', formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm'), if(equals(coalesce(actions('Changed_page')?['outputs'], true), false), ': unchanged', concat(': in scope ', string(length(coalesce(actions('Shape')?['outputs']?['body'], json('[]')))), ', new or changed ', string(length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))))))",
+                  "item/crdr_startedon": "@trigger()?['startTime']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Update_feed": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Record_run": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "crdr_feeds",
+                  "item/crdr_lastcheckedon": "@utcNow()",
+                  "item/crdr_lastmarker": "@if(equals(actions('Collect')?['status'], 'Succeeded'), outputs('Marker'), coalesce(items('Each_feed')?['crdr_lastmarker'], ''))",
+                  "recordId": "@items('Each_feed')?['crdr_feedid']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "If_failed": {
+              "type": "If",
+              "runAfter": {
+                "Update_feed": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@equals(actions('Collect')?['status'], 'Succeeded')",
+                  false
+                ]
+              },
+              "actions": {
+                "Note_failed": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {},
+                  "inputs": {
+                    "name": "failed",
+                    "value": "@items('Each_feed')?['crdr_key']"
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              }
+            }
+          }
+        },
+        "Fail_if_any_feed_failed": {
+          "type": "If",
+          "runAfter": {
+            "Each_feed": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@empty(variables('failed'))",
+              false
+            ]
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "FeedFailed",
+                  "message": "@concat('Feeds that failed: ', join(variables('failed'), ', '))"
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: collect the active web page section feeds (crdr_feed kind webpage_sections): the Book of News for an event and undated Learn pages such as licensing and billing rates. One signal per heading section; a changed section updates its signal. The first run of a feed is silent (ADR 0018, ADR 0019, spike T11)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

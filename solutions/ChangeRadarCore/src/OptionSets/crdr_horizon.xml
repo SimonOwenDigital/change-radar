@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="crdr_horizon" localizedName="Horizon" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>0.1.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Horizon" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="169890000" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Now" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="169890001" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Imminent" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="169890002" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Future" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

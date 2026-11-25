@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{ef61539f-27ed-4ab1-8a06-237d07075831}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_watch" verticallayout="true" id="{af4afbcb-66f5-4470-b58f-2364db5e92b8}" IsUserDefined="1">
+          <labels>
+            <label description="Watch" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="60%">
+              <sections>
+                <section name="sec_words" showlabel="true" showbar="false" id="{de2d0542-18ad-4674-ad04-549c34ced2a1}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Words (separate with semicolons; whole words, any case)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4dbbe64d-849c-4fcf-89c4-367e334aab7c}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3aa0e2ca-8571-43ee-86d6-e1ad51124bce}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_active" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="crdr_active" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ef2242fb-a3f1-4409-a749-b73c624d82ef}">
+                        <labels>
+                          <label description="Any of these words (one must appear)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_anyof" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_anyof" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{88d35fdc-682a-4cbc-bde7-ca82f46f2be0}">
+                        <labels>
+                          <label description="And one of these words (optional)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_alsooneof" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_alsooneof" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1bfbb207-5081-4bb1-b680-bbcf7c795d35}">
+                        <labels>
+                          <label description="Ignore these phrases (removed before checking, e.g. Windows Autopilot)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_ignorephrases" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_ignorephrases" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{280b3417-9757-4e51-b137-40943a752df5}">
+                        <labels>
+                          <label description="Products (optional; one must be in the signal's products)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_products" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_products" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="40%">
+              <sections>
+                <section name="sec_about" showlabel="true" showbar="false" id="{4d85155e-da3a-4f74-91c4-57f147811775}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="About" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{736e816c-d34c-4922-be1a-da0e0e341687}" rowspan="8">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_description" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

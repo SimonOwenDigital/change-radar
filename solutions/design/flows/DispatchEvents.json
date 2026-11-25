@@ -1,0 +1,182 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "When_an_event_is_added": {
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "crdr_event",
+              "subscriptionRequest/scope": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "type": "OpenApiConnectionWebhook"
+        }
+      },
+      "actions": {
+        "Payload": {
+          "type": "Compose",
+          "runAfter": {},
+          "inputs": "@json(coalesce(triggerOutputs()?['body/crdr_payloadjson'], '{}'))"
+        },
+        "Is_live": {
+          "type": "Compose",
+          "runAfter": {
+            "Payload": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@or(equals(string(coalesce(outputs('Payload')?['estate'], '')), ''), equals(outputs('Payload')?['estate'], 'live'))"
+        },
+        "Effective_level": {
+          "type": "Compose",
+          "runAfter": {
+            "Is_live": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@coalesce(json('{\"none\":0,\"low\":1,\"medium\":2,\"high\":3,\"critical\":4}')?[toLower(string(coalesce(outputs('Payload')?['effectiveImpact'], '')))], 0)"
+        },
+        "Subscriptions": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Effective_level": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$filter": "@concat('crdr_eventtype eq ', string(triggerOutputs()?['body/crdr_eventtype']), ' and crdr_enabled eq true')",
+              "$select": "crdr_subscriptionid,crdr_name,crdr_handler,crdr_filterminimpact",
+              "entityName": "crdr_subscriptions"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "If_live": {
+          "type": "If",
+          "runAfter": {
+            "Subscriptions": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Is_live')",
+              true
+            ]
+          },
+          "actions": {
+            "Each_subscription": {
+              "type": "Foreach",
+              "foreach": "@body('Subscriptions')?['value']",
+              "runAfter": {},
+              "actions": {
+                "Min_level": {
+                  "type": "Compose",
+                  "runAfter": {},
+                  "inputs": "@if(equals(string(coalesce(items('Each_subscription')?['crdr_filterminimpact'], '')), ''), 0, sub(items('Each_subscription')?['crdr_filterminimpact'], 169890000))"
+                },
+                "If_passes": {
+                  "type": "If",
+                  "runAfter": {
+                    "Min_level": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "greaterOrEquals": [
+                      "@outputs('Effective_level')",
+                      "@outputs('Min_level')"
+                    ]
+                  },
+                  "actions": {
+                    "Queue_handler": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_handlerruns",
+                          "item/crdr_event@odata.bind": "@concat('/crdr_events(', triggerOutputs()?['body/crdr_eventid'], ')')",
+                          "item/crdr_name": "@if(greater(length(coalesce(concat(items('Each_subscription')?['crdr_handler'], ' | ', triggerOutputs()?['body/crdr_name']), '')), 200), substring(concat(items('Each_subscription')?['crdr_handler'], ' | ', triggerOutputs()?['body/crdr_name']), 0, 200), coalesce(concat(items('Each_subscription')?['crdr_handler'], ' | ', triggerOutputs()?['body/crdr_name']), ''))",
+                          "item/crdr_outcome": 169890003,
+                          "item/crdr_ranon": "@utcNow()",
+                          "item/crdr_subscription@odata.bind": "@concat('/crdr_subscriptions(', items('Each_subscription')?['crdr_subscriptionid'], ')')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: dispatch each new event to the handlers whose enabled subscriptions match, as queued crdr_handlerrun rows (live events only; ADR 0011)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

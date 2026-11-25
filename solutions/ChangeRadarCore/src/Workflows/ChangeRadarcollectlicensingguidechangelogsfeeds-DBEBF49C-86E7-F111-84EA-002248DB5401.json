@@ -1,0 +1,1369 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "5"
+              ],
+              "minutes": [
+                "40"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_now_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_now_days')"
+          }
+        },
+        "Config_imminent_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_imminent_days')"
+          }
+        },
+        "Init_records": {
+          "type": "InitializeVariable",
+          "runAfter": {},
+          "inputs": {
+            "variables": [
+              {
+                "name": "records",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          }
+        },
+        "Init_gaps": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_records": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "gaps",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_failed": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_gaps": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "failed",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "List_feeds": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Config_imminent_days": [
+              "Succeeded"
+            ],
+            "Config_now_days": [
+              "Succeeded"
+            ],
+            "Text_model": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$filter": "crdr_active eq true and crdr_kind eq 169890004",
+              "$select": "crdr_feedid,crdr_key,crdr_name,crdr_url,crdr_products,crdr_profile,crdr_lastmarker",
+              "entityName": "crdr_feeds"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Each_feed": {
+          "type": "Foreach",
+          "foreach": "@body('List_feeds')?['value']",
+          "runAfter": {
+            "List_feeds": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "repetitions": 1
+            }
+          },
+          "actions": {
+            "Reset_records": {
+              "type": "SetVariable",
+              "runAfter": {},
+              "inputs": {
+                "name": "records",
+                "value": ""
+              }
+            },
+            "Reset_gaps": {
+              "type": "SetVariable",
+              "runAfter": {
+                "Reset_records": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "name": "gaps",
+                "value": []
+              }
+            },
+            "Collect": {
+              "type": "Scope",
+              "runAfter": {
+                "Reset_gaps": [
+                  "Succeeded"
+                ]
+              },
+              "actions": {
+                "Reset_bounds": {
+                  "type": "SetVariable",
+                  "runAfter": {},
+                  "inputs": {
+                    "name": "bounds",
+                    "value": []
+                  }
+                },
+                "Reset_rows": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Reset_bounds": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "rows",
+                    "value": []
+                  }
+                },
+                "Profile": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Reset_rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@json(coalesce(items('Each_feed')?['crdr_profile'], '{}'))"
+                },
+                "Head_fwlink": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Profile": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "HEAD",
+                    "uri": "@items('Each_feed')?['crdr_url']",
+                    "headers": {
+                      "User-Agent": "ChangeRadar/1.0 (signal collector)",
+                      "Accept": "application/pdf"
+                    }
+                  }
+                },
+                "Pdf_url": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Head_fwlink": [
+                      "Succeeded",
+                      "Failed"
+                    ]
+                  },
+                  "inputs": "@coalesce(outputs('Head_fwlink')?['headers']?['Location'], items('Each_feed')?['crdr_url'])"
+                },
+                "Head_pdf": {
+                  "type": "Http",
+                  "runAfter": {
+                    "Pdf_url": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "method": "HEAD",
+                    "uri": "@outputs('Pdf_url')",
+                    "headers": {
+                      "User-Agent": "ChangeRadar/1.0 (signal collector)",
+                      "Accept": "application/pdf"
+                    }
+                  }
+                },
+                "Marker": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Head_pdf": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@coalesce(outputs('Head_pdf')?['headers']?['Last-Modified'], '')"
+                },
+                "Changed_page": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Marker": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@and(not(equals(outputs('Marker'), '')), not(equals(outputs('Marker'), coalesce(items('Each_feed')?['crdr_lastmarker'], ''))))"
+                },
+                "If_changed": {
+                  "type": "If",
+                  "runAfter": {
+                    "Changed_page": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@outputs('Changed_page')",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Get_page": {
+                      "type": "Http",
+                      "runAfter": {},
+                      "inputs": {
+                        "method": "GET",
+                        "uri": "@outputs('Pdf_url')",
+                        "headers": {
+                          "User-Agent": "ChangeRadar/1.0 (signal collector)",
+                          "Accept": "application/pdf"
+                        }
+                      }
+                    },
+                    "Ocr": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {
+                        "Get_page": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "aibuilderpredict_textrecognition",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "recordId": "@first(body('Text_model')?['value'])?['msdyn_aimodelid']",
+                          "item": {
+                            "version": "2.0",
+                            "requestv2": {
+                              "@@odata.type": "#Microsoft.Dynamics.CRM.expando",
+                              "mimeType": "application/pdf",
+                              "base64Encoded": "@base64(body('Get_page'))"
+                            }
+                          }
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  }
+                },
+                "Results": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "If_changed": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@coalesce(actions('Ocr')?['outputs']?['body']?['responsev2']?['predictionOutput']?['results'], json('[]'))"
+                },
+                "Cl_pages": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Results": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@outputs('Results')",
+                    "where": "@and(contains(toLower(coalesce(item()?['fullPageText'], '')), 'change log'), not(contains(coalesce(item()?['fullPageText'], ''), '.....')))"
+                  }
+                },
+                "Cl_nums": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Cl_pages": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Cl_pages')",
+                    "select": "@item()?['page']"
+                  }
+                },
+                "Start": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Cl_nums": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@if(empty(body('Cl_nums')), 0, max(body('Cl_nums')))"
+                },
+                "Note_no_log": {
+                  "type": "If",
+                  "runAfter": {
+                    "Start": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@outputs('Changed_page')",
+                          true
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@outputs('Start')",
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Add_gap_log": {
+                      "type": "AppendToArrayVariable",
+                      "runAfter": {},
+                      "inputs": {
+                        "name": "gaps",
+                        "value": "change log not found"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  }
+                },
+                "Log_pages": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Note_no_log": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@outputs('Results')",
+                    "where": "@and(greater(outputs('Start'), 0), greaterOrEquals(item()?['page'], outputs('Start')))"
+                  }
+                },
+                "Each_page": {
+                  "type": "Foreach",
+                  "foreach": "@body('Log_pages')",
+                  "runAfter": {
+                    "Log_pages": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Lines": {
+                      "type": "Select",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@coalesce(items('Each_page')?['lines'], json('[]'))",
+                        "select": {
+                          "t": "@trim(coalesce(item()?['text'], ''))",
+                          "top": "@float(item()?['boundingBox']?['top'])",
+                          "left": "@float(item()?['boundingBox']?['left'])",
+                          "mid": "@add(float(item()?['boundingBox']?['top']), div(float(item()?['boundingBox']?['height']), 2))"
+                        }
+                      }
+                    },
+                    "My_lines": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Lines": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Lines')",
+                        "where": "@and(equals(length(split(trim(item()?['t']), ' ')), 2), contains(json('{\"january\":\"01\",\"february\":\"02\",\"march\":\"03\",\"april\":\"04\",\"may\":\"05\",\"june\":\"06\",\"july\":\"07\",\"august\":\"08\",\"september\":\"09\",\"october\":\"10\",\"november\":\"11\",\"december\":\"12\"}'), toLower(first(split(trim(item()?['t']), ' ')))), equals(length(last(split(trim(item()?['t']), ' '))), 4), equals(length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(last(split(trim(item()?['t']), ' ')), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', '')), 0))"
+                      }
+                    },
+                    "First_top": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "My_lines": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@if(empty(body('My_lines')), 2, first(body('My_lines'))?['top'])"
+                    },
+                    "Above": {
+                      "type": "Query",
+                      "runAfter": {
+                        "First_top": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Lines')",
+                        "where": "@less(item()?['top'], outputs('First_top'))"
+                      }
+                    },
+                    "Hp": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Above": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Above')",
+                        "where": "@startsWith(item()?['t'], 'Page')"
+                      }
+                    },
+                    "Hc": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Hp": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Above')",
+                        "where": "@equals(item()?['t'], 'Change')"
+                      }
+                    },
+                    "Ha": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Hc": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Above')",
+                        "where": "@equals(item()?['t'], 'Action')"
+                      }
+                    },
+                    "Hd": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Ha": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Above')",
+                        "where": "@equals(item()?['t'], 'Date')"
+                      }
+                    },
+                    "If_headers": {
+                      "type": "If",
+                      "runAfter": {
+                        "Hd": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@empty(body('Hp'))",
+                              false
+                            ]
+                          },
+                          {
+                            "equals": [
+                              "@empty(body('Hc'))",
+                              false
+                            ]
+                          },
+                          {
+                            "equals": [
+                              "@empty(body('Ha'))",
+                              false
+                            ]
+                          },
+                          {
+                            "equals": [
+                              "@empty(body('Hd'))",
+                              false
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Set_bounds": {
+                          "type": "SetVariable",
+                          "runAfter": {},
+                          "inputs": {
+                            "name": "bounds",
+                            "value": "@createArray(add(first(body('Hp'))?['left'], 0.04), sub(first(body('Hc'))?['left'], 0.01), sub(first(body('Ha'))?['left'], 0.01), sub(first(body('Hd'))?['left'], 0.01))"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      }
+                    },
+                    "Note_no_headers": {
+                      "type": "If",
+                      "runAfter": {
+                        "If_headers": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "equals": [
+                          "@empty(variables('bounds'))",
+                          true
+                        ]
+                      },
+                      "actions": {
+                        "Add_gap_headers": {
+                          "type": "AppendToArrayVariable",
+                          "runAfter": {},
+                          "inputs": {
+                            "name": "gaps",
+                            "value": "@concat('page ', string(items('Each_page')?['page']), ': change log headers not found')"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      }
+                    },
+                    "Dates": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Note_no_headers": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@if(empty(variables('bounds')), json('[]'), body('My_lines'))",
+                        "where": "@greaterOrEquals(item()?['left'], variables('bounds')[3])"
+                      }
+                    },
+                    "Foot": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Dates": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Lines')",
+                        "where": "@and(not(empty(body('Dates'))), startsWith(item()?['t'], '©'), greater(item()?['top'], if(empty(body('Dates')), 2, last(body('Dates'))?['top'])))"
+                      }
+                    },
+                    "Foot_tops": {
+                      "type": "Select",
+                      "runAfter": {
+                        "Foot": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Foot')",
+                        "select": "@item()?['top']"
+                      }
+                    },
+                    "Foot_top": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Foot_tops": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@if(empty(body('Foot_tops')), 2, min(body('Foot_tops')))"
+                    },
+                    "Hd_top": {
+                      "type": "Compose",
+                      "runAfter": {
+                        "Foot_top": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": "@if(empty(body('Hd')), 0, first(body('Hd'))?['top'])"
+                    },
+                    "Row_defs": {
+                      "type": "Select",
+                      "runAfter": {
+                        "Hd_top": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@range(0, length(body('Dates')))",
+                        "select": {
+                          "t": "@body('Dates')[item()]?['t']",
+                          "lo": "@if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), if(equals(item(), 0), add(outputs('Hd_top'), 0.008), div(add(body('Dates')[sub(item(), 1)]?['mid'], body('Dates')[item()]?['mid']), 2)), sub(body('Dates')[item()]?['top'], 0.004))",
+                          "hi": "@if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), if(less(add(item(), 1), length(body('Dates'))), div(add(body('Dates')[item()]?['mid'], body('Dates')[add(item(), 1)]?['mid']), 2), min(sub(outputs('Foot_top'), 0.004), add(body('Dates')[item()]?['mid'], sub(body('Dates')[item()]?['mid'], if(equals(item(), 0), add(outputs('Hd_top'), 0.008), div(add(body('Dates')[sub(item(), 1)]?['mid'], body('Dates')[item()]?['mid']), 2)))))), if(less(add(item(), 1), length(body('Dates'))), sub(body('Dates')[add(item(), 1)]?['top'], 0.004), min(sub(outputs('Foot_top'), 0.004), add(body('Dates')[item()]?['top'], 0.04))))"
+                        }
+                      }
+                    },
+                    "Each_row": {
+                      "type": "Foreach",
+                      "foreach": "@body('Row_defs')",
+                      "runAfter": {
+                        "Row_defs": [
+                          "Succeeded"
+                        ]
+                      },
+                      "runtimeConfiguration": {
+                        "concurrency": {
+                          "repetitions": 1
+                        }
+                      },
+                      "actions": {
+                        "C0": {
+                          "type": "Query",
+                          "runAfter": {},
+                          "inputs": {
+                            "from": "@body('Lines')",
+                            "where": "@and(and(greaterOrEquals(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['lo']), less(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['hi']), not(and(and(equals(length(split(trim(item()?['t']), ' ')), 2), contains(json('{\"january\":\"01\",\"february\":\"02\",\"march\":\"03\",\"april\":\"04\",\"may\":\"05\",\"june\":\"06\",\"july\":\"07\",\"august\":\"08\",\"september\":\"09\",\"october\":\"10\",\"november\":\"11\",\"december\":\"12\"}'), toLower(first(split(trim(item()?['t']), ' ')))), equals(length(last(split(trim(item()?['t']), ' '))), 4), equals(length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(last(split(trim(item()?['t']), ' ')), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', '')), 0)), greaterOrEquals(item()?['left'], variables('bounds')[3])))), less(item()?['left'], variables('bounds')[0]))"
+                          }
+                        },
+                        "T0": {
+                          "type": "Select",
+                          "runAfter": {
+                            "C0": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('C0')",
+                            "select": "@item()?['t']"
+                          }
+                        },
+                        "C1": {
+                          "type": "Query",
+                          "runAfter": {
+                            "T0": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Lines')",
+                            "where": "@and(and(greaterOrEquals(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['lo']), less(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['hi']), not(and(and(equals(length(split(trim(item()?['t']), ' ')), 2), contains(json('{\"january\":\"01\",\"february\":\"02\",\"march\":\"03\",\"april\":\"04\",\"may\":\"05\",\"june\":\"06\",\"july\":\"07\",\"august\":\"08\",\"september\":\"09\",\"october\":\"10\",\"november\":\"11\",\"december\":\"12\"}'), toLower(first(split(trim(item()?['t']), ' ')))), equals(length(last(split(trim(item()?['t']), ' '))), 4), equals(length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(last(split(trim(item()?['t']), ' ')), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', '')), 0)), greaterOrEquals(item()?['left'], variables('bounds')[3])))), and(greaterOrEquals(item()?['left'], variables('bounds')[0]), less(item()?['left'], variables('bounds')[1])))"
+                          }
+                        },
+                        "T1": {
+                          "type": "Select",
+                          "runAfter": {
+                            "C1": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('C1')",
+                            "select": "@item()?['t']"
+                          }
+                        },
+                        "C2": {
+                          "type": "Query",
+                          "runAfter": {
+                            "T1": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Lines')",
+                            "where": "@and(and(greaterOrEquals(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['lo']), less(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['hi']), not(and(and(equals(length(split(trim(item()?['t']), ' ')), 2), contains(json('{\"january\":\"01\",\"february\":\"02\",\"march\":\"03\",\"april\":\"04\",\"may\":\"05\",\"june\":\"06\",\"july\":\"07\",\"august\":\"08\",\"september\":\"09\",\"october\":\"10\",\"november\":\"11\",\"december\":\"12\"}'), toLower(first(split(trim(item()?['t']), ' ')))), equals(length(last(split(trim(item()?['t']), ' '))), 4), equals(length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(last(split(trim(item()?['t']), ' ')), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', '')), 0)), greaterOrEquals(item()?['left'], variables('bounds')[3])))), and(greaterOrEquals(item()?['left'], variables('bounds')[1]), less(item()?['left'], variables('bounds')[2])))"
+                          }
+                        },
+                        "T2": {
+                          "type": "Select",
+                          "runAfter": {
+                            "C2": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('C2')",
+                            "select": "@item()?['t']"
+                          }
+                        },
+                        "C3": {
+                          "type": "Query",
+                          "runAfter": {
+                            "T2": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Lines')",
+                            "where": "@and(and(greaterOrEquals(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['lo']), less(if(equals(coalesce(outputs('Profile')?['rowAlign'], 'top'), 'middle'), item()?['mid'], item()?['top']), items('Each_row')?['hi']), not(and(and(equals(length(split(trim(item()?['t']), ' ')), 2), contains(json('{\"january\":\"01\",\"february\":\"02\",\"march\":\"03\",\"april\":\"04\",\"may\":\"05\",\"june\":\"06\",\"july\":\"07\",\"august\":\"08\",\"september\":\"09\",\"october\":\"10\",\"november\":\"11\",\"december\":\"12\"}'), toLower(first(split(trim(item()?['t']), ' ')))), equals(length(last(split(trim(item()?['t']), ' '))), 4), equals(length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(last(split(trim(item()?['t']), ' ')), '0', ''), '1', ''), '2', ''), '3', ''), '4', ''), '5', ''), '6', ''), '7', ''), '8', ''), '9', '')), 0)), greaterOrEquals(item()?['left'], variables('bounds')[3])))), and(greaterOrEquals(item()?['left'], variables('bounds')[2]), less(item()?['left'], variables('bounds')[3])))"
+                          }
+                        },
+                        "T3": {
+                          "type": "Select",
+                          "runAfter": {
+                            "C3": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('C3')",
+                            "select": "@item()?['t']"
+                          }
+                        },
+                        "Kind": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "T3": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@if(empty(trim(join(body('T2'), ' '))), if(endsWith(trim(join(body('T1'), ' ')), ' New'), 'New', if(endsWith(trim(join(body('T1'), ' ')), ' Update'), 'Update', if(endsWith(trim(join(body('T1'), ' ')), ' Remove'), 'Remove', ''))), trim(join(body('T2'), ' ')))"
+                        },
+                        "Topic_a": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Kind": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@if(and(empty(trim(join(body('T2'), ' '))), not(empty(outputs('Kind')))), substring(trim(join(body('T1'), ' ')), 0, sub(length(trim(join(body('T1'), ' '))), add(length(outputs('Kind')), 1))), trim(join(body('T1'), ' ')))"
+                        },
+                        "Add_row": {
+                          "type": "AppendToArrayVariable",
+                          "runAfter": {
+                            "Topic_a": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "rows",
+                            "value": {
+                              "month": "@items('Each_row')?['t']",
+                              "kind": "@outputs('Kind')",
+                              "change": "@trim(join(body('T3'), ' '))",
+                              "pages": "@if(startsWith(trim(join(body('T0'), ' ')), 'Various '), 'Various', if(startsWith(trim(join(body('T0'), ' ')), 'N/A '), 'N/A', trim(join(body('T0'), ' '))))",
+                              "topic": "@if(startsWith(trim(join(body('T0'), ' ')), 'Various '), trim(concat(substring(trim(join(body('T0'), ' ')), 8), ' ', outputs('Topic_a'))), if(startsWith(trim(join(body('T0'), ' ')), 'N/A '), trim(concat(substring(trim(join(body('T0'), ' ')), 4), ' ', outputs('Topic_a'))), outputs('Topic_a')))"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "Rows": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Each_page": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@variables('rows')",
+                    "where": "@not(empty(item()?['change']))"
+                  }
+                },
+                "Slugged": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Rows')",
+                    "select": {
+                      "month": "@item()?['month']",
+                      "kind": "@item()?['kind']",
+                      "change": "@item()?['change']",
+                      "pages": "@item()?['pages']",
+                      "topic": "@item()?['topic']",
+                      "slug0": "@replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(toLower(concat(item()?['month'], ' ', item()?['change'])), ' ', '-'), '.', '-'), '/', '-'), ',', '-'), '(', '-'), ')', '-'), ':', '-'), '''', '-'), '&', '-'), '+', '-'), '_', '-'), ';', '-'), '\"', '-'), '!', '-'), '?', '-'), '[', '-'), ']', '-'), '#', '-'), '*', '-'), '|', '-'), '>', '-'), '<', '-'), '%', '-'), '=', '-'), '@', '-'), '–', '-'), '—', '-'), '’', '-'), '‘', '-'), '--', '-'), '--', '-'), '--', '-'), '--', '-')"
+                    }
+                  }
+                },
+                "Keyed": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Slugged": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Slugged')",
+                    "select": {
+                      "month": "@item()?['month']",
+                      "kind": "@item()?['kind']",
+                      "change": "@item()?['change']",
+                      "pages": "@item()?['pages']",
+                      "topic": "@item()?['topic']",
+                      "idcut": "@substring(concat(items('Each_feed')?['crdr_key'], '-', if(endsWith(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), '-'), substring(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), 0, sub(length(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0'])), 1)), if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']))), 0, min(100, length(concat(items('Each_feed')?['crdr_key'], '-', if(endsWith(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), '-'), substring(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']), 0, sub(length(if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0'])), 1)), if(startsWith(item()?['slug0'], '-'), substring(item()?['slug0'], 1), item()?['slug0']))))))"
+                    }
+                  }
+                },
+                "Shaped": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Keyed": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Keyed')",
+                    "select": {
+                      "externalid": "@if(endsWith(item()?['idcut'], '-'), substring(item()?['idcut'], 0, sub(length(item()?['idcut']), 1)), item()?['idcut'])",
+                      "key": "@concat(if(endsWith(item()?['idcut'], '-'), substring(item()?['idcut'], 0, sub(length(item()?['idcut']), 1)), item()?['idcut']), '␞', if(greater(length(coalesce(concat(item()?['kind'], ': ', item()?['change'], '. Topic: ', item()?['topic'], '. Page(s): ', item()?['pages'], '. Month: ', item()?['month'], '. Source: the ', coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), '.'), '')), 20000), substring(concat(item()?['kind'], ': ', item()?['change'], '. Topic: ', item()?['topic'], '. Page(s): ', item()?['pages'], '. Month: ', item()?['month'], '. Source: the ', coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), '.'), 0, 20000), coalesce(concat(item()?['kind'], ': ', item()?['change'], '. Topic: ', item()?['topic'], '. Page(s): ', item()?['pages'], '. Month: ', item()?['month'], '. Source: the ', coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), '.'), '')))",
+                      "title": "@if(greater(length(coalesce(concat(coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), ': ', item()?['change']), '')), 400), substring(concat(coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), ': ', item()?['change']), 0, 400), coalesce(concat(coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), ': ', item()?['change']), ''))",
+                      "summary": "@if(greater(length(coalesce(concat(item()?['kind'], ': ', item()?['change'], '. Topic: ', item()?['topic'], '. Page(s): ', item()?['pages'], '. Month: ', item()?['month'], '. Source: the ', coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), '.'), '')), 20000), substring(concat(item()?['kind'], ': ', item()?['change'], '. Topic: ', item()?['topic'], '. Page(s): ', item()?['pages'], '. Month: ', item()?['month'], '. Source: the ', coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), '.'), 0, 20000), coalesce(concat(item()?['kind'], ': ', item()?['change'], '. Topic: ', item()?['topic'], '. Page(s): ', item()?['pages'], '. Month: ', item()?['month'], '. Source: the ', coalesce(outputs('Profile')?['guideName'], items('Each_feed')?['crdr_key']), '.'), ''))",
+                      "products": "@if(greater(length(coalesce(items('Each_feed')?['crdr_products'], '')), 400), substring(items('Each_feed')?['crdr_products'], 0, 400), coalesce(items('Each_feed')?['crdr_products'], ''))",
+                      "horizon": 169890002,
+                      "keydate": "@concat(last(split(item()?['month'], ' ')), '-', json('{\"january\":\"01\",\"february\":\"02\",\"march\":\"03\",\"april\":\"04\",\"may\":\"05\",\"june\":\"06\",\"july\":\"07\",\"august\":\"08\",\"september\":\"09\",\"october\":\"10\",\"november\":\"11\",\"december\":\"12\"}')?[toLower(first(split(item()?['month'], ' ')))], '-01')",
+                      "datelabel": "@if(greater(length(coalesce(concat(coalesce(outputs('Profile')?['label'], 'Licensing guide'), ' · ', item()?['kind']), '')), 100), substring(concat(coalesce(outputs('Profile')?['label'], 'Licensing guide'), ' · ', item()?['kind']), 0, 100), coalesce(concat(coalesce(outputs('Profile')?['label'], 'Licensing guide'), ' · ', item()?['kind']), ''))",
+                      "actionrequired": false,
+                      "url": "@items('Each_feed')?['crdr_url']",
+                      "lastchanged": "@concat(last(split(item()?['month'], ' ')), '-', json('{\"january\":\"01\",\"february\":\"02\",\"march\":\"03\",\"april\":\"04\",\"may\":\"05\",\"june\":\"06\",\"july\":\"07\",\"august\":\"08\",\"september\":\"09\",\"october\":\"10\",\"november\":\"11\",\"december\":\"12\"}')?[toLower(first(split(item()?['month'], ' ')))], '-01')",
+                      "snapshot": "@concat('{\"externalid\":\"', if(endsWith(item()?['idcut'], '-'), substring(item()?['idcut'], 0, sub(length(item()?['idcut']), 1)), item()?['idcut']), '\"}')"
+                    }
+                  }
+                },
+                "Id_list": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Shaped": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Shaped')",
+                    "select": "@item()?['externalid']"
+                  }
+                },
+                "Ids": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Id_list": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@xml(concat('<r><i>', join(body('Id_list'), '</i><i>'), '</i></r>'))"
+                },
+                "First_ids": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@range(0, length(body('Shaped')))",
+                    "where": "@equals(int(xpath(outputs('Ids'), concat('count(/r/i[position() < ', string(add(item(), 1)), '][. = ''', body('Id_list')[item()], '''])'))), 0)"
+                  }
+                },
+                "Shape": {
+                  "type": "Select",
+                  "runAfter": {
+                    "First_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('First_ids')",
+                    "select": "@body('Shaped')[item()]"
+                  }
+                },
+                "List_existing": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Shape": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_source eq 169890006 and _crdr_feed_value eq ', items('Each_feed')?['crdr_feedid'])",
+                      "$select": "crdr_signalid,crdr_externalid,crdr_lastchanged,crdr_title,crdr_keydate,crdr_datelabel,crdr_horizon,crdr_actionrequired,crdr_summary",
+                      "entityName": "crdr_signals"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Existing_keys": {
+                  "type": "Select",
+                  "runAfter": {
+                    "List_existing": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('List_existing')?['value']",
+                    "select": "@concat(item()?['crdr_externalid'], '␞', coalesce(item()?['crdr_summary'], ''))"
+                  }
+                },
+                "Changed": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Existing_keys": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Shape')",
+                    "where": "@not(contains(body('Existing_keys'), item()?['key']))"
+                  }
+                },
+                "Upsert": {
+                  "type": "Foreach",
+                  "foreach": "@body('Changed')",
+                  "runAfter": {
+                    "Changed": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 10
+                    }
+                  },
+                  "actions": {
+                    "Find_existing": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@body('List_existing')?['value']",
+                        "where": "@equals(item()?['crdr_externalid'], items('Upsert')?['externalid'])"
+                      }
+                    },
+                    "Is_new": {
+                      "type": "If",
+                      "runAfter": {
+                        "Find_existing": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "equals": [
+                          "@empty(body('Find_existing'))",
+                          true
+                        ]
+                      },
+                      "actions": {
+                        "Create_signal": {
+                          "type": "OpenApiConnection",
+                          "runAfter": {},
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "CreateRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "crdr_signals",
+                              "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                              "item/crdr_confidencelabel": "@coalesce(outputs('Profile')?['confidenceLabel'], '')",
+                              "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                              "item/crdr_externalid": "@items('Upsert')?['externalid']",
+                              "item/crdr_feed@odata.bind": "@concat('/crdr_feeds(', items('Each_feed')?['crdr_feedid'], ')')",
+                              "item/crdr_firstseen": "@utcNow()",
+                              "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                              "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                              "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                              "item/crdr_nature": "@if(empty(coalesce(outputs('Profile')?['nature'], '')), null, json('{\"breaking\":169890000,\"deprecation\":169890001,\"behaviour_change\":169890002,\"new_capability\":169890003,\"licensing\":169890004,\"incident\":169890005,\"informational\":169890006}')?[outputs('Profile')?['nature']])",
+                              "item/crdr_products": "@items('Upsert')?['products']",
+                              "item/crdr_source": 169890006,
+                              "item/crdr_summary": "@items('Upsert')?['summary']",
+                              "item/crdr_title": "@items('Upsert')?['title']",
+                              "item/crdr_url": "@items('Upsert')?['url']"
+                            },
+                            "authentication": "@parameters('$authentication')"
+                          }
+                        },
+                        "Create_version": {
+                          "type": "If",
+                          "runAfter": {
+                            "Create_signal": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "equals": [
+                              "@empty(coalesce(items('Each_feed')?['crdr_lastmarker'], ''))",
+                              false
+                            ]
+                          },
+                          "actions": {
+                            "Create_version_row": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_signalversions",
+                                  "item/crdr_capturedon": "@utcNow()",
+                                  "item/crdr_changedfields": "created",
+                                  "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                                  "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', body('Create_signal')?['crdr_signalid'], ')')",
+                                  "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Update_signal": {
+                            "type": "OpenApiConnection",
+                            "runAfter": {},
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "UpdateRecord",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "crdr_signals",
+                                "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                                "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                                "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                                "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                                "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                                "item/crdr_products": "@items('Upsert')?['products']",
+                                "item/crdr_summary": "@items('Upsert')?['summary']",
+                                "item/crdr_title": "@items('Upsert')?['title']",
+                                "item/crdr_url": "@items('Upsert')?['url']",
+                                "recordId": "@first(body('Find_existing'))?['crdr_signalid']"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          },
+                          "Update_version": {
+                            "type": "OpenApiConnection",
+                            "runAfter": {
+                              "Update_signal": [
+                                "Succeeded"
+                              ]
+                            },
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "CreateRecord",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "crdr_signalversions",
+                                "item/crdr_capturedon": "@utcNow()",
+                                "item/crdr_changedfields": "@concat(if(equals(first(body('Find_existing'))?['crdr_title'], items('Upsert')?['title']), '', 'title; '), if(equals(first(body('Find_existing'))?['crdr_horizon'], items('Upsert')?['horizon']), '', 'horizon; '), if(equals(coalesce(first(body('Find_existing'))?['crdr_datelabel'], ''), items('Upsert')?['datelabel']), '', 'date label; '), if(equals(first(body('Find_existing'))?['crdr_actionrequired'], items('Upsert')?['actionrequired']), '', 'action required; '), if(equals(if(empty(first(body('Find_existing'))?['crdr_keydate']), '', formatDateTime(first(body('Find_existing'))?['crdr_keydate'], 'yyyy-MM-ddTHH:mm:ss')), if(empty(items('Upsert')?['keydate']), '', formatDateTime(items('Upsert')?['keydate'], 'yyyy-MM-ddTHH:mm:ss'))), '', 'key date; '), 'last modified')",
+                                "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                                "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', first(body('Find_existing'))?['crdr_signalid'], ')')",
+                                "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Record_run": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Collect": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "crdr_collectionruns",
+                  "item/crdr_accesstier": 169890000,
+                  "item/crdr_collector": "@concat('feed:', items('Each_feed')?['crdr_key'])",
+                  "item/crdr_gaps": "@if(greater(length(coalesce(concat(join(variables('gaps'), '; '), if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat(if(empty(variables('gaps')), '', '; '), 'collect ', coalesce(actions('Collect')?['status'], 'not run'), ' (HTTP ', string(coalesce(actions('Get_page')?['outputs']?['statusCode'], '-')), ')'))), '')), 4000), substring(concat(join(variables('gaps'), '; '), if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat(if(empty(variables('gaps')), '', '; '), 'collect ', coalesce(actions('Collect')?['status'], 'not run'), ' (HTTP ', string(coalesce(actions('Get_page')?['outputs']?['statusCode'], '-')), ')'))), 0, 4000), coalesce(concat(join(variables('gaps'), '; '), if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat(if(empty(variables('gaps')), '', '; '), 'collect ', coalesce(actions('Collect')?['status'], 'not run'), ' (HTTP ', string(coalesce(actions('Get_page')?['outputs']?['statusCode'], '-')), ')'))), ''))",
+                  "item/crdr_itemcount": "@length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))",
+                  "item/crdr_name": "@concat('feed ', items('Each_feed')?['crdr_key'], ' ', formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm'), if(equals(coalesce(actions('Changed_page')?['outputs'], true), false), ': unchanged', concat(': in scope ', string(length(coalesce(actions('Shape')?['outputs']?['body'], json('[]')))), ', new or changed ', string(length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))))))",
+                  "item/crdr_startedon": "@trigger()?['startTime']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Update_feed": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Record_run": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "crdr_feeds",
+                  "item/crdr_lastcheckedon": "@utcNow()",
+                  "item/crdr_lastmarker": "@if(equals(actions('Collect')?['status'], 'Succeeded'), outputs('Marker'), coalesce(items('Each_feed')?['crdr_lastmarker'], ''))",
+                  "recordId": "@items('Each_feed')?['crdr_feedid']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "If_failed": {
+              "type": "If",
+              "runAfter": {
+                "Update_feed": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@equals(actions('Collect')?['status'], 'Succeeded')",
+                  false
+                ]
+              },
+              "actions": {
+                "Note_failed": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {},
+                  "inputs": {
+                    "name": "failed",
+                    "value": "@items('Each_feed')?['crdr_key']"
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              }
+            }
+          }
+        },
+        "Fail_if_any_feed_failed": {
+          "type": "If",
+          "runAfter": {
+            "Each_feed": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@empty(variables('failed'))",
+              false
+            ]
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "FeedFailed",
+                  "message": "@concat('Feeds that failed: ', join(variables('failed'), ', '))"
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        },
+        "Init_bounds": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_failed": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "bounds",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_rows": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_bounds": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "rows",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Text_model": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Init_rows": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$filter": "msdyn_TemplateId/msdyn_uniquename eq 'TextRecognition' and statecode eq 1",
+              "$select": "msdyn_aimodelid,msdyn_name",
+              "$top": 1,
+              "entityName": "msdyn_aimodels"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "description": "Change Radar: collect the active licensing guide change logs (crdr_feed kind pdf_changelog): when a guide PDF changes (Last-Modified), read it with AI Builder text recognition and keep one signal per change log row. The first run of a feed is silent (ADR 0019, spike T12)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

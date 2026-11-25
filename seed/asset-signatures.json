@@ -1,0 +1,125 @@
+{
+  "_comment": "Type microsoft.aibuilder/prompts is Change Radar's own: prompts are not in the inventory; the Dataverse detail step makes one entry per prompt (msdyn_aimodel, template GptPowerPrompt) with an active run configuration (ADR 0013). How estate fields become asset facets. Field names verified against live inventory 2026-11-19 (docs/decisions/verified-facts.md); values marked placeholder are still assumptions.",
+  "productByType": {
+    "microsoft.aibuilder/prompts": [
+      "AI Builder",
+      "Copilot Studio",
+      "Power Automate",
+      "Power Apps"
+    ],
+    "microsoft.powerapps/canvasapps": [
+      "Power Apps"
+    ],
+    "microsoft.powerapps/modeldrivenapps": [
+      "Power Apps"
+    ],
+    "microsoft.powerapps/codeapps": [
+      "Power Apps"
+    ],
+    "microsoft.powerapps/apps": [
+      "Power Apps"
+    ],
+    "microsoft.powerautomate/cloudflows": [
+      "Power Automate"
+    ],
+    "microsoft.powerautomate/agentflows": [
+      "Copilot Studio"
+    ],
+    "microsoft.powerautomate/m365agentflows": [
+      "M365 Copilot"
+    ],
+    "microsoft.copilotstudio/agents": [
+      "Copilot Studio"
+    ],
+    "microsoft.powerpages/sites": [
+      "Power Pages"
+    ],
+    "microsoft.powerplatformconnector/connectors": [
+      "Power Apps",
+      "Power Automate"
+    ]
+  },
+  "agentBuilderCreatedIn": [
+    "Copilot Studio Lite",
+    "Microsoft Copilot Agent Builder"
+  ],
+  "agentBuilderProduct": "M365 Copilot",
+  "resourceTypeByType": {
+    "microsoft.powerapps/canvasapps": "canvas app",
+    "microsoft.powerapps/modeldrivenapps": "model-driven app",
+    "microsoft.powerapps/codeapps": "code app",
+    "microsoft.powerautomate/cloudflows": "cloud flow",
+    "microsoft.powerautomate/agentflows": "agent flow",
+    "microsoft.powerautomate/m365agentflows": "workflow agent flow",
+    "microsoft.copilotstudio/agents": "agent",
+    "microsoft.powerpages/sites": "power pages site",
+    "microsoft.powerplatformconnector/connectors": "custom connector",
+    "microsoft.aibuilder/prompts": "prompt"
+  },
+  "environmentTypeBySku": {
+    "Production": "production",
+    "Sandbox": "sandbox",
+    "Developer": "developer",
+    "Default": "default",
+    "Trial": "trial"
+  },
+  "harnessByValue": {
+    "Standard": "standard",
+    "Copilot Chat": "microsoft_copilot",
+    "Microsoft Copilot": "microsoft_copilot"
+  },
+  "orchestrationGenerative": "Generative",
+  "customWebChannels": {
+    "values": [
+      "Custom website"
+    ],
+    "status": "placeholder: channel display name not verified"
+  },
+  "scheduledPrompt": {
+    "triggerOperations": [
+      "Recurrence"
+    ],
+    "connectors": [
+      "shared_m365copilotautomations",
+      "shared_microsoft365copilot"
+    ],
+    "status": "observed 2026-11-19: a scheduled Copilot prompt flow has a Recurrence trigger and connector shared_m365copilotautomations (operation OfficeAIActionExecution); spike T5 still to confirm"
+  },
+  "sharePointHostPattern": {
+    "pattern": "[.]sharepoint[.](com|example)$",
+    "status": "placeholder: .example is for synthetic data only"
+  },
+  "userOwnedProduction": {
+    "resourceTypes": [
+      "cloud flow",
+      "agent flow"
+    ],
+    "environmentTypes": [
+      "production"
+    ]
+  },
+  "agentKitCapabilities": {
+    "usesMcp": "uses_mcp",
+    "hasAutonomousTriggers": "autonomous_trigger",
+    "hasHttpActions": "http_action"
+  },
+  "agentKnowledge": {
+    "capability": "custom_knowledge",
+    "status": "assumption 2026-11-20: any knowledge source in inventory componentsCounts counts, public websites included"
+  },
+  "pcfMicrosoftPublishers": {
+    "values": [
+      "microsoftdynamics",
+      "MicrosoftCorporation",
+      "microsoftfirstparty"
+    ],
+    "status": "observed in pp-lab 2026-11-20: every shipped code component belongs to a solution from one of these publishers; maker controls are the rest"
+  },
+  "detailFacets": {
+    "values": [
+      "capability: pcf_control"
+    ],
+    "evidencePrefix": "flow definition: ",
+    "status": "ADR 0008 addendum 2 (2026-11-20): written and removed only by the Dataverse detail flow; the estate flow leaves them alone. ADR 0017 (2026-11-23): so are the prompt callers' facets (capability ai_prompt and model on a flow), recognised by evidence starting with evidencePrefix"
+  }
+}

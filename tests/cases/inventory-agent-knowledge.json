@@ -1,0 +1,52 @@
+{
+  "id": "inventory-agent-knowledge",
+  "workedExample": "ADR 0008 addendum (2026-11-20): agent knowledge from native inventory, no Kit and no Dataverse",
+  "note": "Field shape verified in live inventory 2026-11-19 (componentsCounts.knowledge, componentsCounts.knowledgeByType). Assumption: any knowledge source counts as custom_knowledge, public websites included; revisit if a phase 3 signal needs the type.",
+  "signal": {
+    "id": "TEST-KNOWLEDGE",
+    "source": "manual",
+    "title": "Test signal: agents grounded on their own knowledge sources",
+    "fingerprint": [
+      { "group": "A", "facet": "capability", "value": "custom_knowledge", "confidence": 0.9, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "agt-know-sharepoint", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Policy helper", "environmentId": "env-default", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Copilot Chat", "orchestration": "Generative", "createdIn": "Copilot Studio Lite", "powerPlatformConnectors": [],
+          "componentsCounts": { "connectedAgents": 0, "knowledgeByType": { "sharepointSites": 1 }, "knowledge": 1, "topics": 1, "tools": 0 } } },
+      { "name": "agt-know-public", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Website helper", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "powerPlatformConnectors": [],
+          "componentsCounts": { "connectedAgents": 0, "knowledgeByType": { "publicSites": 2 }, "knowledge": 2, "topics": 13, "tools": 0 } } },
+      { "name": "agt-know-none", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Greeter", "environmentId": "env-default", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Copilot Chat", "orchestration": "Generative", "createdIn": "Copilot Studio Lite", "powerPlatformConnectors": [],
+          "componentsCounts": { "connectedAgents": 0, "knowledgeByType": {}, "knowledge": 0, "topics": 1, "tools": 0 } } },
+      { "name": "agt-know-unreported", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Older agent", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Standard", "orchestration": "Classic", "createdIn": "Copilot Studio", "powerPlatformConnectors": [] } },
+      { "name": "app-know-canvas", "type": "microsoft.powerapps/canvasapps", "location": "europe",
+        "properties": { "displayName": "Knowledge base browser", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "powerPlatformConnectors": [ { "connectorId": "shared_sharepointonline", "operations": [ { "operationId": "GetItems" } ] } ] } }
+    ]
+  },
+  "cases": [
+    { "id": "knowledge-01", "kind": "positive", "assetId": "agt-know-sharepoint",
+      "description": "Agent Builder agent with one SharePoint knowledge source",
+      "expect": { "match": true, "matchedFacets": ["capability"] } },
+    { "id": "knowledge-02", "kind": "positive", "assetId": "agt-know-public",
+      "description": "Copilot Studio agent with public website knowledge (counts, by assumption)",
+      "expect": { "match": true, "matchedFacets": ["capability"] } },
+    { "id": "knowledge-03", "kind": "near_miss", "assetId": "agt-know-none",
+      "description": "Agent whose inventory reports zero knowledge sources",
+      "expect": { "match": false } },
+    { "id": "knowledge-04", "kind": "near_miss", "assetId": "agt-know-unreported",
+      "description": "Agent with no componentsCounts: not reported, so no facet (not a guess)",
+      "expect": { "match": false } },
+    { "id": "knowledge-05", "kind": "near_miss", "assetId": "app-know-canvas",
+      "description": "Canvas app reading SharePoint is not an agent knowledge source",
+      "expect": { "match": false } }
+  ]
+}

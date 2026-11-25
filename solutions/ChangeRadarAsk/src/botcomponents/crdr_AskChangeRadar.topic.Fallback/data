@@ -1,0 +1,8 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnUnknownIntent
+  id: main
+  actions:
+    - kind: SendActivity
+      id: sendMessage_QZreqo
+      activity: That isn't in Change Radar's data, so I can't answer it. I answer only from the signals, ratings, exposures and watch list that Change Radar holds. I also can't change anything; to dismiss an exposure, set an override or edit the watch list, use the Change Radar app.

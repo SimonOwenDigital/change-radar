@@ -1,0 +1,58 @@
+{
+  "description": "ADR 0011 addendum (accepted 2026-11-23): where alerts go. Get-AlertDestinations reads config alert_destinations (entries separated by ';', each 'chat:<user principal name>', 'channel:<team id>/<channel id>' or 'email:<address>') and the old alert_recipient, which is read as one more chat: entry. Kinds are case-insensitive; addresses and team ids are lower-cased; a channel id is kept as given. Repeats are shown once, first one kept. A bad entry is kept as 'invalid' with a reason, so the handler can report it and still send to the others. All addresses are fictional (example.org).",
+  "parse": [
+    { "id": "dest-01", "destinations": "", "recipient": "", "expected": [], "note": "nothing configured: no destination, the handler records a failure" },
+    { "id": "dest-02", "destinations": "", "recipient": "admin@example.org", "expected": ["chat:admin@example.org"], "note": "an existing install keeps working" },
+    { "id": "dest-03", "destinations": "chat:Admin@Example.org", "recipient": "", "expected": ["chat:admin@example.org"] },
+    { "id": "dest-04", "destinations": "channel:6F1C2B4A-0D3E-4C5F-9A8B-7E6D5C4B3A21/19:AbCdEf0123@thread.tacv2", "recipient": "",
+      "expected": ["channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21/19:AbCdEf0123@thread.tacv2"], "note": "team id lower-cased, channel id kept as given" },
+    { "id": "dest-05", "destinations": "email:it-admins@example.org", "recipient": "", "expected": ["email:it-admins@example.org"] },
+    { "id": "dest-06", "destinations": " chat:a@example.org ; Email:b@example.org;;channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21/19:x@thread.tacv2; ", "recipient": "",
+      "expected": ["chat:a@example.org", "email:b@example.org", "channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21/19:x@thread.tacv2"], "note": "spaces, empty entries and a trailing ';' are ignored; order kept" },
+    { "id": "dest-07", "destinations": "chat:a@example.org;email:b@example.org", "recipient": "c@example.org",
+      "expected": ["chat:a@example.org", "email:b@example.org", "chat:c@example.org"], "note": "alert_recipient is added as one chat: entry after the list" },
+    { "id": "dest-08", "destinations": "chat:a@example.org;CHAT:A@example.org", "recipient": "a@example.org", "expected": ["chat:a@example.org"], "note": "repeats, in any case, are sent once" },
+    { "id": "dest-09", "destinations": "chat:a@example.org;email:a@example.org", "recipient": "", "expected": ["chat:a@example.org", "email:a@example.org"], "note": "the same person by chat and by email are two destinations" },
+    { "id": "dest-10", "destinations": "sms:+440000000000", "recipient": "", "expected": ["invalid:sms:+440000000000 (unknown kind 'sms': use chat:, channel: or email:)"] },
+    { "id": "dest-11", "destinations": "a@example.org", "recipient": "", "expected": ["invalid:a@example.org (no kind: start with chat:, channel: or email:)"] },
+    { "id": "dest-12", "destinations": "chat:;email:not an address;email:nobody", "recipient": "",
+      "expected": ["invalid:chat: (not an email address)", "invalid:email:not an address (not an email address)", "invalid:email:nobody (not an email address)"] },
+    { "id": "dest-13", "destinations": "channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21", "recipient": "", "expected": ["invalid:channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21 (use channel:<team id>/<channel id>)"] },
+    { "id": "dest-14", "destinations": "channel:Sales team/19:x@thread.tacv2", "recipient": "", "expected": ["invalid:channel:Sales team/19:x@thread.tacv2 (team id is not a GUID)"], "note": "names aren't accepted: they change, ids don't" },
+    { "id": "dest-15", "destinations": "channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21/General", "recipient": "", "expected": ["invalid:channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21/General (channel id should start with 19:)"] },
+    { "id": "dest-16", "destinations": "chat:a@example.org;sms:1;email:b@example.org", "recipient": "",
+      "expected": ["chat:a@example.org", "invalid:sms:1 (unknown kind 'sms': use chat:, channel: or email:)", "email:b@example.org"], "note": "a bad entry doesn't stop the others" },
+    { "id": "dest-17", "destinations": "email:@example.org;email:a@b@example.org;email:a@example.org.;email:a@.example.org;email:a@localhost", "recipient": "",
+      "expected": ["invalid:email:@example.org (not an email address)", "invalid:email:a@b@example.org (not an email address)", "invalid:email:a@example.org. (not an email address)", "invalid:email:a@.example.org (not an email address)", "invalid:email:a@localhost (not an email address)"],
+      "note": "the address rules a flow expression can check: one @ with text before it, a dotted domain not starting or ending with a dot" },
+    { "id": "dest-18", "destinations": "sms:1;sms:1;SMS:1", "recipient": "", "expected": ["invalid:sms:1 (unknown kind 'sms': use chat:, channel: or email:)", "invalid:SMS:1 (unknown kind 'sms': use chat:, channel: or email:)"],
+      "note": "a bad entry is shown once only when its text is identical" },
+    { "id": "dest-19", "destinations": "channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a2/19:x@thread.tacv2;channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21/19:", "recipient": "",
+      "expected": ["invalid:channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a2/19:x@thread.tacv2 (team id is not a GUID)", "invalid:channel:6f1c2b4a-0d3e-4c5f-9a8b-7e6d5c4b3a21/19: (channel id should start with 19:)"],
+      "note": "a team id one character short; a channel id with nothing after 19:" }
+  ],
+  "email": {
+    "description": "Get-AlertEmail: the same card fields as a Teams card, as an HTML email. Subject is the heading. Text is HTML-escaped. No Affected line when there are no assets; 'none' when there is no key date; Open source only when there is a source link. The footer is the card's footer.",
+    "appUrl": "https://example.invalid/main.aspx?appid=00000000-0000-0000-0000-000000000000",
+    "cases": [
+      { "id": "mail-01", "type": "assessment.rated",
+        "card": { "heading": "High for your estate: Retiring <legacy> connectors", "why": "MC0000001 affects 7 of your assets.", "assets": ["Expenses app", "Leave & absence"], "more": 0, "keyDate": "2026-12-01", "action": "Replace the connector before 1 December.",
+          "links": { "app": "{appUrl}&pagetype=entityrecord&etn=crdr_assessment&id=a1", "source": "https://example.invalid/mc?id=MC0000001&x=1" } },
+        "expected": {
+          "subject": "High for your estate: Retiring <legacy> connectors",
+          "html": "<p><strong>High for your estate: Retiring &lt;legacy&gt; connectors</strong></p><p>MC0000001 affects 7 of your assets.</p><p>Key date: 2026-12-01<br>Affected: Expenses app, Leave &amp; absence</p><p><strong>Recommended action</strong><br>Replace the connector before 1 December.</p><p><a href=\"{appUrl}&amp;pagetype=entityrecord&amp;etn=crdr_assessment&amp;id=a1\">Open in Change Radar</a> · <a href=\"https://example.invalid/mc?id=MC0000001&amp;x=1\">Open source</a></p><p style=\"color:#666666;font-size:small\">Rating: generic impact (LLM) plus production and action-date bonuses. The action is written by an LLM: check it before acting.</p>" } },
+      { "id": "mail-02", "type": "asset.modelchanged",
+        "card": { "heading": "Model changed: Summarise ticket now uses gpt-6-sol", "why": "The prompt Summarise ticket moved.", "assets": ["Summarise ticket", "A", "B", "C", "D"], "more": 2, "keyDate": "", "action": "Re-test it.",
+          "links": { "app": "{appUrl}&pagetype=entityrecord&etn=crdr_asset&id=b2", "source": "" } },
+        "expected": {
+          "subject": "Model changed: Summarise ticket now uses gpt-6-sol",
+          "html": "<p><strong>Model changed: Summarise ticket now uses gpt-6-sol</strong></p><p>The prompt Summarise ticket moved.</p><p>Key date: none<br>Affected: Summarise ticket, A, B, C, D and 2 more</p><p><strong>Recommended action</strong><br>Re-test it.</p><p><a href=\"{appUrl}&amp;pagetype=entityrecord&amp;etn=crdr_asset&amp;id=b2\">Open in Change Radar</a></p><p style=\"color:#666666;font-size:small\">From Change Radar.</p>" } },
+      { "id": "mail-03", "type": "incident.opened",
+        "card": { "heading": "Incident: \"Teams\" sign-in delays", "why": "Service incident affecting Microsoft Teams (TM000001).", "assets": [], "more": 0, "keyDate": "", "action": "Follow the incident in the Microsoft 365 admin centre and tell affected users.",
+          "links": { "app": "{appUrl}&pagetype=entityrecord&etn=crdr_signal&id=c3", "source": "" } },
+        "expected": {
+          "subject": "Incident: \"Teams\" sign-in delays",
+          "html": "<p><strong>Incident: &quot;Teams&quot; sign-in delays</strong></p><p>Service incident affecting Microsoft Teams (TM000001).</p><p>Key date: none</p><p><strong>Recommended action</strong><br>Follow the incident in the Microsoft 365 admin centre and tell affected users.</p><p><a href=\"{appUrl}&amp;pagetype=entityrecord&amp;etn=crdr_signal&amp;id=c3\">Open in Change Radar</a></p><p style=\"color:#666666;font-size:small\">From Change Radar.</p>" } }
+    ]
+  }
+}

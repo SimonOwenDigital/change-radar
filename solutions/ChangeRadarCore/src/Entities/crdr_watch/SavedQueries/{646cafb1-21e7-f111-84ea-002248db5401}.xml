@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{646cafb1-21e7-f111-84ea-002248db5401}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="crdr_name" select="1" icon="1" preview="1">
+        <row name="result" id="crdr_watchid">
+          <cell name="crdr_name" width="240" />
+          <cell name="crdr_active" width="70" />
+          <cell name="crdr_anyof" width="220" />
+          <cell name="crdr_alsooneof" width="300" />
+          <cell name="crdr_ignorephrases" width="200" />
+          <cell name="crdr_products" width="160" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="crdr_watch">
+          <attribute name="crdr_name" />
+          <attribute name="crdr_active" />
+          <attribute name="crdr_anyof" />
+          <attribute name="crdr_alsooneof" />
+          <attribute name="crdr_ignorephrases" />
+          <attribute name="crdr_products" />
+          <attribute name="crdr_watchid" />
+          <order attribute="crdr_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>0.1.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Watch list" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Watch list topics: a new or changed signal whose title or summary matches one goes on the watch list and raises a card." languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,17 @@
+kind: TaskDialog
+modelDisplayName: Microsoft Dataverse MCP Server
+modelDescription: Provides Remote MCP Server access to Dataverse
+action:
+  kind: InvokeExternalAgentTaskAction
+  connectionReference: crdr_AskChangeRadar.shared_commondataserviceforapps.557a37bcd0f84f43b445e9bcb7adf0f8
+  connectionProperties:
+    mode: Invoker
+
+  operationDetails:
+    kind: ModelContextProtocolMetadata
+    operationId: InvokeMCP
+    tools:
+      kind: UseSpecificTools
+      tools:
+        - read_query
+        - describe

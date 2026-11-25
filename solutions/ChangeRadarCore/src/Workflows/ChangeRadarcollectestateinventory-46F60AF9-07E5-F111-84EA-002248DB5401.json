@@ -1,0 +1,787 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_powerplatformadminv2": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_powerplatformadmin"
+        },
+        "api": {
+          "name": "shared_powerplatformadminv2"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "4"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "Init_rows": {
+          "type": "InitializeVariable",
+          "runAfter": {},
+          "inputs": {
+            "variables": [
+              {
+                "name": "Rows",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_skip": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_rows": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "SkipToken",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          }
+        },
+        "Init_more": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_skip": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "More",
+                "type": "boolean",
+                "value": true
+              }
+            ]
+          }
+        },
+        "Collect": {
+          "type": "Scope",
+          "runAfter": {
+            "Init_more": [
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Pages": {
+              "type": "Until",
+              "runAfter": {},
+              "expression": "@equals(variables('More'), false)",
+              "limit": {
+                "count": 100,
+                "timeout": "PT1H"
+              },
+              "actions": {
+                "Query_page": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_powerplatformadminv2",
+                      "operationId": "QueryResources",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_powerplatformadminv2"
+                    },
+                    "parameters": {
+                      "api-version": "2024-10-01",
+                      "body/TableName": "PowerPlatformResources",
+                      "body/Clauses": [
+                        {
+                          "$type": "extend",
+                          "FieldName": "joinKey",
+                          "Expression": "tolower(tostring(properties.environmentId))"
+                        },
+                        {
+                          "$type": "join",
+                          "JoinKind": "leftouter",
+                          "LeftColumnName": "joinKey",
+                          "RightColumnName": "joinKey",
+                          "RightTable": {
+                            "TableName": "PowerPlatformResources",
+                            "Clauses": [
+                              {
+                                "$type": "where",
+                                "FieldName": "type",
+                                "Operator": "==",
+                                "Values": [
+                                  "'microsoft.powerplatform/environments'"
+                                ]
+                              },
+                              {
+                                "$type": "project",
+                                "FieldList": [
+                                  "joinKey = tolower(name)",
+                                  "environmentName = tostring(properties.displayName)",
+                                  "environmentType = tostring(properties.environmentType)"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "$type": "where",
+                          "FieldName": "type",
+                          "Operator": "!in~",
+                          "Values": [
+                            "'microsoft.powerplatformconnector/connectors'",
+                            "'microsoft.powerplatformusage/usagerecords'",
+                            "'microsoft.powerplatform/environments'",
+                            "'microsoft.powerplatform/environmentgroups'"
+                          ]
+                        }
+                      ],
+                      "body/Options/Top": 1000,
+                      "body/Options/SkipToken": "@variables('SkipToken')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Merge_rows": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Query_page": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@union(variables('Rows'), coalesce(body('Query_page')?['data'], json('[]')))"
+                },
+                "Set_rows": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Merge_rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Rows",
+                    "value": "@outputs('Merge_rows')"
+                  }
+                },
+                "Set_skip": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Set_rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "SkipToken",
+                    "value": "@coalesce(body('Query_page')?['skipToken'], '')"
+                  }
+                },
+                "Set_more": {
+                  "type": "SetVariable",
+                  "runAfter": {
+                    "Set_skip": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "More",
+                    "value": "@not(empty(variables('SkipToken')))"
+                  }
+                }
+              }
+            },
+            "Shape": {
+              "type": "Select",
+              "runAfter": {
+                "Pages": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@variables('Rows')",
+                "select": {
+                  "sourceid": "@concat(coalesce(item()?['properties']?['environmentId'], ''), '|', item()?['name'], '|')",
+                  "name": "@if(greater(length(coalesce(coalesce(item()?['properties']?['displayName'], item()?['name']), '')), 400), substring(coalesce(item()?['properties']?['displayName'], item()?['name']), 0, 400), coalesce(coalesce(item()?['properties']?['displayName'], item()?['name']), ''))",
+                  "type": "@item()?['type']",
+                  "envid": "@coalesce(item()?['properties']?['environmentId'], '')",
+                  "envname": "@item()?['environmentName']",
+                  "envtypeRaw": "@item()?['environmentType']",
+                  "envtypeLabel": "@json('{\"Production\":\"production\",\"Sandbox\":\"sandbox\",\"Developer\":\"developer\",\"Default\":\"default\",\"Trial\":\"trial\"}')?[coalesce(item()?['environmentType'], '-')]",
+                  "envtype": "@json('{\"Production\":169890000,\"Sandbox\":169890001,\"Developer\":169890002,\"Default\":169890003,\"Trial\":169890004}')?[coalesce(item()?['environmentType'], '-')]",
+                  "componentid": "@if(equals(item()?['type'], 'microsoft.powerapps/canvasapps'), item()?['name'], coalesce(item()?['properties']?['appModuleId'], item()?['properties']?['workflowEntityId'], ''))",
+                  "owner": "@item()?['properties']?['ownerId']",
+                  "lastmodified": "@item()?['properties']?['lastModifiedAt']",
+                  "raw": "@item()"
+                }
+              }
+            },
+            "List_models": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_facet eq 169890008 and crdr_active eq true",
+                  "$select": "crdr_value,crdr_aliases",
+                  "entityName": "crdr_facetvalues"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Model_rows": {
+              "type": "Select",
+              "runAfter": {
+                "List_models": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('List_models')?['value']",
+                "select": "@concat('<r v=\"', item()?['crdr_value'], '\"><a>', toLower(item()?['crdr_value']), '</a><a>', replace(toLower(trim(coalesce(item()?['crdr_aliases'], ''))), '|', '</a><a>'), '</a></r>')"
+              }
+            },
+            "Model_xml": {
+              "type": "Compose",
+              "runAfter": {
+                "Model_rows": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@xml(concat('<m>', join(body('Model_rows'), ''), '</m>'))"
+            },
+            "List_assets": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Shape": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_source ne 169890002",
+                  "$select": "crdr_assetid,crdr_sourceid,crdr_source",
+                  "entityName": "crdr_assets"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "Upsert": {
+              "type": "Foreach",
+              "foreach": "@body('Shape')",
+              "runAfter": {
+                "List_assets": [
+                  "Succeeded"
+                ],
+                "Model_xml": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 10
+                }
+              },
+              "actions": {
+                "Find_asset": {
+                  "type": "Query",
+                  "runAfter": {},
+                  "inputs": {
+                    "from": "@body('List_assets')?['value']",
+                    "where": "@equals(item()?['crdr_sourceid'], items('Upsert')?['sourceid'])"
+                  }
+                },
+                "Is_new": {
+                  "type": "If",
+                  "runAfter": {
+                    "Find_asset": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@empty(body('Find_asset'))",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Create_asset": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_assets",
+                          "item/crdr_componentid": "@items('Upsert')?['componentid']",
+                          "item/crdr_environmentid": "@items('Upsert')?['envid']",
+                          "item/crdr_environmentname": "@items('Upsert')?['envname']",
+                          "item/crdr_environmenttype": "@items('Upsert')?['envtype']",
+                          "item/crdr_lastmodified": "@items('Upsert')?['lastmodified']",
+                          "item/crdr_lastseen": "@utcNow()",
+                          "item/crdr_name": "@items('Upsert')?['name']",
+                          "item/crdr_ownerobjectid": "@items('Upsert')?['owner']",
+                          "item/crdr_resourcetype": "@items('Upsert')?['type']",
+                          "item/crdr_source": 169890000,
+                          "item/crdr_sourceid": "@items('Upsert')?['sourceid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Update_asset": {
+                        "type": "OpenApiConnection",
+                        "runAfter": {},
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "crdr_assets",
+                            "item/crdr_componentid": "@items('Upsert')?['componentid']",
+                            "item/crdr_environmentid": "@items('Upsert')?['envid']",
+                            "item/crdr_environmentname": "@items('Upsert')?['envname']",
+                            "item/crdr_environmenttype": "@items('Upsert')?['envtype']",
+                            "item/crdr_lastmodified": "@items('Upsert')?['lastmodified']",
+                            "item/crdr_lastseen": "@utcNow()",
+                            "item/crdr_name": "@items('Upsert')?['name']",
+                            "item/crdr_ownerobjectid": "@items('Upsert')?['owner']",
+                            "item/crdr_resourcetype": "@items('Upsert')?['type']",
+                            "recordId": "@first(body('Find_asset'))?['crdr_assetid']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Asset_id": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Is_new": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@coalesce(actions('Create_asset')?['outputs']?['body']?['crdr_assetid'], first(body('Find_asset'))?['crdr_assetid'])"
+                },
+                "Connector_ids": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Asset_id": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@coalesce(items('Upsert')?['raw']?['properties']?['powerPlatformConnectors'], json('[]'))",
+                    "select": "@item()?['connectorId']"
+                  }
+                },
+                "Connector_facets": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Connector_ids": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@coalesce(items('Upsert')?['raw']?['properties']?['powerPlatformConnectors'], json('[]'))",
+                    "select": {
+                      "facet": "connector",
+                      "value": "@item()?['connectorId']",
+                      "evidence": "@concat('inventory.properties.powerPlatformConnectors[].connectorId = ''', item()?['connectorId'], '''')"
+                    }
+                  }
+                },
+                "Product_facets": {
+                  "type": "Select",
+                  "runAfter": {
+                    "Connector_facets": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@if(and(equals(items('Upsert')?['raw']?['type'], 'microsoft.copilotstudio/agents'), contains(json('[\"Copilot Studio Lite\",\"Microsoft Copilot Agent Builder\"]'), coalesce(items('Upsert')?['raw']?['properties']?['createdIn'], '-'))), createArray('M365 Copilot'), coalesce(json('{\"microsoft.aibuilder/prompts\":[\"AI Builder\",\"Copilot Studio\",\"Power Automate\",\"Power Apps\"],\"microsoft.powerapps/canvasapps\":[\"Power Apps\"],\"microsoft.powerapps/modeldrivenapps\":[\"Power Apps\"],\"microsoft.powerapps/codeapps\":[\"Power Apps\"],\"microsoft.powerapps/apps\":[\"Power Apps\"],\"microsoft.powerautomate/cloudflows\":[\"Power Automate\"],\"microsoft.powerautomate/agentflows\":[\"Copilot Studio\"],\"microsoft.powerautomate/m365agentflows\":[\"M365 Copilot\"],\"microsoft.copilotstudio/agents\":[\"Copilot Studio\"],\"microsoft.powerpages/sites\":[\"Power Pages\"],\"microsoft.powerplatformconnector/connectors\":[\"Power Apps\",\"Power Automate\"]}')?[items('Upsert')?['raw']?['type']], json('[]')))",
+                    "select": {
+                      "facet": "product",
+                      "value": "@item()",
+                      "evidence": "@if(equals(items('Upsert')?['raw']?['type'], 'microsoft.copilotstudio/agents'), concat('inventory.type = ''', items('Upsert')?['raw']?['type'], ''', createdIn = ''', coalesce(items('Upsert')?['raw']?['properties']?['createdIn'], ''), ''''), concat('inventory.type = ''', items('Upsert')?['raw']?['type'], ''''))"
+                    }
+                  }
+                },
+                "All_facets": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Product_facets": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@union(body('Product_facets'), union(if(not(empty(json('{\"microsoft.powerapps/canvasapps\":\"canvas app\",\"microsoft.powerapps/modeldrivenapps\":\"model-driven app\",\"microsoft.powerapps/codeapps\":\"code app\",\"microsoft.powerautomate/cloudflows\":\"cloud flow\",\"microsoft.powerautomate/agentflows\":\"agent flow\",\"microsoft.powerautomate/m365agentflows\":\"workflow agent flow\",\"microsoft.copilotstudio/agents\":\"agent\",\"microsoft.powerpages/sites\":\"power pages site\",\"microsoft.powerplatformconnector/connectors\":\"custom connector\",\"microsoft.aibuilder/prompts\":\"prompt\"}')?[items('Upsert')?['raw']?['type']])), createArray(addProperty(addProperty(json('{\"facet\":\"resource_type\"}'), 'value', json('{\"microsoft.powerapps/canvasapps\":\"canvas app\",\"microsoft.powerapps/modeldrivenapps\":\"model-driven app\",\"microsoft.powerapps/codeapps\":\"code app\",\"microsoft.powerautomate/cloudflows\":\"cloud flow\",\"microsoft.powerautomate/agentflows\":\"agent flow\",\"microsoft.powerautomate/m365agentflows\":\"workflow agent flow\",\"microsoft.copilotstudio/agents\":\"agent\",\"microsoft.powerpages/sites\":\"power pages site\",\"microsoft.powerplatformconnector/connectors\":\"custom connector\",\"microsoft.aibuilder/prompts\":\"prompt\"}')?[items('Upsert')?['raw']?['type']]), 'evidence', concat('inventory.type = ''', items('Upsert')?['raw']?['type'], ''''))), json('[]')), if(not(empty(items('Upsert')?['envtypeLabel'])), createArray(addProperty(addProperty(json('{\"facet\":\"environment_type\"}'), 'value', items('Upsert')?['envtypeLabel']), 'evidence', concat('environments[', items('Upsert')?['envid'], '].properties.environmentType = ''', items('Upsert')?['envtypeRaw'], ''''))), json('[]')), if(not(empty(json('{\"Standard\":\"standard\",\"Copilot Chat\":\"microsoft_copilot\",\"Microsoft Copilot\":\"microsoft_copilot\"}')?[coalesce(items('Upsert')?['raw']?['properties']?['harness'], '-')])), createArray(addProperty(addProperty(json('{\"facet\":\"harness\"}'), 'value', json('{\"Standard\":\"standard\",\"Copilot Chat\":\"microsoft_copilot\",\"Microsoft Copilot\":\"microsoft_copilot\"}')?[coalesce(items('Upsert')?['raw']?['properties']?['harness'], '-')]), 'evidence', concat('inventory.properties.harness = ''', items('Upsert')?['raw']?['properties']?['harness'], ''''))), json('[]')), if(equals(items('Upsert')?['raw']?['properties']?['orchestration'], 'Generative'), createArray(addProperty(addProperty(json('{\"facet\":\"capability\"}'), 'value', 'generative_orchestration'), 'evidence', 'inventory.properties.orchestration = ''Generative''')), json('[]')), if(not(empty(intersection(coalesce(items('Upsert')?['raw']?['properties']?['channels'], json('[]')), json('[\"Custom website\"]')))), createArray(addProperty(addProperty(json('{\"facet\":\"capability\"}'), 'value', 'custom_web_ui'), 'evidence', concat('inventory.properties.channels contains ', string(intersection(coalesce(items('Upsert')?['raw']?['properties']?['channels'], json('[]')), json('[\"Custom website\"]'))), ' [placeholder: channel display name not verified]'))), json('[]')), if(and(contains(json('[\"Recurrence\"]'), coalesce(items('Upsert')?['raw']?['properties']?['trigger']?['operationId'], '-')), not(empty(intersection(body('Connector_ids'), json('[\"shared_m365copilotautomations\",\"shared_microsoft365copilot\"]'))))), createArray(addProperty(addProperty(json('{\"facet\":\"capability\"}'), 'value', 'scheduled_prompt'), 'evidence', concat('inventory.properties.trigger.operationId = ''', items('Upsert')?['raw']?['properties']?['trigger']?['operationId'], ''' and connector ''', first(intersection(body('Connector_ids'), json('[\"shared_m365copilotautomations\",\"shared_microsoft365copilot\"]'))), ''''))), json('[]')), if(and(equals(items('Upsert')?['raw']?['type'], 'microsoft.copilotstudio/agents'), greater(int(coalesce(items('Upsert')?['raw']?['properties']?['componentsCounts']?['knowledge'], 0)), 0)), createArray(addProperty(addProperty(json('{\"facet\":\"capability\"}'), 'value', 'custom_knowledge'), 'evidence', concat('inventory.properties.componentsCounts.knowledge = ', string(items('Upsert')?['raw']?['properties']?['componentsCounts']?['knowledge']), ' (knowledgeByType ', string(coalesce(items('Upsert')?['raw']?['properties']?['componentsCounts']?['knowledgeByType'], json('{}'))), ') [assumption 2026-11-20: any knowledge source in inventory componentsCounts counts, public websites included]'))), json('[]')), if(not(equals(xpath(outputs('Model_xml'), concat('string(/m/r[a = ''', replace(toLower(trim(coalesce(items('Upsert')?['raw']?['properties']?['model'], ''))), '''', ''), ''']/@v)')), '')), createArray(addProperty(addProperty(json('{\"facet\":\"model\"}'), 'value', xpath(outputs('Model_xml'), concat('string(/m/r[a = ''', replace(toLower(trim(coalesce(items('Upsert')?['raw']?['properties']?['model'], ''))), '''', ''), ''']/@v)'))), 'evidence', concat('inventory.properties.model = ''', items('Upsert')?['raw']?['properties']?['model'], ''''))), json('[]')), if(contains(string(coalesce(items('Upsert')?['raw']?['properties']?['powerPlatformConnectors'], json('[]'))), '\"connectionProvider\":\"Maker\"'), createArray(addProperty(addProperty(json('{\"facet\":\"auth_mode\"}'), 'value', 'maker'), 'evidence', 'a connector operation has connectionProvider = ''Maker''')), json('[]')), if(contains(string(coalesce(items('Upsert')?['raw']?['properties']?['powerPlatformConnectors'], json('[]'))), '\"connectionProvider\":\"User\"'), createArray(addProperty(addProperty(json('{\"facet\":\"auth_mode\"}'), 'value', 'invoker'), 'evidence', 'a connector operation has connectionProvider = ''User''')), json('[]'))), body('Connector_facets'))"
+                },
+                "Desired_names": {
+                  "type": "Select",
+                  "runAfter": {
+                    "All_facets": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@outputs('All_facets')",
+                    "select": "@concat(item()?['facet'], ': ', item()?['value'])"
+                  }
+                },
+                "List_fingerprints": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Desired_names": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('_crdr_asset_value eq ', outputs('Asset_id'))",
+                      "$select": "crdr_assetfingerprintid,crdr_name,crdr_evidence",
+                      "entityName": "crdr_assetfingerprints"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Existing_names": {
+                  "type": "Select",
+                  "runAfter": {
+                    "List_fingerprints": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('List_fingerprints')?['value']",
+                    "select": "@item()?['crdr_name']"
+                  }
+                },
+                "To_create": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Existing_names": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@outputs('All_facets')",
+                    "where": "@not(contains(body('Existing_names'), concat(item()?['facet'], ': ', item()?['value'])))"
+                  }
+                },
+                "To_delete": {
+                  "type": "Query",
+                  "runAfter": {
+                    "To_create": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('List_fingerprints')?['value']",
+                    "where": "@and(not(contains(body('Desired_names'), item()?['crdr_name'])), not(contains(json('[\"capability: pcf_control\"]'), item()?['crdr_name'])), not(startsWith(coalesce(item()?['crdr_evidence'], ''), 'flow definition: ')))"
+                  }
+                },
+                "Create_fingerprints": {
+                  "type": "Foreach",
+                  "foreach": "@body('To_create')",
+                  "runAfter": {
+                    "To_delete": [
+                      "Succeeded"
+                    ]
+                  },
+                  "actions": {
+                    "Create_fingerprint": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_assetfingerprints",
+                          "item/crdr_asset@odata.bind": "@concat('/crdr_assets(', outputs('Asset_id'), ')')",
+                          "item/crdr_evidence": "@if(greater(length(coalesce(items('Create_fingerprints')?['evidence'], '')), 1000), substring(items('Create_fingerprints')?['evidence'], 0, 1000), coalesce(items('Create_fingerprints')?['evidence'], ''))",
+                          "item/crdr_facet": "@json('{\"product\":169890000,\"resource_type\":169890001,\"connector\":169890002,\"capability\":169890003,\"auth_mode\":169890004,\"harness\":169890005,\"setting\":169890006,\"environment_type\":169890007,\"model\":169890008}')?[items('Create_fingerprints')?['facet']]",
+                          "item/crdr_name": "@if(greater(length(coalesce(concat(items('Create_fingerprints')?['facet'], ': ', items('Create_fingerprints')?['value']), '')), 200), substring(concat(items('Create_fingerprints')?['facet'], ': ', items('Create_fingerprints')?['value']), 0, 200), coalesce(concat(items('Create_fingerprints')?['facet'], ': ', items('Create_fingerprints')?['value']), ''))",
+                          "item/crdr_value": "@items('Create_fingerprints')?['value']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Delete_fingerprints": {
+                  "type": "Foreach",
+                  "foreach": "@body('To_delete')",
+                  "runAfter": {
+                    "Create_fingerprints": [
+                      "Succeeded"
+                    ]
+                  },
+                  "actions": {
+                    "Delete_fingerprint": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "DeleteRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_assetfingerprints",
+                          "recordId": "@items('Delete_fingerprints')?['crdr_assetfingerprintid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Model_change_old": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Delete_fingerprints": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('List_fingerprints')?['value']",
+                    "where": "@and(startsWith(coalesce(item()?['crdr_name'], ''), 'model: '), not(startsWith(coalesce(item()?['crdr_evidence'], ''), 'flow definition: ')))"
+                  }
+                },
+                "Model_change_new": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Model_change_old": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@outputs('All_facets')",
+                    "where": "@equals(item()?['facet'], 'model')"
+                  }
+                },
+                "Model_change_if": {
+                  "type": "If",
+                  "runAfter": {
+                    "Model_change_new": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@empty(body('Model_change_old'))",
+                          false
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@empty(body('Model_change_new'))",
+                          false
+                        ]
+                      },
+                      {
+                        "not": {
+                          "equals": [
+                            "@substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7)",
+                            "@coalesce(first(body('Model_change_new'))?['value'], '')"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Model_change_raise_payload": {
+                      "type": "Compose",
+                      "runAfter": {},
+                      "inputs": {
+                        "estate": "@if(equals(first(body('Find_asset'))?['crdr_source'], 169890001), 'fixture', 'live')",
+                        "assetId": "@outputs('Asset_id')",
+                        "assetName": "@items('Upsert')?['name']",
+                        "assetType": "@coalesce(json('{\"microsoft.powerapps/canvasapps\":\"canvas app\",\"microsoft.powerapps/modeldrivenapps\":\"model-driven app\",\"microsoft.powerapps/codeapps\":\"code app\",\"microsoft.powerautomate/cloudflows\":\"cloud flow\",\"microsoft.powerautomate/agentflows\":\"agent flow\",\"microsoft.powerautomate/m365agentflows\":\"workflow agent flow\",\"microsoft.copilotstudio/agents\":\"agent\",\"microsoft.powerpages/sites\":\"power pages site\",\"microsoft.powerplatformconnector/connectors\":\"custom connector\",\"microsoft.aibuilder/prompts\":\"prompt\"}')?[items('Upsert')?['type']], items('Upsert')?['type'])",
+                        "environmentName": "@coalesce(items('Upsert')?['envname'], '')",
+                        "fromModel": "@substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7)",
+                        "toModel": "@coalesce(first(body('Model_change_new'))?['value'], '')"
+                      }
+                    },
+                    "Model_change_raise": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {
+                        "Model_change_raise_payload": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_events",
+                          "item/crdr_asset@odata.bind": "@concat('/crdr_assets(', outputs('Asset_id'), ')')",
+                          "item/crdr_correlationid": "@if(greater(length(coalesce(concat('asset.modelchanged|', outputs('Asset_id'), '|', coalesce(first(body('Model_change_new'))?['value'], ''), '|', formatDateTime(utcNow(), 'yyyy-MM-dd')), '')), 100), substring(concat('asset.modelchanged|', outputs('Asset_id'), '|', coalesce(first(body('Model_change_new'))?['value'], ''), '|', formatDateTime(utcNow(), 'yyyy-MM-dd')), 0, 100), coalesce(concat('asset.modelchanged|', outputs('Asset_id'), '|', coalesce(first(body('Model_change_new'))?['value'], ''), '|', formatDateTime(utcNow(), 'yyyy-MM-dd')), ''))",
+                          "item/crdr_eventtype": 169890008,
+                          "item/crdr_name": "@if(greater(length(coalesce(concat('asset.modelchanged | ', items('Upsert')?['name'], ' | ', substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7), ' | ', coalesce(first(body('Model_change_new'))?['value'], '')), '')), 200), substring(concat('asset.modelchanged | ', items('Upsert')?['name'], ' | ', substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7), ' | ', coalesce(first(body('Model_change_new'))?['value'], '')), 0, 200), coalesce(concat('asset.modelchanged | ', items('Upsert')?['name'], ' | ', substring(coalesce(first(body('Model_change_old'))?['crdr_name'], 'model: '), 7), ' | ', coalesce(first(body('Model_change_new'))?['value'], '')), ''))",
+                          "item/crdr_payloadjson": "@string(outputs('Model_change_raise_payload'))",
+                          "item/crdr_raisedon": "@utcNow()"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Record_run": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Collect": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_collectionruns",
+              "item/crdr_accesstier": 169890000,
+              "item/crdr_collector": "estate-inventory",
+              "item/crdr_gaps": "@if(equals(actions('Collect')?['status'], 'Succeeded'), 'Not collected yet: owner kind (user or service principal), Dataverse detail, Copilot Studio Kit (ADR 0008).', concat('Query_page ', coalesce(actions('Query_page')?['status'], 'not run'), '. ', string(coalesce(outputs('Query_page')?['body']?['error']?['message'], outputs('Query_page')?['body']?['message'], '')), ' Collect scope: ', actions('Collect')?['status']))",
+              "item/crdr_itemcount": "@if(equals(actions('Collect')?['status'], 'Succeeded'), length(variables('Rows')), 0)",
+              "item/crdr_name": "@concat('estate-inventory ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), ': resources ', string(length(variables('Rows'))), if(equals(actions('Collect')?['status'], 'Succeeded'), concat(', assets written ', string(length(coalesce(actions('Shape')?['outputs']?['body'], json('[]'))))), ', FAILED: assets written not confirmed'))",
+              "item/crdr_startedon": "@trigger()?['startTime']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Fail_if_collect_failed": {
+          "type": "If",
+          "runAfter": {
+            "Record_run": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@actions('Collect')?['status']",
+                "Succeeded"
+              ]
+            }
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "CollectFailed",
+                  "message": "Estate inventory failed: see the Collect scope and the crdr_collectionrun row."
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: collect the Power Platform estate from inventory (delegated) into crdr_asset with facets and evidence (ADR 0008)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,350 @@
+{
+  "schemaVersion": "0.1",
+  "status": "Design only. Not a solution file; nothing here can be imported. Do not deploy.",
+  "publisher": {
+    "prefix": "crdr",
+    "prefixStatus": "accepted in ADR 0003 on 2026-11-19",
+    "optionValuePrefix": 16989,
+    "solutions": ["ChangeRadarCore", "ChangeRadarHandlers"]
+  },
+  "conventions": {
+    "names": "Logical names below are unprefixed; the renderer applies '<prefix>_'. All lowercase.",
+    "choices": "Option values are ordinals here; on creation they become optionValuePrefix * 10000 + ordinal.",
+    "ownership": "Organisation-owned unless stated, so the read-only role can be granted at organisation level."
+  },
+  "choices": {
+    "signalsource":      ["graph_mc", "graph_health", "roadmap", "blog", "community_archive", "manual", "feed"],
+    "feedkind":          ["learnpage_tables", "learnpage_sections", "rss", "webpage_sections", "pdf_changelog"],
+    "horizonrule":       ["lifecycle", "released", "published"],
+    "horizon":           ["now", "imminent", "future"],
+    "facet":             ["product", "resource_type", "connector", "capability", "auth_mode", "harness", "setting", "environment_type", "model"],
+    "extractedby":       ["rule", "llm", "manual"],
+    "fingerprintstatus": ["accepted", "review", "rejected"],
+    "assetsource":       ["live", "fixture", "synthetic"],
+    "environmenttype":   ["production", "sandbox", "developer", "default", "trial"],
+    "exposurestatus":    ["new", "confirmed", "dismissed", "unmatched", "system"],
+    "impacttype":        ["risk", "opportunity", "risk_and_opportunity"],
+    "impact":            ["none", "low", "medium", "high", "critical"],
+    "nature":            ["breaking", "deprecation", "behaviour_change", "new_capability", "licensing", "incident", "informational"],
+    "rulerole":          ["scope", "trigger", "setting"],
+    "rulecondition":     ["any", "setting_absent"],
+    "eventtype":         ["signal.new", "signal.changed", "incident.opened", "incident.resolved", "exposure.found", "assessment.rated", "deadline.approaching", "idea.enabled", "asset.modelchanged", "watch.matched", "watch.updated"],
+    "alertchannel":      ["teams_channel", "teams_chat", "email_digest", "email"],
+    "accesstier":        ["full", "reader", "maker", "public"],
+    "handleroutcome":    ["succeeded", "skipped_duplicate", "failed", "queued"],
+    "settingstate":      ["enabled", "disabled", "not_configured"]
+  },
+  "tables": [
+    {
+      "name": "signal", "displayName": "Signal", "primaryName": "title", "specRef": "§4",
+      "description": "One row per external change: Message Center post, incident, roadmap item, blog post or manual entry.",
+      "columns": [
+        { "name": "title", "type": "string", "maxLength": 400, "required": true },
+        { "name": "source", "type": "choice", "choice": "signalsource", "required": true },
+        { "name": "externalid", "type": "string", "maxLength": 100, "required": true, "description": "MC…, RM… or MO… id" },
+        { "name": "summary", "type": "memo", "maxLength": 20000 },
+        { "name": "summarytext", "type": "memo", "maxLength": 20000, "description": "Readable plain text of summary, made by the Readable summary flow (engine ConvertTo-ReadableText); summary keeps the text as collected" },
+        { "name": "products", "type": "string", "maxLength": 400, "description": "Comma-separated, as published; facets live in signalfingerprint" },
+        { "name": "horizon", "type": "choice", "choice": "horizon" },
+        { "name": "keydate", "type": "datetime", "format": "dateonly" },
+        { "name": "datelabel", "type": "string", "maxLength": 100 },
+        { "name": "actionrequired", "type": "bool" },
+        { "name": "url", "type": "url", "maxLength": 500 },
+        { "name": "firstseen", "type": "datetime", "required": true },
+        { "name": "lastchanged", "type": "datetime" },
+        { "name": "confidencelabel", "type": "string", "maxLength": 50, "description": "e.g. 'community archive' for lower-confidence sources (§3.1)" },
+        { "name": "fingerprintedon", "type": "datetime", "description": "When the fingerprint flow last fingerprinted this signal; refingerprinted when lastchanged is later (ADR 0009)" },
+        { "name": "genericimpact", "type": "choice", "choice": "impact", "description": "LLM generic rating for a typical enterprise, set once per signal (ADR 0012)" },
+        { "name": "nature", "type": "choice", "choice": "nature", "description": "Type of change (LLM, ADR 0012)" },
+        { "name": "impacttype", "type": "choice", "choice": "impacttype", "description": "Risk, opportunity, or both (LLM opportunity lens, spec §6, ADR 0012)" },
+        { "name": "risk", "type": "string", "maxLength": 1000, "description": "One-sentence risk for a typical enterprise (LLM)" },
+        { "name": "opportunity", "type": "string", "maxLength": 1000, "description": "One-sentence opportunity: advisory, governance, adoption, content (LLM)" },
+        { "name": "audience", "type": "string", "maxLength": 200, "description": "Who needs to know, semicolon-separated (LLM)" },
+        { "name": "theme", "type": "string", "maxLength": 100, "description": "One theme from seed/themes.csv (LLM, checked against the list)" },
+        { "name": "ratingconfidence", "type": "string", "maxLength": 20, "description": "high, medium or low (LLM)" },
+        { "name": "ratedon", "type": "datetime", "description": "When the signal-level rating was set; it is set again only when the signal changes (ADR 0012)" },
+        { "name": "feed", "type": "lookup", "target": "feed", "cascade": "referential", "description": "The feed that collected this signal when source is feed (ADR 0014)" },
+        { "name": "watched", "type": "bool", "description": "On the watch list: changes to it raise watch.updated. Set by a matching watch, or by hand (ADR 0015)" },
+        { "name": "watch", "type": "lookup", "target": "watch", "cascade": "referential", "description": "The watch topic that put it on the watch list; empty when watched by hand (ADR 0015)" },
+        { "name": "watchedon", "type": "datetime", "description": "When a watch topic put it on the watch list (ADR 0015)" }
+      ],
+      "alternateKeys": [ { "name": "source_externalid", "columns": ["source", "externalid"] } ]
+    },
+    {
+      "name": "signalversion", "displayName": "Signal version", "primaryName": "name", "specRef": "§4",
+      "description": "History of a signal, for change tracking and signal.changed events.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "signal", "type": "lookup", "target": "signal", "required": true, "cascade": "parental" },
+        { "name": "snapshotjson", "type": "memo", "maxLength": 100000 },
+        { "name": "capturedon", "type": "datetime", "required": true },
+        { "name": "changedfields", "type": "string", "maxLength": 400 }
+      ]
+    },
+    {
+      "name": "signalfingerprint", "displayName": "Signal fingerprint", "primaryName": "name", "specRef": "§4, §5",
+      "description": "What a signal touches, in the shared vocabulary. 'group' holds alternatives (OR); facets within a group are ANDed.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "signal", "type": "lookup", "target": "signal", "required": true, "cascade": "parental" },
+        { "name": "group", "type": "string", "maxLength": 10, "required": true, "default": "A", "proposed": true },
+        { "name": "facet", "type": "choice", "choice": "facet", "required": true },
+        { "name": "value", "type": "string", "maxLength": 200, "required": true },
+        { "name": "extractedby", "type": "choice", "choice": "extractedby", "required": true },
+        { "name": "confidence", "type": "decimal", "precision": 2, "min": 0, "max": 1 },
+        { "name": "reason", "type": "string", "maxLength": 1000, "description": "Why the LLM chose this facet (quoted or paraphrased from the signal), shown in the review queue (ADR 0009)" },
+        { "name": "status", "type": "choice", "choice": "fingerprintstatus", "required": true, "proposed": true, "description": "Review queue (spec gap G11)" },
+        { "name": "reviewedby", "type": "lookup", "target": "systemuser", "proposed": true }
+      ]
+    },
+    {
+      "name": "asset", "displayName": "Asset", "primaryName": "name", "specRef": "§4",
+      "description": "One row per estate resource. Keyed on stable source ids so E1 needs no rework.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 400, "required": true },
+        { "name": "resourcetype", "type": "string", "maxLength": 100, "required": true, "description": "Inventory type, e.g. microsoft.powerapps/canvasapps" },
+        { "name": "environmentid", "type": "string", "maxLength": 100, "required": true },
+        { "name": "environmentname", "type": "string", "maxLength": 200 },
+        { "name": "environmenttype", "type": "choice", "choice": "environmenttype" },
+        { "name": "solutionuniquename", "type": "string", "maxLength": 200 },
+        { "name": "microsoftsystem", "type": "bool", "description": "Shipped by a Microsoft publisher (e.g. a system prompt): its exposures are shown with status system and never rated or alerted (Simon, 2026-11-22)" },
+        { "name": "managed", "type": "bool" },
+        { "name": "ownerobjectid", "type": "string", "maxLength": 100, "description": "Entra object id; not a lookup, owners aren't Dataverse users" },
+        { "name": "ownerkind", "type": "string", "maxLength": 50 },
+        { "name": "lastmodified", "type": "datetime" },
+        { "name": "sourceid", "type": "string", "maxLength": 300, "required": true, "description": "environment id + resource id + solution unique name" },
+        { "name": "source", "type": "choice", "choice": "assetsource", "required": true, "description": "Indexed: drives the 'Demo data' badge" },
+        { "name": "syntheticorg", "type": "string", "maxLength": 200, "description": "Required when source is not live" },
+        { "name": "criticality", "type": "choice", "choice": "impact", "description": "Populated by E1 later; ignored in v1" },
+        { "name": "lastseen", "type": "datetime" },
+        { "name": "componentid", "type": "string", "maxLength": 100, "description": "Dataverse component id from inventory: appModuleId (model-driven app), workflowEntityId (flow), name (canvas app). Joins Dataverse detail to the asset (ADR 0008)" }
+      ],
+      "alternateKeys": [ { "name": "sourceid", "columns": ["sourceid"] } ]
+    },
+    {
+      "name": "assetfingerprint", "displayName": "Asset fingerprint", "primaryName": "name", "specRef": "§4",
+      "description": "What an asset uses, in the shared vocabulary, with the source field as evidence.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "asset", "type": "lookup", "target": "asset", "required": true, "cascade": "parental" },
+        { "name": "facet", "type": "choice", "choice": "facet", "required": true },
+        { "name": "value", "type": "string", "maxLength": 200, "required": true },
+        { "name": "evidence", "type": "string", "maxLength": 1000 }
+      ]
+    },
+    {
+      "name": "tenantsetting", "displayName": "Tenant setting", "primaryName": "key", "specRef": "§5 (gap G6)", "proposed": true,
+      "description": "Tenant-level settings for setting checks (spending policies, subprocessors). Manual at first.",
+      "columns": [
+        { "name": "key", "type": "string", "maxLength": 100, "required": true },
+        { "name": "state", "type": "choice", "choice": "settingstate", "required": true },
+        { "name": "scope", "type": "string", "maxLength": 400, "description": "Products the setting covers" },
+        { "name": "evidence", "type": "string", "maxLength": 1000 },
+        { "name": "checkedon", "type": "datetime" }
+      ],
+      "alternateKeys": [ { "name": "key", "columns": ["key"] } ]
+    },
+    {
+      "name": "rule", "displayName": "Rule", "primaryName": "name", "specRef": "§4, §5",
+      "description": "Deterministic facet joins. Seeded from seed/rules.csv.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "rulecode", "type": "string", "maxLength": 50, "required": true, "description": "Stable rule identifier, e.g. R-PRODUCT (rule_id in seed/rules.csv)" },
+        { "name": "signalfacet", "type": "choice", "choice": "facet", "required": true },
+        { "name": "assetfacet", "type": "choice", "choice": "facet", "required": true },
+        { "name": "condition", "type": "choice", "choice": "rulecondition", "required": true },
+        { "name": "role", "type": "choice", "choice": "rulerole", "required": true, "proposed": true },
+        { "name": "active", "type": "bool", "required": true },
+        { "name": "description", "type": "memo", "maxLength": 2000 }
+      ],
+      "alternateKeys": [ { "name": "rulecode", "columns": ["rulecode"] } ]
+    },
+    {
+      "name": "facetvalue", "displayName": "Facet value", "primaryName": "name", "specRef": "§5, §13.3 (vocabulary as data)", "proposed": true,
+      "description": "The shared vocabulary. Seeded from seed/vocabulary.csv; installers can add values.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 250, "required": true, "description": "facet: value, e.g. 'connector: shared_sharepointonline'. Primary name, so not used in the key (primary name columns are stored at 850 characters)" },
+        { "name": "value", "type": "string", "maxLength": 200, "required": true },
+        { "name": "facet", "type": "choice", "choice": "facet", "required": true },
+        { "name": "description", "type": "string", "maxLength": 500 },
+        { "name": "active", "type": "bool", "required": true },
+        { "name": "aliases", "type": "string", "maxLength": 1000, "description": "Other spellings of the value, separated by '|' (model facet, ADR 0013): matched ignoring case" }
+      ],
+      "alternateKeys": [ { "name": "facet_value", "columns": ["facet", "value"] } ]
+    },
+    {
+      "name": "exposure", "displayName": "Exposure", "primaryName": "name", "specRef": "§4",
+      "description": "Signal × asset (or tenant setting) match, with evidence.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 400, "required": true },
+        { "name": "signal", "type": "lookup", "target": "signal", "required": true, "cascade": "parental" },
+        { "name": "asset", "type": "lookup", "target": "asset", "cascade": "referential", "description": "Empty for setting exposures" },
+        { "name": "tenantsetting", "type": "lookup", "target": "tenantsetting", "cascade": "referential", "proposed": true },
+        { "name": "group", "type": "string", "maxLength": 10, "proposed": true },
+        { "name": "matchedfacets", "type": "string", "maxLength": 400 },
+        { "name": "rules", "type": "string", "maxLength": 400, "description": "Rule ids that matched; multi-rule matches are normal" },
+        { "name": "evidencetext", "type": "memo", "maxLength": 10000 },
+        { "name": "status", "type": "choice", "choice": "exposurestatus", "required": true },
+        { "name": "source", "type": "choice", "choice": "assetsource", "required": true, "proposed": true, "description": "Copied from asset so ratings never mix live and synthetic" }
+      ],
+      "alternateKeys": [ { "name": "signal_asset", "columns": ["signal", "asset"] } ]
+    },
+    {
+      "name": "assessment", "displayName": "Assessment", "primaryName": "name", "specRef": "§4, §6",
+      "description": "Estate-specific rating per signal, with an override.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 400, "required": true },
+        { "name": "signal", "type": "lookup", "target": "signal", "required": true, "cascade": "parental" },
+        { "name": "genericimpact", "type": "choice", "choice": "impact" },
+        { "name": "estateimpact", "type": "choice", "choice": "impact" },
+        { "name": "nature", "type": "choice", "choice": "nature" },
+        { "name": "affectedcount", "type": "int" },
+        { "name": "rationale", "type": "memo", "maxLength": 10000, "description": "LLM-written; labelled as assessment, not fact" },
+        { "name": "recommendedaction", "type": "memo", "maxLength": 4000 },
+        { "name": "model", "type": "string", "maxLength": 100 },
+        { "name": "assessedon", "type": "datetime" },
+        { "name": "overrideimpact", "type": "choice", "choice": "impact", "description": "Impact set by a reviewer, overriding the estate impact" },
+        { "name": "overriddenby", "type": "lookup", "target": "systemuser" },
+        { "name": "overridereason", "type": "memo", "maxLength": 2000 },
+        { "name": "source", "type": "choice", "choice": "assetsource", "required": true, "proposed": true },
+        { "name": "unknownenvcount", "type": "int", "description": "Exposed assets whose environment type is unknown: no production bonus for them (ADR 0010)" },
+        { "name": "productionbonus", "type": "bool", "description": "+1 applied: an exposed asset is in a production environment" },
+        { "name": "actionbonus", "type": "bool", "description": "+1 applied: action required and the key date is within 30 days or past" },
+        { "name": "exposuresummary", "type": "memo", "maxLength": 4000, "description": "The names-free estate summary sent to the assessment prompt; the prompt runs again only when it or the signal changes" },
+        { "name": "overriddenon", "type": "datetime", "description": "When the override was last set or changed" }
+      ]
+    },
+    {
+      "name": "alertlog", "displayName": "Alert log", "primaryName": "name", "specRef": "§4, §7",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "signal", "type": "lookup", "target": "signal", "required": true, "cascade": "referential" },
+        { "name": "channel", "type": "choice", "choice": "alertchannel", "required": true },
+        { "name": "senton", "type": "datetime", "required": true },
+        { "name": "severity", "type": "choice", "choice": "impact" }
+      ]
+    },
+    {
+      "name": "event", "displayName": "Event", "primaryName": "name", "specRef": "§4, §12",
+      "description": "Raised by each pipeline step; the dispatcher triggers on new rows.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "eventtype", "type": "choice", "choice": "eventtype", "required": true },
+        { "name": "signal", "type": "lookup", "target": "signal", "cascade": "referential" },
+        { "name": "exposure", "type": "lookup", "target": "exposure", "cascade": "referential" },
+        { "name": "assessment", "type": "lookup", "target": "assessment", "cascade": "referential" },
+        { "name": "asset", "type": "lookup", "target": "asset", "cascade": "referential" },
+        { "name": "payloadjson", "type": "memo", "maxLength": 20000 },
+        { "name": "raisedon", "type": "datetime", "required": true },
+        { "name": "correlationid", "type": "string", "maxLength": 100, "required": true }
+      ]
+    },
+    {
+      "name": "subscription", "displayName": "Subscription", "primaryName": "name", "specRef": "§4, §12",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "eventtype", "type": "choice", "choice": "eventtype", "required": true },
+        { "name": "filterproduct", "type": "string", "maxLength": 200 },
+        { "name": "filterminimpact", "type": "choice", "choice": "impact" },
+        { "name": "filternature", "type": "choice", "choice": "nature" },
+        { "name": "handler", "type": "string", "maxLength": 200, "required": true, "description": "Child flow name" },
+        { "name": "enabled", "type": "bool", "required": true, "default": false },
+        { "name": "writes", "type": "bool", "required": true, "description": "Handlers that write outside Change Radar ship disabled" }
+      ]
+    },
+    {
+      "name": "handlerrun", "displayName": "Handler run", "primaryName": "name", "specRef": "§12 (gap G10)", "proposed": true,
+      "description": "Idempotency log: what each handler did for each event.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "event", "type": "lookup", "target": "event", "required": true, "cascade": "parental" },
+        { "name": "subscription", "type": "lookup", "target": "subscription", "required": true, "cascade": "referential" },
+        { "name": "outcome", "type": "choice", "choice": "handleroutcome", "required": true },
+        { "name": "detail", "type": "memo", "maxLength": 4000 },
+        { "name": "ranon", "type": "datetime", "required": true }
+      ],
+      "alternateKeys": [ { "name": "event_subscription", "columns": ["event", "subscription"] } ]
+    },
+    {
+      "name": "collectionrun", "displayName": "Collection run", "primaryName": "name", "specRef": "§3.1 (gap G12)", "proposed": true,
+      "description": "One row per collector run, recording the detected access tier so the dashboard can show it.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "collector", "type": "string", "maxLength": 100, "required": true },
+        { "name": "accesstier", "type": "choice", "choice": "accesstier", "required": true },
+        { "name": "startedon", "type": "datetime", "required": true },
+        { "name": "itemcount", "type": "int" },
+        { "name": "gaps", "type": "memo", "maxLength": 4000, "description": "What this tier couldn't see" }
+      ]
+    },
+    {
+      "name": "config", "displayName": "Config", "primaryName": "key", "specRef": "§4, §13.3",
+      "description": "Installer-editable settings. Seeded from seed/config.csv.",
+      "columns": [
+        { "name": "key", "type": "string", "maxLength": 100, "required": true },
+        { "name": "value", "type": "string", "maxLength": 2000 },
+        { "name": "description", "type": "string", "maxLength": 1000 }
+      ],
+      "alternateKeys": [ { "name": "key", "columns": ["key"] } ]
+    },
+    {
+      "name": "feed", "displayName": "Feed", "primaryName": "name", "specRef": "ADR 0014",
+      "description": "A configurable signal source read by the generic Collect feeds flow. Seeded from seed/feeds.csv and seed/feed-profiles/ (ADR 0014).",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "key", "type": "string", "maxLength": 20, "required": true, "description": "Prefix for external ids, e.g. ML-PR" },
+        { "name": "kind", "type": "choice", "choice": "feedkind", "required": true },
+        { "name": "url", "type": "url", "maxLength": 500, "required": true },
+        { "name": "products", "type": "string", "maxLength": 400 },
+        { "name": "horizonrule", "type": "choice", "choice": "horizonrule", "required": true },
+        { "name": "profile", "type": "memo", "maxLength": 20000, "description": "JSON: table profiles, sections and keywords, or RSS label" },
+        { "name": "active", "type": "bool", "required": true },
+        { "name": "lastmarker", "type": "string", "maxLength": 100, "description": "Page git_commit_id or newest item date; an unchanged source is skipped" },
+        { "name": "lastcheckedon", "type": "datetime" },
+        { "name": "description", "type": "memo", "maxLength": 2000 },
+        { "name": "unrated", "type": "bool", "description": "Signals from this feed are never fingerprinted or rated by the LLM; they feed the watch list and Ask Change Radar only (ADR 0018, ADR 0019)" }
+      ],
+      "alternateKeys": [ { "name": "key", "columns": ["key"] } ]
+    },
+    {
+      "name": "watch", "displayName": "Watch", "primaryName": "name", "specRef": "ADR 0015",
+      "description": "A watch list topic: new or changed signals whose title or summary match it go on the watch list and raise watch.matched; changes to watched signals raise watch.updated (ADR 0015).",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true },
+        { "name": "anyof", "type": "string", "maxLength": 1000, "required": true, "description": "Semicolon-separated words or phrases; one must appear (whole words, any case)" },
+        { "name": "alsooneof", "type": "string", "maxLength": 1000, "description": "Optional: semicolon-separated; one of these must appear too" },
+        { "name": "ignorephrases", "type": "string", "maxLength": 1000, "description": "Optional: semicolon-separated phrases removed before checking, e.g. Windows Autopilot" },
+        { "name": "products", "type": "string", "maxLength": 400, "description": "Optional: semicolon-separated; one must be in the signal's products" },
+        { "name": "active", "type": "bool", "required": true },
+        { "name": "description", "type": "memo", "maxLength": 2000 }
+      ]
+    },
+    {
+      "name": "solution", "displayName": "Solution", "primaryName": "name", "specRef": "ADR 0020",
+      "description": "A Dataverse solution that holds estate assets, per environment (ADR 0020). Default, Active and the Common Data Services Default Solution are never stored. Written by the detail flow (live) and the estate import (synthetic).",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 200, "required": true, "description": "Display name" },
+        { "name": "uniquename", "type": "string", "maxLength": 200, "required": true },
+        { "name": "environmentid", "type": "string", "maxLength": 100, "required": true },
+        { "name": "environmentname", "type": "string", "maxLength": 200 },
+        { "name": "publisher", "type": "string", "maxLength": 200, "description": "Publisher unique name" },
+        { "name": "managed", "type": "bool" },
+        { "name": "microsoft", "type": "bool", "description": "Published by a Microsoft publisher (seed/asset-signatures.json pcfMicrosoftPublishers): grouped as Microsoft solutions" },
+        { "name": "source", "type": "choice", "choice": "assetsource", "required": true, "description": "live or synthetic, as the assets it holds" },
+        { "name": "syntheticorg", "type": "string", "maxLength": 200 }
+      ],
+      "alternateKeys": [ { "name": "environmentid_uniquename", "columns": ["environmentid", "uniquename"] } ]
+    },
+    {
+      "name": "solutionmember", "displayName": "Solution member", "primaryName": "name", "specRef": "ADR 0020",
+      "description": "An asset's membership of a solution (ADR 0020). One asset can be in several solutions. Rows that no longer hold are deleted by the detail flow.",
+      "columns": [
+        { "name": "name", "type": "string", "maxLength": 400, "required": true, "description": "Asset name in solution name" },
+        { "name": "asset", "type": "lookup", "target": "asset", "required": true, "cascade": "parental" },
+        { "name": "solution", "type": "lookup", "target": "solution", "required": true, "cascade": "referential", "description": "Referential: a table can have only one parental relationship (asset). The detail flow deletes a solution's member rows before the solution" },
+        { "name": "source", "type": "choice", "choice": "assetsource", "required": true }
+      ]
+    }
+  ],
+  "externalTables": ["systemuser"]
+}

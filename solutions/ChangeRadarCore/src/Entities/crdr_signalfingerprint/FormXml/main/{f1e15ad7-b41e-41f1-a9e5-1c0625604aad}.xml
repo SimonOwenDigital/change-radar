@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{f1e15ad7-b41e-41f1-a9e5-1c0625604aad}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_fingerprint" verticallayout="true" id="{5b121923-9c6c-44a5-81fd-df2f5a5edbdb}" IsUserDefined="1">
+          <labels>
+            <label description="Fingerprint" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="50%">
+              <sections>
+                <section name="sec_review" showlabel="true" showbar="false" id="{6672c86c-5d15-4a73-83dc-6bc20e324327}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Review" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{67144c71-0d80-4a31-b0e1-5caf632076a8}">
+                        <labels>
+                          <label description="Status (only Accepted fingerprints are matched)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_status" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_status" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8019f25d-804e-4fa6-b894-6013b7bb071a}">
+                        <labels>
+                          <label description="Signal" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_signal" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="crdr_signal" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{743e3027-ce94-4334-882e-55c21448daeb}">
+                        <labels>
+                          <label description="Extracted by (Manual for one you add)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_extractedby" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_extractedby" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0c351122-33a4-4b5c-bb8c-0be575c9af65}">
+                        <labels>
+                          <label description="Confidence" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_confidence" classid="{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}" datafieldname="crdr_confidence" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c5f7184b-7c9d-4bdb-9c2f-954b65b77076}">
+                        <labels>
+                          <label description="Reason" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_reason" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_reason" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b86d787a-530b-4177-a28e-1392cf097c9f}">
+                        <labels>
+                          <label description="Modified by" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedby" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{69711ee6-2e05-4f02-ac99-63b9ea13ab1a}">
+                        <labels>
+                          <label description="Modified on" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="50%">
+              <sections>
+                <section name="sec_facet" showlabel="true" showbar="false" id="{419f2bda-436e-4210-9367-ec53eb24ff9d}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Facet" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{9e69179a-99be-4d7e-8bc8-e35e67b6d44d}">
+                        <labels>
+                          <label description="Group (same group = AND; manual groups M1, M2...)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_group" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_group" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{93f622ba-9954-4750-b6f2-fb493835e54e}">
+                        <labels>
+                          <label description="Facet" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_facet" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_facet" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{73f7f77d-fefe-4475-95e6-a53fc3beaabd}">
+                        <labels>
+                          <label description="Value (from the vocabulary)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_value" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_value" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9b442128-5c61-43c5-96ab-7ae336f8e423}">
+                        <labels>
+                          <label description="Name (facet: value)" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_name" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,2199 @@
+// --- BEGIN GENERATED RUNTIME TYPES ---
+
+var crdr_signal_statecode;
+(function (crdr_signal_statecode) {
+    crdr_signal_statecode[crdr_signal_statecode["Active"] = 0] = "Active";
+    crdr_signal_statecode[crdr_signal_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_signal_statecode || (crdr_signal_statecode = {}));
+var crdr_signal_statuscode;
+(function (crdr_signal_statuscode) {
+    crdr_signal_statuscode[crdr_signal_statuscode["Active"] = 1] = "Active";
+    crdr_signal_statuscode[crdr_signal_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_signal_statuscode || (crdr_signal_statuscode = {}));
+var crdr_signal_crdr_actionrequired;
+(function (crdr_signal_crdr_actionrequired) {
+    crdr_signal_crdr_actionrequired[crdr_signal_crdr_actionrequired["No"] = 0] = "No";
+    crdr_signal_crdr_actionrequired[crdr_signal_crdr_actionrequired["Yes"] = 1] = "Yes";
+})(crdr_signal_crdr_actionrequired || (crdr_signal_crdr_actionrequired = {}));
+var crdr_signal_crdr_genericimpact;
+(function (crdr_signal_crdr_genericimpact) {
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["None"] = 169890000] = "None";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["Low"] = 169890001] = "Low";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["Medium"] = 169890002] = "Medium";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["High"] = 169890003] = "High";
+    crdr_signal_crdr_genericimpact[crdr_signal_crdr_genericimpact["Critical"] = 169890004] = "Critical";
+})(crdr_signal_crdr_genericimpact || (crdr_signal_crdr_genericimpact = {}));
+var crdr_signal_crdr_horizon;
+(function (crdr_signal_crdr_horizon) {
+    crdr_signal_crdr_horizon[crdr_signal_crdr_horizon["Now"] = 169890000] = "Now";
+    crdr_signal_crdr_horizon[crdr_signal_crdr_horizon["Imminent"] = 169890001] = "Imminent";
+    crdr_signal_crdr_horizon[crdr_signal_crdr_horizon["Future"] = 169890002] = "Future";
+})(crdr_signal_crdr_horizon || (crdr_signal_crdr_horizon = {}));
+var crdr_signal_crdr_impacttype;
+(function (crdr_signal_crdr_impacttype) {
+    crdr_signal_crdr_impacttype[crdr_signal_crdr_impacttype["Risk"] = 169890000] = "Risk";
+    crdr_signal_crdr_impacttype[crdr_signal_crdr_impacttype["Opportunity"] = 169890001] = "Opportunity";
+    crdr_signal_crdr_impacttype[crdr_signal_crdr_impacttype["Risk and opportunity"] = 169890002] = "Risk and opportunity";
+})(crdr_signal_crdr_impacttype || (crdr_signal_crdr_impacttype = {}));
+var crdr_signal_crdr_nature;
+(function (crdr_signal_crdr_nature) {
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Breaking"] = 169890000] = "Breaking";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Deprecation"] = 169890001] = "Deprecation";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Behaviour change"] = 169890002] = "Behaviour change";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["New capability"] = 169890003] = "New capability";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Licensing"] = 169890004] = "Licensing";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Incident"] = 169890005] = "Incident";
+    crdr_signal_crdr_nature[crdr_signal_crdr_nature["Informational"] = 169890006] = "Informational";
+})(crdr_signal_crdr_nature || (crdr_signal_crdr_nature = {}));
+var crdr_signal_crdr_source;
+(function (crdr_signal_crdr_source) {
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Message Center (Graph)"] = 169890000] = "Message Center (Graph)";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Service health (Graph)"] = 169890001] = "Service health (Graph)";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Roadmap"] = 169890002] = "Roadmap";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Blog"] = 169890003] = "Blog";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Community archive"] = 169890004] = "Community archive";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Manual"] = 169890005] = "Manual";
+    crdr_signal_crdr_source[crdr_signal_crdr_source["Feed"] = 169890006] = "Feed";
+})(crdr_signal_crdr_source || (crdr_signal_crdr_source = {}));
+var crdr_signal_crdr_watched;
+(function (crdr_signal_crdr_watched) {
+    crdr_signal_crdr_watched[crdr_signal_crdr_watched["No"] = 0] = "No";
+    crdr_signal_crdr_watched[crdr_signal_crdr_watched["Yes"] = 1] = "Yes";
+})(crdr_signal_crdr_watched || (crdr_signal_crdr_watched = {}));
+var crdr_assessment_statecode;
+(function (crdr_assessment_statecode) {
+    crdr_assessment_statecode[crdr_assessment_statecode["Active"] = 0] = "Active";
+    crdr_assessment_statecode[crdr_assessment_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_assessment_statecode || (crdr_assessment_statecode = {}));
+var crdr_assessment_statuscode;
+(function (crdr_assessment_statuscode) {
+    crdr_assessment_statuscode[crdr_assessment_statuscode["Active"] = 1] = "Active";
+    crdr_assessment_statuscode[crdr_assessment_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_assessment_statuscode || (crdr_assessment_statuscode = {}));
+var crdr_assessment_crdr_actionbonus;
+(function (crdr_assessment_crdr_actionbonus) {
+    crdr_assessment_crdr_actionbonus[crdr_assessment_crdr_actionbonus["No"] = 0] = "No";
+    crdr_assessment_crdr_actionbonus[crdr_assessment_crdr_actionbonus["Yes"] = 1] = "Yes";
+})(crdr_assessment_crdr_actionbonus || (crdr_assessment_crdr_actionbonus = {}));
+var crdr_assessment_crdr_estateimpact;
+(function (crdr_assessment_crdr_estateimpact) {
+    crdr_assessment_crdr_estateimpact[crdr_assessment_crdr_estateimpact["None"] = 169890000] = "None";
+    crdr_assessment_crdr_estateimpact[crdr_assessment_crdr_estateimpact["Low"] = 169890001] = "Low";
+    crdr_assessment_crdr_estateimpact[crdr_assessment_crdr_estateimpact["Medium"] = 169890002] = "Medium";
+    crdr_assessment_crdr_estateimpact[crdr_assessment_crdr_estateimpact["High"] = 169890003] = "High";
+    crdr_assessment_crdr_estateimpact[crdr_assessment_crdr_estateimpact["Critical"] = 169890004] = "Critical";
+})(crdr_assessment_crdr_estateimpact || (crdr_assessment_crdr_estateimpact = {}));
+var crdr_assessment_crdr_genericimpact;
+(function (crdr_assessment_crdr_genericimpact) {
+    crdr_assessment_crdr_genericimpact[crdr_assessment_crdr_genericimpact["None"] = 169890000] = "None";
+    crdr_assessment_crdr_genericimpact[crdr_assessment_crdr_genericimpact["Low"] = 169890001] = "Low";
+    crdr_assessment_crdr_genericimpact[crdr_assessment_crdr_genericimpact["Medium"] = 169890002] = "Medium";
+    crdr_assessment_crdr_genericimpact[crdr_assessment_crdr_genericimpact["High"] = 169890003] = "High";
+    crdr_assessment_crdr_genericimpact[crdr_assessment_crdr_genericimpact["Critical"] = 169890004] = "Critical";
+})(crdr_assessment_crdr_genericimpact || (crdr_assessment_crdr_genericimpact = {}));
+var crdr_assessment_crdr_nature;
+(function (crdr_assessment_crdr_nature) {
+    crdr_assessment_crdr_nature[crdr_assessment_crdr_nature["Breaking"] = 169890000] = "Breaking";
+    crdr_assessment_crdr_nature[crdr_assessment_crdr_nature["Deprecation"] = 169890001] = "Deprecation";
+    crdr_assessment_crdr_nature[crdr_assessment_crdr_nature["Behaviour change"] = 169890002] = "Behaviour change";
+    crdr_assessment_crdr_nature[crdr_assessment_crdr_nature["New capability"] = 169890003] = "New capability";
+    crdr_assessment_crdr_nature[crdr_assessment_crdr_nature["Licensing"] = 169890004] = "Licensing";
+    crdr_assessment_crdr_nature[crdr_assessment_crdr_nature["Incident"] = 169890005] = "Incident";
+    crdr_assessment_crdr_nature[crdr_assessment_crdr_nature["Informational"] = 169890006] = "Informational";
+})(crdr_assessment_crdr_nature || (crdr_assessment_crdr_nature = {}));
+var crdr_assessment_crdr_overrideimpact;
+(function (crdr_assessment_crdr_overrideimpact) {
+    crdr_assessment_crdr_overrideimpact[crdr_assessment_crdr_overrideimpact["None"] = 169890000] = "None";
+    crdr_assessment_crdr_overrideimpact[crdr_assessment_crdr_overrideimpact["Low"] = 169890001] = "Low";
+    crdr_assessment_crdr_overrideimpact[crdr_assessment_crdr_overrideimpact["Medium"] = 169890002] = "Medium";
+    crdr_assessment_crdr_overrideimpact[crdr_assessment_crdr_overrideimpact["High"] = 169890003] = "High";
+    crdr_assessment_crdr_overrideimpact[crdr_assessment_crdr_overrideimpact["Critical"] = 169890004] = "Critical";
+})(crdr_assessment_crdr_overrideimpact || (crdr_assessment_crdr_overrideimpact = {}));
+var crdr_assessment_crdr_productionbonus;
+(function (crdr_assessment_crdr_productionbonus) {
+    crdr_assessment_crdr_productionbonus[crdr_assessment_crdr_productionbonus["No"] = 0] = "No";
+    crdr_assessment_crdr_productionbonus[crdr_assessment_crdr_productionbonus["Yes"] = 1] = "Yes";
+})(crdr_assessment_crdr_productionbonus || (crdr_assessment_crdr_productionbonus = {}));
+var crdr_assessment_crdr_source;
+(function (crdr_assessment_crdr_source) {
+    crdr_assessment_crdr_source[crdr_assessment_crdr_source["Live"] = 169890000] = "Live";
+    crdr_assessment_crdr_source[crdr_assessment_crdr_source["Fixture"] = 169890001] = "Fixture";
+    crdr_assessment_crdr_source[crdr_assessment_crdr_source["Synthetic"] = 169890002] = "Synthetic";
+})(crdr_assessment_crdr_source || (crdr_assessment_crdr_source = {}));
+var crdr_exposure_statecode;
+(function (crdr_exposure_statecode) {
+    crdr_exposure_statecode[crdr_exposure_statecode["Active"] = 0] = "Active";
+    crdr_exposure_statecode[crdr_exposure_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_exposure_statecode || (crdr_exposure_statecode = {}));
+var crdr_exposure_statuscode;
+(function (crdr_exposure_statuscode) {
+    crdr_exposure_statuscode[crdr_exposure_statuscode["Active"] = 1] = "Active";
+    crdr_exposure_statuscode[crdr_exposure_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_exposure_statuscode || (crdr_exposure_statuscode = {}));
+var crdr_exposure_crdr_source;
+(function (crdr_exposure_crdr_source) {
+    crdr_exposure_crdr_source[crdr_exposure_crdr_source["Live"] = 169890000] = "Live";
+    crdr_exposure_crdr_source[crdr_exposure_crdr_source["Fixture"] = 169890001] = "Fixture";
+    crdr_exposure_crdr_source[crdr_exposure_crdr_source["Synthetic"] = 169890002] = "Synthetic";
+})(crdr_exposure_crdr_source || (crdr_exposure_crdr_source = {}));
+var crdr_exposure_crdr_status;
+(function (crdr_exposure_crdr_status) {
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["New"] = 169890000] = "New";
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["Confirmed"] = 169890001] = "Confirmed";
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["Dismissed"] = 169890002] = "Dismissed";
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["No longer matches"] = 169890003] = "No longer matches";
+    crdr_exposure_crdr_status[crdr_exposure_crdr_status["Microsoft system component (not rated)"] = 169890004] = "Microsoft system component (not rated)";
+})(crdr_exposure_crdr_status || (crdr_exposure_crdr_status = {}));
+var crdr_asset_statecode;
+(function (crdr_asset_statecode) {
+    crdr_asset_statecode[crdr_asset_statecode["Active"] = 0] = "Active";
+    crdr_asset_statecode[crdr_asset_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_asset_statecode || (crdr_asset_statecode = {}));
+var crdr_asset_statuscode;
+(function (crdr_asset_statuscode) {
+    crdr_asset_statuscode[crdr_asset_statuscode["Active"] = 1] = "Active";
+    crdr_asset_statuscode[crdr_asset_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_asset_statuscode || (crdr_asset_statuscode = {}));
+var crdr_asset_crdr_criticality;
+(function (crdr_asset_crdr_criticality) {
+    crdr_asset_crdr_criticality[crdr_asset_crdr_criticality["None"] = 169890000] = "None";
+    crdr_asset_crdr_criticality[crdr_asset_crdr_criticality["Low"] = 169890001] = "Low";
+    crdr_asset_crdr_criticality[crdr_asset_crdr_criticality["Medium"] = 169890002] = "Medium";
+    crdr_asset_crdr_criticality[crdr_asset_crdr_criticality["High"] = 169890003] = "High";
+    crdr_asset_crdr_criticality[crdr_asset_crdr_criticality["Critical"] = 169890004] = "Critical";
+})(crdr_asset_crdr_criticality || (crdr_asset_crdr_criticality = {}));
+var crdr_asset_crdr_environmenttype;
+(function (crdr_asset_crdr_environmenttype) {
+    crdr_asset_crdr_environmenttype[crdr_asset_crdr_environmenttype["Production"] = 169890000] = "Production";
+    crdr_asset_crdr_environmenttype[crdr_asset_crdr_environmenttype["Sandbox"] = 169890001] = "Sandbox";
+    crdr_asset_crdr_environmenttype[crdr_asset_crdr_environmenttype["Developer"] = 169890002] = "Developer";
+    crdr_asset_crdr_environmenttype[crdr_asset_crdr_environmenttype["Default"] = 169890003] = "Default";
+    crdr_asset_crdr_environmenttype[crdr_asset_crdr_environmenttype["Trial"] = 169890004] = "Trial";
+})(crdr_asset_crdr_environmenttype || (crdr_asset_crdr_environmenttype = {}));
+var crdr_asset_crdr_managed;
+(function (crdr_asset_crdr_managed) {
+    crdr_asset_crdr_managed[crdr_asset_crdr_managed["No"] = 0] = "No";
+    crdr_asset_crdr_managed[crdr_asset_crdr_managed["Yes"] = 1] = "Yes";
+})(crdr_asset_crdr_managed || (crdr_asset_crdr_managed = {}));
+var crdr_asset_crdr_microsoftsystem;
+(function (crdr_asset_crdr_microsoftsystem) {
+    crdr_asset_crdr_microsoftsystem[crdr_asset_crdr_microsoftsystem["No"] = 0] = "No";
+    crdr_asset_crdr_microsoftsystem[crdr_asset_crdr_microsoftsystem["Yes"] = 1] = "Yes";
+})(crdr_asset_crdr_microsoftsystem || (crdr_asset_crdr_microsoftsystem = {}));
+var crdr_asset_crdr_source;
+(function (crdr_asset_crdr_source) {
+    crdr_asset_crdr_source[crdr_asset_crdr_source["Live"] = 169890000] = "Live";
+    crdr_asset_crdr_source[crdr_asset_crdr_source["Fixture"] = 169890001] = "Fixture";
+    crdr_asset_crdr_source[crdr_asset_crdr_source["Synthetic"] = 169890002] = "Synthetic";
+})(crdr_asset_crdr_source || (crdr_asset_crdr_source = {}));
+var crdr_collectionrun_statecode;
+(function (crdr_collectionrun_statecode) {
+    crdr_collectionrun_statecode[crdr_collectionrun_statecode["Active"] = 0] = "Active";
+    crdr_collectionrun_statecode[crdr_collectionrun_statecode["Inactive"] = 1] = "Inactive";
+})(crdr_collectionrun_statecode || (crdr_collectionrun_statecode = {}));
+var crdr_collectionrun_statuscode;
+(function (crdr_collectionrun_statuscode) {
+    crdr_collectionrun_statuscode[crdr_collectionrun_statuscode["Active"] = 1] = "Active";
+    crdr_collectionrun_statuscode[crdr_collectionrun_statuscode["Inactive"] = 2] = "Inactive";
+})(crdr_collectionrun_statuscode || (crdr_collectionrun_statuscode = {}));
+var crdr_collectionrun_crdr_accesstier;
+(function (crdr_collectionrun_crdr_accesstier) {
+    crdr_collectionrun_crdr_accesstier[crdr_collectionrun_crdr_accesstier["Full"] = 169890000] = "Full";
+    crdr_collectionrun_crdr_accesstier[crdr_collectionrun_crdr_accesstier["Reader"] = 169890001] = "Reader";
+    crdr_collectionrun_crdr_accesstier[crdr_collectionrun_crdr_accesstier["Maker"] = 169890002] = "Maker";
+    crdr_collectionrun_crdr_accesstier[crdr_collectionrun_crdr_accesstier["Public"] = 169890003] = "Public";
+})(crdr_collectionrun_crdr_accesstier || (crdr_collectionrun_crdr_accesstier = {}));
+export {};
+
+
+// --- END GENERATED RUNTIME TYPES ---
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+import * as React from 'react';
+import { makeStyles, tokens, Badge, Button, Card, Caption1, Dialog, DialogActions, DialogBody, DialogContent, DialogSurface, DialogTitle, Label, Link, MessageBar, MessageBarActions, MessageBarBody, Select, Spinner, Subtitle2, Switch, Table, TableBody, TableCell, TableHeader, TableHeaderCell, TableRow, Text, Title2, ToggleButton, } from '@fluentui/react-components';
+import { ArrowClockwiseRegular, ChevronDownRegular, ChevronRightRegular, DismissRegular, EyeRegular, ListRegular, OpenRegular, WarningRegular } from '@fluentui/react-icons';
+var DAY_MS = 86400000;
+var HIGH_IMPACTS = ['high', 'critical'];
+var RETIRING_NATURES = ['deprecation', 'breaking'];
+// A date-only string (yyyy-MM-dd) or an ISO date-time, read as a UTC calendar day. Never local time.
+function toUtcDayMs(value) {
+    if (!value)
+        return null;
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value));
+    if (!m)
+        return null;
+    if (String(value).length > 10) {
+        var t = Date.parse(String(value));
+        if (isNaN(t))
+            return null;
+        var d = new Date(t);
+        return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+    }
+    return Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+}
+function formatUtcDay(ms) {
+    var d = new Date(ms);
+    var mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+    var dd = String(d.getUTCDate()).padStart(2, '0');
+    return d.getUTCFullYear() + '-' + mm + '-' + dd;
+}
+function getDaysToLand(keyDate, todayMs) {
+    var kd = toUtcDayMs(keyDate);
+    if (kd === null)
+        return null;
+    return Math.round((kd - todayMs) / DAY_MS);
+}
+// landed (past), next30 (0-30 days), m1to3 (31-91), m3to6 (92-183), later (184 or more), nodate (no key date).
+function getTimeBucket(keyDate, todayMs) {
+    var d = getDaysToLand(keyDate, todayMs);
+    if (d === null)
+        return 'nodate';
+    if (d < 0)
+        return 'landed';
+    if (d <= 30)
+        return 'next30';
+    if (d <= 91)
+        return 'm1to3';
+    if (d <= 183)
+        return 'm3to6';
+    return 'later';
+}
+// Live override, else live estate rating (when the estate still has exposure), else the signal's generic rating.
+function getItemImpact(signal, live) {
+    var ov = live ? live.overrideImpact : null;
+    var est = live ? live.estateImpact : null;
+    var gen = signal ? signal.genericImpact : null;
+    if (ov)
+        return { impact: String(ov), basis: 'override' };
+    if (est && est !== 'none')
+        return { impact: String(est), basis: 'estate' };
+    if (gen)
+        return { impact: String(gen), basis: 'generic' };
+    return { impact: 'unrated', basis: 'none' };
+}
+// shipped, retiring, imminent, future; 'none' for incidents (they stay in the Now tile).
+function getTimelineRow(signal, todayMs) {
+    if (signal.source === 'graph_health')
+        return 'none';
+    var d = getDaysToLand(signal.keyDate, todayMs);
+    var launched = signal.source === 'roadmap' && String(signal.dateLabel || '').toLowerCase().indexOf('launched') === 0;
+    if (launched || (d !== null && d < 0 && !signal.actionRequired))
+        return 'shipped';
+    if (RETIRING_NATURES.indexOf(String(signal.nature || '')) >= 0)
+        return 'retiring';
+    if (signal.horizon === 'now' || signal.horizon === 'imminent')
+        return 'imminent';
+    return 'future';
+}
+function formatRadarHeadline(actionRequired, highImpact, next) {
+    var a = actionRequired === 0 ? 'No items need action' : actionRequired === 1 ? '1 item needs action' : actionRequired + ' items need action';
+    var h = highImpact === 0 ? 'none are rated high impact' : highImpact === 1 ? '1 is rated high impact' : highImpact + ' are rated high impact';
+    var n = next ? 'The next deadline is ' + next.keyDate + ': ' + next.title + '.' : 'No upcoming deadline.';
+    return a + ', and ' + h + '. ' + n;
+}
+function isRetiringItem(signal, todayMs) {
+    if (RETIRING_NATURES.indexOf(String(signal.nature || '')) < 0)
+        return false;
+    var d = getDaysToLand(signal.keyDate, todayMs);
+    return !!signal.actionRequired || d === null || d >= 0;
+}
+function compareTitles(a, b) {
+    return String(a || '').localeCompare(String(b || ''), 'en', { sensitivity: 'base' });
+}
+// Tile counts and headline over active signals (each may carry a 'live' assessment).
+function getRadarSummary(signals, todayMs) {
+    var items = signals.filter(function (s) { return s.source !== 'graph_health'; });
+    var incidents = signals.filter(function (s) { return s.source === 'graph_health' && s.horizon === 'now'; }).length;
+    var action = items.filter(function (s) { return !!s.actionRequired; });
+    var high = items.filter(function (s) { return HIGH_IMPACTS.indexOf(getItemImpact(s, s.live).impact) >= 0; }).length;
+    var retiring = items.filter(function (s) { return isRetiringItem(s, todayMs); }).length;
+    var future = items.filter(function (s) { return s.source === 'roadmap' && s.horizon === 'future'; }).length;
+    var upcoming = action
+        .filter(function (s) {
+        var d = getDaysToLand(s.keyDate, todayMs);
+        return d !== null && d >= 0;
+    })
+        .sort(function (a, b) { return (toUtcDayMs(a.keyDate) - toUtcDayMs(b.keyDate)) || compareTitles(a.title, b.title); });
+    var next = upcoming.length > 0 ? upcoming[0] : null;
+    var nextOut = next ? { id: next.id, keyDate: formatUtcDay(toUtcDayMs(next.keyDate)), title: next.title } : null;
+    return {
+        incidentsActive: incidents,
+        actionRequired: action.length,
+        highImpact: high,
+        retiring: retiring,
+        futureRoadmap: future,
+        nextDeadline: nextOut,
+        headline: formatRadarHeadline(action.length, high, nextOut),
+    };
+}
+function getTimelineBin(dayMs, granularity) {
+    var d = new Date(dayMs);
+    if (granularity === 'month')
+        return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1);
+    var sinceMonday = (d.getUTCDay() + 6) % 7;
+    return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - sinceMonday);
+}
+function getTimelineWindow(preset, todayMs) {
+    if (preset === 'next12m')
+        return { from: getTimelineBin(todayMs, 'month'), to: todayMs + 365 * DAY_MS, granularity: 'month' };
+    if (preset === 'past90')
+        return { from: todayMs - 90 * DAY_MS, to: todayMs, granularity: 'week' };
+    return { from: getTimelineBin(todayMs, 'week'), to: todayMs + 90 * DAY_MS, granularity: 'week' };
+}
+function getTimelineBins(w) {
+    var bins = [];
+    var b = getTimelineBin(w.from, w.granularity);
+    var last = getTimelineBin(w.to, w.granularity);
+    while (b <= last) {
+        bins.push(b);
+        var d = new Date(b);
+        b = w.granularity === 'month' ? Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1) : b + 7 * DAY_MS;
+    }
+    return bins;
+}
+// Patterns (ADR 0012 addendum, 2026-11-22): items landing from 90 days before today onwards; no key date is kept
+// (landing unknown, not old); showOlder keeps everything.
+var PATTERN_WINDOW_DAYS = 90;
+function inPatternWindow(keyDate, todayMs, showOlder) {
+    if (showOlder)
+        return true;
+    var kd = toUtcDayMs(keyDate);
+    return kd === null || kd >= todayMs - PATTERN_WINDOW_DAYS * DAY_MS;
+}
+var NOT_IN_SOLUTION = '(not in a solution)';
+var SOLUTION_NOT_KNOWN = '(solution not known)';
+var SOL_IMPACT_RANK = { none: 0, low: 1, medium: 2, high: 3, critical: 4 };
+function getSolutionGroups(assets, membership, detailEnvironments) {
+    var out = {};
+    assets.forEach(function (a) {
+        var mine = membership
+            .filter(function (m) { return m.assetid === a.assetid; })
+            .slice()
+            .sort(function (x, y) { return (x.microsoft ? 1 : 0) - (y.microsoft ? 1 : 0) || (x.displayname || '').localeCompare(y.displayname || ''); });
+        out[a.assetid] = mine.length > 0
+            ? mine.map(function (m) { return m.uniquename; })
+            : [detailEnvironments.indexOf(a.environmentid) >= 0 ? NOT_IN_SOLUTION : SOLUTION_NOT_KNOWN];
+    });
+    return out;
+}
+function getSolutionSummary(solutions, membership, exposures, todayMs) {
+    var rows = solutions.map(function (s) {
+        var assets = {};
+        membership.forEach(function (m) { if (m.uniquename === s.uniquename)
+            assets[m.assetid] = true; });
+        var ex = exposures.filter(function (x) { return assets[x.assetid]; });
+        var distinct = function (list) { return Array.from(new Set(list)).length; };
+        var highest = null;
+        ex.forEach(function (x) {
+            if (!(x.impact in SOL_IMPACT_RANK))
+                return;
+            if (highest === null || SOL_IMPACT_RANK[x.impact] > SOL_IMPACT_RANK[highest])
+                highest = x.impact;
+        });
+        var future = ex
+            .map(function (x) { return toUtcDayMs(x.keyDate); })
+            .filter(function (d) { return d !== null && d >= todayMs; })
+            .sort(function (a, b) { return a - b; });
+        return {
+            uniquename: s.uniquename,
+            displayname: s.displayname,
+            microsoft: s.microsoft,
+            assets: distinct(ex.map(function (x) { return x.assetid; })),
+            items: distinct(ex.map(function (x) { return x.signal; })),
+            highest: highest,
+            nextDeadline: future.length > 0 ? formatUtcDay(future[0]) : null,
+            action: distinct(ex.filter(function (x) { return x.actionRequired; }).map(function (x) { return x.signal; })),
+        };
+    });
+    var rank = function (r) { return (r.highest ? SOL_IMPACT_RANK[r.highest] : -1); };
+    return rows.sort(function (a, b) { return rank(b) - rank(a) || b.items - a.items || a.displayname.localeCompare(b.displayname); });
+}
+// demo_data (ADR 0022; engine Test-DemoDataOn): off, false, no or 0 (any case, trimmed) switch demo data off; no value
+// leaves it on.
+function isDemoDataOn(value) {
+    var v = (value || '').trim().toLowerCase();
+    return ['off', 'false', 'no', '0'].indexOf(v) < 0;
+}
+// Which estate the page shows (Simon 2026-11-24, 'Demo replaces live'; engine Get-EstateShown, tests/config estateShown):
+// the demo organisation while demo data is on, the live estate while it's off. One at a time: never mixed.
+// With no demo data loaded, the live estate whatever the setting, never an empty demo one.
+function estateShown(value, loaded) {
+    return loaded && isDemoDataOn(value) ? 'synthetic' : 'live';
+}
+// What the header's demo data switch writes to demo_data (engine Get-DemoDataValue; tests/config demoToggle).
+function demoDataValue(on) {
+    return on ? 'on' : 'off';
+}
+var RELATED_FACETS = ['connector', 'capability', 'model', 'setting', 'harness', 'auth_mode'];
+function getRelatedSignals(solutionAssets, assetFingerprints, signalFingerprints, affects, facets) {
+    var inSolution = {};
+    solutionAssets.forEach(function (a) { inSolution[a] = true; });
+    var have = {};
+    assetFingerprints.forEach(function (f) {
+        if (inSolution[f.assetid] && facets.indexOf(f.facet) >= 0)
+            have[f.facet + '|' + (f.value || '').toLowerCase()] = true;
+    });
+    var links = {};
+    signalFingerprints.forEach(function (f) {
+        if (f.status !== 'accepted' || affects.indexOf(f.signal) >= 0)
+            return;
+        var k = f.facet + '|' + (f.value || '').toLowerCase();
+        if (!have[k])
+            return;
+        (links[f.signal] = links[f.signal] || {})[k.replace('|', ': ')] = true;
+    });
+    return Object.keys(links).sort().map(function (s) { return ({ signal: s, links: Object.keys(links[s]).sort() }); });
+}
+var PAGE_NAME = 'Radar';
+var ERROR_COPY = {
+    'error.read': 'Unable to load data. Please try again.',
+    'error.write': 'The change could not be saved. Refresh before trying again.',
+    'error.network': 'The request did not go through. You can try again.',
+    'error.indeterminate': "We couldn't confirm this completed — refresh before retrying.",
+    'error.render': 'This page hit a problem and could not render. Refresh the page.',
+    'error.tryAgain': 'Try again',
+};
+function translate(key) {
+    return ERROR_COPY[key] || key;
+}
+function reportPageError(pageName, operation, code, message, kind, retry, appInsights) {
+    var e_1, _a, e_2, _b, e_3, _c, e_4, _d;
+    var fields = {};
+    try {
+        for (var _f = __values(['code', 'errorCode', 'message', 'error.code', 'error.message']), _g = _f.next(); !_g.done; _g = _f.next()) {
+            var path = _g.value;
+            try {
+                var value = message;
+                try {
+                    for (var _h = (e_2 = void 0, __values(path.split('.'))), _j = _h.next(); !_j.done; _j = _h.next()) {
+                        var part = _j.value;
+                        value = value !== null && typeof value === 'object' ? value[part] : undefined;
+                    }
+                }
+                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                finally {
+                    try {
+                        if (_j && !_j.done && (_b = _h.return)) _b.call(_h);
+                    }
+                    finally { if (e_2) throw e_2.error; }
+                }
+                fields[path] = value;
+            }
+            catch (_k) {
+                fields[path] = undefined;
+            }
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (_g && !_g.done && (_a = _f.return)) _a.call(_f);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    var normalizedCode = '';
+    try {
+        for (var _l = __values([code, fields['code'], fields['errorCode'], fields['error.code']]), _m = _l.next(); !_m.done; _m = _l.next()) {
+            var candidate = _m.value;
+            var text = typeof candidate === 'string' ? candidate : typeof candidate === 'number' && Number.isFinite(candidate) ? String(candidate) : '';
+            normalizedCode = text.replace(/[\s\u0000-\u001f\u007f-\u009f]+/g, ' ').trim().slice(0, 80);
+            if (normalizedCode)
+                break;
+        }
+    }
+    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+    finally {
+        try {
+            if (_m && !_m.done && (_c = _l.return)) _c.call(_l);
+        }
+        finally { if (e_3) throw e_3.error; }
+    }
+    var normalizedMessage = '';
+    try {
+        for (var _o = __values([message, fields['message'], fields['error.message']]), _p = _o.next(); !_p.done; _p = _o.next()) {
+            var candidate = _p.value;
+            var line = typeof candidate === 'string' ? candidate.trim().split(/[\r\n\u2028\u2029]/)[0].replace(/[\s\u0000-\u001f\u007f-\u009f]+/g, ' ').trim() : '';
+            if (!line || /^\[object [^\]]*\]$/.test(line) || /^at\s.*(?::\d+:\d+\)?|\((?:native|<anonymous>)\))$/.test(line))
+                continue;
+            normalizedMessage = line.length > 300 ? line.slice(0, 299) + '\u2026' : line;
+            break;
+        }
+    }
+    catch (e_4_1) { e_4 = { error: e_4_1 }; }
+    finally {
+        try {
+            if (_p && !_p.done && (_d = _o.return)) _d.call(_o);
+        }
+        finally { if (e_4) throw e_4.error; }
+    }
+    console.error('[' + String(pageName).replace(/[\r\n\]]/g, '') + '] ' + operation + ' failed', { code: normalizedCode, message: normalizedMessage });
+    void appInsights;
+    var quiet = kind === 'indeterminate' || kind === 'render';
+    var view = { operation: operation, message: quiet ? '' : normalizedMessage, fallbackKey: 'error.' + kind, kind: kind };
+    if (normalizedCode)
+        view.code = normalizedCode;
+    if (typeof retry === 'function' && (kind === 'read' || kind === 'network'))
+        view.retry = retry;
+    return view;
+}
+function PageErrorBar(props) {
+    var error = props.error;
+    if (!error)
+        return null;
+    return (React.createElement(MessageBar, { intent: "error" },
+        React.createElement(MessageBarBody, null, error.message || translate(error.fallbackKey)),
+        error.retry && (React.createElement(MessageBarActions, null,
+            React.createElement(Button, { onClick: error.retry }, translate('error.tryAgain'))))));
+}
+var PageErrorBoundary = /** @class */ (function (_super) {
+    __extends(PageErrorBoundary, _super);
+    function PageErrorBoundary() {
+        var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
+        _this.state = { failed: false };
+        return _this;
+    }
+    PageErrorBoundary.getDerivedStateFromError = function () {
+        return { failed: true };
+    };
+    PageErrorBoundary.prototype.componentDidCatch = function (error) {
+        reportPageError(PAGE_NAME, 'render', undefined, error, 'render');
+    };
+    PageErrorBoundary.prototype.render = function () {
+        if (this.state.failed) {
+            return (React.createElement(MessageBar, { intent: "error" },
+                React.createElement(MessageBarBody, null, translate('error.render'))));
+        }
+        return this.props.children;
+    };
+    return PageErrorBoundary;
+}(React.Component));
+var LOOKUP_GUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+var LOOKUP_QUALIFIED = /^\/([a-z_][a-z0-9_]*)\(([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})\)$/;
+function normalizeLookupReference(row, property, allowedTargets) {
+    var _a;
+    if (typeof row !== 'object' || row === null || Array.isArray(row) || allowedTargets.length === 0)
+        return { state: 'invalid' };
+    var record = row;
+    if (!Object.prototype.hasOwnProperty.call(record, property))
+        return { state: 'invalid' };
+    var raw = record[property];
+    if (raw === null)
+        return { state: 'unset' };
+    if (typeof raw !== 'string')
+        return { state: 'invalid' };
+    var value = raw.trim();
+    var qualified = LOOKUP_QUALIFIED.exec(value);
+    if (!qualified && !LOOKUP_GUID.test(value))
+        return { state: 'invalid' };
+    var prefix = qualified ? qualified[1] : undefined;
+    var id = (qualified ? qualified[2] : value).toLowerCase();
+    if (prefix !== undefined && !allowedTargets.includes(prefix))
+        return { state: 'invalid' };
+    var annotationKey = "".concat(property, "@Microsoft.Dynamics.CRM.lookuplogicalname");
+    var annotation;
+    if (Object.prototype.hasOwnProperty.call(record, annotationKey)) {
+        var named = record[annotationKey];
+        if (typeof named !== 'string' || !allowedTargets.includes(named))
+            return { state: 'invalid' };
+        annotation = named;
+    }
+    if (annotation !== undefined && prefix !== undefined && annotation !== prefix)
+        return { state: 'invalid' };
+    var table = (_a = annotation !== null && annotation !== void 0 ? annotation : prefix) !== null && _a !== void 0 ? _a : (allowedTargets.length === 1 ? allowedTargets[0] : undefined);
+    return table === undefined ? { state: 'needs-target', id: id } : { state: 'resolved', reference: { table: table, id: id } };
+}
+// ---------------------------------------------------------------------------------------------
+// Choice values (schema.json order; option value = 169890000 + ordinal) and labels.
+var SOURCE_CODES = {
+    169890000: 'graph_mc', 169890001: 'graph_health', 169890002: 'roadmap', 169890003: 'blog', 169890004: 'community_archive', 169890005: 'manual', 169890006: 'feed',
+};
+var SOURCE_LABELS = {
+    graph_mc: 'Message Center', graph_health: 'Service health', roadmap: 'Roadmap', blog: 'Blog', community_archive: 'Community archive', manual: 'Manual', feed: 'Feeds (Learn pages and blogs)',
+};
+var SOURCE_ORDER = ['graph_mc', 'graph_health', 'roadmap', 'feed', 'blog', 'community_archive', 'manual'];
+var HORIZON_CODES = { 169890000: 'now', 169890001: 'imminent', 169890002: 'future' };
+var HORIZON_OPTIONS = [
+    { value: 'now', label: 'Now' },
+    { value: 'imminent', label: 'Imminent' },
+    { value: 'future', label: 'Future' },
+];
+var IMPACT_CODES = { 169890000: 'none', 169890001: 'low', 169890002: 'medium', 169890003: 'high', 169890004: 'critical' };
+var IMPACT_LABELS = { none: 'None', low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical', unrated: 'Not yet rated' };
+var IMPACT_RANK = { critical: 5, high: 4, medium: 3, low: 2, none: 1, unrated: 0 };
+var IMPACT_TYPE_CODES = { 169890000: 'risk', 169890001: 'opportunity', 169890002: 'risk_and_opportunity' };
+var IMPACT_TYPE_LABELS = { risk: 'Risk', opportunity: 'Opportunity', risk_and_opportunity: 'Risk and opportunity' };
+var NATURE_CODES = {
+    169890000: 'breaking', 169890001: 'deprecation', 169890002: 'behaviour_change', 169890003: 'new_capability', 169890004: 'licensing', 169890005: 'incident', 169890006: 'informational',
+};
+var ASSET_SOURCE_LIVE = 169890000;
+var ASSET_SOURCE_SYNTHETIC = 169890002;
+var ASSET_SOURCE_LABELS = { 169890000: 'Live', 169890001: 'Fixture', 169890002: 'Synthetic' };
+var ENV_TYPE_LABELS = { 169890000: 'Production', 169890001: 'Sandbox', 169890002: 'Developer', 169890003: 'Default', 169890004: 'Trial' };
+var TIER_LABELS = { 169890000: 'Full', 169890001: 'Reader', 169890002: 'Maker', 169890003: 'Public' };
+var TIER_MEANING = {
+    169890000: 'Full access: every source is read, and the estate covers the whole tenant.',
+    169890001: 'Reader access: Message Center through your own access; the estate covers only environments you can reach.',
+    169890002: 'Maker access: public sources only; the estate covers only what you own or can see.',
+    169890003: 'Public access: public sources only; no estate, so every rating is generic.',
+};
+var TIER_LIMIT_ORDER = { 169890003: 0, 169890002: 1, 169890001: 2, 169890000: 3 };
+var THEMES = [
+    'Copilot Credits and consumption',
+    'Capability moving into Copilot',
+    'Governance and controls',
+    'Agents and Work IQ platform',
+    'Maker experience',
+    'Copilot for end users',
+    'AI models and lifecycle',
+    'Other',
+];
+// seed/themes.csv also has 'Service incidents' (a rule theme). This page lists service health incidents only in the
+// active incidents tile, never as items, so that theme would always be empty here and is left out.
+var NOT_THEMED = '__none';
+var NOT_RATED = '__none';
+// Simon, 2026-11-24: 'Later or landed' split into Landed and Later; items without a key date are counted beside the grid.
+var BUCKETS = [
+    { key: 'landed', label: 'Landed' },
+    { key: 'next30', label: 'Next 30 days' },
+    { key: 'm1to3', label: '1–3 months' },
+    { key: 'm3to6', label: '3–6 months' },
+    { key: 'later', label: 'Later' },
+];
+var MATRIX_ROWS = [
+    { key: 'high', label: 'High or critical' },
+    { key: 'medium', label: 'Medium' },
+    { key: 'low', label: 'Low' },
+    { key: 'none', label: 'Rated no impact' },
+    { key: 'unrated', label: 'Not yet rated' },
+];
+var TIMELINE_ROWS = [
+    { key: 'imminent', label: 'Imminent' },
+    { key: 'retiring', label: 'Retiring' },
+    { key: 'shipped', label: 'Shipped' },
+    { key: 'future', label: 'Future' },
+];
+var CELL_LIMIT = 8;
+var TABLE_LIMIT = 20;
+var EMPTY_FILTERS = { tile: '', horizon: '', source: '', product: '', theme: '', impactType: '', watched: '', solution: '', solutionScope: '' };
+var FACET_CODES = {
+    169890000: 'product', 169890001: 'resource_type', 169890002: 'connector', 169890003: 'capability', 169890004: 'auth_mode',
+    169890005: 'harness', 169890006: 'setting', 169890007: 'environment_type', 169890008: 'model',
+};
+var FINGERPRINT_ACCEPTED = 169890000;
+var RELATED_FACET_FILTER = RELATED_FACETS.map(function (f) {
+    var code = Object.keys(FACET_CODES).filter(function (c) { return FACET_CODES[Number(c)] === f; })[0];
+    return 'crdr_facet eq ' + code;
+}).join(' or ');
+// ---------------------------------------------------------------------------------------------
+// Row mapping helpers.
+function codeOf(value, map) {
+    var n = typeof value === 'number' ? value : typeof value === 'string' && value !== '' ? Number(value) : NaN;
+    return isNaN(n) ? null : map[n] || null;
+}
+function isTrue(value) {
+    return value === true || value === 1 || value === '1' || value === 'true';
+}
+function textOf(value) {
+    return typeof value === 'string' ? value : value === null || value === undefined ? '' : String(value);
+}
+// A date-only column may arrive as a yyyy-MM-dd string, an ISO string, or a Date the host built either at UTC
+// midnight or at local midnight. Return the calendar day as yyyy-MM-dd.
+function toDayString(value) {
+    if (value === null || value === undefined || value === '')
+        return null;
+    if (value instanceof Date) {
+        if (isNaN(value.getTime()))
+            return null;
+        var utcMidnight = value.getUTCHours() === 0 && value.getUTCMinutes() === 0;
+        var ms_1 = utcMidnight
+            ? Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate())
+            : Date.UTC(value.getFullYear(), value.getMonth(), value.getDate());
+        return formatUtcDay(ms_1);
+    }
+    var s = String(value);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s))
+        return s;
+    var ms = toUtcDayMs(s);
+    return ms === null ? null : formatUtcDay(ms);
+}
+function timeOf(value) {
+    if (value instanceof Date)
+        return value.getTime();
+    var t = Date.parse(textOf(value));
+    return isNaN(t) ? 0 : t;
+}
+function stripHtml(html) {
+    var named = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+    var text = html
+        .replace(/<(br|\/p|\/li|\/h\d)[^>]*>/gi, ' ')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&(#\d+|#x[0-9a-f]+|[a-z]+);/gi, function (whole, ent) {
+        var _a;
+        if (ent[0] === '#') {
+            var code = ent[1] === 'x' || ent[1] === 'X' ? parseInt(ent.slice(2), 16) : parseInt(ent.slice(1), 10);
+            return isNaN(code) ? whole : String.fromCharCode(code);
+        }
+        return (_a = named[ent.toLowerCase()]) !== null && _a !== void 0 ? _a : whole;
+    });
+    return text.replace(/\s+/g, ' ').trim();
+}
+function cut(text, max) {
+    return text.length > max ? text.slice(0, max - 1).trimEnd() + '\u2026' : text;
+}
+function splitProducts(value) {
+    var parts = value.split(/[;,]/).map(function (p) { return p.trim(); }).filter(function (p) { return p !== ''; });
+    return Array.from(new Set(parts));
+}
+function lookupId(row, property, target) {
+    var n = normalizeLookupReference(row, property, [target]);
+    return n.state === 'resolved' ? n.reference.id : null;
+}
+function toAssessmentView(row) {
+    var r = row;
+    return {
+        source: typeof r.crdr_source === 'number' ? r.crdr_source : r.crdr_source ? Number(r.crdr_source) : null,
+        estateImpact: codeOf(r.crdr_estateimpact, IMPACT_CODES),
+        overrideImpact: codeOf(r.crdr_overrideimpact, IMPACT_CODES),
+        rationale: textOf(r.crdr_rationale),
+        action: textOf(r.crdr_recommendedaction),
+        assessedOn: timeOf(r.crdr_assessedon),
+    };
+}
+function utcTodayMs() {
+    var now = new Date();
+    return Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+}
+function formatDisplayDate(day) {
+    var ms = toUtcDayMs(day);
+    if (ms === null)
+        return 'No date';
+    return new Date(ms).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+function countBy(labels) {
+    var counts = {};
+    labels.forEach(function (l) { counts[l] = (counts[l] || 0) + 1; });
+    return Object.keys(counts)
+        .map(function (label) { return ({ label: label, count: counts[label] }); })
+        .sort(function (a, b) { return b.count - a.count || a.label.localeCompare(b.label); });
+}
+function byDateThenTitle(a, b) {
+    var da = toUtcDayMs(a.keyDate);
+    var db = toUtcDayMs(b.keyDate);
+    if (da !== db) {
+        if (da === null)
+            return 1;
+        if (db === null)
+            return -1;
+        return da - db;
+    }
+    return compareTitles(a.title, b.title);
+}
+function impactRow(impact) {
+    if (impact === 'high' || impact === 'critical')
+        return 'high';
+    if (impact === 'medium' || impact === 'low' || impact === 'none')
+        return impact;
+    return 'unrated';
+}
+function themeKey(item) {
+    if (!item.theme)
+        return NOT_THEMED;
+    return THEMES.indexOf(item.theme) >= 0 ? item.theme : 'Other';
+}
+function impactBadgeColour(impact) {
+    if (impact === 'high' || impact === 'critical')
+        return 'danger';
+    if (impact === 'medium')
+        return 'warning';
+    if (impact === 'low')
+        return 'success';
+    return 'informative';
+}
+function basisLabel(basis) {
+    if (basis === 'override')
+        return 'override';
+    if (basis === 'estate')
+        return 'estate rating';
+    if (basis === 'generic')
+        return 'generic rating';
+    return 'not yet rated';
+}
+function passesTile(item, tile, todayMs) {
+    if (!tile)
+        return true;
+    if (tile === 'now')
+        return false;
+    if (tile === 'action')
+        return item.actionRequired;
+    if (tile === 'high')
+        return HIGH_IMPACTS.indexOf(item.impact.impact) >= 0;
+    if (tile === 'retiring')
+        return isRetiringItem(item, todayMs);
+    if (tile === 'future')
+        return item.source === 'roadmap' && item.horizon === 'future';
+    return true;
+}
+function passesBar(item, f) {
+    if (f.solution && item.solutionKeys.indexOf(f.solution) < 0 && (f.solutionScope === 'affects' || !item.related[f.solution]))
+        return false;
+    if (f.horizon && item.horizon !== f.horizon)
+        return false;
+    if (f.source && item.source !== f.source)
+        return false;
+    if (f.product && item.products.indexOf(f.product) < 0)
+        return false;
+    if (f.theme && themeKey(item) !== f.theme)
+        return false;
+    // Watch list (ADR 0015): signals a topic put on the list, or someone marked Watched.
+    if (f.watched === 'watched' && !item.watched)
+        return false;
+    if (f.impactType) {
+        if (f.impactType === NOT_RATED) {
+            if (item.impactType)
+                return false;
+        }
+        else if (item.impactType !== f.impactType)
+            return false;
+    }
+    return true;
+}
+function openSignalForm(id, onError) {
+    var _a, _b;
+    try {
+        var xrm = window.Xrm;
+        var result = (_b = (_a = xrm === null || xrm === void 0 ? void 0 : xrm.Navigation) === null || _a === void 0 ? void 0 : _a.openForm) === null || _b === void 0 ? void 0 : _b.call(_a, { entityName: 'crdr_signal', entityId: id });
+        if (result && typeof result.catch === 'function') {
+            result.catch(function (error) { return onError(reportPageError(PAGE_NAME, 'openSignal', undefined, error, 'read')); });
+        }
+    }
+    catch (error) {
+        onError(reportPageError(PAGE_NAME, 'openSignal', undefined, error, 'read'));
+    }
+}
+// ---------------------------------------------------------------------------------------------
+// Data loading: one cached bundle, de-duplicated across the host double-mount (data-caching.md).
+var winAny = window;
+// v3: the bundle gained solutions and members (v2, ADR 0020) fingerprints for related signals (v3) the demo_data switch (v4) and its row id for the header switch (v5); a bundle cached by an earlier version must not be reused.
+var CACHE_KEY = '__ppRadarHome_bundleCache_v5';
+var INFLIGHT_KEY = '__ppRadarHome_bundleInflight_v5';
+function readAllRows(first) {
+    return __awaiter(this, void 0, Promise, function () {
+        var page, rows;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    page = first;
+                    rows = page.rows.slice();
+                    _a.label = 1;
+                case 1:
+                    if (!(page.hasMoreRows && page.loadMoreRows)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, page.loadMoreRows()];
+                case 2:
+                    page = _a.sent();
+                    page.rows.forEach(function (r) { return rows.push(r); });
+                    return [3 /*break*/, 1];
+                case 3: return [2 /*return*/, rows];
+            }
+        });
+    });
+}
+function loadBundle(dataApi) {
+    return __awaiter(this, void 0, Promise, function () {
+        var results, operations, firstFailure, signals, assessments, exposures, demo, runs, solutions, members, signalFps, demoRows, assetFps, demoData, demoConfigId, assetIds, assets, i, chunk, page, reason_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Promise.allSettled([
+                        dataApi
+                            .queryTable('crdr_signal', {
+                            select: [
+                                'crdr_signalid', 'crdr_title', 'crdr_source', 'crdr_externalid', 'crdr_summary', 'crdr_products', 'crdr_horizon', 'crdr_keydate',
+                                'crdr_datelabel', 'crdr_actionrequired', 'crdr_url', 'crdr_genericimpact', 'crdr_nature', 'crdr_impacttype', 'crdr_risk',
+                                'crdr_opportunity', 'crdr_audience', 'crdr_theme', 'crdr_ratingconfidence', 'crdr_watched',
+                            ],
+                            filter: 'statecode eq 0',
+                            pageSize: 500,
+                        })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi
+                            .queryTable('crdr_assessment', {
+                            select: ['crdr_assessmentid', '_crdr_signal_value', 'crdr_source', 'crdr_estateimpact', 'crdr_overrideimpact', 'crdr_rationale', 'crdr_recommendedaction', 'crdr_assessedon'],
+                            pageSize: 500,
+                        })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi
+                            .queryTable('crdr_exposure', {
+                            select: ['crdr_exposureid', '_crdr_signal_value', '_crdr_asset_value', 'crdr_source', 'crdr_status'],
+                            filter: 'crdr_status eq 169890000 or crdr_status eq 169890001',
+                            pageSize: 500,
+                        })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi.queryTable('crdr_asset', { select: ['crdr_assetid'], filter: 'crdr_source ne 169890000', pageSize: 1 }),
+                        dataApi.queryTable('crdr_collectionrun', { select: ['crdr_collectionrunid', 'crdr_collector', 'crdr_accesstier', 'crdr_startedon'], orderBy: 'crdr_startedon desc', pageSize: 500 }),
+                        dataApi
+                            .queryTable('crdr_solution', { select: ['crdr_solutionid', 'crdr_name', 'crdr_uniquename', 'crdr_environmentid', 'crdr_microsoft', 'crdr_source'], pageSize: 500 })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi
+                            .queryTable('crdr_solutionmember', { select: ['crdr_solutionmemberid', '_crdr_asset_value', '_crdr_solution_value'], pageSize: 500 })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi
+                            .queryTable('crdr_signalfingerprint', {
+                            select: ['crdr_signalfingerprintid', '_crdr_signal_value', 'crdr_facet', 'crdr_value'],
+                            filter: 'crdr_status eq ' + FINGERPRINT_ACCEPTED + ' and (' + RELATED_FACET_FILTER + ')',
+                            pageSize: 500,
+                        })
+                            .then(function (t) { return readAllRows(t); }),
+                        dataApi.queryTable('crdr_config', { select: ['crdr_configid', 'crdr_value'], filter: "crdr_key eq 'demo_data'", pageSize: 1 }),
+                        dataApi
+                            .queryTable('crdr_assetfingerprint', { select: ['crdr_assetfingerprintid', '_crdr_asset_value', 'crdr_facet', 'crdr_value'], filter: RELATED_FACET_FILTER, pageSize: 500 })
+                            .then(function (t) { return readAllRows(t); }),
+                    ])];
+                case 1:
+                    results = _a.sent();
+                    operations = ['loadSignals', 'loadAssessments', 'loadExposures', 'loadDemoBadge', 'loadCollectionRuns', 'loadSolutions', 'loadSolutionMembers', 'loadSignalFingerprints', 'loadDemoSwitch', 'loadAssetFingerprints'];
+                    firstFailure = null;
+                    results.forEach(function (r, i) {
+                        if (r.status === 'rejected' && !firstFailure)
+                            firstFailure = { operation: operations[i], reason: r.reason };
+                    });
+                    if (firstFailure)
+                        throw firstFailure;
+                    signals = results[0].value;
+                    assessments = results[1].value;
+                    exposures = results[2].value;
+                    demo = results[3].value;
+                    runs = results[4].value.rows;
+                    solutions = results[5].value;
+                    members = results[6].value;
+                    signalFps = results[7].value;
+                    demoRows = results[8].value.rows;
+                    assetFps = results[9].value;
+                    demoData = demoRows.length > 0 ? textOf(demoRows[0].crdr_value) : null;
+                    demoConfigId = demoRows.length > 0 ? textOf(demoRows[0].crdr_configid) || null : null;
+                    assetIds = Array.from(new Set(exposures.map(function (e) { return lookupId(e, '_crdr_asset_value', 'crdr_asset'); }).filter(function (id) { return !!id; })));
+                    assets = [];
+                    i = 0;
+                    _a.label = 2;
+                case 2:
+                    if (!(i < assetIds.length)) return [3 /*break*/, 8];
+                    chunk = assetIds.slice(i, i + 15);
+                    _a.label = 3;
+                case 3:
+                    _a.trys.push([3, 6, , 7]);
+                    return [4 /*yield*/, dataApi.queryTable('crdr_asset', {
+                            select: ['crdr_assetid', 'crdr_name', 'crdr_resourcetype', 'crdr_environmenttype', 'crdr_environmentid', 'crdr_source'],
+                            filter: chunk.map(function (id) { return 'crdr_assetid eq ' + id; }).join(' or '),
+                            pageSize: 50,
+                        })];
+                case 4:
+                    page = _a.sent();
+                    return [4 /*yield*/, readAllRows(page)];
+                case 5:
+                    (_a.sent()).forEach(function (a) { return assets.push(a); });
+                    return [3 /*break*/, 7];
+                case 6:
+                    reason_1 = _a.sent();
+                    throw { operation: 'loadAssets', reason: reason_1 };
+                case 7:
+                    i += 15;
+                    return [3 /*break*/, 2];
+                case 8: return [2 /*return*/, { signals: signals, assessments: assessments, exposures: exposures, assets: assets, hasDemoData: demo.rows.length > 0, runs: runs, solutions: solutions, members: members, signalFps: signalFps, assetFps: assetFps, demoData: demoData, demoConfigId: demoConfigId }];
+            }
+        });
+    });
+}
+// ---------------------------------------------------------------------------------------------
+// Styles.
+var useStyles = makeStyles({
+    root: {
+        height: '100%',
+        overflowY: 'auto',
+        boxSizing: 'border-box',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: tokens.spacingVerticalL,
+        padding: tokens.spacingHorizontalL,
+        color: tokens.colorNeutralForeground1,
+        backgroundColor: tokens.colorNeutralBackground2,
+    },
+    header: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacingHorizontalM, flexShrink: 0 },
+    headerTitle: { marginRight: 'auto' },
+    note: { color: tokens.colorNeutralForeground3 },
+    headline: { fontSize: tokens.fontSizeBase500, lineHeight: tokens.lineHeightBase500, fontWeight: tokens.fontWeightSemibold, flexShrink: 0 },
+    tiles: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: tokens.spacingHorizontalM, flexShrink: 0 },
+    tile: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        height: 'auto',
+        minHeight: '84px',
+        padding: tokens.spacingHorizontalM,
+        textAlign: 'left',
+    },
+    tileCount: { fontSize: tokens.fontSizeHero800, lineHeight: tokens.lineHeightHero800, fontWeight: tokens.fontWeightSemibold },
+    filters: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: tokens.spacingHorizontalM, flexShrink: 0 },
+    filter: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalXXS, minWidth: '160px' },
+    card: { flexShrink: 0, display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalM },
+    sectionHead: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacingHorizontalM },
+    sectionTitle: { marginRight: 'auto' },
+    sectionH2: { marginTop: '0', marginBottom: '0', marginRight: 'auto' },
+    sectionToggle: {
+        border: 'none',
+        backgroundColor: 'transparent',
+        padding: '0',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: tokens.spacingHorizontalS,
+        textAlign: 'left',
+        cursor: 'pointer',
+        color: tokens.colorNeutralForeground1,
+        fontFamily: tokens.fontFamilyBase,
+        ':hover': { color: tokens.colorBrandForeground1 },
+        ':focus-visible': { outline: '2px solid ' + tokens.colorStrokeFocus2 },
+    },
+    sectionBody: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalM },
+    sectionTools: { display: 'flex', flexWrap: 'wrap', gap: tokens.spacingHorizontalS, justifyContent: 'flex-end' },
+    scrollX: { overflowX: 'auto' },
+    itemButton: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        gap: '2px',
+        width: '100%',
+        textAlign: 'left',
+        cursor: 'pointer',
+        padding: '4px 6px 4px 10px',
+        border: 'none',
+        borderRadius: tokens.borderRadiusSmall,
+        backgroundColor: tokens.colorNeutralBackground1,
+        color: tokens.colorNeutralForeground1,
+        fontFamily: tokens.fontFamilyBase,
+        fontSize: tokens.fontSizeBase200,
+        boxShadow: tokens.shadow2,
+        ':hover': { backgroundColor: tokens.colorNeutralBackground1Hover },
+        ':focus-visible': { outline: '2px solid ' + tokens.colorStrokeFocus2, outlineOffset: '1px' },
+    },
+    itemMeta: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '4px', color: tokens.colorNeutralForeground3, fontSize: tokens.fontSizeBase100 },
+    actionMark: { color: tokens.colorPaletteRedForeground1, fontWeight: tokens.fontWeightSemibold, display: 'inline-flex', alignItems: 'center', gap: '2px' },
+    themes: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: tokens.spacingHorizontalM },
+    theme: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalXS, padding: tokens.spacingHorizontalS, backgroundColor: tokens.colorNeutralBackground3, borderRadius: tokens.borderRadiusMedium },
+    themeHead: { display: 'flex', alignItems: 'baseline', gap: tokens.spacingHorizontalS },
+    tlControls: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacingHorizontalS },
+    tlScroll: { overflowX: 'auto', maxWidth: '100%' },
+    tlTable: { borderCollapse: 'collapse', width: '100%', minWidth: '720px', tableLayout: 'fixed' },
+    mxRowHead: { width: '130px', textAlign: 'left', paddingTop: tokens.spacingVerticalS, paddingBottom: tokens.spacingVerticalS, paddingRight: tokens.spacingHorizontalS, fontWeight: tokens.fontWeightSemibold, color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
+    tlRowHead: { width: '96px', textAlign: 'left', paddingTop: tokens.spacingVerticalS, paddingBottom: tokens.spacingVerticalS, paddingRight: tokens.spacingHorizontalS, fontWeight: tokens.fontWeightSemibold, color: tokens.colorNeutralForeground2, fontSize: tokens.fontSizeBase200 },
+    tlHead: { fontWeight: tokens.fontWeightRegular, fontSize: tokens.fontSizeBase100, color: tokens.colorNeutralForeground3, textAlign: 'center', paddingBottom: tokens.spacingVerticalXS, verticalAlign: 'bottom' },
+    tlHeadNow: { fontWeight: tokens.fontWeightSemibold, fontSize: tokens.fontSizeBase100, color: tokens.colorBrandForeground1, textAlign: 'center', paddingBottom: tokens.spacingVerticalXS, verticalAlign: 'bottom', backgroundColor: tokens.colorBrandBackground2 },
+    tlNowTag: { display: 'block', fontSize: tokens.fontSizeBase100, fontWeight: tokens.fontWeightRegular },
+    tlCell: { textAlign: 'center', paddingTop: '4px', paddingBottom: '4px', borderTopWidth: '1px', borderTopStyle: 'solid', borderTopColor: tokens.colorNeutralStroke3 },
+    tlCellNow: { textAlign: 'center', paddingTop: '4px', paddingBottom: '4px', borderTopWidth: '1px', borderTopStyle: 'solid', borderTopColor: tokens.colorNeutralStroke3, backgroundColor: tokens.colorBrandBackground2 },
+    tlPill: {
+        display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        minWidth: '40px', minHeight: '32px', paddingLeft: '6px', paddingRight: '6px',
+        borderTopStyle: 'solid', borderRightStyle: 'solid', borderBottomStyle: 'solid', borderLeftStyle: 'solid',
+        borderRadius: tokens.borderRadiusLarge, cursor: 'pointer', fontFamily: tokens.fontFamilyBase, color: tokens.colorNeutralForeground1,
+        ':hover': { boxShadow: tokens.shadow4 },
+        ':focus-visible': { outline: '2px solid ' + tokens.colorStrokeFocus2 },
+    },
+    tlCount: { fontSize: tokens.fontSizeBase300, fontWeight: tokens.fontWeightSemibold, lineHeight: tokens.lineHeightBase300 },
+    tlAction: { fontSize: '10px', lineHeight: '12px', color: tokens.colorPaletteRedForeground1, fontWeight: tokens.fontWeightSemibold, whiteSpace: 'nowrap' },
+    tlPanel: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalS, padding: tokens.spacingHorizontalM, backgroundColor: tokens.colorNeutralBackground3, borderRadius: tokens.borderRadiusMedium },
+    tlPanelItem: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: tokens.spacingHorizontalS },
+    srOnly: { position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' },
+    legend: { display: 'flex', flexWrap: 'wrap', gap: tokens.spacingHorizontalM, color: tokens.colorNeutralForeground3, fontSize: tokens.fontSizeBase200 },
+    table: { minWidth: '980px', tableLayout: 'fixed' },
+    solTable: { minWidth: '760px', tableLayout: 'fixed' },
+    scopeBar: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: tokens.spacingHorizontalM, padding: tokens.spacingHorizontalM, backgroundColor: tokens.colorNeutralBackground3, borderRadius: tokens.borderRadiusMedium },
+    solBlock: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalXS, paddingTop: tokens.spacingVerticalS, borderTopWidth: '1px', borderTopStyle: 'solid', borderTopColor: tokens.colorNeutralStroke3 },
+    cellText: { display: 'flex', flexDirection: 'column', gap: '2px', paddingTop: tokens.spacingVerticalXS, paddingBottom: tokens.spacingVerticalXS, whiteSpace: 'normal', overflowWrap: 'anywhere' },
+    muted: { color: tokens.colorNeutralForeground3 },
+    linkButton: {
+        border: 'none',
+        backgroundColor: 'transparent',
+        padding: '0',
+        textAlign: 'left',
+        cursor: 'pointer',
+        color: tokens.colorBrandForegroundLink,
+        fontFamily: tokens.fontFamilyBase,
+        fontSize: tokens.fontSizeBase300,
+        fontWeight: tokens.fontWeightSemibold,
+        ':hover': { textDecorationLine: 'underline' },
+        ':focus-visible': { outline: '2px solid ' + tokens.colorStrokeFocus2 },
+    },
+    estateGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: tokens.spacingHorizontalM },
+    estateCard: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalXS, padding: tokens.spacingHorizontalM, backgroundColor: tokens.colorNeutralBackground1, borderRadius: tokens.borderRadiusMedium, boxShadow: tokens.shadow4 },
+    badges: { display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' },
+    incidentList: { display: 'flex', flexDirection: 'column', gap: tokens.spacingVerticalXS },
+    list: { margin: '0', paddingLeft: tokens.spacingHorizontalL, display: 'flex', flexDirection: 'column', gap: '2px' },
+});
+// ---------------------------------------------------------------------------------------------
+// Sub-components.
+function typeBarStyle(impactType) {
+    var risk = tokens.colorPaletteRedForeground1;
+    var opp = tokens.colorPaletteTealBorderActive;
+    if (impactType === 'risk')
+        return { borderLeft: '4px solid ' + risk };
+    if (impactType === 'opportunity')
+        return { borderLeft: '4px solid ' + opp };
+    if (impactType === 'risk_and_opportunity') {
+        return { borderLeft: '4px solid transparent', borderImage: 'linear-gradient(to bottom, ' + risk + ' 50%, ' + opp + ' 50%) 1' };
+    }
+    return { borderLeft: '4px solid ' + tokens.colorNeutralStroke1 };
+}
+function ItemChip(props) {
+    var styles = useStyles();
+    var item = props.item, onOpen = props.onOpen;
+    var typeLabel = item.impactType ? IMPACT_TYPE_LABELS[item.impactType] : 'Not rated';
+    var label = item.ref + ': ' + item.title + '. ' + typeLabel + (item.actionRequired ? '. Action required' : '') + '. Opens the signal.';
+    return (React.createElement("button", { type: "button", className: styles.itemButton, style: typeBarStyle(item.impactType), title: item.title, "aria-label": label, onClick: function () { return onOpen(item.id); } },
+        React.createElement("span", null, cut(item.title, 60)),
+        React.createElement("span", { className: styles.itemMeta },
+            React.createElement("span", null, item.ref),
+            React.createElement("span", null,
+                "\u00B7 ",
+                typeLabel),
+            item.actionRequired && (React.createElement("span", { className: styles.actionMark },
+                React.createElement(WarningRegular, { "aria-hidden": "true" }),
+                " Action")))));
+}
+function ItemList(props) {
+    var cellKey = props.cellKey, items = props.items, expanded = props.expanded, onToggle = props.onToggle, onOpen = props.onOpen;
+    var open = !!expanded[cellKey];
+    var shown = open ? items : items.slice(0, CELL_LIMIT);
+    var hidden = items.length - shown.length;
+    return (React.createElement(React.Fragment, null,
+        shown.map(function (item) { return (React.createElement(ItemChip, { key: item.id, item: item, onOpen: onOpen })); }),
+        items.length > CELL_LIMIT && (React.createElement(Button, { size: "small", appearance: "subtle", onClick: function () { return onToggle(cellKey); } }, open ? 'Show fewer' : 'Show ' + hidden + ' more'))));
+}
+function ImpactBadge(props) {
+    return (React.createElement(Badge, { appearance: "tint", color: impactBadgeColour(props.impact) }, (props.prefix ? props.prefix + ': ' : '') + (IMPACT_LABELS[props.impact] || props.impact)));
+}
+var TIMELINE_PRESETS = [
+    { key: 'next90', label: 'Next 90 days' },
+    { key: 'next12m', label: 'Next 12 months' },
+    { key: 'past90', label: 'Past 90 days' },
+];
+var MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var MONTH_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function binLabel(ms, g) {
+    var d = new Date(ms);
+    return g === 'month' ? MONTH_SHORT[d.getUTCMonth()] + ' ' + String(d.getUTCFullYear()).slice(2) : d.getUTCDate() + ' ' + MONTH_SHORT[d.getUTCMonth()];
+}
+function binLongLabel(ms, g) {
+    var d = new Date(ms);
+    return g === 'month' ? MONTH_LONG[d.getUTCMonth()] + ' ' + d.getUTCFullYear() : 'week of ' + d.getUTCDate() + ' ' + MONTH_LONG[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+}
+function rowPillStyle(row, action, selected) {
+    var bg = {
+        retiring: tokens.colorPaletteBerryBackground2,
+        imminent: tokens.colorPaletteDarkOrangeBackground2,
+        future: tokens.colorPaletteBlueBackground2,
+        shipped: tokens.colorPaletteGreenBackground2,
+    };
+    var edge = action ? tokens.colorPaletteRedBorder2 : tokens.colorNeutralStroke1;
+    return {
+        backgroundColor: bg[row] || tokens.colorNeutralBackground3,
+        borderTopColor: edge, borderRightColor: edge, borderBottomColor: edge, borderLeftColor: edge,
+        borderTopWidth: action ? '2px' : '1px', borderRightWidth: action ? '2px' : '1px', borderBottomWidth: action ? '2px' : '1px', borderLeftWidth: action ? '2px' : '1px',
+        outline: selected ? '2px solid ' + tokens.colorBrandStroke1 : 'none',
+        outlineOffset: '2px',
+    };
+}
+function TimelineGrid(props) {
+    var styles = useStyles();
+    var points = props.points, bins = props.bins, granularity = props.granularity, rows = props.rows, todayMs = props.todayMs, selected = props.selected, onSelect = props.onSelect;
+    var cells = React.useMemo(function () {
+        var map = {};
+        points.forEach(function (p) {
+            var k = p.row + '|' + getTimelineBin(p.day, granularity);
+            (map[k] = map[k] || []).push(p);
+        });
+        return map;
+    }, [points, granularity]);
+    var todayBin = getTimelineBin(todayMs, granularity);
+    return (React.createElement("div", { className: styles.tlScroll },
+        React.createElement("table", { className: styles.tlTable },
+            React.createElement("caption", { className: styles.srOnly },
+                "Items by timeline row and ",
+                granularity === 'month' ? 'month' : 'week',
+                ". Select a count to list its items."),
+            React.createElement("thead", null,
+                React.createElement("tr", null,
+                    React.createElement("th", { scope: "col", className: styles.tlRowHead },
+                        React.createElement("span", { className: styles.srOnly }, "Row")),
+                    bins.map(function (b) { return (React.createElement("th", { key: b, scope: "col", className: b === todayBin ? styles.tlHeadNow : styles.tlHead },
+                        binLabel(b, granularity),
+                        b === todayBin && React.createElement("span", { className: styles.tlNowTag }, granularity === 'month' ? 'This month' : 'This week'))); }))),
+            React.createElement("tbody", null, rows.map(function (r) { return (React.createElement("tr", { key: r.key },
+                React.createElement("th", { scope: "row", className: styles.tlRowHead }, r.label),
+                bins.map(function (b) {
+                    var list = cells[r.key + '|' + b] || [];
+                    var action = list.filter(function (p) { return p.action; }).length;
+                    var isSel = !!selected && selected.row === r.key && selected.bin === b;
+                    return (React.createElement("td", { key: b, className: b === todayBin ? styles.tlCellNow : styles.tlCell }, list.length > 0 && (React.createElement("button", { type: "button", className: styles.tlPill, style: rowPillStyle(r.key, action > 0, isSel), "aria-pressed": isSel, "aria-label": r.label + ', ' + binLongLabel(b, granularity) + ': ' + list.length + (list.length === 1 ? ' item' : ' items') + (action ? ', ' + action + ' need action' : ''), title: list.slice(0, 5).map(function (p) { return p.ref + ': ' + p.title; }).join('\n') + (list.length > 5 ? '\n\u2026 and ' + (list.length - 5) + ' more' : ''), onClick: function () { return onSelect(isSel ? null : { row: r.key, bin: b }); } },
+                        React.createElement("span", { className: styles.tlCount }, list.length),
+                        action > 0 && React.createElement("span", { className: styles.tlAction }, action + ' action')))));
+                }))); })))));
+}
+var MATRIX_PILL_BG = {
+    high: tokens.colorPaletteRedBackground1,
+    medium: tokens.colorPaletteMarigoldBackground2,
+    low: tokens.colorPaletteLightGreenBackground2,
+    none: tokens.colorNeutralBackground3,
+    unrated: tokens.colorNeutralBackground2,
+};
+function MatrixGrid(props) {
+    var styles = useStyles();
+    var cells = props.cells, selected = props.selected, onSelect = props.onSelect;
+    return (React.createElement("div", { className: styles.tlScroll },
+        React.createElement("table", { className: styles.tlTable },
+            React.createElement("caption", { className: styles.srOnly }, "Items by impact and time to land. Select a count to list its items."),
+            React.createElement("thead", null,
+                React.createElement("tr", null,
+                    React.createElement("th", { scope: "col", className: styles.mxRowHead },
+                        React.createElement("span", { className: styles.srOnly }, "Impact")),
+                    BUCKETS.map(function (b) { return React.createElement("th", { key: b.key, scope: "col", className: styles.tlHead }, b.label); }))),
+            React.createElement("tbody", null, MATRIX_ROWS.map(function (r) { return (React.createElement("tr", { key: r.key },
+                React.createElement("th", { scope: "row", className: styles.mxRowHead }, r.label),
+                BUCKETS.map(function (b) {
+                    var list = cells[r.key + '|' + b.key] || [];
+                    var action = list.filter(function (i) { return i.actionRequired; }).length;
+                    var isSel = !!selected && selected.row === r.key && selected.col === b.key;
+                    var edge = action > 0 ? tokens.colorPaletteRedBorder2 : tokens.colorNeutralStroke1;
+                    var width = action > 0 ? '2px' : '1px';
+                    return (React.createElement("td", { key: b.key, className: styles.tlCell }, list.length > 0 && (React.createElement("button", { type: "button", className: styles.tlPill, style: {
+                            backgroundColor: MATRIX_PILL_BG[r.key] || tokens.colorNeutralBackground3,
+                            borderTopColor: edge, borderRightColor: edge, borderBottomColor: edge, borderLeftColor: edge,
+                            borderTopWidth: width, borderRightWidth: width, borderBottomWidth: width, borderLeftWidth: width,
+                            outline: isSel ? '2px solid ' + tokens.colorBrandStroke1 : 'none', outlineOffset: '2px',
+                        }, "aria-pressed": isSel, "aria-label": r.label + ' impact, ' + b.label + ': ' + list.length + (list.length === 1 ? ' item' : ' items') + (action ? ', ' + action + ' need action' : ''), title: list.slice(0, 5).map(function (i) { return i.ref + ': ' + i.title; }).join('\n') + (list.length > 5 ? '\n… and ' + (list.length - 5) + ' more' : ''), onClick: function () { return onSelect(isSel ? null : { row: r.key, col: b.key }); } },
+                        React.createElement("span", { className: styles.tlCount }, list.length),
+                        action > 0 && React.createElement("span", { className: styles.tlAction }, action + ' action')))));
+                }))); })))));
+}
+// A card whose body can be collapsed; the choice is remembered per viewer (browser storage, best effort).
+// v3: the default changed (Simon, 2026-11-24), so earlier saved choices are ignored once.
+var SECTIONS_KEY = 'changeRadar.radar.collapsedSections.v3';
+var SECTION_IDS = ['matrix', 'timeline', 'solutions', 'patterns', 'imminent', 'estate'];
+// By default the two overview visuals are open and every detailed section is collapsed, so a viewer sees where to go next.
+var DEFAULT_COLLAPSED = { matrix: false, timeline: false, solutions: true, patterns: true, imminent: true, estate: true };
+function readCollapsed() {
+    try {
+        var raw = window.localStorage.getItem(SECTIONS_KEY);
+        var parsed = raw ? JSON.parse(raw) : null;
+        return parsed && typeof parsed === 'object' ? __assign(__assign({}, DEFAULT_COLLAPSED), parsed) : __assign({}, DEFAULT_COLLAPSED);
+    }
+    catch (_e) {
+        return __assign({}, DEFAULT_COLLAPSED);
+    }
+}
+function writeCollapsed(value) {
+    try {
+        window.localStorage.setItem(SECTIONS_KEY, JSON.stringify(value));
+    }
+    catch (_e) { /* storage unavailable: the choice lasts this visit only */ }
+}
+function Section(props) {
+    var styles = useStyles();
+    var titleId = props.id + '-title';
+    var bodyId = props.id + '-body';
+    return (React.createElement(Card, { className: styles.card, "aria-labelledby": titleId },
+        React.createElement("div", { className: styles.sectionHead },
+            React.createElement("h2", { className: styles.sectionH2, id: titleId },
+                React.createElement("button", { type: "button", className: styles.sectionToggle, "aria-expanded": !props.collapsed, "aria-controls": props.collapsed ? undefined : bodyId, onClick: props.onToggle },
+                    props.collapsed ? React.createElement(ChevronRightRegular, { "aria-hidden": "true" }) : React.createElement(ChevronDownRegular, { "aria-hidden": "true" }),
+                    React.createElement(Subtitle2, { as: "span" }, props.title))),
+            props.collapsed ? (props.summary ? React.createElement(Caption1, { className: styles.muted }, props.summary) : null) : props.actions),
+        !props.collapsed && React.createElement("div", { id: bodyId, className: styles.sectionBody }, props.children)));
+}
+function PageBody(props) {
+    var dataApi = props.dataApi;
+    var styles = useStyles();
+    var dataReady = !!dataApi;
+    var _a = __read(React.useState(0), 2), reloadKey = _a[0], setReloadKey = _a[1];
+    var _b = __read(React.useState(function () {
+        var cached = winAny[CACHE_KEY];
+        return { bundle: cached !== null && cached !== void 0 ? cached : null, loading: cached === undefined, error: null };
+    }), 2), _c = _b[0], bundle = _c.bundle, loading = _c.loading, error = _c.error, setData = _b[1];
+    var _d = __read(React.useState(null), 2), navError = _d[0], setNavError = _d[1];
+    var _f = __read(React.useState(EMPTY_FILTERS), 2), filters = _f[0], setFilters = _f[1];
+    var _g = __read(React.useState({}), 2), expanded = _g[0], setExpanded = _g[1];
+    var _h = __read(React.useState(false), 2), timelineAsList = _h[0], setTimelineAsList = _h[1];
+    var _j = __read(React.useState(false), 2), estateBySolution = _j[0], setEstateBySolution = _j[1];
+    var _k = __read(React.useState(false), 2), patternsShowOlder = _k[0], setPatternsShowOlder = _k[1];
+    var _l = __read(React.useState(function () { return readCollapsed(); }), 2), collapsed = _l[0], setCollapsed = _l[1];
+    var toggleSection = function (id) { return setCollapsed(function (prev) {
+        var _a;
+        var next = __assign(__assign({}, prev), (_a = {}, _a[id] = !prev[id], _a));
+        writeCollapsed(next);
+        return next;
+    }); };
+    var setAllSections = function (value) {
+        var next = {};
+        SECTION_IDS.forEach(function (id) { next[id] = value; });
+        writeCollapsed(next);
+        setCollapsed(next);
+    };
+    var _m = __read(React.useState('next90'), 2), timelinePreset = _m[0], setTimelinePreset = _m[1];
+    var _o = __read(React.useState(null), 2), timelineCell = _o[0], setTimelineCell = _o[1];
+    var _p = __read(React.useState(null), 2), matrixCell = _p[0], setMatrixCell = _p[1];
+    var todayMs = React.useMemo(function () { return utcTodayMs(); }, [reloadKey]);
+    function reload() {
+        delete winAny[CACHE_KEY];
+        delete winAny[INFLIGHT_KEY];
+        setData({ bundle: null, loading: true, error: null });
+        setReloadKey(function (k) { return k + 1; });
+    }
+    // Demo data switch (Simon 2026-11-24): writes crdr_config demo_data after a confirmation. Dataverse decides who may:
+    // the Change Radar Admin role (and System Administrator) can write settings, the User role can't (install test,
+    // Test-UserRole), so a refused write is explained rather than guessed from roles in the page.
+    var _q = __read(React.useState(null), 2), demoAsk = _q[0], setDemoAsk = _q[1]; // the state the person asked for, awaiting confirmation
+    var _r = __read(React.useState(false), 2), demoSaving = _r[0], setDemoSaving = _r[1];
+    var _s = __read(React.useState(null), 2), demoNote = _s[0], setDemoNote = _s[1];
+    function saveDemo(on) {
+        return __awaiter(this, void 0, void 0, function () {
+            var value, id, patch, row, created, next, reason_2, detail, refused;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!bundle)
+                            return [2 /*return*/];
+                        value = demoDataValue(on);
+                        setDemoSaving(true);
+                        setDemoNote(null);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 6, 7, 8]);
+                        id = bundle.demoConfigId;
+                        if (!id) return [3 /*break*/, 3];
+                        patch = { crdr_value: value };
+                        return [4 /*yield*/, dataApi.updateRow('crdr_config', id, patch)];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 3:
+                        row = { crdr_key: 'demo_data', crdr_value: value };
+                        return [4 /*yield*/, dataApi.createRow('crdr_config', row)];
+                    case 4:
+                        created = _a.sent();
+                        id = String(created);
+                        _a.label = 5;
+                    case 5:
+                        next = __assign(__assign({}, bundle), { demoData: value, demoConfigId: id });
+                        winAny[CACHE_KEY] = next;
+                        setData({ bundle: next, loading: false, error: null });
+                        setDemoNote({ intent: 'success', text: on
+                                ? 'Demo data is on: this page now shows the demo organisation instead of your live estate. The nightly runs include it again.'
+                                : 'Demo data is off: this page shows your live estate, and the nightly runs leave the demo organisation out. Nothing was deleted.' });
+                        return [3 /*break*/, 8];
+                    case 6:
+                        reason_2 = _a.sent();
+                        detail = (function () { try {
+                            return JSON.stringify(reason_2) + String(reason_2);
+                        }
+                        catch (_e) {
+                            return String(reason_2);
+                        } })().toLowerCase();
+                        refused = detail.indexOf('privilege') >= 0 || detail.indexOf('403') >= 0 || detail.indexOf('0x80040220') >= 0 || detail.indexOf('access') >= 0;
+                        setDemoNote(refused
+                            ? { intent: 'warning', text: 'Only Change Radar admins can switch demo data. Nothing was changed.' }
+                            : { intent: 'error', text: 'Demo data could not be switched. Nothing was changed; refresh and try again.' });
+                        return [3 /*break*/, 8];
+                    case 7:
+                        setDemoSaving(false);
+                        setDemoAsk(null);
+                        return [7 /*endfinally*/];
+                    case 8: return [2 /*return*/];
+                }
+            });
+        });
+    }
+    React.useEffect(function () {
+        if (!dataReady)
+            return;
+        var cached = winAny[CACHE_KEY];
+        if (cached !== undefined) {
+            if (bundle !== cached)
+                setData({ bundle: cached, loading: false, error: null });
+            return;
+        }
+        var cancelled = false;
+        var inflight = winAny[INFLIGHT_KEY];
+        if (!inflight) {
+            inflight = loadBundle(dataApi)
+                .then(function (b) {
+                winAny[CACHE_KEY] = b;
+                return b;
+            })
+                .finally(function () { if (winAny[INFLIGHT_KEY] === inflight)
+                delete winAny[INFLIGHT_KEY]; });
+            winAny[INFLIGHT_KEY] = inflight;
+        }
+        inflight
+            .then(function (b) { if (!cancelled)
+            setData({ bundle: b, loading: false, error: null }); })
+            .catch(function (failure) {
+            if (cancelled)
+                return;
+            var operation = failure && failure.operation ? failure.operation : 'loadRadar';
+            var reason = failure && 'reason' in failure ? failure.reason : failure;
+            setData({ bundle: null, loading: false, error: reportPageError(PAGE_NAME, operation, undefined, reason, 'read', reload) });
+        });
+        return function () { cancelled = true; };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dataReady, reloadKey]);
+    // Signals with their live assessment and effective impact.
+    var model = React.useMemo(function () {
+        var empty = { items: [], incidents: [], all: [], estateLive: [], estateDemo: [], tier: '', tierNote: '', products: [], solutionOptions: [], assetGroups: {}, demoOn: true, showingDemo: false };
+        if (!bundle)
+            return empty;
+        var assessmentsBySignal = {};
+        bundle.assessments.forEach(function (row) {
+            var sid = lookupId(row, '_crdr_signal_value', 'crdr_signal');
+            if (!sid)
+                return;
+            (assessmentsBySignal[sid] = assessmentsBySignal[sid] || []).push(toAssessmentView(row));
+        });
+        var latestFor = function (sid, source) {
+            var list = (assessmentsBySignal[sid] || []).filter(function (a) { return a.source === source; });
+            if (list.length === 0)
+                return null;
+            return list.slice().sort(function (a, b) { return b.assessedOn - a.assessedOn; })[0];
+        };
+        // Solutions (ADR 0020): each exposed asset's group keys (source|unique name, or source|catch-all), then each
+        // signal's keys from its open exposures. An environment has Dataverse detail when it has any solution row.
+        var solutionInfo = {};
+        var detailEnvs = [];
+        // demo_data off (ADR 0022): synthetic exposures and solutions are left out of every section; nothing is deleted.
+        var demoOn = isDemoDataOn(bundle.demoData);
+        // One estate at a time (Simon 2026-11-24, 'Demo replaces live'): the demo organisation while demo data is on, the live
+        // estate while it's off. Every rating, exposure, solution and asset below is that estate's, so the tiles, headline,
+        // matrix, timeline and lists all follow the switch, and live and synthetic are never mixed (CLAUDE.md).
+        var shownSource = estateShown(bundle.demoData, bundle.hasDemoData) === 'synthetic' ? ASSET_SOURCE_SYNTHETIC : ASSET_SOURCE_LIVE;
+        var sourceOfRow = function (row) { var v = Number(row.crdr_source); return isNaN(v) ? ASSET_SOURCE_LIVE : v; };
+        // The live view keeps fixture (test) assets in their own table, as before; the demo view is the demo organisation only.
+        var visible = function (src) { return (shownSource === ASSET_SOURCE_SYNTHETIC ? src === ASSET_SOURCE_SYNTHETIC : src !== ASSET_SOURCE_SYNTHETIC); };
+        var exposures = bundle.exposures.filter(function (e) { return visible(sourceOfRow(e)); });
+        (bundle.solutions || []).filter(function (row) { return visible(sourceOfRow(row)); }).forEach(function (row) {
+            var r = row;
+            var src = Number(r.crdr_source);
+            var source = isNaN(src) ? ASSET_SOURCE_LIVE : src;
+            var key = source + '|' + textOf(r.crdr_uniquename);
+            solutionInfo[textOf(r.crdr_solutionid).toLowerCase()] = { source: source, uniquename: key, label: textOf(r.crdr_name) || textOf(r.crdr_uniquename), microsoft: isTrue(r.crdr_microsoft) };
+            var env = textOf(r.crdr_environmentid).toLowerCase();
+            if (env && detailEnvs.indexOf(env) < 0)
+                detailEnvs.push(env);
+        });
+        var memberships = [];
+        (bundle.members || []).forEach(function (row) {
+            var aid = lookupId(row, '_crdr_asset_value', 'crdr_asset');
+            var s = solutionInfo[lookupId(row, '_crdr_solution_value', 'crdr_solution') || ''];
+            if (aid && s)
+                memberships.push({ assetid: aid, uniquename: s.uniquename, displayname: s.label, microsoft: s.microsoft });
+        });
+        var exposedAssets = bundle.assets.map(function (a) {
+            var r = a;
+            var src = Number(r.crdr_source);
+            return { assetid: textOf(r.crdr_assetid).toLowerCase(), environmentid: textOf(r.crdr_environmentid).toLowerCase(), source: isNaN(src) ? ASSET_SOURCE_LIVE : src };
+        }).filter(function (a) { return visible(a.source); });
+        // Demo data is generated with its solutions, so a demo environment is always known: an asset there with none is
+        // "not in a solution", never "not known".
+        exposedAssets.forEach(function (a) { if (a.source !== ASSET_SOURCE_LIVE && a.environmentid && detailEnvs.indexOf(a.environmentid) < 0)
+            detailEnvs.push(a.environmentid); });
+        var rawGroups = getSolutionGroups(exposedAssets, memberships, detailEnvs);
+        var assetSource = {};
+        exposedAssets.forEach(function (a) { assetSource[a.assetid] = a.source; });
+        var assetGroups = {};
+        Object.keys(rawGroups).forEach(function (aid) {
+            assetGroups[aid] = rawGroups[aid].map(function (g) { return (g === NOT_IN_SOLUTION || g === SOLUTION_NOT_KNOWN ? assetSource[aid] + '|' + g : g); });
+        });
+        var signalSolutions = {};
+        exposures.forEach(function (e) {
+            var sid = lookupId(e, '_crdr_signal_value', 'crdr_signal');
+            var aid = lookupId(e, '_crdr_asset_value', 'crdr_asset');
+            if (!sid || !aid || !assetGroups[aid])
+                return;
+            var set = (signalSolutions[sid] = signalSolutions[sid] || {});
+            assetGroups[aid].forEach(function (k) { set[k] = true; });
+        });
+        var optionByKey = {};
+        Object.keys(solutionInfo).forEach(function (id) {
+            var s = solutionInfo[id];
+            if (!optionByKey[s.uniquename])
+                optionByKey[s.uniquename] = { key: s.uniquename, source: s.source, uniquename: s.uniquename.slice(s.uniquename.indexOf('|') + 1), label: s.label, microsoft: s.microsoft, catchAll: false };
+        });
+        Object.keys(assetGroups).forEach(function (aid) { return assetGroups[aid].forEach(function (k) {
+            var name = k.slice(k.indexOf('|') + 1);
+            if (!optionByKey[k] && (name === NOT_IN_SOLUTION || name === SOLUTION_NOT_KNOWN)) {
+                optionByKey[k] = { key: k, source: assetSource[aid], uniquename: name, label: name === NOT_IN_SOLUTION ? 'Not in a solution' : 'Solution not known', microsoft: false, catchAll: true };
+            }
+        }); });
+        var solutionOptions = Object.keys(optionByKey).map(function (k) { return optionByKey[k]; }).sort(function (a, b) {
+            return (a.source === ASSET_SOURCE_LIVE ? 0 : 1) - (b.source === ASSET_SOURCE_LIVE ? 0 : 1) || a.source - b.source
+                || (a.catchAll ? 2 : a.microsoft ? 1 : 0) - (b.catchAll ? 2 : b.microsoft ? 1 : 0) || a.label.localeCompare(b.label);
+        });
+        // Related signals per solution (Simon, 2026-11-24): shares a connector, capability, model, setting, harness or
+        // authentication mode with any component of the solution, and doesn't already affect it.
+        var assetFpRows = (bundle.assetFps || []).map(function (row) {
+            var r = row;
+            return { assetid: lookupId(row, '_crdr_asset_value', 'crdr_asset') || '', facet: FACET_CODES[Number(r.crdr_facet)] || '', value: textOf(r.crdr_value) };
+        });
+        var signalFpRows = (bundle.signalFps || []).map(function (row) {
+            var r = row;
+            return { signal: lookupId(row, '_crdr_signal_value', 'crdr_signal') || '', facet: FACET_CODES[Number(r.crdr_facet)] || '', value: textOf(r.crdr_value), status: 'accepted' };
+        });
+        var relatedBySignal = {};
+        solutionOptions.filter(function (o) { return !o.catchAll; }).forEach(function (o) {
+            var solAssets = memberships.filter(function (m) { return m.uniquename === o.key; }).map(function (m) { return m.assetid; });
+            if (solAssets.length === 0)
+                return;
+            var affects = Object.keys(signalSolutions).filter(function (sid) { return signalSolutions[sid][o.key]; });
+            getRelatedSignals(solAssets, assetFpRows, signalFpRows, affects, RELATED_FACETS).forEach(function (rel) {
+                (relatedBySignal[rel.signal] = relatedBySignal[rel.signal] || {})[o.key] = rel.links;
+            });
+        });
+        var all = bundle.signals.map(function (row) {
+            var r = row;
+            var id = textOf(r.crdr_signalid).toLowerCase();
+            var live = latestFor(id, shownSource); // the shown estate's rating (live, or the demo organisation's)
+            var productsText = textOf(r.crdr_products);
+            var base = {
+                id: id,
+                ref: textOf(r.crdr_externalid),
+                title: textOf(r.crdr_title),
+                summary: stripHtml(textOf(r.crdr_summary)),
+                products: splitProducts(productsText),
+                productsText: productsText,
+                source: codeOf(r.crdr_source, SOURCE_CODES) || 'manual',
+                horizon: codeOf(r.crdr_horizon, HORIZON_CODES),
+                keyDate: toDayString(r.crdr_keydate),
+                dateLabel: textOf(r.crdr_datelabel),
+                actionRequired: isTrue(r.crdr_actionrequired),
+                genericImpact: codeOf(r.crdr_genericimpact, IMPACT_CODES),
+                nature: codeOf(r.crdr_nature, NATURE_CODES),
+                impactType: codeOf(r.crdr_impacttype, IMPACT_TYPE_CODES),
+                risk: textOf(r.crdr_risk),
+                opportunity: textOf(r.crdr_opportunity),
+                audience: textOf(r.crdr_audience),
+                theme: textOf(r.crdr_theme) || null,
+                watched: isTrue(r.crdr_watched),
+                confidence: textOf(r.crdr_ratingconfidence),
+                url: textOf(r.crdr_url),
+                live: live,
+            };
+            return __assign(__assign({}, base), { impact: getItemImpact(base, live), solutionKeys: Object.keys(signalSolutions[id] || {}), related: relatedBySignal[id] || {} });
+        });
+        var items = all.filter(function (i) { return i.source !== 'graph_health'; });
+        var incidents = all.filter(function (i) { return i.source === 'graph_health' && i.horizon === 'now'; }).sort(byDateThenTitle);
+        var byId = {};
+        all.forEach(function (i) { byId[i.id] = i; });
+        // Estate: open exposures, grouped per signal (live) and per signal and source (demo); never mixed.
+        var assetById = {};
+        bundle.assets.forEach(function (a) { assetById[textOf(a.crdr_assetid).toLowerCase()] = a; });
+        var groups = {};
+        exposures.forEach(function (e) {
+            var sid = lookupId(e, '_crdr_signal_value', 'crdr_signal');
+            var item = sid ? byId[sid] : undefined;
+            if (!item || item.source === 'graph_health')
+                return;
+            var src = Number(e.crdr_source);
+            var source = isNaN(src) ? ASSET_SOURCE_LIVE : src;
+            var key = item.id + '|' + source;
+            var g = (groups[key] = groups[key] || { item: item, source: source, assets: {} });
+            var aid = lookupId(e, '_crdr_asset_value', 'crdr_asset');
+            g.assets[aid || 'unknown:' + textOf(e.crdr_exposureid)] = true;
+        });
+        var toEntry = function (key) {
+            var g = groups[key];
+            var ids = Object.keys(g.assets);
+            var types = ids.map(function (aid) {
+                var a = assetById[aid];
+                return a && textOf(a.crdr_resourcetype) ? textOf(a.crdr_resourcetype) : 'Unknown';
+            });
+            var envs = ids.map(function (aid) {
+                var a = assetById[aid];
+                var v = a ? Number(a.crdr_environmenttype) : NaN;
+                return ENV_TYPE_LABELS[v] || 'Unknown';
+            });
+            var live = g.source === ASSET_SOURCE_LIVE;
+            var assessment = live ? g.item.live : latestFor(g.item.id, g.source);
+            var impact = live ? g.item.impact.impact : getItemImpact(g.item, assessment).impact;
+            return {
+                key: key,
+                item: g.item,
+                sourceLabel: ASSET_SOURCE_LABELS[g.source] || 'Unknown source',
+                assetCount: ids.length,
+                byType: countBy(types),
+                byEnv: countBy(envs),
+                assessment: assessment,
+                impact: impact,
+                assetIds: ids,
+                source: g.source,
+            };
+        };
+        var byImpactThenDate = function (a, b) { return (IMPACT_RANK[b.impact] || 0) - (IMPACT_RANK[a.impact] || 0) || byDateThenTitle(a.item, b.item); };
+        var keys = Object.keys(groups);
+        var estateLive = keys.filter(function (k) { return groups[k].source === ASSET_SOURCE_LIVE; }).map(toEntry).sort(byImpactThenDate);
+        var estateDemo = keys.filter(function (k) { return groups[k].source !== ASSET_SOURCE_LIVE; }).map(toEntry).sort(byImpactThenDate);
+        // Access tier: the latest run of each collector; the most limited first.
+        var latestRun = {};
+        bundle.runs.forEach(function (run) {
+            var r = run;
+            var c = textOf(r.crdr_collector) || 'unnamed collector';
+            var prev = latestRun[c];
+            if (!prev || timeOf(r.crdr_startedon) > timeOf(prev.crdr_startedon))
+                latestRun[c] = run;
+        });
+        var tiers = Object.keys(latestRun).map(function (c) { return ({ collector: c, tier: Number(latestRun[c].crdr_accesstier) }); });
+        var tier = 'Access tier: unknown (no collection runs yet)';
+        var tierNote = 'No collection has run yet, so coverage is unknown.';
+        if (tiers.length > 0) {
+            var distinct = Array.from(new Set(tiers.map(function (t) { return t.tier; })));
+            if (distinct.length === 1) {
+                tier = 'Access tier: ' + (TIER_LABELS[distinct[0]] || 'unknown');
+                tierNote = TIER_MEANING[distinct[0]] || 'Coverage is unknown.';
+            }
+            else {
+                tierNote = 'Coverage differs by collector, so some sources or parts of the estate are missing; the most limited is listed first.';
+                tier = 'Access tiers: ' + tiers
+                    .slice()
+                    .sort(function (a, b) { var _a, _b; return ((_a = TIER_LIMIT_ORDER[a.tier]) !== null && _a !== void 0 ? _a : 9) - ((_b = TIER_LIMIT_ORDER[b.tier]) !== null && _b !== void 0 ? _b : 9) || a.collector.localeCompare(b.collector); })
+                    .map(function (t) { return t.collector + ' ' + (TIER_LABELS[t.tier] || 'unknown'); })
+                    .join('; ');
+            }
+        }
+        var products = Array.from(new Set(items.reduce(function (acc, i) { return acc.concat(i.products); }, []))).sort(function (a, b) { return a.localeCompare(b); });
+        return { items: items, incidents: incidents, all: all, estateLive: estateLive, estateDemo: estateDemo, tier: tier, tierNote: tierNote, products: products, solutionOptions: solutionOptions, assetGroups: assetGroups, demoOn: demoOn, showingDemo: shownSource === ASSET_SOURCE_SYNTHETIC };
+    }, [bundle]);
+    var summary = React.useMemo(function () { return getRadarSummary(model.all, todayMs); }, [model, todayMs]);
+    var filtered = React.useMemo(function () { return model.items.filter(function (i) { return passesTile(i, filters.tile, todayMs) && passesBar(i, filters); }).sort(byDateThenTitle); }, [model, filters, todayMs]);
+    var filteredIds = React.useMemo(function () {
+        var ids = {};
+        filtered.forEach(function (i) { ids[i.id] = true; });
+        return ids;
+    }, [filtered]);
+    var matrix = React.useMemo(function () {
+        var cells = {};
+        filtered.forEach(function (i) {
+            var key = impactRow(i.impact.impact) + '|' + getTimeBucket(i.keyDate, todayMs);
+            (cells[key] = cells[key] || []).push(i);
+        });
+        return cells;
+    }, [filtered, todayMs]);
+    var matrixUndated = (matrix['high|nodate'] || []).length + (matrix['medium|nodate'] || []).length + (matrix['low|nodate'] || []).length + (matrix['none|nodate'] || []).length + (matrix['unrated|nodate'] || []).length;
+    var matrixSelection = React.useMemo(function () {
+        if (!matrixCell)
+            return null;
+        var list = (matrix[matrixCell.row + '|' + matrixCell.col] || []).slice()
+            .sort(function (a, b) { return (a.actionRequired === b.actionRequired ? byDateThenTitle(a, b) : a.actionRequired ? -1 : 1); });
+        if (list.length === 0)
+            return null;
+        var row = MATRIX_ROWS.filter(function (r) { return r.key === matrixCell.row; })[0];
+        var col = BUCKETS.filter(function (b) { return b.key === matrixCell.col; })[0];
+        return { label: (row ? row.label : matrixCell.row) + ' impact, ' + (col ? col.label : matrixCell.col), list: list };
+    }, [matrixCell, matrix]);
+    var patternItems = React.useMemo(function () { return filtered.filter(function (i) { return inPatternWindow(i.keyDate, todayMs, patternsShowOlder); }); }, [filtered, todayMs, patternsShowOlder]);
+    var patterns = React.useMemo(function () {
+        var groups = {};
+        patternItems.forEach(function (i) {
+            var k = themeKey(i);
+            (groups[k] = groups[k] || []).push(i);
+        });
+        return THEMES.concat([NOT_THEMED]).map(function (t) { return ({ key: t, label: t === NOT_THEMED ? 'Not yet themed' : t, items: groups[t] || [] }); });
+    }, [patternItems]);
+    var timeline = React.useMemo(function () {
+        var w = getTimelineWindow(timelinePreset, todayMs);
+        var bins = getTimelineBins(w);
+        var shipped90From = todayMs - 90 * DAY_MS;
+        var earlier = 0;
+        var later = 0;
+        var undated = 0;
+        var shipped90 = 0;
+        var points = [];
+        filtered.forEach(function (i) {
+            var row = getTimelineRow(i, todayMs);
+            if (row === 'none')
+                return;
+            var day = toUtcDayMs(i.keyDate);
+            if (day === null) {
+                undated += 1;
+                return;
+            }
+            if (row === 'shipped' && day >= shipped90From && day <= todayMs)
+                shipped90 += 1;
+            if (row === 'shipped' && timelinePreset !== 'past90')
+                return;
+            if (day < w.from) {
+                earlier += 1;
+                return;
+            }
+            if (day > w.to) {
+                later += 1;
+                return;
+            }
+            points.push({ id: i.id, title: i.title, ref: i.ref, row: row, day: day, action: i.actionRequired, impact: i.impact.impact });
+        });
+        var rows = (timelinePreset === 'past90' ? ['shipped', 'retiring', 'imminent'] : ['retiring', 'imminent', 'future'])
+            .map(function (k) { return TIMELINE_ROWS.filter(function (r) { return r.key === k; })[0]; });
+        return { points: points, bins: bins, granularity: w.granularity, rows: rows, earlier: earlier, later: later, undated: undated, shipped90: shipped90 };
+    }, [filtered, todayMs, timelinePreset]);
+    var timelineSelection = React.useMemo(function () {
+        if (!timelineCell)
+            return null;
+        var list = timeline.points
+            .filter(function (p) { return p.row === timelineCell.row && getTimelineBin(p.day, timeline.granularity) === timelineCell.bin; })
+            .sort(function (a, b) { return (a.action === b.action ? a.day - b.day || compareTitles(a.title, b.title) : a.action ? -1 : 1); });
+        if (list.length === 0)
+            return null;
+        var row = TIMELINE_ROWS.filter(function (r) { return r.key === timelineCell.row; })[0];
+        return { label: (row ? row.label : timelineCell.row) + ', ' + binLongLabel(timelineCell.bin, timeline.granularity), list: list };
+    }, [timelineCell, timeline]);
+    var imminent = React.useMemo(function () { return filtered.filter(function (i) { return i.horizon === 'now' || i.horizon === 'imminent'; }); }, [filtered]);
+    var estateLive = React.useMemo(function () { return model.estateLive.filter(function (e) { return filteredIds[e.item.id]; }); }, [model, filteredIds]);
+    var estateDemo = React.useMemo(function () { return model.estateDemo.filter(function (e) { return filteredIds[e.item.id]; }); }, [model, filteredIds]);
+    // By solution (ADR 0020): per-solution summary from the filtered estate, live and demo kept apart.
+    var solutionView = React.useMemo(function () {
+        var membership = [];
+        Object.keys(model.assetGroups).forEach(function (aid) { return model.assetGroups[aid].forEach(function (k) { return membership.push({ assetid: aid, uniquename: k }); }); });
+        var build = function (live) {
+            var exposures = [];
+            (live ? estateLive : estateDemo).forEach(function (e) { return e.assetIds.forEach(function (aid) {
+                exposures.push({ assetid: aid, signal: e.item.id + '|' + e.source, impact: e.impact, keyDate: e.item.keyDate, actionRequired: e.item.actionRequired });
+            }); });
+            var opts = model.solutionOptions.filter(function (o) { return (o.source === ASSET_SOURCE_LIVE) === live; });
+            return getSolutionSummary(opts.map(function (o) { return ({ uniquename: o.key, displayname: o.label, microsoft: o.microsoft }); }), membership, exposures, todayMs);
+        };
+        return { live: build(true), demo: build(false) };
+    }, [model, estateLive, estateDemo, todayMs]);
+    var solutionLabel = function (key) { var o = model.solutionOptions.filter(function (x) { return x.key === key; })[0]; return o ? o.label : key; };
+    var itemById = React.useMemo(function () {
+        var m = {};
+        model.all.forEach(function (i) { m[i.id] = i; });
+        return m;
+    }, [model]);
+    // How an item relates to the chosen solution: it affects it (an exposure) or is related (shares a facet).
+    var relationOf = function (item) {
+        if (!filters.solution || !item)
+            return null;
+        if (item.solutionKeys.indexOf(filters.solution) >= 0)
+            return React.createElement(Badge, { appearance: "tint", color: "danger" }, "Affects this solution");
+        var links = item.related[filters.solution];
+        return links ? React.createElement(Badge, { appearance: "outline", color: "informative" }, 'Related: ' + links.join(', ')) : null;
+    };
+    var solutionScope = React.useMemo(function () {
+        if (!filters.solution)
+            return null;
+        var affects = model.items.filter(function (i) { return i.solutionKeys.indexOf(filters.solution) >= 0; }).length;
+        var related = model.items.filter(function (i) { return i.solutionKeys.indexOf(filters.solution) < 0 && !!i.related[filters.solution]; }).length;
+        return { affects: affects, related: related };
+    }, [model, filters.solution]);
+    var relatedCountBySolution = React.useMemo(function () {
+        var counts = {};
+        filtered.forEach(function (i) { return Object.keys(i.related).forEach(function (k) { counts[k] = (counts[k] || 0) + 1; }); });
+        return counts;
+    }, [filtered]);
+    var renderSolutionTable = function (rows, caption) {
+        var rel = function (r) { return relatedCountBySolution[r.uniquename] || 0; };
+        var busy = rows.filter(function (r) { return r.items > 0 || rel(r) > 0; });
+        var quiet = rows.filter(function (r) { return r.items === 0 && rel(r) === 0; });
+        return (React.createElement(React.Fragment, null,
+            busy.length === 0 ? React.createElement(Text, null, "No solution has an open exposure or a related signal that matches the filters.") : (React.createElement("div", { className: styles.scrollX },
+                React.createElement(Table, { className: styles.solTable, size: "small", "aria-label": caption },
+                    React.createElement(TableHeader, null,
+                        React.createElement(TableRow, null,
+                            React.createElement(TableHeaderCell, { style: { width: '28%' } }, "Solution"),
+                            React.createElement(TableHeaderCell, { style: { width: '12%' } }, "Exposed assets"),
+                            React.createElement(TableHeaderCell, { style: { width: '9%' } }, "Affects"),
+                            React.createElement(TableHeaderCell, { style: { width: '9%' } }, "Related"),
+                            React.createElement(TableHeaderCell, { style: { width: '15%' } }, "Highest impact"),
+                            React.createElement(TableHeaderCell, { style: { width: '15%' } }, "Next deadline"),
+                            React.createElement(TableHeaderCell, { style: { width: '13%' } }, "Need action"))),
+                    React.createElement(TableBody, null, busy.map(function (r) { return (React.createElement(TableRow, { key: r.uniquename },
+                        React.createElement(TableCell, null,
+                            React.createElement("button", { type: "button", className: styles.linkButton, "aria-pressed": filters.solution === r.uniquename, onClick: function () { return setFilter('solution', filters.solution === r.uniquename ? '' : r.uniquename); }, "aria-label": r.displayname + ': ' + (filters.solution === r.uniquename ? 'clear the solution filter' : 'show only this solution in every section') }, r.displayname),
+                            r.microsoft && React.createElement(Caption1, { className: styles.muted }, ' · Microsoft')),
+                        React.createElement(TableCell, null, r.assets),
+                        React.createElement(TableCell, null, r.items),
+                        React.createElement(TableCell, null, rel(r)),
+                        React.createElement(TableCell, null, r.highest ? React.createElement(ImpactBadge, { impact: r.highest }) : React.createElement(Caption1, { className: styles.muted }, "Not rated")),
+                        React.createElement(TableCell, null, r.nextDeadline ? formatDisplayDate(r.nextDeadline) : '—'),
+                        React.createElement(TableCell, null, r.action > 0 ? React.createElement("span", { className: styles.actionMark }, r.action) : 0))); }))))),
+            quiet.length > 0 && React.createElement(Caption1, { className: styles.muted }, 'No open exposures or related signals: ' + quiet.map(function (r) { return r.displayname; }).join(', ') + '.')));
+    };
+    var renderEstateBySolution = function (entries, live) {
+        var opts = model.solutionOptions.filter(function (o) { return (o.source === ASSET_SOURCE_LIVE) === live; });
+        var blocks = opts.map(function (o) {
+            var rows = entries
+                .map(function (e) { return ({ e: e, inSol: e.assetIds.filter(function (aid) { return (model.assetGroups[aid] || []).indexOf(o.key) >= 0; }).length }); })
+                .filter(function (x) { return x.inSol > 0; });
+            return { o: o, rows: rows };
+        }).filter(function (b) { return b.rows.length > 0; });
+        if (blocks.length === 0)
+            return React.createElement(Text, null, "No exposures match the filters.");
+        return blocks.map(function (b) { return (React.createElement("section", { key: b.o.key, className: styles.solBlock, "aria-label": b.o.label + ': ' + b.rows.length + ' signals' },
+            React.createElement(Text, { weight: "semibold" }, b.o.label + (b.o.microsoft ? ' (Microsoft)' : '') + ' · ' + b.rows.length + (b.rows.length === 1 ? ' signal' : ' signals')),
+            React.createElement("ul", { className: styles.list }, b.rows.map(function (_a) {
+                var e = _a.e, inSol = _a.inSol;
+                return (React.createElement("li", { key: e.key, className: styles.tlPanelItem },
+                    React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { return open(e.item.id); } }, e.item.title),
+                    React.createElement(ImpactBadge, { impact: e.impact, prefix: live ? 'Impact' : 'Demo estate' }),
+                    React.createElement(Caption1, { className: styles.muted }, e.item.ref + ' · ' + formatDisplayDate(e.item.keyDate) + ' · ' + inSol + ' of ' + e.assetCount + (e.assetCount === 1 ? ' exposed asset' : ' exposed assets') + ' in this solution'),
+                    e.item.actionRequired && React.createElement("span", { className: styles.actionMark }, "Action required")));
+            })))); });
+    };
+    var filtersActive = filters.tile !== '' || filters.horizon !== '' || filters.source !== '' || filters.product !== '' || filters.theme !== '' || filters.impactType !== '' || filters.watched !== '' || filters.solution !== '';
+    var open = function (id) { return openSignalForm(id, setNavError); };
+    var toggleCell = function (key) { return setExpanded(function (prev) {
+        var _a;
+        return (__assign(__assign({}, prev), (_a = {}, _a[key] = !prev[key], _a)));
+    }); };
+    var setFilter = function (name, value) { return setFilters(function (prev) {
+        var _a;
+        return (__assign(__assign({}, prev), (_a = {}, _a[name] = value, _a)));
+    }); };
+    var toggleTile = function (tile) { return setFilters(function (prev) { return (__assign(__assign({}, prev), { tile: prev.tile === tile ? '' : tile })); }); };
+    var tiles = [
+        { key: 'now', label: 'Now', count: summary.incidentsActive, hint: 'Active service incidents' },
+        { key: 'action', label: 'Action required', count: summary.actionRequired, hint: 'Items that need someone to act' },
+        { key: 'high', label: 'High impact', count: summary.highImpact, hint: 'Rated high or critical' },
+        { key: 'retiring', label: 'Retiring', count: summary.retiring, hint: 'Deprecations and breaking changes' },
+        { key: 'future', label: 'Future', count: summary.futureRoadmap, hint: 'Roadmap items further out' },
+    ];
+    var resultText = filters.tile === 'now'
+        ? summary.incidentsActive + ' active incidents shown'
+        : filtered.length + ' of ' + model.items.length + ' items match the filters';
+    var renderEstate = function (entries, demo) { return (React.createElement("div", { className: styles.estateGrid }, entries.map(function (e) { return (React.createElement("div", { key: e.key, className: styles.estateCard },
+        React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { return open(e.item.id); }, "aria-label": e.item.ref + ': ' + e.item.title + '. Opens the signal.' }, e.item.title),
+        React.createElement("div", { className: styles.badges },
+            React.createElement(ImpactBadge, { impact: e.impact, prefix: demo ? 'Demo estate' : 'Impact' }),
+            demo && React.createElement(Badge, { appearance: "outline", color: "warning" }, 'Demo data: ' + e.sourceLabel),
+            React.createElement(Caption1, { className: styles.muted }, e.item.ref + ' · ' + formatDisplayDate(e.item.keyDate))),
+        React.createElement(Text, { size: 200 }, e.assetCount + (e.assetCount === 1 ? ' asset: ' : ' assets: ') + e.byType.map(function (t) { return t.label + ' ' + t.count; }).join(', ')),
+        React.createElement(Text, { size: 200, className: styles.muted }, 'Environments: ' + e.byEnv.map(function (t) { return t.label + ' ' + t.count; }).join(', ')),
+        e.assessment && (e.assessment.rationale || e.assessment.action) ? (React.createElement(React.Fragment, null,
+            React.createElement(Caption1, { className: styles.muted }, "LLM assessment (in-tenant)"),
+            e.assessment.rationale && React.createElement(Text, { size: 200 }, e.assessment.rationale),
+            e.assessment.action && React.createElement(Text, { size: 200 },
+                React.createElement("strong", null, "Recommended action: "),
+                e.assessment.action))) : (React.createElement(Caption1, { className: styles.muted }, "No estate assessment yet.")))); }))); };
+    return (React.createElement("div", { className: styles.root },
+        React.createElement("header", { className: styles.header },
+            React.createElement(Title2, { as: "h1", className: styles.headerTitle }, "Change Radar"),
+            React.createElement(Badge, { appearance: "tint", color: "brand" }, model.tier || 'Access tier: loading'),
+            bundle && bundle.hasDemoData && (React.createElement(Switch, { label: model.demoOn ? 'Demo data on' : 'Demo data off', checked: model.demoOn, disabled: demoSaving || loading, onChange: function (_e, d) { return setDemoAsk(!!d.checked); }, "aria-describedby": "demo-data-hint" })),
+            React.createElement("span", { id: "demo-data-hint", hidden: true }, "On: this page shows the synthetic demo organisation instead of your live estate, and the nightly runs include it. Off: your live estate. Change Radar admins only."),
+            React.createElement(Button, { appearance: "subtle", icon: React.createElement(ArrowClockwiseRegular, null), onClick: reload, disabled: loading }, "Refresh")),
+        React.createElement(Dialog, { open: demoAsk !== null, onOpenChange: function (_e, d) { if (!d.open && !demoSaving)
+                setDemoAsk(null); } },
+            React.createElement(DialogSurface, null,
+                React.createElement(DialogBody, null,
+                    React.createElement(DialogTitle, null, demoAsk ? 'Turn demo data on?' : 'Turn demo data off?'),
+                    React.createElement(DialogContent, null, demoAsk ? (React.createElement(Text, null, "This page shows the synthetic demo organisation instead of your live estate: every count, chart and list becomes the demo estate's. The next nightly runs also match and rate it, which uses AI Builder or Copilot Credits. For evaluation, training and screenshots only, never production.")) : (React.createElement(Text, null, "This page shows your live estate again, and the nightly runs leave the demo organisation out of matching and rating, so no credits are spent on it. Nothing is deleted: you can turn it back on, or remove it with setup/Remove-DemoData.ps1."))),
+                    React.createElement(DialogActions, null,
+                        React.createElement(Button, { appearance: "secondary", onClick: function () { return setDemoAsk(null); }, disabled: demoSaving }, "Cancel"),
+                        React.createElement(Button, { appearance: "primary", onClick: function () { if (demoAsk !== null)
+                                void saveDemo(demoAsk); }, disabled: demoSaving }, demoSaving ? 'Saving…' : demoAsk ? 'Turn on' : 'Turn off'))))),
+        demoNote && (React.createElement(MessageBar, { intent: demoNote.intent, "aria-live": "polite" },
+            React.createElement(MessageBarBody, null, demoNote.text),
+            React.createElement(MessageBarActions, { containerAction: React.createElement(Button, { appearance: "transparent", icon: React.createElement(DismissRegular, null), "aria-label": "Dismiss", onClick: function () { return setDemoNote(null); } }) }))),
+        React.createElement(Caption1, { className: styles.note }, (model.tierNote ? model.tierNote + ' ' : '') + 'Ratings are LLM assessments (in-tenant), not fact. Dates are UTC days. Today: ' + formatDisplayDate(formatUtcDay(todayMs)) + '.'),
+        React.createElement(PageErrorBar, { error: error }),
+        React.createElement(PageErrorBar, { error: navError }),
+        bundle && model.showingDemo && (React.createElement(MessageBar, { intent: "warning" },
+            React.createElement(MessageBarBody, null,
+                React.createElement("strong", null, "Showing the demo organisation."),
+                " Every count, chart and list on this page is the synthetic demo estate's (its exposures, ratings and solutions), not your tenant's. Switch demo data off to see your live estate."))),
+        loading && React.createElement(Spinner, { label: "Loading the radar" }),
+        !loading && bundle && (React.createElement(React.Fragment, null,
+            React.createElement("p", { className: styles.headline }, summary.headline),
+            React.createElement("nav", { "aria-label": "Radar tiles", className: styles.tiles }, tiles.map(function (t) { return (React.createElement(ToggleButton, { key: t.key, className: styles.tile, checked: filters.tile === t.key, "aria-pressed": filters.tile === t.key, "aria-label": t.label + ': ' + t.count + '. ' + t.hint + '. ' + (filters.tile === t.key ? 'Filter on; press to clear.' : 'Press to filter the sections below.'), onClick: function () { return toggleTile(t.key); } },
+                React.createElement("span", { className: styles.tileCount }, t.count),
+                React.createElement("span", null, t.label),
+                React.createElement(Caption1, null, t.hint))); })),
+            filters.tile === 'now' && (React.createElement(Card, { className: styles.card, "aria-labelledby": "incidents-title" },
+                React.createElement(Subtitle2, { as: "h2", id: "incidents-title" }, "Active incidents"),
+                model.incidents.length === 0 ? (React.createElement(Text, null, "No active incidents.")) : (React.createElement("div", { className: styles.incidentList }, model.incidents.map(function (i) { return (React.createElement("div", { key: i.id },
+                    React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { return open(i.id); } }, i.title),
+                    React.createElement(Caption1, { className: styles.muted }, ' · ' + (i.productsText || 'No product') + ' · ' + i.dateLabel + ' · ' + i.ref))); }))))),
+            React.createElement("section", { "aria-label": "Filters", className: styles.filters },
+                React.createElement("div", { className: styles.filter },
+                    React.createElement(Label, { htmlFor: "flt-horizon" }, "Horizon"),
+                    React.createElement(Select, { id: "flt-horizon", value: filters.horizon, onChange: function (_, d) { return setFilter('horizon', d.value); } },
+                        React.createElement("option", { value: "" }, "All horizons"),
+                        HORIZON_OPTIONS.map(function (h) { return React.createElement("option", { key: h.value, value: h.value }, h.label); }))),
+                React.createElement("div", { className: styles.filter },
+                    React.createElement(Label, { htmlFor: "flt-source" }, "Source"),
+                    React.createElement(Select, { id: "flt-source", value: filters.source, onChange: function (_, d) { return setFilter('source', d.value); } },
+                        React.createElement("option", { value: "" }, "All sources"),
+                        SOURCE_ORDER.filter(function (s) { return s !== 'graph_health' && model.items.some(function (i) { return i.source === s; }); }).map(function (s) { return React.createElement("option", { key: s, value: s }, SOURCE_LABELS[s]); }))),
+                React.createElement("div", { className: styles.filter },
+                    React.createElement(Label, { htmlFor: "flt-product" }, "Product"),
+                    React.createElement(Select, { id: "flt-product", value: filters.product, onChange: function (_, d) { return setFilter('product', d.value); } },
+                        React.createElement("option", { value: "" }, "All products"),
+                        model.products.map(function (p) { return React.createElement("option", { key: p, value: p }, p); }))),
+                React.createElement("div", { className: styles.filter },
+                    React.createElement(Label, { htmlFor: "flt-theme" }, "Theme"),
+                    React.createElement(Select, { id: "flt-theme", value: filters.theme, onChange: function (_, d) { return setFilter('theme', d.value); } },
+                        React.createElement("option", { value: "" }, "All themes"),
+                        THEMES.map(function (t) { return React.createElement("option", { key: t, value: t }, t); }),
+                        React.createElement("option", { value: NOT_THEMED }, "Not yet themed"))),
+                React.createElement("div", { className: styles.filter },
+                    React.createElement(Label, { htmlFor: "flt-type" }, "Impact type"),
+                    React.createElement(Select, { id: "flt-type", value: filters.impactType, onChange: function (_, d) { return setFilter('impactType', d.value); } },
+                        React.createElement("option", { value: "" }, "All types"),
+                        React.createElement("option", { value: "risk" }, "Risk"),
+                        React.createElement("option", { value: "opportunity" }, "Opportunity"),
+                        React.createElement("option", { value: "risk_and_opportunity" }, "Risk and opportunity"),
+                        React.createElement("option", { value: NOT_RATED }, "Not rated"))),
+                React.createElement("div", { className: styles.filter },
+                    React.createElement(Label, { htmlFor: "flt-watched" }, "Watch list"),
+                    React.createElement(Select, { id: "flt-watched", value: filters.watched, onChange: function (_, d) { return setFilter('watched', d.value); } },
+                        React.createElement("option", { value: "" }, "All items"),
+                        React.createElement("option", { value: "watched" }, 'Watched only (' + model.items.filter(function (i) { return i.watched; }).length + ')'))),
+                React.createElement("div", { className: styles.filter },
+                    React.createElement(Label, { htmlFor: "flt-solution" }, "Solution"),
+                    React.createElement(Select, { id: "flt-solution", value: filters.solution, onChange: function (_, d) { return setFilter('solution', d.value); } },
+                        React.createElement("option", { value: "" }, "All solutions"),
+                        !model.showingDemo && (React.createElement("optgroup", { label: "Your estate" }, model.solutionOptions.filter(function (o) { return o.source === ASSET_SOURCE_LIVE; }).map(function (o) { return React.createElement("option", { key: o.key, value: o.key }, o.label + (o.microsoft ? ' (Microsoft)' : '')); }))),
+                        model.solutionOptions.some(function (o) { return o.source !== ASSET_SOURCE_LIVE; }) && (React.createElement("optgroup", { label: model.showingDemo ? 'Demo organisation' : 'Test fixtures' }, model.solutionOptions.filter(function (o) { return o.source !== ASSET_SOURCE_LIVE; }).map(function (o) { return React.createElement("option", { key: o.key, value: o.key }, o.label); }))))),
+                React.createElement(Button, { appearance: "secondary", disabled: !filtersActive, onClick: function () { return setFilters(EMPTY_FILTERS); } }, "Clear filters"),
+                React.createElement(Text, { role: "status", "aria-live": "polite" }, resultText)),
+            filters.solution && solutionScope && (React.createElement("div", { className: styles.scopeBar, role: "group", "aria-label": "Solution scope" },
+                React.createElement(Text, null,
+                    React.createElement("strong", null, solutionLabel(filters.solution)),
+                    ': ' + solutionScope.affects + (solutionScope.affects === 1 ? ' signal affects it' : ' signals affect it') + ' (an exposure on one of its components)',
+                    filters.solution.indexOf('(') < 0 ? ', ' + solutionScope.related + ' related (they share a connector, capability, model, setting, harness or authentication mode with a component).' : '.'),
+                filters.solution.indexOf('(') < 0 && (React.createElement(Switch, { label: "Include related signals", checked: filters.solutionScope !== 'affects', onChange: function (_, d) { return setFilter('solutionScope', d.checked ? '' : 'affects'); } })))),
+            React.createElement("div", { className: styles.sectionTools, role: "group", "aria-label": "Show or hide sections" },
+                React.createElement(Button, { size: "small", appearance: "subtle", icon: React.createElement(ChevronDownRegular, null), onClick: function () { return setAllSections(false); } }, "Expand all"),
+                React.createElement(Button, { size: "small", appearance: "subtle", icon: React.createElement(ChevronRightRegular, null), onClick: function () { return setAllSections(true); } }, "Collapse all")),
+            React.createElement(Section, { id: "matrix", title: "Priority matrix: impact against time to land", collapsed: !!collapsed.matrix, onToggle: function () { return toggleSection('matrix'); }, summary: filtered.length + ' items' },
+                React.createElement("div", { className: styles.legend },
+                    React.createElement("span", null, "Each count is the items at that impact landing in that window; a red outline and \"action\" mean some need action. Select a count to list its items."),
+                    matrixUndated > 0 && React.createElement("span", null, matrixUndated + ' without a date are not shown.')),
+                React.createElement(MatrixGrid, { cells: matrix, selected: matrixSelection ? matrixCell : null, onSelect: setMatrixCell }),
+                matrixSelection && (React.createElement("section", { className: styles.tlPanel, "aria-label": 'Items: ' + matrixSelection.label },
+                    React.createElement("div", { className: styles.sectionHead },
+                        React.createElement(Text, { weight: "semibold", className: styles.sectionTitle }, matrixSelection.label + ' (' + matrixSelection.list.length + ')'),
+                        React.createElement(Button, { size: "small", appearance: "subtle", icon: React.createElement(DismissRegular, null), onClick: function () { return setMatrixCell(null); } }, "Close")),
+                    React.createElement("ul", { className: styles.list }, matrixSelection.list.map(function (i) { return (React.createElement("li", { key: i.id, className: styles.tlPanelItem },
+                        React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { return open(i.id); } }, i.title),
+                        React.createElement(Caption1, { className: styles.muted }, i.ref + ' · ' + formatDisplayDate(i.keyDate)),
+                        React.createElement(ImpactBadge, { impact: i.impact.impact }),
+                        i.actionRequired && React.createElement("span", { className: styles.actionMark }, "Action required"),
+                        relationOf(i))); }))))),
+            React.createElement(Section, { id: "timeline", title: "What lands when", collapsed: !!collapsed.timeline, onToggle: function () { return toggleSection('timeline'); }, summary: (TIMELINE_PRESETS.find(function (p) { return p.key === timelinePreset; }) || TIMELINE_PRESETS[0]).label + ': ' + timeline.points.length + ' items', actions: React.createElement(ToggleButton, { icon: React.createElement(ListRegular, null), checked: timelineAsList, "aria-pressed": timelineAsList, onClick: function () { return setTimelineAsList(!timelineAsList); } }, "Show as a list") },
+                React.createElement("div", { className: styles.tlControls, role: "group", "aria-label": "Timeline range" }, TIMELINE_PRESETS.map(function (p) { return (React.createElement(ToggleButton, { key: p.key, size: "small", checked: timelinePreset === p.key, "aria-pressed": timelinePreset === p.key, onClick: function () { setTimelinePreset(p.key); setTimelineCell(null); } }, p.label)); })),
+                React.createElement("div", { className: styles.legend },
+                    React.createElement("span", null, 'Each count is the items landing that ' + (timeline.granularity === 'month' ? 'month' : 'week') + '; a red outline and "action" mean some need action. Select a count to list its items.'),
+                    timelinePreset !== 'past90' && (React.createElement("span", null,
+                        timeline.shipped90 + ' shipped in the last 90 days: ',
+                        React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { setTimelinePreset('past90'); setTimelineCell(null); } }, "show Past 90 days"))),
+                    React.createElement("span", null, 'Outside this range: ' + timeline.earlier + ' earlier, ' + timeline.later + ' later' + (timeline.undated ? ', ' + timeline.undated + ' without a date' : '') + '.')),
+                timelineAsList ? (timeline.rows.map(function (r) {
+                    var pts = timeline.points.filter(function (p) { return p.row === r.key; }).sort(function (a, b) { return a.day - b.day; });
+                    return (React.createElement("div", { key: r.key },
+                        React.createElement(Text, { weight: "semibold" }, r.label + ' (' + pts.length + ')'),
+                        React.createElement("ul", { className: styles.list }, pts.map(function (p) { return (React.createElement("li", { key: p.id },
+                            React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { return open(p.id); } }, p.title),
+                            React.createElement(Caption1, { className: styles.muted }, ' · ' + formatDisplayDate(formatUtcDay(p.day)) + ' · ' + p.ref + (p.action ? ' · Action required' : '')))); }))));
+                })) : (React.createElement(React.Fragment, null,
+                    React.createElement(TimelineGrid, { points: timeline.points, bins: timeline.bins, granularity: timeline.granularity, rows: timeline.rows, todayMs: todayMs, selected: timelineSelection ? timelineCell : null, onSelect: setTimelineCell }),
+                    timelineSelection && (React.createElement("section", { className: styles.tlPanel, "aria-label": 'Items: ' + timelineSelection.label },
+                        React.createElement("div", { className: styles.sectionHead },
+                            React.createElement(Text, { weight: "semibold", className: styles.sectionTitle }, timelineSelection.label + ' (' + timelineSelection.list.length + ')'),
+                            React.createElement(Button, { size: "small", appearance: "subtle", icon: React.createElement(DismissRegular, null), onClick: function () { return setTimelineCell(null); } }, "Close")),
+                        React.createElement("ul", { className: styles.list }, timelineSelection.list.map(function (p) { return (React.createElement("li", { key: p.id, className: styles.tlPanelItem },
+                            React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { return open(p.id); } }, p.title),
+                            React.createElement(Caption1, { className: styles.muted }, p.ref + ' · ' + formatDisplayDate(formatUtcDay(p.day))),
+                            React.createElement(ImpactBadge, { impact: p.impact }),
+                            p.action && React.createElement("span", { className: styles.actionMark }, "Action required"),
+                            relationOf(itemById[p.id]))); }))))))),
+            React.createElement(Section, { id: "solutions", title: "By solution", collapsed: !!collapsed.solutions, onToggle: function () { return toggleSection('solutions'); }, summary: model.showingDemo
+                    ? solutionView.demo.filter(function (r) { return r.items > 0; }).length + ' solutions with exposures in the demo organisation'
+                    : solutionView.live.filter(function (r) { return r.items > 0; }).length + ' solutions with live exposures' + (solutionView.demo.some(function (r) { return r.items > 0; }) ? ', ' + solutionView.demo.filter(function (r) { return r.items > 0; }).length + ' in test fixtures' : '') },
+                React.createElement(Caption1, { className: styles.muted }, "Affects: signals with an open exposure on one of the solution's components. Related: signals that share a connector, capability, model, setting, harness or authentication mode with a component, without an exposure. A solution deployed to several environments is one row. Select a solution to show only it in every section; select it again to clear."),
+                !model.showingDemo && renderSolutionTable(solutionView.live, 'Solutions in your estate'),
+                solutionView.demo.length > 0 && (React.createElement(React.Fragment, null,
+                    React.createElement("div", { className: styles.sectionHead },
+                        React.createElement(Subtitle2, { as: "h3" }, model.showingDemo ? 'Demo organisation' : 'Test fixtures'),
+                        React.createElement(Badge, { appearance: "filled", color: "warning" }, "Not your estate")),
+                    renderSolutionTable(solutionView.demo, model.showingDemo ? 'Solutions in the demo organisation' : 'Solutions in test fixtures'))),
+                filters.solution && React.createElement(Caption1, null, 'Showing only: ' + solutionLabel(filters.solution) + '.')),
+            React.createElement(Section, { id: "patterns", title: "Patterns across the items", collapsed: !!collapsed.patterns, onToggle: function () { return toggleSection('patterns'); }, summary: patternItems.length + ' items in ' + patterns.filter(function (p) { return p.items.length > 0; }).length + ' themes', actions: React.createElement(Switch, { label: "Show older items", checked: patternsShowOlder, onChange: function (_, d) { return setPatternsShowOlder(!!d.checked); } }) },
+                React.createElement(Caption1, { className: styles.muted }, patternsShowOlder
+                    ? 'All ' + filtered.length + ' items, whenever they landed.'
+                    : patternItems.length + ' of ' + filtered.length + ' items: those landing from ' + PATTERN_WINDOW_DAYS + ' days ago onwards, and those with no date. ' + (filtered.length - patternItems.length) + ' older items are hidden.'),
+                React.createElement("div", { className: styles.themes }, patterns.map(function (p) { return (React.createElement("section", { key: p.key, className: styles.theme, "aria-label": p.label + ': ' + p.items.length + ' items' },
+                    React.createElement("div", { className: styles.themeHead },
+                        React.createElement(Text, { weight: "semibold" }, p.label),
+                        React.createElement(Badge, { appearance: "tint", color: "informative" }, p.items.length)),
+                    p.items.length === 0 ? React.createElement(Caption1, { className: styles.muted }, "No items.") : React.createElement(ItemList, { cellKey: 'p|' + p.key, items: p.items, expanded: expanded, onToggle: toggleCell, onOpen: open }))); }))),
+            React.createElement(Section, { id: "imminent", title: 'Imminent (' + imminent.length + ')', collapsed: !!collapsed.imminent, onToggle: function () { return toggleSection('imminent'); } },
+                React.createElement(Caption1, { className: styles.muted }, "Now and Imminent items, soonest first."),
+                imminent.length === 0 ? (React.createElement(Text, null, "No imminent items match the filters.")) : (React.createElement("div", { className: styles.scrollX },
+                    React.createElement(Table, { className: styles.table, "aria-labelledby": "imminent-title", size: "small" },
+                        React.createElement(TableHeader, null,
+                            React.createElement(TableRow, null,
+                                React.createElement(TableHeaderCell, { style: { width: '12%' } }, "When"),
+                                React.createElement(TableHeaderCell, { style: { width: '13%' } }, "Product"),
+                                React.createElement(TableHeaderCell, { style: { width: '30%' } }, "Item"),
+                                React.createElement(TableHeaderCell, { style: { width: '15%' } }, "Impact"),
+                                React.createElement(TableHeaderCell, { style: { width: '22%' } }, "Risk and opportunity (LLM assessment)"),
+                                React.createElement(TableHeaderCell, { style: { width: '8%' } }, "Ref"))),
+                        React.createElement(TableBody, null, (expanded['imminent'] ? imminent : imminent.slice(0, TABLE_LIMIT)).map(function (i) { return (React.createElement(TableRow, { key: i.id },
+                            React.createElement(TableCell, null,
+                                React.createElement("div", { className: styles.cellText },
+                                    React.createElement(Text, { weight: "semibold" }, formatDisplayDate(i.keyDate)),
+                                    React.createElement(Caption1, { className: styles.muted }, i.dateLabel),
+                                    i.actionRequired && React.createElement(Badge, { appearance: "filled", color: "danger", icon: React.createElement(WarningRegular, null) }, "Action"))),
+                            React.createElement(TableCell, null,
+                                React.createElement("div", { className: styles.cellText },
+                                    React.createElement(Text, { size: 200 }, i.productsText || 'Not stated'))),
+                            React.createElement(TableCell, null,
+                                React.createElement("div", { className: styles.cellText },
+                                    React.createElement("button", { type: "button", className: styles.linkButton, onClick: function () { return open(i.id); }, "aria-label": i.title + '. Opens the signal.' }, i.title),
+                                    i.watched && React.createElement(Badge, { appearance: "tint", color: "brand", icon: React.createElement(EyeRegular, null) }, "Watched"),
+                                    React.createElement(Caption1, { className: styles.muted }, cut(i.summary, 300)))),
+                            React.createElement(TableCell, null,
+                                React.createElement("div", { className: styles.cellText },
+                                    React.createElement("div", { className: styles.badges },
+                                        React.createElement(ImpactBadge, { impact: i.impact.impact }),
+                                        i.impact.basis !== 'generic' && i.genericImpact && React.createElement(ImpactBadge, { impact: i.genericImpact, prefix: "Generic" })),
+                                    React.createElement(Caption1, { className: styles.muted }, 'Basis: ' + basisLabel(i.impact.basis)),
+                                    i.impactType && React.createElement(Caption1, null, IMPACT_TYPE_LABELS[i.impactType]),
+                                    i.audience && React.createElement(Caption1, { className: styles.muted }, i.audience))),
+                            React.createElement(TableCell, null,
+                                React.createElement("div", { className: styles.cellText },
+                                    i.risk && React.createElement(Text, { size: 200 },
+                                        React.createElement("strong", null, "Risk: "),
+                                        i.risk),
+                                    i.opportunity && React.createElement(Text, { size: 200 },
+                                        React.createElement("strong", null, "Opportunity: "),
+                                        i.opportunity),
+                                    !i.risk && !i.opportunity && React.createElement(Caption1, { className: styles.muted }, "Not yet rated"),
+                                    i.confidence && React.createElement(Caption1, { className: styles.muted }, 'Confidence: ' + i.confidence))),
+                            React.createElement(TableCell, null,
+                                React.createElement("div", { className: styles.cellText }, i.url ? (React.createElement(Link, { href: i.url, target: "_blank", rel: "noopener noreferrer", "aria-label": i.ref + ' (opens the source in a new tab)' },
+                                    i.ref,
+                                    " ",
+                                    React.createElement(OpenRegular, { "aria-hidden": "true" }))) : (React.createElement(Text, { size: 200 }, i.ref)))))); }))))),
+                imminent.length > TABLE_LIMIT && (React.createElement(Button, { appearance: "secondary", onClick: function () { return toggleCell('imminent'); } }, expanded['imminent'] ? 'Show the first ' + TABLE_LIMIT : 'Show all ' + imminent.length + ' imminent items'))),
+            React.createElement(Section, { id: "estate", title: model.showingDemo ? 'The demo organisation\'s estate' : 'Your estate', collapsed: !!collapsed.estate, onToggle: function () { return toggleSection('estate'); }, summary: model.showingDemo
+                    ? estateDemo.length + ' signals with exposures in the demo organisation'
+                    : estateLive.length + ' signals with live exposures' + (estateDemo.length ? ', ' + estateDemo.length + ' in test fixtures' : ''), actions: React.createElement(Switch, { label: "Group by solution", checked: estateBySolution, onChange: function (_, d) { return setEstateBySolution(!!d.checked); } }) },
+                React.createElement(Caption1, { className: styles.muted }, estateBySolution
+                    ? 'Signals with open exposures, under each solution that holds an exposed asset. An asset in two solutions appears under both.'
+                    : 'Signals with open exposures (new or confirmed), and the affected assets.'),
+                !model.showingDemo && (estateLive.length === 0 ? React.createElement(Text, null, "No live exposures match the filters.") : estateBySolution ? renderEstateBySolution(estateLive, true) : renderEstate(estateLive, false)),
+                model.showingDemo && estateDemo.length === 0 && React.createElement(Text, null, "No exposures in the demo organisation match the filters."),
+                estateDemo.length > 0 && (React.createElement(React.Fragment, null,
+                    React.createElement("div", { className: styles.sectionHead },
+                        React.createElement(Subtitle2, { as: "h3" }, model.showingDemo ? 'Demo organisation' : 'Test fixtures'),
+                        React.createElement(Badge, { appearance: "filled", color: "warning" }, "Not your estate")),
+                    React.createElement(Caption1, { className: styles.muted }, model.showingDemo
+                        ? 'The synthetic demo organisation: every count and chart on this page is its estate while demo data is on.'
+                        : 'Test assets, kept apart from your estate and never counted in its ratings.'),
+                    estateBySolution ? renderEstateBySolution(estateDemo, false) : renderEstate(estateDemo, true))))))));
+}
+var GeneratedComponent = function (props) { return (React.createElement(PageErrorBoundary, null,
+    React.createElement(PageBody, __assign({}, props)))); };
+export default GeneratedComponent;

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <LocalizedNames>
+    <LocalizedName description="Change Radar overview" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Change Radar at a glance: signals by horizon and source, what needs attention now and soon, and collector health." languagecode="1033" />
+  </Descriptions>
+  <FormId>{875c101b-1ce4-f111-84ea-002248db5401}</FormId>
+  <IsCustomizable>1</IsCustomizable>
+  <IsDefault>0</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <form>
+        <tabs>
+          <tab name="tab_overview" verticallayout="true" id="{9d89944c-2f9a-47c7-a848-7551e8b94c2a}">
+            <labels>
+              <label description="Overview" languagecode="1033" />
+            </labels>
+            <columns>
+              <column width="100%">
+                <sections>
+                  <section name="section_overview" showlabel="false" showbar="false" columns="11" id="{ba2397cb-f6a9-4ba1-803a-4f70e402cbae}">
+                    <labels>
+                      <label description="Overview" languagecode="1033" />
+                    </labels>
+                    <rows>
+                      <row>
+                        <cell id="{df5cc93d-b7cb-45e9-8c0d-3a17cc57d9ae}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Signals by horizon" languagecode="1033" />
+                          </labels>
+                          <control id="chart_horizon" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>crdr_signal</TargetEntityType>
+                              <ViewId>{2326e7ea-1be5-f111-84ea-002248db5401}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{b1559b09-1ce4-f111-84ea-002248db5401}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                        <cell id="{63951e98-cf8e-489d-83ea-051e2d2d32df}" showlabel="true" rowspan="12" colspan="1" auto="false">
+                          <labels>
+                            <label description="Signals by source" languagecode="1033" />
+                          </labels>
+                          <control id="chart_source" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>crdr_signal</TargetEntityType>
+                              <ViewId>{2326e7ea-1be5-f111-84ea-002248db5401}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Chart</ChartGridMode>
+                              <VisualizationId>{b4559b09-1ce4-f111-84ea-002248db5401}</VisualizationId>
+                              <IsUserChart>false</IsUserChart>
+                              <EnableChartPicker>false</EnableChartPicker>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{ea9ce010-bffe-4025-805f-083a2e7e0735}" showlabel="true" rowspan="12" colspan="2" auto="false">
+                          <labels>
+                            <label description="Now" languagecode="1033" />
+                          </labels>
+                          <control id="list_now" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>crdr_signal</TargetEntityType>
+                              <ViewId>{a5559b09-1ce4-f111-84ea-002248db5401}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{0d86d42d-38b3-4935-a8c2-4c402cc91f79}" showlabel="true" rowspan="12" colspan="2" auto="false">
+                          <labels>
+                            <label description="Imminent" languagecode="1033" />
+                          </labels>
+                          <control id="list_imminent" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>crdr_signal</TargetEntityType>
+                              <ViewId>{a8559b09-1ce4-f111-84ea-002248db5401}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                      <row>
+                        <cell id="{cd4fa163-ace0-43c1-bee6-c643bfe85e62}" showlabel="true" rowspan="12" colspan="2" auto="false">
+                          <labels>
+                            <label description="Recent collection runs" languagecode="1033" />
+                          </labels>
+                          <control id="list_runs" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}">
+                            <parameters>
+                              <TargetEntityType>crdr_collectionrun</TargetEntityType>
+                              <ViewId>{ae559b09-1ce4-f111-84ea-002248db5401}</ViewId>
+                              <IsUserView>false</IsUserView>
+                              <RelationshipName />
+                              <AutoExpand>Fixed</AutoExpand>
+                              <EnableQuickFind>false</EnableQuickFind>
+                              <EnableViewPicker>false</EnableViewPicker>
+                              <EnableJumpBar>false</EnableJumpBar>
+                              <ChartGridMode>Grid</ChartGridMode>
+                              <RecordsPerPage>10</RecordsPerPage>
+                            </parameters>
+                          </control>
+                        </cell>
+                      </row>
+                    </rows>
+                  </section>
+                </sections>
+              </column>
+            </columns>
+          </tab>
+        </tabs>
+      </form>
+    </forms>
+  </FormXml>
+  <IntroducedVersion>0.1.0.0</IntroducedVersion>
+  <IsTabletEnabled>0</IsTabletEnabled>
+</Dashboard>

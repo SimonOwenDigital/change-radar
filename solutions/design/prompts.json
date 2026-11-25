@@ -1,0 +1,5 @@
+{
+  "_comment": "Change Radar's own prompts (msdyn_aimodel, solution component type 401 in ChangeRadarCore). A solution component keeps its id in every environment it is imported into, so the fingerprint and assessment flows call them by id, as a flow made in the designer does. That also lets the Dataverse detail step see which prompt, and so which model, they use (ADR 0017).",
+  "fingerprint": { "id": "345a48c6-8678-414c-a285-d95d00796d15", "name": "Change Radar signal fingerprint" },
+  "assessment": { "id": "4f1d7e5a-2343-46a5-b262-3f7b7db3cc66", "name": "Change Radar signal assessment" }
+}

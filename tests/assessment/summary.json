@@ -1,0 +1,53 @@
+{
+  "description": "Expected exposure summary text sent to the assessment prompt (ADR 0010 decision 2: facets and counts only, never asset, environment or owner names). Written before Get-ExposureSummary. No estate impact line: the score depends on the generic impact this prompt returns.",
+  "today": "2026-11-21",
+  "cases": [
+    {
+      "id": "summary-01", "note": "Live: cloud flows in production and unknown environment, one setting, action date ahead",
+      "source": "live",
+      "signal": { "actionRequired": true, "keyDate": "2026-12-31" },
+      "exposures": [
+        { "kind": "asset", "assetId": "a1", "assetName": "Secret client flow", "resourceType": "microsoft.powerautomate/cloudflows", "environmentType": "production", "environmentName": "Client X Prod", "group": "A", "status": "new" },
+        { "kind": "asset", "assetId": "a2", "assetName": "Another flow", "resourceType": "microsoft.powerautomate/cloudflows", "environmentType": null, "group": "A", "status": "new" },
+        { "kind": "setting", "settingKey": "copilot_spending_policy", "group": "B", "status": "new" },
+        { "kind": "asset", "assetId": "a3", "assetName": "Gone", "resourceType": "microsoft.copilotstudio/agents", "environmentType": "production", "group": "A", "status": "unmatched" }
+      ],
+      "groups": [
+        { "group": "A", "facets": ["capability: scheduled_prompt", "product: Power Automate"] },
+        { "group": "B", "facets": ["setting: copilot_spending_policy", "product: M365 Copilot"] }
+      ],
+      "expected": "Estate: live\nAffected: 2 assets, 1 tenant setting\n- cloud flow: 2 (production 1, environment unknown 1)\nMatched on: group A (capability: scheduled_prompt + product: Power Automate); group B (setting: copilot_spending_policy + product: M365 Copilot)\nTenant settings not in place: copilot_spending_policy\nAction required: yes, by 2026-12-31"
+    },
+    {
+      "id": "summary-02", "note": "Synthetic: two types, sorted by count; no settings; no action",
+      "source": "synthetic",
+      "signal": { "actionRequired": false, "keyDate": "2026-11-13" },
+      "exposures": [
+        { "kind": "asset", "assetId": "s1", "resourceType": "microsoft.powerapps/canvasapps", "environmentType": "production", "group": "A", "status": "new" },
+        { "kind": "asset", "assetId": "s2", "resourceType": "microsoft.powerapps/canvasapps", "environmentType": "developer", "group": "A", "status": "confirmed" },
+        { "kind": "asset", "assetId": "s3", "resourceType": "microsoft.powerplatformconnector/connectors", "environmentType": "default", "group": "C", "status": "new" }
+      ],
+      "groups": [
+        { "group": "A", "facets": ["product: Power Apps", "capability: sharepoint_tempauth"] },
+        { "group": "C", "facets": ["resource_type: custom connector", "capability: sharepoint_tempauth"] }
+      ],
+      "expected": "Estate: synthetic\nAffected: 3 assets\n- canvas app: 2 (production 1, developer 1)\n- custom connector: 1 (default 1)\nMatched on: group A (product: Power Apps + capability: sharepoint_tempauth); group C (resource_type: custom connector + capability: sharepoint_tempauth)\nAction required: no"
+    },
+    {
+      "id": "summary-03", "note": "Overdue action, setting only",
+      "source": "live",
+      "signal": { "actionRequired": true, "keyDate": "2026-11-11" },
+      "exposures": [ { "kind": "setting", "settingKey": "copilot_spending_policy", "group": "A", "status": "new" } ],
+      "groups": [ { "group": "A", "facets": ["setting: copilot_spending_policy"] } ],
+      "expected": "Estate: live\nAffected: 1 tenant setting\nMatched on: group A (setting: copilot_spending_policy)\nTenant settings not in place: copilot_spending_policy\nAction required: yes, overdue since 2026-11-11"
+    },
+    {
+      "id": "summary-04", "note": "Action required but no date",
+      "source": "live",
+      "signal": { "actionRequired": true, "keyDate": null },
+      "exposures": [ { "kind": "asset", "assetId": "a1", "resourceType": "microsoft.copilotstudio/agents", "environmentType": "sandbox", "group": "M1", "status": "new" } ],
+      "groups": [ { "group": "M1", "facets": ["capability: uses_mcp"] } ],
+      "expected": "Estate: live\nAffected: 1 asset\n- agent: 1 (sandbox 1)\nMatched on: group M1 (capability: uses_mcp)\nAction required: yes, no date given"
+    }
+  ]
+}

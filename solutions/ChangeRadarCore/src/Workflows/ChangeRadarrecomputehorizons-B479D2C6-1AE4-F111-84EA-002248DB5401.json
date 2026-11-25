@@ -1,0 +1,296 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "6"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_now_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_now_days')"
+          }
+        },
+        "Config_imminent_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_imminent_days')"
+          }
+        },
+        "Config_recent_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_recent_days')"
+          }
+        },
+        "Config_roadmap_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_roadmap_days')"
+          }
+        },
+        "Collect": {
+          "type": "Scope",
+          "runAfter": {
+            "Config_now_days": [
+              "Succeeded"
+            ],
+            "Config_imminent_days": [
+              "Succeeded"
+            ],
+            "Config_recent_days": [
+              "Succeeded"
+            ],
+            "Config_roadmap_days": [
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Get_items": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_source eq 169890000 or crdr_source eq 169890002",
+                  "$select": "crdr_signalid,crdr_source,crdr_keydate,crdr_actionrequired,crdr_datelabel,crdr_horizon",
+                  "entityName": "crdr_signals"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "Rated": {
+              "type": "Select",
+              "runAfter": {
+                "Get_items": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Get_items')?['value']",
+                "select": {
+                  "id": "@item()?['crdr_signalid']",
+                  "old": "@item()?['crdr_horizon']",
+                  "new": "@if(equals(item()?['crdr_source'], 169890000), if(and(equals(item()?['crdr_actionrequired'], true), not(empty(item()?['crdr_keydate'])), lessOrEquals(ticks(item()?['crdr_keydate']), ticks(addDays(utcNow(), int(coalesce(first(body('Config_now_days'))?['crdr_value'], '14')))))), 169890000, if(or(and(equals(item()?['crdr_actionrequired'], true), not(empty(item()?['crdr_keydate'])), lessOrEquals(ticks(item()?['crdr_keydate']), ticks(addDays(utcNow(), int(coalesce(first(body('Config_imminent_days'))?['crdr_value'], '90')))))), and(startsWith(coalesce(item()?['crdr_datelabel'], ''), 'Plan for change'), not(empty(item()?['crdr_keydate'])), greaterOrEquals(ticks(item()?['crdr_keydate']), ticks(addDays(utcNow(), mul(-1, int(coalesce(first(body('Config_recent_days'))?['crdr_value'], '30')))))))), 169890001, 169890002)), if(or(startsWith(coalesce(item()?['crdr_datelabel'], ''), 'Launched'), startsWith(coalesce(item()?['crdr_datelabel'], ''), 'Cancelled')), 169890002, if(startsWith(coalesce(item()?['crdr_datelabel'], ''), 'Rolling out'), 169890001, if(startsWith(coalesce(item()?['crdr_datelabel'], ''), 'Slipped'), 169890002, if(and(not(empty(item()?['crdr_keydate'])), lessOrEquals(ticks(item()?['crdr_keydate']), ticks(addDays(utcNow(), int(coalesce(first(body('Config_roadmap_days'))?['crdr_value'], '45')))))), 169890001, 169890002)))))",
+                  "oldlabel": "@item()?['crdr_datelabel']",
+                  "newlabel": "@if(and(equals(item()?['crdr_source'], 169890002), startsWith(coalesce(item()?['crdr_datelabel'], ''), 'In development'), not(empty(item()?['crdr_keydate'])), less(ticks(coalesce(item()?['crdr_keydate'], '9999-12-31T00:00:00Z')), ticks(startOfMonth(utcNow())))), concat('Slipped · ', coalesce(item()?['crdr_datelabel'], '')), coalesce(item()?['crdr_datelabel'], ''))"
+                }
+              }
+            },
+            "Changed": {
+              "type": "Query",
+              "runAfter": {
+                "Rated": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Rated')",
+                "where": "@or(not(equals(item()?['old'], item()?['new'])), not(equals(item()?['oldlabel'], item()?['newlabel'])))"
+              }
+            },
+            "Update": {
+              "type": "Foreach",
+              "foreach": "@body('Changed')",
+              "runAfter": {
+                "Changed": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 10
+                }
+              },
+              "actions": {
+                "Update_horizon": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "crdr_signals",
+                      "item/crdr_datelabel": "@items('Update')?['newlabel']",
+                      "item/crdr_horizon": "@items('Update')?['new']",
+                      "recordId": "@items('Update')?['id']"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Record_run": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Collect": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_collectionruns",
+              "item/crdr_accesstier": 169890000,
+              "item/crdr_collector": "horizons",
+              "item/crdr_gaps": "@if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat('Get_items ', coalesce(actions('Get_items')?['status'], 'not run'), ' HTTP ', string(coalesce(outputs('Get_items')?['statusCode'], '-')), '. ', string(coalesce(outputs('Get_items')?['body']?['error']?['message'], '')), ' Collect scope: ', actions('Collect')?['status']))",
+              "item/crdr_itemcount": "@length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))",
+              "item/crdr_name": "@concat('horizons ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), ': fetched ', string(length(coalesce(body('Get_items')?['value'], json('[]')))), ', in scope ', string(length(coalesce(actions('Rated')?['outputs']?['body'], json('[]')))), ', new or changed ', string(length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))))",
+              "item/crdr_startedon": "@trigger()?['startTime']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Fail_if_collect_failed": {
+          "type": "If",
+          "runAfter": {
+            "Record_run": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@actions('Collect')?['status']",
+                "Succeeded"
+              ]
+            }
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "CollectFailed",
+                  "message": "@{coalesce(string(outputs('Get_items')?['body']?['error']?['message']), 'See the Collect scope')}"
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: recompute Now/Imminent/Future for Message Center and roadmap signals as their dates approach (ADR 0007)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,4504 @@
+{
+  "meta": {
+    "source": "Microsoft Copilot Roadmap (public)",
+    "endpoint": "https://www.microsoft.com/releasecommunications/api/v1/m365",
+    "collectedAt": "2026-11-18T21:11:56Z",
+    "catalogueSize": 2379,
+    "inScopeCount": 108,
+    "productsInScope": [
+      "Power Apps",
+      "Power Automate",
+      "Power Pages",
+      "Microsoft Dataverse",
+      "Microsoft Copilot Studio",
+      "Microsoft Power Platform governance and administration"
+    ],
+    "notice": "Public Microsoft roadmap data, normalised. Descriptions truncated. No tenant data."
+  },
+  "signals": [
+    {
+      "id": "RM579968",
+      "source": "roadmap",
+      "externalId": "RM579968",
+      "title": "Microsoft Copilot Studio: PPAC Reporting API",
+      "summary": "The PPAC Reporting API gives customers scalable, programmatic access to Copilot Studio usage data from our lakehouse, replacing older unsupported methods for pulling consumption data. Daily JSON data by environment, user, agent and feature powers dashboards, FinOps reporting and automated cost controls.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-11",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579968",
+      "moreInfoLink": null,
+      "created": "2026-11-18T18:32:08",
+      "lastChanged": "2026-11-18T18:32:08",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM580458",
+      "source": "roadmap",
+      "externalId": "RM580458",
+      "title": "Power Apps: Start SharePoint-connected canvas apps with a modern, responsive template (preview)",
+      "summary": "During public preview in early-release environments, the updated SharePoint/Microsoft Lists app-from-data experience gives makers responsive record browsing with grid and list views, plus separate screens for creating and editing records. It creates a standalone canvas app, not an embedded SharePoint customized form. Connector and formula delegation limits still apply.",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-11",
+      "gaMonth": "2027-02",
+      "keyDate": "2027-02-01",
+      "dateLabel": "February CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=580458",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/app-from-sharepoint",
+      "created": "2026-11-17T19:37:19",
+      "lastChanged": "2026-11-17T19:37:19",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM580457",
+      "source": "roadmap",
+      "externalId": "RM580457",
+      "title": "Power Apps: Create responsive, multi-column forms for SharePoint lists (preview)",
+      "summary": "The public preview of SharePoint Customize Forms introduces a responsive, multi-column starting layout for new forms in eligible commercial SharePoint tenants. Makers can customize these forms while preserving their connection to SharePoint list actions. Existing customized forms retain their current layouts.",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-11",
+      "gaMonth": "2027-02",
+      "keyDate": "2027-02-01",
+      "dateLabel": "February CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=580457",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/sharepoint-form-integration",
+      "created": "2026-11-17T19:05:12",
+      "lastChanged": "2026-11-17T19:05:12",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM580456",
+      "source": "roadmap",
+      "externalId": "RM580456",
+      "title": "Power Apps: New canvas controls - Card gallery, Persona, Avatar group, and Metrics card",
+      "summary": "The following controls for canvas apps are reaching general availability: • Card gallery • Persona • Avatar group • Metrics card These controls provide reusable patterns for responsive record cards, individual and grouped identities, and key metrics. Makers supply data, presence values, and metric calculations through properties and Power Fx.",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=580456",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/controls/modern-controls/modern-controls-reference",
+      "created": "2026-11-17T19:05:12",
+      "lastChanged": "2026-11-17T19:05:12",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM580454",
+      "source": "roadmap",
+      "externalId": "RM580454",
+      "title": "Power Apps: Browse data with automatic loading and numbered pages in Data Grid",
+      "summary": "Makers can configure the modern Data Grid in canvas apps to load more records automatically as users scroll or display numbered pages with a configurable page size. Existing apps retain their current behavior unless makers enable pagination. Connector and formula delegation limits still apply.",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=580454",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/controls/modern-controls/modern-control-data-grid",
+      "created": "2026-11-17T19:05:12",
+      "lastChanged": "2026-11-17T19:05:12",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM579979",
+      "source": "roadmap",
+      "externalId": "RM579979",
+      "title": "Power Apps: Build model-driven apps with Copilot Cowork",
+      "summary": "Information workers can now use model-app-builder skill in Copilot Cowork to create and refine model-driven apps from natural-language requirements. Cowork turns a business scenario into an app specification and build plan for review before creating the model-driven app and its supporting Power Apps and Microsoft Dataverse artifacts. By handling repetitive artifact creation, makers can move from a…",
+      "products": [
+        "Power Apps",
+        "Microsoft Copilot (Microsoft 365)"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-11",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579979",
+      "moreInfoLink": null,
+      "created": "2026-11-17T18:36:41",
+      "lastChanged": "2026-11-17T18:36:41",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM579910",
+      "source": "roadmap",
+      "externalId": "RM579910",
+      "title": "Power Automate: Desktop flow libraries",
+      "summary": "Power Automate will introduce desktop flow libraries, enabling makers to create and publish libraries with reusable automation building blocks (subflows) that can be used across multiple desktop flows. Makers can centralize commonly used automation logic in libraries and reuse it across their solutions, reducing duplication, simplifying maintenance, and promoting consistent automation practices.",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Desktop"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2027-01",
+      "gaMonth": "2027-03",
+      "keyDate": "2027-03-01",
+      "dateLabel": "March CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579910",
+      "moreInfoLink": null,
+      "created": "2026-11-17T18:36:41",
+      "lastChanged": "2026-11-17T18:36:41",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM579907",
+      "source": "roadmap",
+      "externalId": "RM579907",
+      "title": "Power Automate: Bring Your Own Connection in attended/unattended cloud triggered runs",
+      "summary": "This functionality allows you to bring your own connections in shared desktop flows that include connector operations and need to run in attended or unattended mode, eliminating the need for embedded connection references in cloud runs.",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Desktop"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2027-03",
+      "keyDate": "2027-03-01",
+      "dateLabel": "March CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579907",
+      "moreInfoLink": null,
+      "created": "2026-11-17T18:36:41",
+      "lastChanged": "2026-11-17T18:36:41",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM579906",
+      "source": "roadmap",
+      "externalId": "RM579906",
+      "title": "Power Automate: Self-healing",
+      "summary": "Self-healing is an agentic feature that improves the resilience of desktop flows by recovering from UI or web automation failures. When an existing selector can no longer locate the intended UI element, Power Automate for desktop uses AI to identify the element and generate an alternative selector. The preview phase includes an action-level opt-in option for automatically trying to recover from a…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Desktop"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-04",
+      "gaMonth": "2027-03",
+      "keyDate": "2027-03-01",
+      "dateLabel": "March CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579906",
+      "moreInfoLink": null,
+      "created": "2026-11-17T18:36:41",
+      "lastChanged": "2026-11-17T18:36:41",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM575296",
+      "source": "roadmap",
+      "externalId": "RM575296",
+      "title": "Power Apps: Form fill assistance supports more field types",
+      "summary": "We’re expanding form fill assistance in model-driven applications in Power Apps to support lookup, rich text, and multi-select choice fields, helping users complete more of their forms with AI-powered suggestions and less manual entry. Availability Field Value Release Channel Monthly",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Android",
+        "iOS",
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=575296",
+      "moreInfoLink": null,
+      "created": "2026-10-21T23:02:10",
+      "lastChanged": "2026-11-17T18:36:41",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM562222",
+      "source": "roadmap",
+      "externalId": "RM562222",
+      "title": "Microsoft Copilot Studio: Invoke agents as workflow steps with the agent node",
+      "summary": "Add an agent node to your workflow to reason over data, call tools, and return a response, all within a single step. The agent node lets you embed reasoning directly into your workflow. This means fewer manual handoffs, faster processing times, and workflows that can handle nuanced decisions without additional development effort, helping teams automate more of their end-to-end processes and reduce…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Copilot Studio"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-04",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=562222",
+      "moreInfoLink": null,
+      "created": "2026-05-14T23:15:59",
+      "lastChanged": "2026-11-17T00:31:56",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM579899",
+      "source": "roadmap",
+      "externalId": "RM579899",
+      "title": "Power Apps: Use the modernized Personal settings experience",
+      "summary": "The Personal settings experience in model-driven apps has been modernized with clearer organization, updated navigation, and a more consistent design. Users can select a button to return to the classic Personal settings experience if needed. Availability Field Value Release Channel Weekly Version 2611.4 Applies to Model-driven apps Feature Scope Users (enabled by default)",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High",
+        "DoD"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579899",
+      "moreInfoLink": null,
+      "created": "2026-11-13T23:01:18",
+      "lastChanged": "2026-11-13T23:01:18",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM579974",
+      "source": "roadmap",
+      "externalId": "RM579974",
+      "title": "Power Automate: Credentials - Integration with Delinea secret server",
+      "summary": "Power Automate will support Delinea Secret Server as an external credential provider for desktop flows. Organizations can securely use credentials managed in Delinea for machine sign-in and credential retrieval during attended and unattended automation.",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Desktop"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2027-03",
+      "keyDate": "2027-03-01",
+      "dateLabel": "March CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579974",
+      "moreInfoLink": null,
+      "created": "2026-11-12T01:35:00",
+      "lastChanged": "2026-11-12T01:35:00",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM579975",
+      "source": "roadmap",
+      "externalId": "RM579975",
+      "title": "Power Automate: Direct triggers for desktop flows",
+      "summary": "Desktop flows will support direct triggers, enabling automations to start in response to supported events without requiring an intermediary cloud flow. This simplifies automation design and reduces the effort required to connect desktop flows to business processes.",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Desktop"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2027-01",
+      "gaMonth": "2027-03",
+      "keyDate": "2027-03-01",
+      "dateLabel": "March CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=579975",
+      "moreInfoLink": null,
+      "created": "2026-11-12T01:35:00",
+      "lastChanged": "2026-11-12T01:35:00",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577860",
+      "source": "roadmap",
+      "externalId": "RM577860",
+      "title": "Microsoft Power Platform governance and administration: Secure Dataverse record with column-based filtering",
+      "summary": "This enhancement introduces column-based security filtering, enabling records to be secured using attribute values rather than traditional ownership. This allows security admins to define access based on business dimensions such as region or department, making it ideal for scenarios where record ownership does not exist—such as reporting and aggregated datasets. By eliminating the need for artific…",
+      "products": [
+        "Microsoft Power Platform governance and administration"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577860",
+      "moreInfoLink": null,
+      "created": "2026-11-11T00:56:01",
+      "lastChanged": "2026-11-11T00:56:01",
+      "fingerprint": []
+    },
+    {
+      "id": "RM573293",
+      "source": "roadmap",
+      "externalId": "RM573293",
+      "title": "Microsoft Copilot (Microsoft 365): Copilot Cowork: Access Business Applications with Work IQ",
+      "summary": "Users can access Business Applications through Work IQ in Copilot Cowork and use Business Skills to complete end-to-end business processes grounded in their enterprise data and apps. This helps users move from finding the right business application to taking action across key workflows with less context switching.",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Dataverse",
+        "Work IQ"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=573293",
+      "moreInfoLink": null,
+      "created": "2026-11-11T00:53:34",
+      "lastChanged": "2026-11-11T00:53:34",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM573290",
+      "source": "roadmap",
+      "externalId": "RM573290",
+      "title": "Work IQ: Business Skills to manage your business processes in Work IQ MCP",
+      "summary": "Business skills are natural-language instructions that capture how your organization gets work done. They represent your business processes, policies, and domain knowledge in a format that agents can understand and follow. Each skill describes how to complete a specific type of work—the steps involved, the information required, and the business rules that apply. Agents discover and use the busines…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Dataverse",
+        "Work IQ"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=573290",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-business-skill-overview",
+      "created": "2026-11-11T00:53:34",
+      "lastChanged": "2026-11-11T00:53:34",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM575294",
+      "source": "roadmap",
+      "externalId": "RM575294",
+      "title": "Power Apps: New view layout in model-driven apps",
+      "summary": "Makers can now choose to display their data as a calendar or a stack of cards instead of the default grid layout. Makers can configure these layouts directly in the model driven app designer, giving users more intuitive ways to visualize and work with their data. Availability Field Value Release Channel Weekly Version 2612.2 Applies to Model-driven apps Feature Scope Users (enabled by admins or ma…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-12",
+      "gaMonth": "2027-02",
+      "keyDate": "2027-02-01",
+      "dateLabel": "February CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=575294",
+      "moreInfoLink": null,
+      "created": "2026-11-04T23:59:50",
+      "lastChanged": "2026-11-11T00:51:09",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577419",
+      "source": "roadmap",
+      "externalId": "RM577419",
+      "title": "Power Pages: SDK (Software Development Kit)",
+      "summary": "Build native mobile applications or kiosks using Power Pages as the backend foundation with support for authentication, authorization, APIs, data access, and reusable mobile capabilities.",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2027-01",
+      "gaMonth": "2027-03",
+      "keyDate": "2027-03-01",
+      "dateLabel": "March CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577419",
+      "moreInfoLink": null,
+      "created": "2026-10-22T22:58:40",
+      "lastChanged": "2026-11-06T23:04:41",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM562221",
+      "source": "roadmap",
+      "externalId": "RM562221",
+      "title": "Microsoft Copilot Studio: Use MCP-compliant tools in agent workflows",
+      "summary": "Integrate proprietary systems, dynamic knowledge sources, and custom actions into your agentic workflows with MCP support, accelerating extensibility while preserving workflow reliability. This integration improves reuse across agents and workflows, reduces duplication of integrations, and embraces an emerging open and extensible agent ecosystem.",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Copilot Studio"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-05",
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=562221",
+      "moreInfoLink": null,
+      "created": "2026-05-15T18:00:35",
+      "lastChanged": "2026-11-05T23:59:28",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576280",
+      "source": "roadmap",
+      "externalId": "RM576280",
+      "title": "Power Apps: Form fill assistance using Microsoft 365 files in model-driven apps",
+      "summary": "We’re expanding form fill assistance in Power Apps to use Microsoft 365 files as a source, helping users turn existing content into form entries with less manual effort. Availability Field Value Release Channel Monthly Version 2701.1 Applies to Model-driven apps Feature Scope Admins or makers | Users (enabled by admins or makers) | Users (enabled by default) | Users (always enabled)",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Android",
+        "iOS",
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576280",
+      "moreInfoLink": null,
+      "created": "2026-11-04T00:02:09",
+      "lastChanged": "2026-11-04T00:02:09",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM561026",
+      "source": "roadmap",
+      "externalId": "RM561026",
+      "title": "Microsoft Copilot (Microsoft 365): Generate documents using forms in SharePoint with Power Automate",
+      "summary": "We are introducing a new Power Automate action that enables automated document generation using document generation (DocGen) forms in SharePoint. Generate document from form (Preview) allows customers to create documents from a template by mapping data inputs to predefined template fields. Documents are generated as part of an automated flow and stored in SharePoint. This capability supports scena…",
+      "products": [
+        "Power Automate",
+        "SharePoint",
+        "Microsoft Copilot (Microsoft 365)"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-05",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=561026",
+      "moreInfoLink": null,
+      "created": "2026-04-30T23:30:16",
+      "lastChanged": "2026-11-04T00:02:09",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577834",
+      "source": "roadmap",
+      "externalId": "RM577834",
+      "title": "Microsoft Copilot Studio: Copilot studio cost controls in MAC",
+      "summary": "We’re expanding cost management for Microsoft Copilot Studio into the Microsoft 365 admin center. This gives administrators a more centralized way to manage Copilot Credit spend across usage-based AI workloads while retaining Copilot Studio cost management capabilities in the Power Platform admin center. With this update, administrators can bring supported Copilot Studio environments and agents un…",
+      "products": [
+        "Microsoft 365",
+        "Microsoft 365 admin center",
+        "Microsoft Copilot Studio",
+        "Microsoft Power Platform governance and administration"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577834",
+      "moreInfoLink": null,
+      "created": "2026-10-29T23:01:00",
+      "lastChanged": "2026-10-29T23:01:00",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM569475",
+      "source": "roadmap",
+      "externalId": "RM569475",
+      "title": "Microsoft Copilot Studio: Agent Sharing amongst makers",
+      "summary": "Enables sharing of agents with other makers in the new Microsoft Copilot harness. Makers can grant other makers Agent Viewer (view analytics/evaluations only) or Editor (view, edit, configure, share, publish) access to an agent, with auto-assigned security roles.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=569475",
+      "moreInfoLink": null,
+      "created": "2026-08-27T22:38:48",
+      "lastChanged": "2026-10-28T23:04:31",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576272",
+      "source": "roadmap",
+      "externalId": "RM576272",
+      "title": "Copilot Studio: Computer Use for web browsing on Microsoft Copilot Harness",
+      "summary": "Enable Microsoft Copilot Studio agents to browse and interact with websites as a native capability powered by the Microsoft Copilot harness. Using natural-language instructions, agents can navigate web pages, extract information, and download files. Agents can then use that information and those files alongside other tools to complete end-to-end workflows, extending their reach beyond configured k…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-11",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576272",
+      "moreInfoLink": null,
+      "created": "2026-10-19T23:15:15",
+      "lastChanged": "2026-10-28T20:19:16",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577869",
+      "source": "roadmap",
+      "externalId": "RM577869",
+      "title": "Power Automate: AI-assisted UI Automation repair",
+      "summary": "A new agentic debug run feature will be available in the flow designer. The UI automation repair interface launches while the flow is running, validating each selector used in the flow. It then proposes a new selector in case an existing one does not work as expected, after the user captures the respective element for reference.",
+      "products": [
+        "Power Automate",
+        "Microsoft Copilot (Microsoft 365)"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-07",
+      "gaMonth": "2027-03",
+      "keyDate": "2027-03-01",
+      "dateLabel": "March CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577869",
+      "moreInfoLink": null,
+      "created": "2026-10-27T23:05:02",
+      "lastChanged": "2026-10-27T23:05:02",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577859",
+      "source": "roadmap",
+      "externalId": "RM577859",
+      "title": "Power Pages: Track Power Pages performance and usage with monitor hub",
+      "summary": "Power Pages is integrated into the monitor hub. This integration empowers site owners, makers, and administrators to access performance and usage insights directly within the monitor hub of the Power Platform admin center. Metrics available The following metrics will be surfaced in monitor hub: • Session count: Tracks the number of sessions. • Session duration: Measures the average time spent in a…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577859",
+      "moreInfoLink": null,
+      "created": "2026-10-27T23:05:02",
+      "lastChanged": "2026-10-27T23:05:02",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577897",
+      "source": "roadmap",
+      "externalId": "RM577897",
+      "title": "Power Pages: First Class Support for Connector APIs in Power Pages",
+      "summary": "Native connectors support through Power Pages will allow organizations to securely connect their websites/portals directly to enterprise systems such as SQL, SAP, and Oracle, without building or maintaining custom integration layers. This capability is especially valuable for regulated and enterprise customers such as banking and financial services, who need to surface data from systems hosted beh…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2027-03",
+      "gaMonth": "2027-06",
+      "keyDate": "2027-06-01",
+      "dateLabel": "June CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577897",
+      "moreInfoLink": null,
+      "created": "2026-10-26T23:15:50",
+      "lastChanged": "2026-10-26T23:15:50",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM566998",
+      "source": "roadmap",
+      "externalId": "RM566998",
+      "title": "Microsoft Copilot Studio: Invoke agents as workflow steps with the agent node",
+      "summary": "The agent node lets you embed reasoning directly into your workflow. This means fewer manual handoffs, faster processing times, and workflows that can handle nuanced decisions without additional development effort, helping teams automate more of their end-to-end processes and reduce operational overhead.",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Copilot Studio"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-04",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=566998",
+      "moreInfoLink": null,
+      "created": "2026-07-01T23:03:18",
+      "lastChanged": "2026-10-26T23:15:50",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576279",
+      "source": "roadmap",
+      "externalId": "RM576279",
+      "title": "Power Apps: Model-driven apps - Use row summaries in US Government clouds",
+      "summary": "Row summaries are expanding to supported US Government clouds, giving users in regulated environments access to AI-generated insights that help them understand model-driven app records at a glance. This release brings the row summary experience available to commercial customers to supported government environments while meeting their applicable compliance and data-boundary requirements. Admins and…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576279",
+      "moreInfoLink": null,
+      "created": "2026-10-23T23:10:38",
+      "lastChanged": "2026-10-23T23:10:38",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM578071",
+      "source": "roadmap",
+      "externalId": "RM578071",
+      "title": "Power Pages: Administration and governance - Configure site analytics and server logging",
+      "summary": "Gain insights into your Power Pages site with integrated telemetry and analytics. Use Application Insights to monitor page views, form interactions, session details, and client-side analytics. Detect server-side errors, performance issues, and access logs to resolve problems and optimize your site. To configure site analytics, makers must open the setup workspace and add the analytics provider scr…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High",
+        "DoD"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2027-02",
+      "keyDate": "2027-02-01",
+      "dateLabel": "February CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=578071",
+      "moreInfoLink": null,
+      "created": "2026-10-23T22:46:07",
+      "lastChanged": "2026-10-23T22:46:07",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM578062",
+      "source": "roadmap",
+      "externalId": "RM578062",
+      "title": "Power Pages: Administration and governance - Manage external authentication providers with granular controls",
+      "summary": "Power Pages now lets you manage external authentication providers with environment-level governance controls and optional site-level exceptions. You can centrally enforce which identity providers (IDPs) are allowed across all sites in an environment, while still enabling site-specific flexibility when needed. Makers will only see and select from the approved IDPs when setting up authentication, en…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High",
+        "DoD"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-11",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=578062",
+      "moreInfoLink": null,
+      "created": "2026-10-23T22:45:54",
+      "lastChanged": "2026-10-23T22:45:54",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577900",
+      "source": "roadmap",
+      "externalId": "RM577900",
+      "title": "Power Pages: Plugin support for GitHub Copilot CLI and Claude Code to create and edit traditional sites",
+      "summary": "The Power Pages plugin for GitHub Copilot CLI and Claude Code now supports creating and editing traditional (non-SPA) Power Pages sites. Developers can use natural-language prompts in their AI coding agent to create a new traditional site or download, inspect, and update existing site metadata such as web pages, web templates, content snippets, basic and multistep forms, lists, table permissions,…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Developer"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577900",
+      "moreInfoLink": null,
+      "created": "2026-10-23T21:59:27",
+      "lastChanged": "2026-10-23T21:59:27",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576285",
+      "source": "roadmap",
+      "externalId": "RM576285",
+      "title": "Power Apps: Expand model access and Maker Studio availability for generative pages via GitHub",
+      "summary": "Connect your GitHub account to access additional model options for the built-in gen page coding agent directly in the generative page designer in Maker Studio. Makers can use the agent to create and refine generative pages without leaving the Power Apps authoring experience. This integration also brings Maker Studio generative page authoring to regions without dedicated Power Apps GPU capacity. Mo…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576285",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/generative-pages",
+      "created": "2026-10-23T21:59:27",
+      "lastChanged": "2026-10-23T21:59:27",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576283",
+      "source": "roadmap",
+      "externalId": "RM576283",
+      "title": "Power Apps: Use Power Platform connectors in generative pages",
+      "summary": "Makers can bring data from Power Platform connectors into generative pages. After creating and authenticating a connection and adding a connection reference to the environment, you select the connector data and describe how the generated page should use it. Connector data can be incorporated while working in the Maker Studio generative page designer or through the generative pages AI plugin. Avail…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576283",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/generative-pages",
+      "created": "2026-10-23T21:59:27",
+      "lastChanged": "2026-10-23T21:59:27",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576281",
+      "source": "roadmap",
+      "externalId": "RM576281",
+      "title": "Power Apps: Form fill assistance using speech as input in model-driven apps",
+      "summary": "We’re expanding form fill assistance in Power Apps to use speech as a source, providing users a more natural way to fill forms. Users select the microphone icon, record their content, and the transcript is used as a source for the form entry. Recordings are transient and not saved. Availability Field Value Release Channel Monthly Version 2612.1 Applies to Model-driven apps Feature Scope Users (ena…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Android",
+        "iOS",
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576281",
+      "moreInfoLink": null,
+      "created": "2026-10-23T21:59:27",
+      "lastChanged": "2026-10-23T21:59:27",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577827",
+      "source": "roadmap",
+      "externalId": "RM577827",
+      "title": "Power Automate: Process mining - Get support for normalized schema import for data ingestion",
+      "summary": "Most systems of record have data stored in data structures that allow you to easily extract information about the analyzed entity (case-level data) and historical changes on those entities (event-level data). The attributes are also stored in a normalized form. The single-table approach to event log creation requires you to do inefficient transformations. With this feature, Power Automate Process…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-06",
+      "gaMonth": "2026-08",
+      "keyDate": "2026-08-01",
+      "dateLabel": "August CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577827",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/object-centric-semantic-model",
+      "created": "2026-10-22T23:45:51",
+      "lastChanged": "2026-10-22T23:45:51",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577826",
+      "source": "roadmap",
+      "externalId": "RM577826",
+      "title": "Power Automate: Process mining - Export object-centric process mining data to Microsoft Fabric semantic model",
+      "summary": "This feature allows seamless integration with Microsoft Fabric for enterprise-wide analytics. It enables direct publishing of object-centric process mining (OCPM) results into Microsoft Fabric semantic models, making process intelligence data available throughout the Microsoft analytics ecosystem. Key capabilities include: Semantic model publishing: Export OCPM analysis results, including objects,…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-05",
+      "gaMonth": "2026-08",
+      "keyDate": "2026-08-01",
+      "dateLabel": "August CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577826",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/object-centric-ingest-event-log",
+      "created": "2026-10-22T23:45:50",
+      "lastChanged": "2026-10-22T23:45:50",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577825",
+      "source": "roadmap",
+      "externalId": "RM577825",
+      "title": "Power Pages: Administration and governance - Enable self-service site ownership transfer",
+      "summary": "Power Pages now supports secure site ownership transfer for eligible sites. Existing site owners and global administrators can assign ownership to another valid user within the tenant without requiring manual intervention from support. The new owner must be a valid user with appropriate access to the environment. Every ownership transfer is recorded in an auditable history, including the previous…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577825",
+      "moreInfoLink": null,
+      "created": "2026-10-22T23:45:49",
+      "lastChanged": "2026-10-22T23:45:49",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577821",
+      "source": "roadmap",
+      "externalId": "RM577821",
+      "title": "Power Pages: Professional developer experiences - Control Power Pages components using client APIs",
+      "summary": "Developers often depend on custom JavaScript and fragile Document Object Model (DOM) manipulation to hide fields, update values, or trigger actions, an approach that easily breaks when page structures change, drives up maintenance costs, limits scalability, and leads to inconsistent experiences. Power Pages Client APIs address these challenges by offering stable, documented, and supported methods…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2025-11",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577821",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-pages/configure/client-api",
+      "created": "2026-10-22T23:45:46",
+      "lastChanged": "2026-10-22T23:45:46",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577791",
+      "source": "roadmap",
+      "externalId": "RM577791",
+      "title": "Power Automate: Desktop flows - Export work queue items to CSV",
+      "summary": "You can now export work queue items directly from the Automation Center portal. A new option available in the Work Queues experience lets you download items as a CSV file. This capability allows you to access work queue data in a portable format for further analysis, reporting, or integration with other tools, without needing to rely on external APIs or custom solutions. Business Value: This featu…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High",
+        "DoD"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577791",
+      "moreInfoLink": null,
+      "created": "2026-10-22T23:45:44",
+      "lastChanged": "2026-10-22T23:45:44",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577815",
+      "source": "roadmap",
+      "externalId": "RM577815",
+      "title": "Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
+      "summary": "Build Dataverse solutions by using coding agents with natural language prompts. For example, \"I'm building a recruiting system for Zava Construction. I need tables for Positions, Candidates, Interviewers, Interviews, and Feedback - with lookups, a many-to-many relationship between Candidates and Positions, and a self-referential interview chain. Create everything in a Zava Recruiting solution, loa…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Dataverse"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-06",
+      "gaMonth": "2027-02",
+      "keyDate": "2027-02-01",
+      "dateLabel": "February CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577815",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-business-skills",
+      "created": "2026-10-22T23:45:41",
+      "lastChanged": "2026-10-22T23:45:41",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577813",
+      "source": "roadmap",
+      "externalId": "RM577813",
+      "title": "Power Pages: Power Pages Copilot - Use Power Pages MCP server capabilities",
+      "summary": "Power Pages MCP server enables makers to expose site data and operations through a secure, standardized interface compatible with AI clients. In the public preview release, makers can enable Create, Read, Update, Delete (CRUD) operations via the site’s Web API layer without writing custom code. Makers can provision the MCP server endpoint through site settings, allowing customers to securely inter…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-01",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577813",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-pages/configure/mcp-overview",
+      "created": "2026-10-22T23:45:38",
+      "lastChanged": "2026-10-22T23:45:38",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577809",
+      "source": "roadmap",
+      "externalId": "RM577809",
+      "title": "Power Pages: Design studio - Configure authentication with security agent",
+      "summary": "The security agent is available directly within the security workspace in Power Pages design studio. Makers can open the security agent tab to access the embedded chat panel and security tools. From there, they can interact using natural language to review risks, understand configurations, and take guided actions. The agent assists with both authentication and authorization setup. It guides makers…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-04",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577809",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-pages/security/security-agent",
+      "created": "2026-10-22T23:45:34",
+      "lastChanged": "2026-10-22T23:45:34",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577803",
+      "source": "roadmap",
+      "externalId": "RM577803",
+      "title": "Power Automate: Cloud flows - View property value expanded inline in new cloud flow designer",
+      "summary": "When you add an action, you can view property values for multiple steps at design time, or output values for multiple steps at runtime. The inline view shows this information directly on the cards, so you can review and compare values across several steps at once. Without the inline view, you select each card individually to see its value in the side pane, and you can view only one step's value at…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577803",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/flows-designer",
+      "created": "2026-10-22T23:45:28",
+      "lastChanged": "2026-10-22T23:45:28",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576282",
+      "source": "roadmap",
+      "externalId": "RM576282",
+      "title": "Power Apps: Monitor generative pages with out-of-the-box Application Insights telemetry ",
+      "summary": "Admins and developers can monitor published generative pages with Application Insights. When an administrator configures Application Insights data export for an environment, Power Apps automatically exports completed page loads, unhandled errors, supported Data API operations, and navigation initiated from generative pages without requiring telemetry code, the Application Insights JavaScript SDK,…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576282",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/generative-pages#monitor-a-generative-page-with-application-insights-preview",
+      "created": "2026-10-21T23:02:10",
+      "lastChanged": "2026-10-21T23:02:10",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576284",
+      "source": "roadmap",
+      "externalId": "RM576284",
+      "title": "Power Apps: Use Dataverse custom APIs in generative pages",
+      "summary": "Makers can have a generative page call a Dataverse custom API to run server-side business logic, such as approving an order, recalculating a price, or validating a transaction. From either the Maker Studio generative page designer or the generative pages AI plugin, makers select a prepared API and describe when the page should call it, which input values to provide, and how to use the response. Av…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576284",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/generative-pages#run-server-side-business-logic-with-a-custom-api-preview ",
+      "created": "2026-10-21T23:02:10",
+      "lastChanged": "2026-10-21T23:02:10",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM575295",
+      "source": "roadmap",
+      "externalId": "RM575295",
+      "title": "Power Apps: Form fill assistance in apps can provide suggestions for existing values",
+      "summary": "We’re expanding form fill assistance in model-driven applications in Power Apps to suggest updates to fields that already contain values—not just empty fields. This helps users update existing information with ease using AI-powered skills in their apps.",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Android",
+        "iOS",
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=575295",
+      "moreInfoLink": null,
+      "created": "2026-10-21T23:02:10",
+      "lastChanged": "2026-10-21T23:02:10",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577185",
+      "source": "roadmap",
+      "externalId": "RM577185",
+      "title": "Microsoft Dataverse: Enable semantic data understanding for agentic use",
+      "summary": "Give AI agents and Copilot a true understanding of your business data — not just raw schema — so they can answer questions accurately with less manual configuration. Learns from the systems you already run — Automatically extracts semantic knowledge from views, forms, and metadata already defined in your Dataverse environment, reducing agent deployment from days of manual setup to near-zero effort…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Dataverse"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-06",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577185",
+      "moreInfoLink": null,
+      "created": "2026-10-20T23:00:34",
+      "lastChanged": "2026-10-20T23:00:34",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM577183",
+      "source": "roadmap",
+      "externalId": "RM577183",
+      "title": "Microsoft Power Platform governance and administration: Multi-grader comparison",
+      "summary": "Multi-grader comparison enables makers to compare the results of multiple graders applied to the same evaluation. The experience highlights agreement, differences, and overall grading behavior. Core capabilities The core capabilities include: Compare graders side-by-side. Compare scores. Review explanations from each grader. Analyze grading consistency. Results experience Results include: Comparat…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Power Platform governance and administration"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=577183",
+      "moreInfoLink": null,
+      "created": "2026-10-20T23:00:34",
+      "lastChanged": "2026-10-20T23:00:34",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM571305",
+      "source": "roadmap",
+      "externalId": "RM571305",
+      "title": "Microsoft Copilot Studio: Support for sensitive documents protected with Microsoft Purview Information Protection (MPIP) ",
+      "summary": "Unblock users from upload files with Microsoft Purview Information Protection (MPIP) sensitivity labels to Copilot Studio agents deployed on the M365 channel. With this support agents can process content based on the user's/agents account permissions, with label protections enforced end-to-end.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571305",
+      "moreInfoLink": null,
+      "created": "2026-10-19T23:15:15",
+      "lastChanged": "2026-10-19T23:15:15",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM574121",
+      "source": "roadmap",
+      "externalId": "RM574121",
+      "title": "Microsoft Dataverse: Add users without licenses to activity recipient fields",
+      "summary": "Enable active Microsoft Entra users without Dataverse or Power Apps licenses as activity recipients. Created user records remain disabled and do not grant Dynamics 365 app access. Documentation: https://learn.microsoft.com/en-us/power-platform/admin/add-unlicensed-users-activities",
+      "products": [
+        "Microsoft 365 app",
+        "Dynamics 365 Sales",
+        "Dynamics 365 Customer Service",
+        "Microsoft Dataverse"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=574121",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-platform/admin/add-unlicensed-users-activities",
+      "created": "2026-10-19T23:15:15",
+      "lastChanged": "2026-10-19T23:15:15",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576178",
+      "source": "roadmap",
+      "externalId": "RM576178",
+      "title": "Power Apps: Access updated visuals for row summaries across forms and views",
+      "summary": "The row summaries experience has a refreshed layout that makes AI-generated insights more prominent and easier to consume. Improved visual hierarchy (including clearer spacing, background and border treatments, status indicators, and generation labels) helps summaries stand apart from surrounding form sections so users can quickly identify key information. The visual treatment takes inspiration fr…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576178",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-platform/release-plan/2026wave1/power-apps/enhance-row-summaries-model-driven-apps ",
+      "created": "2026-10-16T22:00:35",
+      "lastChanged": "2026-10-16T22:00:35",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576876",
+      "source": "roadmap",
+      "externalId": "RM576876",
+      "title": "Microsoft Dataverse: Build your low code hyperscale backend on Dataverse - Build your agentic flows with Dataverse SDK for Python",
+      "summary": "The Microsoft Dataverse SDK for Python empowers data scientists and developers to build intelligent, compliant, and scalable agentic flows that integrate seamlessly with Dataverse. In the agentic age, where autonomous agents orchestrate workflows and act on behalf of users, the SDK provides the essential tools to interact programmatically with enterprise data platforms. The SDK supports structured…",
+      "products": [
+        "Microsoft Dataverse"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2025-11",
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576876",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/sdk-python/",
+      "created": "2026-10-16T19:10:05",
+      "lastChanged": "2026-10-16T19:10:05",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576870",
+      "source": "roadmap",
+      "externalId": "RM576870",
+      "title": "Power Automate: Process mining - Analyze processes using object-centric process mining",
+      "summary": "Real business processes rarely flow as a single, linear instance. Events routinely touch several objects of different types at the same time (for example, creating an invoice for a specific order, or shipping a package that contains items from multiple orders). Object-centric process mining captures that reality by recording events that relate to many objects and object types in one process, prese…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2025-11",
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576870",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/object-centric-overview",
+      "created": "2026-10-16T19:10:01",
+      "lastChanged": "2026-10-16T19:10:01",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576869",
+      "source": "roadmap",
+      "externalId": "RM576869",
+      "title": "Power Automate: Process mining - Analyze your processes in the process intelligence experience",
+      "summary": "The process intelligence experience is a modern, flexible workspace designed for comprehensive process analysis. It provides a fully customizable analysis environment that combines multiple visualization and analysis components into cohesive, purpose-built workspaces. The platform empowers users to construct exactly the analytical view they need without technical complexity. Core capabilities incl…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-03",
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576869",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/process-mining-studio-tab-management",
+      "created": "2026-10-16T19:10:00",
+      "lastChanged": "2026-10-16T19:10:00",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576868",
+      "source": "roadmap",
+      "externalId": "RM576868",
+      "title": "Power Automate: Process mining - Create and visualize custom KPIs in the process intelligence experience",
+      "summary": "The process intelligence experience allows flexible metric creation with seamless visualization integration. This feature enables you to define custom KPIs and metrics tailored to specific business requirements within the process intelligence experience. You can create custom metrics using configurable formulas that can incorporate existing process data, standard KPIs, and mathematical operations.…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576868",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/process-mining-studio-kpi-card",
+      "created": "2026-10-16T19:09:59",
+      "lastChanged": "2026-10-16T19:09:59",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576863",
+      "source": "roadmap",
+      "externalId": "RM576863",
+      "title": "Microsoft Power Platform governance and administration: Security and compliance - Prevent sending sensitive data to Purview audit logs",
+      "summary": "To help prevent leaking sensitive customer data from Dataverse audit logs, all customer data is removed before these audit events are sent to Purview activity logging. Examples of sensitive customer data include financial information, medical and health data, and personally identifiable information. In Dataverse audit logs, create and update events—including a column’s before-and-after values—are…",
+      "products": [
+        "Microsoft Power Platform governance and administration"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576863",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-platform/important-changes-coming#removal-of-before-and-after-field-change-values-in-audit-events-sent-to-microsoft-purview",
+      "created": "2026-10-16T19:09:56",
+      "lastChanged": "2026-10-16T19:09:56",
+      "fingerprint": []
+    },
+    {
+      "id": "RM576843",
+      "source": "roadmap",
+      "externalId": "RM576843",
+      "title": "Microsoft Dataverse: Activate Enterprise Data in Copilot - Create Dataverse agent users with Microsoft Entra agent identity",
+      "summary": "Organizations can securely deploy AI agents to access and interact with Dataverse data by using enterprise‑managed Microsoft Entra agent identities. This feature enables agents to be provisioned as Dataverse agent users with dedicated, least‑privileged security roles based on their intended capabilities. This feature ensures agents have only the access required to perform tasks autonomously or on…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Dataverse"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-06",
+      "gaMonth": "2026-08",
+      "keyDate": "2026-08-01",
+      "dateLabel": "August CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576843",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-platform/admin/create-users#agent-users-preview",
+      "created": "2026-10-16T19:09:45",
+      "lastChanged": "2026-10-16T19:09:45",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576824",
+      "source": "roadmap",
+      "externalId": "RM576824",
+      "title": "Power Automate: Cloud flows - Share Process license capacity across workflows",
+      "summary": "With flow groups, you can share Process license capacity across up to 25 cloud flows, optimizing license allocation and reducing costs for organizations operating higher-volume workflows that don't need their own dedicated capacity. Prerequisites: Power Automate Process licenses available to the environment Cloud flows stored in solutions Power Automate maker permissions Business Value: Save costs…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576824",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/flow-groups",
+      "created": "2026-10-16T19:09:32",
+      "lastChanged": "2026-10-16T19:09:32",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576817",
+      "source": "roadmap",
+      "externalId": "RM576817",
+      "title": "Microsoft Dataverse: Finance and operations cross application integration - Monitor data management framework with Azure Monitor Application Insights",
+      "summary": "By integrating data management framework telemetry for Dynamics 365 finance and operations apps, organizations can gain deeper visibility into data management executions, such as import and export jobs. This integration streams telemetry directly into the customer's own Azure Application Insights instance. By using this integration, customers can: Monitor import and export data management function…",
+      "products": [
+        "Microsoft Dataverse"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-04",
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576817",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/monitoring-telemetry/monitoring-available-telemetry#dmf-telemetry-preview",
+      "created": "2026-10-16T19:09:27",
+      "lastChanged": "2026-10-16T19:09:27",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576810",
+      "source": "roadmap",
+      "externalId": "RM576810",
+      "title": "Microsoft Dataverse: Improved enterprise experiences in Power Platform - Improve bulk delete user experience",
+      "summary": "As you scale your data management operations, bulk delete must be predictable, transparent, and safe to operate across environments. In this release, Microsoft enhances bulk delete with an improved error handling experience and solution aware configuration support, delivering a more consistent, reliable, and enterprise‑ready data cleanup workflow. This release focuses on two core improvements that…",
+      "products": [
+        "Microsoft Dataverse"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-04",
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576810",
+      "moreInfoLink": null,
+      "created": "2026-10-16T19:09:22",
+      "lastChanged": "2026-10-16T19:09:22",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576794",
+      "source": "roadmap",
+      "externalId": "RM576794",
+      "title": "Power Automate: Desktop flows - Configure notifications for desktop flow checker in admin portal",
+      "summary": "The desktop flow checker in the Power Automate portal extends rule‑based static analysis to provide configurable notifications for violations detected across all desktop flows in an environment. Administrators can select the notification type (error, warning, or informational), adjust severity levels, and define parameters such as thresholds, recurrence, and scope. The checker uses the same rule e…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576794",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/desktop-flows/static-analysis",
+      "created": "2026-10-16T19:09:10",
+      "lastChanged": "2026-10-16T19:09:10",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576793",
+      "source": "roadmap",
+      "externalId": "RM576793",
+      "title": "Power Pages: Design studio - Support Power BI embed token v2 for Power Pages",
+      "summary": "Power Pages now supports Power BI Embed Token v2, unlocking modern Power BI embedding scenarios that weren't supported with Embed Token v1. This enhancement enables richer, more scalable analytics experiences within Power Pages sites. With Embed Token v2, Power Pages can embed: Paginated (RDL) reports, including reports that use Power BI datasets as a data source or require multi-resource tokens.…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576793",
+      "moreInfoLink": null,
+      "created": "2026-10-16T19:09:09",
+      "lastChanged": "2026-10-16T19:09:09",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576788",
+      "source": "roadmap",
+      "externalId": "RM576788",
+      "title": "Microsoft Dataverse: Improved enterprise experiences in Power Platform - Enhance Dataverse record descriptions for Copilot /mention",
+      "summary": "End users of Microsoft 365 Copilot will see improved Microsoft Dataverse, Dynamics 365, and Power Apps record references in Context IQ with richer, more descriptive labels that include environment, app, and table information. This makes it easier to identify and select the correct records during Copilot interactions. Business Value: Enables Microsoft 365 Copilot to surface business data with meani…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Dataverse"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-07",
+      "gaMonth": "2026-08",
+      "keyDate": "2026-08-01",
+      "dateLabel": "August CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576788",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-platform/admin/link-records-outlook-web",
+      "created": "2026-10-16T19:09:06",
+      "lastChanged": "2026-10-16T19:09:06",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576786",
+      "source": "roadmap",
+      "externalId": "RM576786",
+      "title": "Power Automate: Desktop flows - Encrypt and decrypt data with PGP",
+      "summary": "This feature introduces PGP-specific encryption and decryption actions that use OpenPGP compatible public and private keys. You can encrypt files or data payloads using a recipient public key and decrypt incoming PGP-encrypted content using a corresponding private key and passphrase. The actions support standard PGP formats, making them suitable for interoperability with third-party systems that r…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576786",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/desktop-flows/actions-reference/pgp",
+      "created": "2026-10-16T19:09:04",
+      "lastChanged": "2026-10-16T19:09:04",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576785",
+      "source": "roadmap",
+      "externalId": "RM576785",
+      "title": "Power Automate: Desktop flows - Measure time and cost savings for desktop flows",
+      "summary": "This feature introduces built-in rules that calculate time and cost savings for desktop flows based on successful runs. You can define how long a task previously took when performed manually and let the platform compute time saved using flow run data. Cost savings can be estimated by applying hourly rates or custom monetary baselines that scale with run volume. Savings accumulate automatically as…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576785",
+      "moreInfoLink": null,
+      "created": "2026-10-16T19:09:03",
+      "lastChanged": "2026-10-16T19:09:03",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576784",
+      "source": "roadmap",
+      "externalId": "RM576784",
+      "title": "Power Automate: Desktop flows - Debug flows using variable default values",
+      "summary": "This feature introduces advanced debugging support by allowing you to assign default values to variables directly within the desktop flow designer. During debugging sessions, when you are starting the execution from a specific step of the automation, the assigned default values are automatically applied, enabling you to test specific scenarios without modifying actions or rerunning the flow from t…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576784",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-automate/desktop-flows/manage-variables",
+      "created": "2026-10-16T19:09:02",
+      "lastChanged": "2026-10-16T19:09:02",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576782",
+      "source": "roadmap",
+      "externalId": "RM576782",
+      "title": "PowerApps: Building modern apps - Use CLI to discover, create, and wire connectors in code apps",
+      "summary": "Power Apps CLI connector commands The Power Apps CLI adds new commands that let developers discover available connectors and create connections directly from the command line. This enables developers to wire connectors into code apps as part of their normal development workflow, without switching tools or manually configuring connections in the maker portal. Agent and how-to guidance for prompt-to…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-06",
+      "gaMonth": "2026-07",
+      "keyDate": "2026-07-01",
+      "dateLabel": "July CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576782",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/developer/code-apps/how-to/npm-quickstart",
+      "created": "2026-10-16T19:09:00",
+      "lastChanged": "2026-10-16T19:09:00",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576781",
+      "source": "roadmap",
+      "externalId": "RM576781",
+      "title": "PowerApps: Building modern apps - Modernize model-driven apps with the header and navigation refresh feature",
+      "summary": "The header and navigation refresh feature delivers a modern, intuitive, and efficient model app experience across the app shell, form pages, and view pages. This update improves visual clarity, reduces vertical space usage, and aligns with modern Microsoft 365 design patterns. As the feature transitions to general availability (GA), the refreshed experience remains opt-in, allowing makers to contr…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "Rolling out",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2025-05",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576781",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/user/modern-fluent-design#header-and-navigation-refresh",
+      "created": "2026-10-16T19:08:59",
+      "lastChanged": "2026-10-16T19:08:59",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576765",
+      "source": "roadmap",
+      "externalId": "RM576765",
+      "title": "Power Automate: Process mining - Enable Process Intelligence Studio in object-centric process mining",
+      "summary": "Process Intelligence Studio is a modern, flexible workspace designed for comprehensive process analysis. It provides a fully customizable analysis environment that combines multiple visualization and analysis components into cohesive, purpose-built workspaces. The platform supports both traditional and object-centric process mining methodologies, enabling analysis across simple linear processes an…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576765",
+      "moreInfoLink": null,
+      "created": "2026-10-16T19:08:49",
+      "lastChanged": "2026-10-16T19:08:49",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576752",
+      "source": "roadmap",
+      "externalId": "RM576752",
+      "title": "Microsoft Dataverse: Microsoft 365 collaboration - Discover, build, customize, and extend with management MCP server",
+      "summary": "The management MCP server is a build surface and registry for agent-ready tools available within a customer's environment. It exposes an addressable endpoint where developers and agents can discover, assemble, and deploy MCP servers made from trusted components including connector actions, tools from other MCP servers, and custom APIs. Discover available tools and servers Find MCP servers authored…",
+      "products": [
+        "Microsoft Dataverse"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-03",
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576752",
+      "moreInfoLink": null,
+      "created": "2026-10-16T19:08:36",
+      "lastChanged": "2026-10-16T19:08:36",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576750",
+      "source": "roadmap",
+      "externalId": "RM576750",
+      "title": "Power Pages: Design studio - Unify Power Pages authorization by merging web role with Dataverse security role",
+      "summary": "This feature merges Power Pages web roles and site users with Dataverse security roles and system users, creating a unified authorization model. User Mapping: Each Power Pages user is stored in both the System User table and the Contact table. The System Managed User Type column in the User table identifies Power Pages users as C2 User. Role Mapping: Each Power Pages web role is represented in bot…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-07",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576750",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-pages/security/unify-pages-security-with-dataverse",
+      "created": "2026-10-16T19:08:35",
+      "lastChanged": "2026-10-16T19:08:35",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM573279",
+      "source": "roadmap",
+      "externalId": "RM573279",
+      "title": "Power Apps: Prompt Columns - multiple lines of text output    ",
+      "summary": "Prompt columns can now store multilple lines of text as prompt output, enabling longer and detailed AI-generated insights to be stored in your tables.",
+      "products": [
+        "Power Apps",
+        "Microsoft Dataverse"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=573279",
+      "moreInfoLink": null,
+      "created": "2026-10-15T22:47:30",
+      "lastChanged": "2026-10-15T22:47:30",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570865",
+      "source": "roadmap",
+      "externalId": "RM570865",
+      "title": "Microsoft Dataverse: Prompt column values in bulk for existing records (backfill)",
+      "summary": "Prompt columns can now generate AI values for records that already exist in your table, not just new or updated ones. Makers can choose to apply a prompt to existing records in bulk, optionally filtered to just the rows they need, so historical data gets the same AI-generated insights as incoming data, without touching each record one at a time.",
+      "products": [
+        "Power Apps",
+        "Microsoft Dataverse",
+        "Microsoft Power Platform governance and administration"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570865",
+      "moreInfoLink": null,
+      "created": "2026-10-15T22:47:30",
+      "lastChanged": "2026-10-15T22:47:30",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM576395",
+      "source": "roadmap",
+      "externalId": "RM576395",
+      "title": "Power Pages: Design studio - Enhance OpenID Connect with encrypted token support",
+      "summary": "This feature adds support for token-level encryption during authentication, allowing Power Pages to accept encrypted ID tokens in addition to signed tokens. It ensures secure claim transmission, improves compatibility with advanced identity providers, and strengthens overall authentication security without changing existing sign-in flows. Business Value: You can integrate with more secure identity…",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-08",
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=576395",
+      "moreInfoLink": null,
+      "created": "2026-10-14T22:53:09",
+      "lastChanged": "2026-10-14T22:53:09",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM572682",
+      "source": "roadmap",
+      "externalId": "RM572682",
+      "title": "Power Apps: Control information density in model-driven apps",
+      "summary": "Model-driven apps now support configurable display density settings that let users choose how information is spaced throughout the application. Users can select from three density options: Comfortable (default) Cozy Compact ​ Each density setting adjusts layout spacing while maintaining accessibility target-size requirements. Administrators and makers can configure default density settings at the…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=572682",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/user/appearance-settings",
+      "created": "2026-09-23T22:59:12",
+      "lastChanged": "2026-10-13T23:01:05",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM571682",
+      "source": "roadmap",
+      "externalId": "RM571682",
+      "title": "Power Apps: Modern, refreshed look for embedded model-driven apps",
+      "summary": "Extends the modern, refreshed look to embedded app experiences so model-driven app content retains consistent Fluent styling and interaction patterns when it appears inside another host. This was previously enabled for the monthly channel with the 2602.1 release and is now being enabled for the semiannual channel with the 2609.3 release. Availability Field Value Applies to Model-driven apps Releas…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571682",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/user/modern-fluent-design",
+      "created": "2026-10-02T22:01:21",
+      "lastChanged": "2026-10-13T23:01:05",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM571681",
+      "source": "roadmap",
+      "externalId": "RM571681",
+      "title": "Power Apps: Modern, refreshed look for the mail app",
+      "summary": "Extends the Fluent-based modern, refreshed look for model-driven apps to the mail app, providing consistent controls, spacing, colors, and visual treatment when users work in that app. This was previously enabled for the monthly channel with the 2602.1 release and is now being enabled for the semiannual channel with the 2609.3 release. Availability Field Value Applies to Model-driven apps Release…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571681",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/power-apps/user/modern-fluent-design",
+      "created": "2026-10-06T22:56:31",
+      "lastChanged": "2026-10-13T23:01:05",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM573277",
+      "source": "roadmap",
+      "externalId": "RM573277",
+      "title": "Power Pages: Create Power Pages SPA site from the Power Pages studio",
+      "summary": "Quickly get started with modern single-page application (SPA) development by creating a site directly from Power Pages Studio. Continue building and customizing your experience using your preferred development tools and frameworks.",
+      "products": [
+        "Power Pages"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High",
+        "DoD"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=573277",
+      "moreInfoLink": null,
+      "created": "2026-10-13T23:01:05",
+      "lastChanged": "2026-10-13T23:01:05",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Pages",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM574104",
+      "source": "roadmap",
+      "externalId": "RM574104",
+      "title": "Power Apps: Manage model-driven app AI features from consolidated settings",
+      "summary": "Consolidated AI settings make it easier for makers and admins to find and manage AI capabilities for model-driven apps across two complementary surfaces. In Maker Studio, the Settings dialog in the model app form designer adds a new top-level Copilot and AI tab. Makers can see and adjust all available AI options for the app in one place instead of finding them scattered among all the other setting…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=574104",
+      "moreInfoLink": null,
+      "created": "2026-10-13T23:01:05",
+      "lastChanged": "2026-10-13T23:01:05",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM571888",
+      "source": "roadmap",
+      "externalId": "RM571888",
+      "title": "Power Apps: Model-driven applications in Business Apps in Work IQ  ",
+      "summary": "Power Apps model-driven apps are now available as Business Apps in Work IQ. They can be accessed through the Work IQ (Preview) tool in Copilot Studio or through a natural-language chat experience powered by Work IQ MCP. In either experience, natural-language prompts let users list and read records or create, update, and delete them. For create and update, Work IQ maps supplied values to the approp…",
+      "products": [
+        "Power Apps"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571888",
+      "moreInfoLink": null,
+      "created": "2026-10-12T23:01:05",
+      "lastChanged": "2026-10-12T23:01:05",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Apps",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM569930",
+      "source": "roadmap",
+      "externalId": "RM569930",
+      "title": "Microsoft Copilot Studio: Conversational configuration of connectors in Copilot Studio",
+      "summary": "Configure the connectors your agent needs, with a simple in-chat sign-in instead of a full settings experience.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "Rolling out",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Desktop",
+        "Mac",
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=569930",
+      "moreInfoLink": null,
+      "created": "2026-08-26T22:50:58",
+      "lastChanged": "2026-10-09T22:04:35",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570669",
+      "source": "roadmap",
+      "externalId": "RM570669",
+      "title": "Microsoft Copilot Studio: Discover and use shared plugins in Copilot Studio",
+      "summary": "Copilot Studio now connects to Microsoft's shared plugin registry, making it easier for makers to discover and use plugins, connectors, and other available capabilities. This integration provides a more consistent way to extend agents with capabilities across Microsoft's AI ecosystem.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570669",
+      "moreInfoLink": null,
+      "created": "2026-10-09T22:04:35",
+      "lastChanged": "2026-10-09T22:04:35",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM573292",
+      "source": "roadmap",
+      "externalId": "RM573292",
+      "title": "Power Automate: Build and visualize desktop flows using Flowchart mode",
+      "summary": "Flowchart mode introduces a new visual authoring experience in Power Automate for desktop that allows makers to create, view, and edit desktop flows using a flowchart representation. Actions are displayed as connected nodes and execution paths are represented visually, making it easier to understand, build, and maintain complex automations that include conditions, loops, and branching logic. Maker…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Desktop"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High",
+        "DoD"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=573292",
+      "moreInfoLink": null,
+      "created": "2026-10-06T22:56:31",
+      "lastChanged": "2026-10-06T22:56:31",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM573278",
+      "source": "roadmap",
+      "externalId": "RM573278",
+      "title": "Power Automate: Schedule desktop flows directly with Scheduled Triggers",
+      "summary": "Scheduled triggers enable makers to run desktop flows on a recurring schedule directly from the Power Automate automation center, eliminating the need to create and manage intermediary scheduled cloud flows. Users can configure daily, weekly, monthly, hourly, or custom recurrence patterns, select the execution machine or machine group, and monitor upcoming scheduled runs from a centralized experie…",
+      "products": [
+        "Power Automate"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)",
+        "GCC",
+        "GCC High",
+        "DoD"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=573278",
+      "moreInfoLink": null,
+      "created": "2026-10-06T22:56:31",
+      "lastChanged": "2026-10-06T22:56:31",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM573244",
+      "source": "roadmap",
+      "externalId": "RM573244",
+      "title": "Dynamics 365 Finance and Operations cross-app: Migrate finance and operations environments from Lifecycle Services to Power Platform admin center",
+      "summary": "The self-service environment migration feature moves management of an existing finance and operations apps environment from Microsoft Dynamics Lifecycle Services to the Microsoft Power Platform admin center.",
+      "products": [
+        "Dynamics 365 Finance",
+        "Dynamics 365 Supply Chain Management",
+        "Dynamics 365 Project Operations",
+        "Dynamics 365 Commerce",
+        "Microsoft Dataverse",
+        "Dynamics 365 Finance and Operations cross-app",
+        "Microsoft Power Platform governance and administration"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-12",
+      "keyDate": "2026-12-01",
+      "dateLabel": "December CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=573244",
+      "moreInfoLink": "https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/lifecycle-services/migrate-lifecycle-services-environments-power-platform-admin-center",
+      "created": "2026-10-01T23:00:07",
+      "lastChanged": "2026-10-01T23:00:07",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Dataverse",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM568762",
+      "source": "roadmap",
+      "externalId": "RM568762",
+      "title": "Microsoft Copilot Studio: Agent Readiness in Microsoft Copilot Studio",
+      "summary": "Agent Readiness gives makers a real-time, always-visible health check for their Copilot Studio agents. A single \"Review\" indicator in the build experience surfaces anything blocking or at risk — from policy restrictions to missing evaluations — before it derails a publish. Blocked capabilities are grayed out up front with a clear reason, so makers never waste time configuring something that was ne…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "Launched",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=568762",
+      "moreInfoLink": null,
+      "created": "2026-08-06T22:54:24",
+      "lastChanged": "2026-10-01T23:00:07",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570432",
+      "source": "roadmap",
+      "externalId": "RM570432",
+      "title": "Microsoft Copilot Studio: Self-learning for Copilot Studio Agents",
+      "summary": "Soon agents can help makers improve agents using lessons from completed runs. It will identify repeated tool sequences that can be handled by workflows to standardize agent behavior, minimize errors, and most importantly control costs. Makers will be presented with recommendations and supporting evidence, expected impact, and the related instruction and tool changes. Makers accept recommendations,…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570432",
+      "moreInfoLink": null,
+      "created": "2026-09-30T23:31:03",
+      "lastChanged": "2026-09-30T23:31:03",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570430",
+      "source": "roadmap",
+      "externalId": "RM570430",
+      "title": "Microsoft Copilot Studio: Persistent identity for Copilot Studio Agents",
+      "summary": "Makers can now give their Copilot Studio agents their own accounts, making it a governed Microsoft 365 identity for shared, collaborative business processes that spans across teams. With its own mailbox, Teams presence & Office access, the agent can collaborate where work happens while admins can control and govern its access, policies and use as its own first-class entity.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570430",
+      "moreInfoLink": null,
+      "created": "2026-09-30T23:31:03",
+      "lastChanged": "2026-09-30T23:31:03",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM571880",
+      "source": "roadmap",
+      "externalId": "RM571880",
+      "title": "Microsoft Copilot Studio: Discover & Add Skills from the skill catalog",
+      "summary": "With the Skills catalog in Copilot Studio, makers can discover, reuse and selectively share approved organizational skills instead of recreating the same instructions and workflows for every agent. The shared catalog powered by Microsoft 365 App Store enables shared skills to extend across experiences such as Copilot Studio M365 copilot, and Cowork, helping organizations standardize proven ways of…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571880",
+      "moreInfoLink": null,
+      "created": "2026-09-29T23:05:21",
+      "lastChanged": "2026-09-29T23:05:21",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570967",
+      "source": "roadmap",
+      "externalId": "RM570967",
+      "title": "Microsoft Power Platform governance and administration: Maker Guidelines",
+      "summary": "The Maker guidelines feature gives organizations a direct way to share guidance with Copilot Studio makers in the flow of work. Administrators can explain which tools, models, connectors, and channels are approved for an environment and point makers to the right policy, request process, or support contact. The message appears in the Review pane alongside the agent's blockers and warnings and remai…",
+      "products": [
+        "Microsoft Power Platform governance and administration"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-09",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570967",
+      "moreInfoLink": null,
+      "created": "2026-09-25T22:37:50",
+      "lastChanged": "2026-09-25T22:37:50",
+      "fingerprint": []
+    },
+    {
+      "id": "RM571194",
+      "source": "roadmap",
+      "externalId": "RM571194",
+      "title": "Microsoft Copilot Studio: Cost visibility in Preview Chat and History",
+      "summary": "Now makers will have clear visibility into their consumption costs directly within preview tab and agent history for their preview/testing usage as well as all every historical run. Makers can see the costs as they test, iterate, and review conversations, making usage costs transparent throughout the development experience.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571194",
+      "moreInfoLink": null,
+      "created": "2026-09-15T23:00:36",
+      "lastChanged": "2026-09-15T23:00:36",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM571195",
+      "source": "roadmap",
+      "externalId": "RM571195",
+      "title": "Microsoft Copilot Studio: Cost visibility in Agent Evaluations",
+      "summary": "Now makers will have clear visibility into their consumption costs directly associated with their evaluations, including a breakdown of usage for eval generation, test runs and model grading/judgement. Makers can see the costs as they test, iterate, and review conversations, making usage transparent throughout the development lifecycle.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571195",
+      "moreInfoLink": null,
+      "created": "2026-09-15T23:00:36",
+      "lastChanged": "2026-09-15T23:00:36",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM571196",
+      "source": "roadmap",
+      "externalId": "RM571196",
+      "title": "Microsoft Copilot Studio: Cost visibility in Monitor tab",
+      "summary": "Now makers will have clear visibility into their consumption costs directly within Monitor tab at both a per-agent level and an estimated breakdown of those costs across the agents lifecylce. This will allow makers to see costs distributed across activities such as authoring, testing, evaluations, and production usage, helping connect overall consumption to specific actions and experiences.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=571196",
+      "moreInfoLink": null,
+      "created": "2026-09-15T23:00:36",
+      "lastChanged": "2026-09-15T23:00:36",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM569474",
+      "source": "roadmap",
+      "externalId": "RM569474",
+      "title": "Microsoft Copilot Studio: Introducing an App- and Intent-First Agent Creation Experience",
+      "summary": "Copilot Studio is evolving to an app-first agent creation experience. Makers start with the application their agent will work with and configure the capabilities it needs. This update brings tools and knowledge into a more unified experience, simplifying how agents are created and configured.",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-10",
+      "keyDate": "2026-10-01",
+      "dateLabel": "October CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=569474",
+      "moreInfoLink": null,
+      "created": "2026-09-02T22:56:59",
+      "lastChanged": "2026-09-02T22:56:59",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570433",
+      "source": "roadmap",
+      "externalId": "RM570433",
+      "title": "Microsoft Copilot Studio: Deliver rich interactive app experiences in Copilot Studio agents",
+      "summary": "Copilot Studio agents can now render rich, interactive UI inline using MCP Apps, an extension of the Model Context Protocol. When an agent calls a UI-enabled tool from a compatible MCP server, interactive experiences like sortable tables and drilldowns render directly in the conversation. Users can now explore and act on data without leaving the chat or switching tools. A plain-text fallback keeps…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-10",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570433",
+      "moreInfoLink": null,
+      "created": "2026-09-02T22:56:59",
+      "lastChanged": "2026-09-02T22:56:59",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570435",
+      "source": "roadmap",
+      "externalId": "RM570435",
+      "title": "Microsoft Copilot Studio: Streamlining experiences from Copilot Studio Agents in Microsoft 365 Copilot",
+      "summary": "This update is meant to bridge the experience of using Copilot Studio agents in M365 Copilot with the Copilot Chat experience. With these updates, agent responses in Copilot Chat will look (similar formatting, compressed chain of thought), feel (smoother streaming, resume/retry and voice dictation) and behave (deliver clickable citations and tool execution traces) very similarly to Copilot Chat re…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570435",
+      "moreInfoLink": null,
+      "created": "2026-09-01T22:59:38",
+      "lastChanged": "2026-09-01T22:59:38",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM570434",
+      "source": "roadmap",
+      "externalId": "RM570434",
+      "title": "Microsoft Copilot Studio: Enabling makers to require human approval for tool calls",
+      "summary": "Copilot Studio now let’s makers require human approval before an agent runs specific tools. With a per-tool, per-agent toggle, any gated tool call pauses and shows an approval request describing what the agent intends to do, so a person can approve, approve for the session, or deny before the action runs. This gives organizations a deterministic guardrail for high-stakes or sensitive operations li…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=570434",
+      "moreInfoLink": null,
+      "created": "2026-09-01T22:59:38",
+      "lastChanged": "2026-09-01T22:59:38",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM569607",
+      "source": "roadmap",
+      "externalId": "RM569607",
+      "title": "Microsoft Copilot Studio: Improvements to agent evaluations experience",
+      "summary": "Microsoft Copilot Studio is enhancing the Evaluations experience to help makers better understand agent quality and behavior. New capabilities include richer evaluation explanations, agent reasoning traces, cited knowledge sources, evaluation run comparison, support for larger datasets, customizable test generation, and dataset generation from knowledge sources. These improvements help makers iden…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": null,
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=569607",
+      "moreInfoLink": null,
+      "created": "2026-08-19T22:58:06",
+      "lastChanged": "2026-08-19T22:58:06",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM568929",
+      "source": "roadmap",
+      "externalId": "RM568929",
+      "title": "Microsoft Copilot Studio: Dataverse integration on Copilot Studio",
+      "summary": "We are enabling Microsoft Dataverse as a native knowledge source in Copilot Studio, expanding the platform’s ability to ground AI agents in structured enterprise data. This enhancement allows organizations to leverage business-critical information stored in Dataverse—including records, customer data, operational data, and business application content—as a trusted knowledge source for agent experie…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview",
+        "Targeted Release"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-08",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=568929",
+      "moreInfoLink": null,
+      "created": "2026-08-10T22:43:02",
+      "lastChanged": "2026-08-10T22:43:02",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM568930",
+      "source": "roadmap",
+      "externalId": "RM568930",
+      "title": "Microsoft Copilot Studio: SQL server Support in Microsoft Copilot Studio",
+      "summary": "The Azure SQL Knowledge Source capability extends the range of enterprise data sources that makers can leverage when building agents in Copilot Studio. This enables organizations to bring business-critical information stored in Azure SQL into their agent experiences using the same knowledge-centric approach that customers already use across other supported knowledge sources. Azure SQL knowledge su…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "Current Channel",
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-08",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=568930",
+      "moreInfoLink": null,
+      "created": "2026-08-07T21:45:15",
+      "lastChanged": "2026-08-07T21:45:15",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM567894",
+      "source": "roadmap",
+      "externalId": "RM567894",
+      "title": "Microsoft Copilot Studio: Share Autonomous Agents to End Users (Run-Only)",
+      "summary": "Previously, autonomous agents could only be used and managed by makers, limiting their reach to the people who needed them. Run-only sharing enables makers to securely share autonomous agents with end users, allowing users to benefit from agent-driven automation without requiring edit permissions or ownership. This extends autonomous agent capabilities to a broader audience while maintaining gover…",
+      "products": [
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-08",
+      "gaMonth": "2027-01",
+      "keyDate": "2027-01-01",
+      "dateLabel": "January CY2027",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=567894",
+      "moreInfoLink": null,
+      "created": "2026-07-20T22:37:15",
+      "lastChanged": "2026-07-20T22:37:15",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM566999",
+      "source": "roadmap",
+      "externalId": "RM566999",
+      "title": "Microsoft Copilot Studio: Enable express mode for flows invoked by an agent or app",
+      "summary": "Express mode ensures agents and apps receive timely and reliable responses by dramatically accelerating flow run times. This reduces flow failures, improves user experience, and eliminates costly interruptions caused by timeout issues. Organizations benefit from more dependable automations, higher adoption, and smoother operational workflows.",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2025-11",
+      "gaMonth": "2026-11",
+      "keyDate": "2026-11-01",
+      "dateLabel": "November CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=566999",
+      "moreInfoLink": null,
+      "created": "2026-07-10T21:58:35",
+      "lastChanged": "2026-07-10T21:58:35",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM566859",
+      "source": "roadmap",
+      "externalId": "RM566859",
+      "title": "Microsoft Copilot Studio: Use SharePoint lists as a knowledge source",
+      "summary": "Unlock the full value of your structured data by bringing SharePoint lists directly into your Microsoft Copilot Studio agents. With native support, customers can ground AI responses in up-to-date, business-critical data—such as tasks, inventory, customers, or operations—without manual data movement or complex integrations. This enables more accurate, context-aware copilots that reflect how your bu…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-07",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=566859",
+      "moreInfoLink": null,
+      "created": "2026-07-07T23:01:01",
+      "lastChanged": "2026-07-07T23:01:01",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM566997",
+      "source": "roadmap",
+      "externalId": "RM566997",
+      "title": "Microsoft Copilot Studio: Block the use of maker-provided credentials for authentication",
+      "summary": "By blocking the use of maker's credentials by AI agents, admins can increase the security and compliance of agents in their organizations: - Prevent unauthorized access to sensitive systems or data that the maker's credentials might have access to. - Help organizations comply with data protection regulations (such as GDPR or HIPAA) by ensuring only authorized identities are used for data access. -…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2025-09",
+      "gaMonth": "2026-08",
+      "keyDate": "2026-08-01",
+      "dateLabel": "August CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=566997",
+      "moreInfoLink": null,
+      "created": "2026-07-02T23:12:48",
+      "lastChanged": "2026-07-02T23:12:48",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM566873",
+      "source": "roadmap",
+      "externalId": "RM566873",
+      "title": "Microsoft Copilot Studio: Enforce safe sharing by detecting credential oversharing",
+      "summary": "This feature helps organizations reduce security risk by preventing agents and flows from being shared when they rely on unsafe identities, such as maker credentials. By detecting identity oversharing early and enforcing safe‑sharing policies at publish and share time, customers can avoid identity leakage, privilege escalation, and unintended access - while still allowing makers to build and itera…",
+      "products": [
+        "Microsoft Copilot (Microsoft 365)",
+        "Microsoft Copilot Studio"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-07",
+      "gaMonth": "2026-09",
+      "keyDate": "2026-09-01",
+      "dateLabel": "September CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=566873",
+      "moreInfoLink": null,
+      "created": "2026-07-01T23:03:18",
+      "lastChanged": "2026-07-01T23:03:18",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Copilot Studio",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        },
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "M365 Copilot",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    },
+    {
+      "id": "RM561025",
+      "source": "roadmap",
+      "externalId": "RM561025",
+      "title": "SharePoint: Power Automate trigger and action for forms in SharePoint",
+      "summary": "We are introducing new Power Automate integration capabilities for forms in SharePoint, enabling customers to create automated workflows based on responses collected using list forms, file upload forms, and document generation forms. With this update, a new trigger and action are now available in Power Automate: Trigger: When a form is submitted This operation triggers a flow when a list form, doc…",
+      "products": [
+        "Microsoft 365",
+        "Power Automate",
+        "SharePoint"
+      ],
+      "status": "In development",
+      "releasePhases": [
+        "General Availability",
+        "Preview"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "cloudInstances": [
+        "Worldwide (Standard Multi-Tenant)"
+      ],
+      "horizon": "future",
+      "previewMonth": "2026-05",
+      "gaMonth": "2026-06",
+      "keyDate": "2026-06-01",
+      "dateLabel": "June CY2026",
+      "actionRequired": false,
+      "url": "https://www.microsoft.com/microsoft-365/roadmap?id=561025",
+      "moreInfoLink": null,
+      "created": "2026-04-29T23:15:48",
+      "lastChanged": "2026-04-29T23:15:48",
+      "fingerprint": [
+        {
+          "group": "A",
+          "facet": "product",
+          "value": "Power Automate",
+          "confidence": 1.0,
+          "extractedBy": "rule"
+        }
+      ]
+    }
+  ]
+}

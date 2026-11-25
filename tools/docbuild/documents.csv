@@ -1,0 +1,32 @@
+source,file,stage
+overview,Change-Radar-Solution-Brief,1 Understand and decide
+business-case,Change-Radar-Business-Case-Kit,1 Understand and decide
+costs-and-licensing,Change-Radar-Licensing-and-Cost-Summary,1 Understand and decide
+architecture,Change-Radar-Architecture,1 Understand and decide
+governance/approval-checklist,Change-Radar-Governance-Approval-Checklist,2 Govern
+governance/permissions-and-data,Change-Radar-Security-and-Data-Handling,2 Govern
+governance/data-protection,Change-Radar-Data-Protection-Screening,2 Govern
+governance/ai-use,Change-Radar-AI-Use-Statement,2 Govern
+governance/risk-register,Change-Radar-Risk-Register,2 Govern
+governance/open-source-and-support,Change-Radar-Open-Source-and-Support,2 Govern
+governance/accessibility,Change-Radar-Accessibility-Statement,2 Govern
+prerequisites,Change-Radar-Prerequisites,3 Install
+requirements,Change-Radar-Requirements,3 Install
+install,Change-Radar-Installation-Guide,3 Install
+configure,Change-Radar-Configuration-Reference,3 Install
+alm,Change-Radar-ALM-and-Deployment,3 Install
+acceptance,Change-Radar-Acceptance-Pack,3 Install
+reference/technical-reference,Change-Radar-Technical-Reference,3 Install
+guide/user-guide,Change-Radar-User-Guide,4 Use and learn
+guide/cards,Change-Radar-Quick-Reference-Cards,4 Use and learn
+learn/learning-path,Change-Radar-Learning-Path,4 Use and learn
+operating-model,Change-Radar-Operating-Model,4 Use and learn
+operate/runbook,Change-Radar-Operations-Runbook,5 Run
+operate/tuning,Change-Radar-Admin-Tuning-Guide,5 Run
+troubleshooting,Change-Radar-Troubleshooting,5 Run
+operate/service-description,Change-Radar-Service-Description-Template,5 Run
+extend,Change-Radar-Extending,6 Extend
+add-a-signal-source,Change-Radar-Adding-a-Signal-Source,6 Extend
+developer-guide,Change-Radar-Developer-Guide,6 Extend
+releases,Change-Radar-Release-Notes,6 Extend
+roadmap,Change-Radar-Roadmap,6 Extend

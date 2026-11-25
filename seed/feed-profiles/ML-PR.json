@@ -1,0 +1,9 @@
+{ "surface": "prompts in Copilot Studio, Power Automate and Power Apps", "retiredWithinDays": 90,
+  "tables": [
+    { "requires": ["Retiring models", "Replacement model"], "status": "Retiring", "dateFrom": "heading", "headingPrefix": "Upcoming model updates (", "split": ", ",
+      "columns": { "model": "Retiring models", "replacement": "Replacement model", "tier": "Tier" } },
+    { "requires": ["Model", "Retirement date", "Replacement"], "status": "Retired",
+      "columns": { "model": "Model", "date": "Retirement date", "replacement": "Replacement" } } ],
+  "fingerprintScope": {"resource_type": ["prompt"]},
+  "callerScope": {"capability": ["ai_prompt"]},
+  "migrationNote": "Microsoft moves prompts on this model to their tier's replacement automatically. Nothing stops working, but answers may change." }

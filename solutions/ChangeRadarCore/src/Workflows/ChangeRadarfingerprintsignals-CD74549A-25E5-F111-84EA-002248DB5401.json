@@ -1,0 +1,822 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "5"
+              ],
+              "minutes": [
+                "30"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_ids": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'fingerprint_signal_ids')"
+          }
+        },
+        "Config_threshold": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'fingerprint_confidence_threshold')"
+          }
+        },
+        "Config_fpmax": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'fingerprint_max_per_run')"
+          }
+        },
+        "Config_catchup_max": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'catchup_max_per_run')"
+          }
+        },
+        "Config_catchup_until": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'catchup_until')"
+          }
+        },
+        "Cap_fp": {
+          "type": "Compose",
+          "runAfter": {
+            "Config_fpmax": [
+              "Succeeded"
+            ],
+            "Config_catchup_max": [
+              "Succeeded"
+            ],
+            "Config_catchup_until": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@if(and(greater(int(coalesce(first(body('Config_catchup_max'))?['crdr_value'], '100')), 0), greater(int(coalesce(first(body('Config_fpmax'))?['crdr_value'], '25')), 0), equals(length(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], ''))), 10), startsWith(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '20'), equals(substring(concat(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '          '), 4, 1), '-'), equals(substring(concat(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '          '), 7, 1), '-'), less(formatDateTime(utcNow(), 'yyyy-MM-dd'), trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], ''))), less(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), formatDateTime(addDays(utcNow(), 120), 'yyyy-MM-dd'))), max(int(coalesce(first(body('Config_fpmax'))?['crdr_value'], '25')), int(coalesce(first(body('Config_catchup_max'))?['crdr_value'], '100'))), int(coalesce(first(body('Config_fpmax'))?['crdr_value'], '25')))"
+        },
+        "Init_Done": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Config_ids": [
+              "Succeeded"
+            ],
+            "Config_threshold": [
+              "Succeeded"
+            ],
+            "Cap_fp": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Done",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Skipped": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Done": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Skipped",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Accepted": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Skipped": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Accepted",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Review": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Accepted": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Review",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Rejected": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Review": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Rejected",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Tokens": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Rejected": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Tokens",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Collect": {
+          "type": "Scope",
+          "runAfter": {
+            "Init_Tokens": [
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Find_prompt": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "msdyn_aimodelid eq 345a48c6-8678-414c-a285-d95d00796d15",
+                  "$select": "msdyn_aimodelid,msdyn_name",
+                  "$top": 1,
+                  "entityName": "msdyn_aimodels"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Id_list": {
+              "type": "Query",
+              "runAfter": {
+                "Find_prompt": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@split(coalesce(first(body('Config_ids'))?['crdr_value'], ''), ';')",
+                "where": "@not(empty(trim(item())))"
+              }
+            },
+            "Vocab": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Id_list": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_active eq true",
+                  "$select": "crdr_name,crdr_value",
+                  "entityName": "crdr_facetvalues"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "Vocab_names": {
+              "type": "Select",
+              "runAfter": {
+                "Vocab": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Vocab')?['value']",
+                "select": "@item()?['crdr_name']"
+              }
+            },
+            "Unrated_feeds": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Vocab_names": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_unrated eq true",
+                  "$select": "crdr_feedid",
+                  "entityName": "crdr_feeds"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Unrated_ids": {
+              "type": "Select",
+              "runAfter": {
+                "Unrated_feeds": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Unrated_feeds')?['value']",
+                "select": "@item()?['crdr_feedid']"
+              }
+            },
+            "Signals": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Unrated_ids": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "statecode eq 0 and crdr_source ne 169890001",
+                  "$select": "crdr_signalid,crdr_externalid,crdr_title,crdr_products,crdr_summary,crdr_lastchanged,crdr_fingerprintedon,_crdr_feed_value",
+                  "entityName": "crdr_signals"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "To_do": {
+              "type": "Query",
+              "runAfter": {
+                "Signals": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Signals')?['value']",
+                "where": "@and(not(contains(body('Unrated_ids'), coalesce(item()?['_crdr_feed_value'], ''))), or(empty(body('Id_list')), contains(body('Id_list'), item()?['crdr_externalid'])), or(empty(item()?['crdr_fingerprintedon']), greater(ticks(coalesce(item()?['crdr_lastchanged'], '1900-01-01T00:00:00Z')), ticks(item()?['crdr_fingerprintedon']))))"
+              }
+            },
+            "Capped": {
+              "type": "Compose",
+              "runAfter": {
+                "To_do": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@if(greater(outputs('Cap_fp'), 0), take(body('To_do'), outputs('Cap_fp')), body('To_do'))"
+            },
+            "Each_signal": {
+              "type": "Foreach",
+              "foreach": "@outputs('Capped')",
+              "runAfter": {
+                "Capped": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 1
+                }
+              },
+              "actions": {
+                "Existing": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('_crdr_signal_value eq ', items('Each_signal')?['crdr_signalid'])",
+                      "$select": "crdr_signalfingerprintid,crdr_extractedby",
+                      "entityName": "crdr_signalfingerprints"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Manual_rows": {
+                  "type": "Query",
+                  "runAfter": {
+                    "Existing": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "from": "@body('Existing')?['value']",
+                    "where": "@or(equals(item()?['crdr_extractedby'], 169890002), equals(item()?['crdr_extractedby'], 169890000))"
+                  }
+                },
+                "Has_manual": {
+                  "type": "If",
+                  "runAfter": {
+                    "Manual_rows": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@empty(body('Manual_rows'))",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Run_prompt": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "aibuilderpredict_customprompt",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "recordId": "345a48c6-8678-414c-a285-d95d00796d15",
+                          "item": {
+                            "version": "2.0",
+                            "requestv2": {
+                              "@@odata.type": "#Microsoft.Dynamics.CRM.expando",
+                              "Title": "@items('Each_signal')?['crdr_title']",
+                              "Products": "@coalesce(items('Each_signal')?['crdr_products'], '')",
+                              "Body": "@coalesce(items('Each_signal')?['crdr_summary'], '')"
+                            },
+                            "source": "@concat('{\"consumptionSource\":\"PowerAutomate\",\"partnerSource\":\"AIBuilder\",\"consumptionSourceVersion\":\"Flow\",\"partnerSourceVersion\":\"', workflow()?['name'], '\"}')"
+                          }
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Facets": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Run_prompt": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@coalesce(outputs('Run_prompt')?['body/responsev2/predictionOutput']?['structuredOutput']?['facets'], json(coalesce(outputs('Run_prompt')?['body/responsev2/predictionOutput']?['text'], '{\"facets\":[]}'))?['facets'], json('[]'))",
+                        "where": "@not(empty(trim(string(coalesce(item()?['value'], '')))))"
+                      }
+                    },
+                    "Add_tokens": {
+                      "type": "IncrementVariable",
+                      "runAfter": {
+                        "Facets": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Tokens",
+                        "value": "@add(int(coalesce(outputs('Run_prompt')?['body/responsev2/predictionOutput']?['promptTokens'], 0)), int(coalesce(outputs('Run_prompt')?['body/responsev2/predictionOutput']?['completionTokens'], 0)))"
+                      }
+                    },
+                    "Old_llm_rows": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Add_tokens": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Existing')?['value']",
+                        "where": "@equals(item()?['crdr_extractedby'], 169890001)"
+                      }
+                    },
+                    "Delete_old": {
+                      "type": "Foreach",
+                      "foreach": "@body('Old_llm_rows')",
+                      "runAfter": {
+                        "Old_llm_rows": [
+                          "Succeeded"
+                        ]
+                      },
+                      "actions": {
+                        "Delete_row": {
+                          "type": "OpenApiConnection",
+                          "runAfter": {},
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "DeleteRecord",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "crdr_signalfingerprints",
+                              "recordId": "@items('Delete_old')?['crdr_signalfingerprintid']"
+                            },
+                            "authentication": "@parameters('$authentication')"
+                          }
+                        }
+                      }
+                    },
+                    "Each_facet": {
+                      "type": "Foreach",
+                      "foreach": "@body('Facets')",
+                      "runAfter": {
+                        "Delete_old": [
+                          "Succeeded"
+                        ]
+                      },
+                      "runtimeConfiguration": {
+                        "concurrency": {
+                          "repetitions": 1
+                        }
+                      },
+                      "actions": {
+                        "Raw_name": {
+                          "type": "Compose",
+                          "runAfter": {},
+                          "inputs": "@concat(items('Each_facet')?['facet'], ': ', items('Each_facet')?['value'])"
+                        },
+                        "Same_value": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Raw_name": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Vocab')?['value']",
+                            "where": "@equals(item()?['crdr_value'], items('Each_facet')?['value'])"
+                          }
+                        },
+                        "Final_name": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Same_value": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@if(contains(body('Vocab_names'), outputs('Raw_name')), outputs('Raw_name'), if(equals(length(body('Same_value')), 1), first(body('Same_value'))?['crdr_name'], outputs('Raw_name')))"
+                        },
+                        "Status": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Final_name": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@if(not(contains(body('Vocab_names'), outputs('Final_name'))), 'rejected', if(less(float(coalesce(items('Each_facet')?['confidence'], 0)), float(coalesce(first(body('Config_threshold'))?['crdr_value'], '0.7'))), 'review', 'accepted'))"
+                        },
+                        "Facet_option": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Status": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@json('{\"product\":169890000,\"resource_type\":169890001,\"connector\":169890002,\"capability\":169890003,\"auth_mode\":169890004,\"harness\":169890005,\"setting\":169890006,\"environment_type\":169890007,\"model\":169890008}')?[first(split(outputs('Final_name'), ': '))]"
+                        },
+                        "Known_facet": {
+                          "type": "If",
+                          "runAfter": {
+                            "Facet_option": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "not": {
+                              "equals": [
+                                "@string(coalesce(outputs('Facet_option'), ''))",
+                                ""
+                              ]
+                            }
+                          },
+                          "actions": {
+                            "Create_fingerprint": {
+                              "type": "OpenApiConnection",
+                              "runAfter": {},
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "crdr_signalfingerprints",
+                                  "item/crdr_confidence": "@float(coalesce(items('Each_facet')?['confidence'], 0))",
+                                  "item/crdr_extractedby": 169890001,
+                                  "item/crdr_facet": "@outputs('Facet_option')",
+                                  "item/crdr_group": "@if(greater(length(coalesce(coalesce(items('Each_facet')?['group'], 'A'), '')), 10), substring(coalesce(items('Each_facet')?['group'], 'A'), 0, 10), coalesce(coalesce(items('Each_facet')?['group'], 'A'), ''))",
+                                  "item/crdr_name": "@if(greater(length(coalesce(outputs('Final_name'), '')), 200), substring(outputs('Final_name'), 0, 200), coalesce(outputs('Final_name'), ''))",
+                                  "item/crdr_reason": "@if(greater(length(coalesce(concat(if(equals(outputs('Final_name'), outputs('Raw_name')), '', concat('[relabelled from ', outputs('Raw_name'), '] ')), coalesce(items('Each_facet')?['reason'], '')), '')), 1000), substring(concat(if(equals(outputs('Final_name'), outputs('Raw_name')), '', concat('[relabelled from ', outputs('Raw_name'), '] ')), coalesce(items('Each_facet')?['reason'], '')), 0, 1000), coalesce(concat(if(equals(outputs('Final_name'), outputs('Raw_name')), '', concat('[relabelled from ', outputs('Raw_name'), '] ')), coalesce(items('Each_facet')?['reason'], '')), ''))",
+                                  "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', items('Each_signal')?['crdr_signalid'], ')')",
+                                  "item/crdr_status": "@json('{\"accepted\":169890000,\"review\":169890001,\"rejected\":169890002}')?[outputs('Status')]",
+                                  "item/crdr_value": "@if(greater(length(coalesce(last(split(outputs('Final_name'), ': ')), '')), 200), substring(last(split(outputs('Final_name'), ': ')), 0, 200), coalesce(last(split(outputs('Final_name'), ': ')), ''))"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          }
+                        },
+                        "Count_Accepted": {
+                          "type": "IncrementVariable",
+                          "runAfter": {
+                            "Known_facet": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "Accepted",
+                            "value": "@if(equals(outputs('Status'), 'accepted'), 1, 0)"
+                          }
+                        },
+                        "Count_Review": {
+                          "type": "IncrementVariable",
+                          "runAfter": {
+                            "Count_Accepted": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "Review",
+                            "value": "@if(equals(outputs('Status'), 'review'), 1, 0)"
+                          }
+                        },
+                        "Count_Rejected": {
+                          "type": "IncrementVariable",
+                          "runAfter": {
+                            "Count_Review": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "Rejected",
+                            "value": "@if(equals(outputs('Status'), 'rejected'), 1, 0)"
+                          }
+                        }
+                      }
+                    },
+                    "Mark_fingerprinted": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {
+                        "Each_facet": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signals",
+                          "item/crdr_fingerprintedon": "@utcNow()",
+                          "recordId": "@items('Each_signal')?['crdr_signalid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Count_done": {
+                      "type": "IncrementVariable",
+                      "runAfter": {
+                        "Mark_fingerprinted": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Done",
+                        "value": 1
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Count_skipped": {
+                        "inputs": {
+                          "name": "Skipped",
+                          "value": 1
+                        },
+                        "runAfter": {},
+                        "type": "IncrementVariable"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Record_run": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Collect": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_collectionruns",
+              "item/crdr_accesstier": 169890000,
+              "item/crdr_collector": "fingerprint",
+              "item/crdr_gaps": "@if(equals(actions('Collect')?['status'], 'Succeeded'), concat('Prompt ''', 'Change Radar signal fingerprint', '''. Limited to: ', if(empty(body('Id_list')), 'all signals', join(body('Id_list'), ', ')), '. Cap this run: ', string(outputs('Cap_fp')), ' (0 = none).'), concat('Collect scope: ', actions('Collect')?['status'], '. Check the prompt exists (fingerprint_prompt_name) and AI Builder or Copilot credit capacity.'))",
+              "item/crdr_itemcount": "@if(equals(actions('Collect')?['status'], 'Succeeded'), variables('Done'), 0)",
+              "item/crdr_name": "@if(greater(length(coalesce(concat('fingerprint ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), 'signals ', string(variables('Done')), ', skipped (manual) ', string(variables('Skipped')), ', facets accepted ', string(variables('Accepted')), ' review ', string(variables('Review')), ' rejected ', string(variables('Rejected')), ', tokens ', string(variables('Tokens'))), '')), 200), substring(concat('fingerprint ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), 'signals ', string(variables('Done')), ', skipped (manual) ', string(variables('Skipped')), ', facets accepted ', string(variables('Accepted')), ' review ', string(variables('Review')), ' rejected ', string(variables('Rejected')), ', tokens ', string(variables('Tokens'))), 0, 200), coalesce(concat('fingerprint ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), 'signals ', string(variables('Done')), ', skipped (manual) ', string(variables('Skipped')), ', facets accepted ', string(variables('Accepted')), ' review ', string(variables('Review')), ' rejected ', string(variables('Rejected')), ', tokens ', string(variables('Tokens'))), ''))",
+              "item/crdr_startedon": "@trigger()?['startTime']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Fail_if_collect_failed": {
+          "type": "If",
+          "runAfter": {
+            "Record_run": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@actions('Collect')?['status']",
+                "Succeeded"
+              ]
+            }
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "CollectFailed",
+                  "message": "Fingerprinting failed: see the Collect scope and the crdr_collectionrun row."
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: fingerprint new and changed signals with the AI hub prompt, vocabulary-checked, low confidence to review (ADR 0009)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

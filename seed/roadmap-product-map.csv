@@ -1,0 +1,9 @@
+roadmap_product,vocabulary_product,in_scope,notes
+Power Apps,Power Apps,true,
+Power Automate,Power Automate,true,
+Power Pages,Power Pages,true,
+Microsoft Dataverse,Dataverse,true,
+Microsoft Copilot Studio,Copilot Studio,true,
+Microsoft Power Platform governance and administration,,true,No single product facet; fingerprint by LLM or manually
+Microsoft Copilot (Microsoft 365),M365 Copilot,false,In scope only when the item also carries an in-scope product (566 items otherwise)
+Work IQ,M365 Copilot,true,"Added 2026-11-20 (ADR 0009): Work IQ is the Microsoft 365 Copilot intelligence layer; brings in RM570671 (granular MCP policies)"

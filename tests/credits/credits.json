@@ -1,0 +1,55 @@
+{
+  "description": "Credit forecast (docs/requirements.md 3.1; engine/ChangeRadar.Credits.psm1 Get-CreditForecast). Written before the engine function. Cases 01 to 03 are the worked examples in requirements.md, so the doc and setup/Get-CreditEstimate.ps1 agree. Each prompt stage is capped separately at cap x 30 calls a month (0 = no cap). Monthly: fingerprint 30 x daily, rating 30 x daily x windowShare, assessment 30 x exposed x reassessShare. Backlog: fingerprint signals, rating toRate, assessment toAssess (before an install, toAssess = exposed; after, the exposed signals not yet assessed). Peak = backlog + a month, each stage capped. Nights to clear the fingerprint backlog = ceiling(signals / (fingerprint cap - daily)); null when the cap leaves no room for it or there is no cap and no backlog. Catch-up (finding 14): for the first catchupNights nights each cap is raised to catchupCap (never lowered; 0 stays no cap), so a stage's first-month limit is catchupCap x catchupNights + cap x (30 - catchupNights), and nights to clear count catch-up nights at (catchupCap - daily) first. firstMonthCeilingCalls is the sum of those limits. Without catch-up inputs, there is none. Each stage's calls and every credit figure are rounded to the nearest whole number, halves away from zero.",
+  "cases": [
+    {
+      "id": "credits-01", "note": "requirements.md worked example: Small",
+      "input": { "signals": 450, "toRate": 120, "exposed": 10, "toAssess": 10, "daily": 10, "windowShare": 0.25, "reassessShare": 0.1, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "backlogCalls": 580, "monthlyCalls": 405, "peakCalls": 985, "ceilingCalls": 2250, "monthlyAib": 2228, "monthlyCopilot": 186, "peakAib": 5418, "peakCopilot": 453, "ceilingAib": 12375, "ceilingCopilot": 1035, "nightsToClear": 30, "cappedStages": [] }
+    },
+    {
+      "id": "credits-02", "note": "requirements.md worked example: Medium",
+      "input": { "signals": 450, "toRate": 120, "exposed": 50, "toAssess": 50, "daily": 10, "windowShare": 0.25, "reassessShare": 0.2, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "backlogCalls": 620, "monthlyCalls": 675, "peakCalls": 1295, "ceilingCalls": 2250, "monthlyAib": 3713, "monthlyCopilot": 311, "peakAib": 7123, "peakCopilot": 596, "nightsToClear": 30, "cappedStages": [] }
+    },
+    {
+      "id": "credits-03", "note": "requirements.md worked example: Large (all feeds, rating_scope all, so toRate = signals and windowShare = 1); the assessment cap holds a month, and every stage is capped in the peak month",
+      "input": { "signals": 540, "toRate": 540, "exposed": 150, "toAssess": 150, "daily": 15, "windowShare": 1, "reassessShare": 0.3, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "backlogCalls": 1230, "monthlyCalls": 1650, "peakCalls": 2250, "monthlyAib": 9075, "monthlyCopilot": 759, "peakAib": 12375, "peakCopilot": 1035, "nightsToClear": 54, "cappedStages": ["assessment"], "peakCappedStages": ["fingerprint", "rating", "assessment"] }
+    },
+    {
+      "id": "credits-04", "note": "no caps: nothing is held down and there is no ceiling; the backlog clears in the first night",
+      "input": { "signals": 450, "toRate": 120, "exposed": 10, "toAssess": 10, "daily": 10, "windowShare": 0.25, "reassessShare": 0.1, "fingerprintCap": 0, "ratingCap": 0, "assessmentCap": 0, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "backlogCalls": 580, "monthlyCalls": 405, "peakCalls": 985, "ceilingCalls": null, "nightsToClear": 1, "cappedStages": [] }
+    },
+    {
+      "id": "credits-05", "note": "new changes fill the fingerprint cap, so the backlog never clears",
+      "input": { "signals": 450, "toRate": 120, "exposed": 10, "toAssess": 10, "daily": 25, "windowShare": 0.25, "reassessShare": 0.1, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "nightsToClear": null }
+    },
+    {
+      "id": "credits-06", "note": "an installed environment with its backlog already cleared",
+      "input": { "signals": 0, "toRate": 0, "exposed": 9, "toAssess": 0, "daily": 8, "windowShare": 0.25, "reassessShare": 0.15, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "backlogCalls": 0, "monthlyCalls": 341, "peakCalls": 341, "nightsToClear": 0 }
+    },
+    {
+      "id": "credits-07", "note": "Small with catch-up (finding 14): 100 a night for the first 14 nights. Same total calls; the backlog clears in 5 nights instead of 30; the first month's ceiling rises to 100 x 3 x 14 + 25 x 3 x 16",
+      "input": { "signals": 450, "toRate": 120, "toAssess": 10, "exposed": 10, "daily": 10, "windowShare": 0.25, "reassessShare": 0.1, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "catchupCap": 100, "catchupNights": 14, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "backlogCalls": 580, "monthlyCalls": 405, "peakCalls": 985, "ceilingCalls": 2250, "firstMonthCeilingCalls": 5400, "nightsToClear": 5, "peakCappedStages": [] }
+    },
+    {
+      "id": "credits-08", "note": "Large with catch-up: nothing is held down in the peak month, so it costs the full 3,480 calls, and the backlog clears in 7 nights instead of 54",
+      "input": { "signals": 540, "toRate": 540, "toAssess": 150, "exposed": 150, "daily": 15, "windowShare": 1, "reassessShare": 0.3, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "catchupCap": 100, "catchupNights": 14, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "peakCalls": 3480, "peakAib": 19140, "peakCopilot": 1601, "monthlyCalls": 1650, "nightsToClear": 7, "peakCappedStages": [] }
+    },
+    {
+      "id": "credits-09", "note": "catch-up ends before the backlog: 2 nights clear 180, the other 270 take 18 more at the normal cap",
+      "input": { "signals": 450, "toRate": 120, "toAssess": 10, "exposed": 10, "daily": 10, "windowShare": 0.25, "reassessShare": 0.1, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "catchupCap": 100, "catchupNights": 2, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "nightsToClear": 20 }
+    },
+    {
+      "id": "credits-10", "note": "a catch-up cap below the normal cap is ignored (it never lowers a cap)",
+      "input": { "signals": 450, "toRate": 120, "toAssess": 10, "exposed": 10, "daily": 10, "windowShare": 0.25, "reassessShare": 0.1, "fingerprintCap": 25, "ratingCap": 25, "assessmentCap": 25, "catchupCap": 10, "catchupNights": 14, "aibPerCall": 5.5, "copilotPerCall": 0.46 },
+      "expected": { "nightsToClear": 30, "firstMonthCeilingCalls": 2250 }
+    }
+  ]
+}

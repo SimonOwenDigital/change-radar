@@ -1,0 +1,10 @@
+rule_id,name,signal_facet,asset_facet,condition,role,active,description
+R-PRODUCT,Product scope,product,product,any,scope,true,Asset product must be one of the signal's products. Scope only: never creates an exposure on its own
+R-RTYPE,Resource type scope,resource_type,resource_type,any,scope,true,Asset resource type must be one of the signal's resource types. Scope only
+R-ENVTYPE,Environment type scope,environment_type,environment_type,any,scope,true,Asset environment type must be one of the signal's environment types. Scope only
+R-HARNESS,Harness scope,harness,harness,any,scope,true,Agent harness must match. Scope only
+R-CONNECTOR,Connector join,connector,connector,any,trigger,true,Asset uses one of the signal's connectors
+R-CAPABILITY,Capability join,capability,capability,any,trigger,true,Asset has one of the signal's capabilities
+R-AUTHMODE,Auth mode join,auth_mode,auth_mode,any,trigger,true,Asset runs under one of the signal's auth modes
+R-SETTING,Tenant setting check,setting,setting,setting_absent,setting,true,Exposure when the tenant lacks the setting (or it doesn't cover the signal's products). Not an asset match
+R-MODEL,Model join,model,model,any,trigger,true,"Asset uses the model the signal names (canonical id from the model vocabulary, ADR 0013)"

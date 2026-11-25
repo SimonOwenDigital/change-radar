@@ -1,0 +1,148 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "When_a_Handler_template_run_is_queued": {
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "crdr_handlerrun",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filterexpression": "startswith(crdr_name,'Handler template |')"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "type": "OpenApiConnectionWebhook"
+        }
+      },
+      "actions": {
+        "Handle": {
+          "type": "Scope",
+          "runAfter": {},
+          "actions": {
+            "Event": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$select": "crdr_eventtype,crdr_name,crdr_payloadjson,_crdr_signal_value,_crdr_exposure_value,_crdr_assessment_value",
+                  "entityName": "crdr_events",
+                  "recordId": "@triggerOutputs()?['body/_crdr_event_value']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Your_work_here": {
+              "type": "Compose",
+              "runAfter": {
+                "Event": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@concat('Received ', body('Event')?['crdr_name'])"
+            }
+          }
+        },
+        "Mark_succeeded": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Handle": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_handlerruns",
+              "item/crdr_detail": "@if(greater(length(coalesce(string(outputs('Your_work_here')), '')), 4000), substring(string(outputs('Your_work_here')), 0, 4000), coalesce(string(outputs('Your_work_here')), ''))",
+              "item/crdr_outcome": 169890000,
+              "item/crdr_ranon": "@utcNow()",
+              "recordId": "@triggerOutputs()?['body/crdr_handlerrunid']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Mark_failed": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Handle": [
+              "Failed",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_handlerruns",
+              "item/crdr_detail": "@if(greater(length(coalesce(concat('Failed: ', string(coalesce(first(result('Handle'))?['error']?['message'], 'see the flow run'))), '')), 4000), substring(concat('Failed: ', string(coalesce(first(result('Handle'))?['error']?['message'], 'see the flow run'))), 0, 4000), coalesce(concat('Failed: ', string(coalesce(first(result('Handle'))?['error']?['message'], 'see the flow run'))), ''))",
+              "item/crdr_outcome": 169890002,
+              "item/crdr_ranon": "@utcNow()",
+              "recordId": "@triggerOutputs()?['body/crdr_handlerrunid']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "description": "Change Radar handler Handler template: a starting point for your own handler (ADR 0023). Triggers on its own queued handler runs, reads the event, does its work in the Handle scope and marks the run Succeeded or Failed. Ships off, with no subscriptions; copy it rather than editing it. Writes nothing outside Change Radar."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

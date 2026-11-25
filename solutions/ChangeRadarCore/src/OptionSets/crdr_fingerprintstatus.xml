@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<optionset Name="crdr_fingerprintstatus" localizedName="Fingerprint status" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OptionSetType>picklist</OptionSetType>
+  <IsGlobal>1</IsGlobal>
+  <IntroducedVersion>0.1.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <displaynames>
+    <displayname description="Fingerprint status" languagecode="1033" />
+  </displaynames>
+  <options>
+    <option value="169890000" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Accepted" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="169890001" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Review" languagecode="1033" />
+      </labels>
+    </option>
+    <option value="169890002" ExternalValue="" IsHidden="0">
+      <labels>
+        <label description="Rejected" languagecode="1033" />
+      </labels>
+    </option>
+  </options>
+</optionset>

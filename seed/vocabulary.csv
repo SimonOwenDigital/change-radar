@@ -1,0 +1,86 @@
+facet,value,description,aliases
+product,Power Apps,"Power Apps canvas, model-driven and code apps",
+product,Power Automate,Power Automate cloud and desktop flows,
+product,Copilot Studio,Microsoft Copilot Studio agents (custom agents built by makers),
+product,Dataverse,Microsoft Dataverse,
+product,Power Pages,Power Pages sites,
+product,M365 Copilot,"Microsoft 365 Copilot, Copilot Chat, Agent Builder agents, Work IQ",
+product,Power BI,Power BI,
+product,AI Builder,"AI Builder: prompts and AI models used in Power Automate, Power Apps and Copilot Studio (ADR 0017)",
+resource_type,canvas app,Power Apps canvas app,
+resource_type,model-driven app,Power Apps model-driven app,
+resource_type,code app,Power Apps code app,
+resource_type,cloud flow,Power Automate cloud flow,
+resource_type,agent flow,Copilot Studio agent flow,
+resource_type,desktop flow,Power Automate desktop flow (RPA),
+resource_type,agent,Copilot Studio or Agent Builder agent,
+capability,uses_mcp,"Agent invokes MCP tools. Use for changes to how makers' agents connect to MCP servers, including admin policies that allow or block MCP servers",
+capability,generative_orchestration,Agent uses generative orchestration,
+capability,autonomous_trigger,Agent has an external trigger,
+capability,http_action,Agent or flow calls an HTTP endpoint directly,
+capability,ai_prompt,Uses an AI Builder or Copilot prompt action,
+capability,custom_knowledge,"Agent grounded on its own knowledge sources (SharePoint, websites, files)",
+capability,file_input,Agent accepts file uploads from users,
+capability,pcf_control,"Custom code component (PCF), also called a custom control, in an app. Apps whose code components load SharePoint content use pcf_control together with connector shared_sharepointonline (one group)",
+capability,scheduled_prompt,Copilot scheduled prompt implemented as a flow,
+capability,sharepoint_tempauth,Custom connector or code that loads SharePoint files through temporary authentication URLs,
+capability,custom_web_ui,Agent published to a custom web channel,
+auth_mode,maker,Connector actions run with the maker's credentials,
+auth_mode,invoker,Connector actions run with the end user's credentials,
+auth_mode,service_principal,Resource already owned by or running as a service principal. Use only when such resources are affected,
+auth_mode,user_owned_production,Production resource owned by a named user. Use when a change introduces or requires service-principal or non-user ownership: resources still owned by a user are the ones that must act,
+harness,standard,Agent runs on the standard Copilot Studio harness,
+harness,microsoft_copilot,Agent runs inside Microsoft 365 Copilot or Copilot Chat,
+environment_type,production,Production environment,
+environment_type,sandbox,Sandbox environment,
+environment_type,developer,Developer environment,
+environment_type,default,The tenant's default environment,
+resource_type,custom connector,Custom connector defined in an environment,
+connector,shared_sharepointonline,SharePoint,
+connector,shared_office365,Office 365 Outlook,
+connector,shared_commondataserviceforapps,Microsoft Dataverse,
+connector,shared_teams,Microsoft Teams,
+connector,shared_office365users,Office 365 Users,
+connector,shared_wordonlinebusiness,Word Online (Business),
+connector,shared_microsoft365copilot,Assumed id for the Copilot connector used by scheduled prompts (T5 placeholder),
+connector,custom,Any custom connector,
+setting,anthropic_subprocessor,Anthropic enabled as a Microsoft subprocessor,
+setting,copilot_in_power_bi,Copilot in Power BI tenant setting,
+setting,copilot_spending_policy,"Copilot Credits spending policy covering a service. Use only for Copilot Credits, usage-based billing or spending; not for other kinds of policy",
+resource_type,workflow agent flow,Microsoft 365 Copilot Workflows agent flow,
+resource_type,power pages site,Power Pages website,
+environment_type,trial,Trial environment,
+model,gpt-4.1,GPT-4.1,GPT-4.1
+model,gpt-4.1-mini,GPT-4.1 mini,GPT-4.1 mini|gpt-41-mini
+model,gpt-4o,GPT-4o,GPT-4o
+model,gpt-4o-mini,GPT-4o mini,GPT-4o mini
+model,o1,o1,o1
+model,o3,o3,o3
+model,gpt-5-chat,GPT-5 Chat,GPT-5 Chat
+model,gpt-5-auto,GPT-5 Auto,GPT-5 Auto
+model,gpt-5-reasoning,GPT-5 Reasoning,GPT-5 Reasoning
+model,gpt-5.2-reasoning,GPT-5.2 reasoning,GPT-5.2 reasoning
+model,gpt-5.3-chat,GPT-5.3 Chat,GPT-5.3 Chat
+model,gpt-5.4-reasoning,GPT-5.4 Reasoning,GPT-5.4 Reasoning
+model,gpt-5.5-chat,GPT-5.5 Chat,GPT-5.5 Chat
+model,gpt-5.6-sol,GPT-5.6 Sol,GPT-5.6 Sol
+model,gpt-5.6-luna,GPT-5.6 Luna,GPT-5.6 Luna
+model,gpt-6-luna,GPT-6 Luna,GPT-6 Luna
+model,gpt-6-sol,GPT-6 Sol,GPT-6 Sol
+model,gpt-6.1-sol,GPT-6.1 Sol,GPT-6.1 Sol
+model,gpt-6-reasoning,GPT-6 Reasoning,GPT-6 Reasoning
+model,gpt-chat-latest,GPT Chat Latest,GPT Chat Latest
+model,chatgpt-latest,ChatGPT-latest,ChatGPT-latest
+model,claude-sonnet-4.6,Claude Sonnet 4.6,Claude Sonnet 4.6
+model,claude-sonnet-5,Claude Sonnet 5,Claude Sonnet 5
+model,claude-sonnet-5.5,Claude Sonnet 5.5,Claude Sonnet 5.5
+model,claude-opus-4.6,Claude Opus 4.6,Claude Opus 4.6
+model,claude-opus-4.8,Claude Opus 4.8,Claude Opus 4.8
+model,claude-opus-5,Claude Opus 5,Claude Opus 5
+model,claude-opus-5.5,Claude Opus 5.5,Claude Opus 5.5
+model,grok-4.1-fast-reasoning,Grok 4.1 Fast reasoning,Grok 4.1 Fast reasoning
+model,mistral-medium-3.5,Mistral Medium 3.5,Mistral Medium 3.5
+model,mistral-large-4,Mistral Large 4,Mistral Large 4
+model,default,Default model (follows the environment or tier default),Default
+model,m365-copilot,Microsoft 365 Copilot (Agent Builder agents follow Copilot Chat),Microsoft 365 Copilot
+resource_type,prompt,"Prompt (AI Builder / prompt builder) used in Copilot Studio, Power Automate or Power Apps",

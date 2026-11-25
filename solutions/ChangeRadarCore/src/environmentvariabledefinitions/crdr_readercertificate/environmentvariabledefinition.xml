@@ -1,0 +1,13 @@
+<environmentvariabledefinition schemaname="crdr_readercertificate">
+  <description default="Key Vault secret holding the reader certificate (PFX). Value: /subscriptions/&lt;id&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.KeyVault/vaults/&lt;vault&gt;/secrets/&lt;name&gt;">
+    <label description="Key Vault secret holding the reader certificate (PFX). Value: /subscriptions/&lt;id&gt;/resourceGroups/&lt;rg&gt;/providers/Microsoft.KeyVault/vaults/&lt;vault&gt;/secrets/&lt;name&gt;" languagecode="1033" />
+  </description>
+  <displayname default="Reader certificate">
+    <label description="Reader certificate" languagecode="1033" />
+  </displayname>
+  <introducedversion>0.1.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000005</type>
+</environmentvariabledefinition>

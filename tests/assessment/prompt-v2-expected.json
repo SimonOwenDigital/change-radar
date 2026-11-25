@@ -1,0 +1,13 @@
+{
+  "description": "Expected signal-only ratings from assessment prompt v2 (ADR 0012): Exposure = 'Not assessed against an estate.'. Ranges are derived from Simon's prototype mock-up (impact, risk/opportunity type, theme membership), widened by one step where the call is a judgement. Checked mechanically: generic impact, nature, impactType and theme within the sets; theme is from seed/themes.csv; risk, opportunity, audience, rationale and action present; confidence is high, medium or low.",
+  "signalOnlyExposure": "Not assessed against an estate.",
+  "cases": [
+    { "signalId": "MC1557754", "genericImpact": ["medium", "high"], "nature": ["licensing", "behaviour_change"], "impactType": ["risk_and_opportunity", "risk"], "theme": ["Copilot Credits and consumption"], "mockup": "High impact; Risk + opportunity; Admins; Finance; End users" },
+    { "signalId": "MC1558033", "genericImpact": ["medium", "high"], "nature": ["new_capability", "behaviour_change"], "impactType": ["risk_and_opportunity", "opportunity"], "theme": ["Capability moving into Copilot", "Maker experience"], "mockup": "High impact; Risk + opportunity; listed under 'Capability moving into Copilot'" },
+    { "signalId": "MC1557509", "genericImpact": ["low", "medium"], "nature": ["new_capability", "behaviour_change"], "impactType": ["opportunity", "risk_and_opportunity"], "theme": ["Governance and controls"], "mockup": "Medium impact; Opportunity; CoE; Pro devs; Security" },
+    { "signalId": "MC1558020", "genericImpact": ["low", "medium"], "nature": ["new_capability"], "impactType": ["opportunity", "risk_and_opportunity"], "theme": ["Copilot Credits and consumption"], "mockup": "Medium impact; Opportunity; CoE; Finance; Admins" },
+    { "signalId": "MC1548034", "genericImpact": ["low", "medium"], "nature": ["new_capability", "behaviour_change"], "impactType": ["risk_and_opportunity", "risk"], "theme": ["Governance and controls", "Agents and Work IQ platform"], "mockup": "Medium impact; Risk + opportunity; Admins; Pro devs; End users" },
+    { "signalId": "MC1550533", "genericImpact": ["medium", "high"], "nature": ["deprecation", "breaking", "behaviour_change"], "impactType": ["risk", "risk_and_opportunity"], "theme": ["Capability moving into Copilot"], "mockup": "Medium impact; listed under 'Capability moving into Copilot'" },
+    { "signalId": "MC1551122", "genericImpact": ["medium", "high"], "nature": ["breaking", "deprecation"], "impactType": ["risk", "risk_and_opportunity"], "theme": ["Maker experience", "Governance and controls", "Other"], "mockup": "High impact, row 'End of support for SharePoint temporary authentication'" }
+  ]
+}

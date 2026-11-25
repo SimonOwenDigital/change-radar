@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{7eda2cea-f5d8-46a2-937d-3108d7b76f9f}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_exposure" verticallayout="true" id="{49d2ebe9-59de-47fe-8902-25128fef1521}" IsUserDefined="1">
+          <labels>
+            <label description="Exposure" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="40%">
+              <sections>
+                <section name="sec_exposure" showlabel="true" showbar="false" id="{6fbba0e0-0e7d-463d-a786-fc3ed9ad402c}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Exposure" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{066f26e6-4c77-4332-9fe1-3df82ff9ced7}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_status" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_status" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ba8e3504-8217-4f9f-9de3-e4f1e1b4ab2d}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_signal" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="crdr_signal" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{697a91c6-de0b-496e-81ed-7cb57eb05fd3}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_asset" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="crdr_asset" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b59b5e77-4eb3-479f-86f4-9bb2b11808e1}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_tenantsetting" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="crdr_tenantsetting" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9b01ad30-9182-43a9-804f-4fd6afc5c0bf}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_source" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_source" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{dd1ccd0d-9020-4088-b20c-bc35ff79bd77}">
+                        <labels>
+                          <label description="Fingerprint group" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_group" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_group" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{31d57f12-2b3b-443d-b282-b7b069848b51}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_matchedfacets" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_matchedfacets" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f7f012d1-6f38-41ac-a58e-b6a78e86dedb}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_rules" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_rules" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{89233a81-245a-4258-bf53-8fbc0495da6b}">
+                        <labels>
+                          <label description="Modified by" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedby" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4d0e8695-dbac-41ad-9761-96e56c1fb3ef}">
+                        <labels>
+                          <label description="Modified on" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="60%">
+              <sections>
+                <section name="sec_evidence" showlabel="true" showbar="false" id="{081eca70-fa97-435b-ba56-88278cd3b06d}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Evidence" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{fcefc9c9-688d-4a15-b162-86c4cdb746be}" rowspan="8">
+                        <labels>
+                          <label description="Evidence" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_evidencetext" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_evidencetext" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26112.144" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26112.00144">
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <Dashboards />
+  <WebResources />
+  <CustomControls />
+  <AppModuleSiteMaps />
+  <AppModules />
+  <EntityDataProviders />
+  <AIModels>
+    <AIModel>
+      <msdyn_aimodelid>{4f1d7e5a-2343-46a5-b262-3f7b7db3cc66}</msdyn_aimodelid>
+      <msdyn_name>Change Radar signal assessment</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{fdb7c102-24f5-42b5-8d5b-219f91c84254}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{fdb7c102-24f5-42b5-8d5b-219f91c84254}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"You assess Microsoft change announcements for Change Radar, which tells Power Platform and Copilot admins what is changing and what it means for them. Rate the announcement and explain it in plain British English.\r\n\r\n## What to return\r\n\r\n- genericImpact: how much this announcement matters to a typical enterprise using Power Platform and Copilot, judged from the announcement alone. Ignore the estate summary for this rating. One of: none, low, medium, high, critical.\r\n  - critical: widespread breakage or a hard deadline that most organisations must act on\r\n  - high: things break or must be migrated, for organisations that use the feature; OR a major shift in who can build, or where apps, flows and agents run or are governed, that organisations should plan for now (for example app building opening to every Copilot user outside Power Platform governance)\r\n  - medium: a behaviour change or deprecation with a comfortable migration path; OR a notable new capability that changes governance, cost or adoption plans\r\n  - low: a new option or a minor change; nothing breaks and plans don't need to change\r\n  - none: informational only\r\n- nature: the type of change. One of:\r\n  - `breaking`: something stops working on a date unless makers or admins act\r\n  - `deprecation`: a feature, API or route is retired or replaced, with a migration path\r\n  - `behaviour_change`: existing assets keep working but behave differently\r\n  - `new_capability`: a new feature or option; nothing existing changes unless someone adopts it\r\n  - `licensing`: pricing, licensing, billing or capacity changes\r\n  - `incident`: a service incident or advisory\r\n  - `informational`: awareness only; no change to assets or settings\r\n- impactType: whether the announcement is mainly a risk to manage, an opportunity to use, or both. One of: `risk`, `opportunity`, `risk_and_opportunity`.\r\n- risk: one sentence on the risk for a typical enterprise (what could go wrong, for whom). Write \"Low risk\" and a short reason if there is little risk.\r\n- opportunity: one sentence on the opportunity: what an organisation, its Centre of Excellence or an adviser can do with this (guidance, governance, adoption, content). Write \"Minor\" and a short reason if there is little.\r\n- audience: who needs to know, as a short list separated by semicolons, for example \"Admins; Finance; End users\" or \"CoE; Pro devs; Security\".\r\n- theme: exactly one of these themes:\r\n  - `Copilot Credits and consumption`: Licence limits turning into metered spend: spending policies, credit reporting, per-run costs and FinOps for agents\r\n  - `Capability moving into Copilot`: Scheduled prompts, app building and reporting each gaining a Copilot-native route; the question shifts from how to build it to where it should live and who governs it\r\n  - `Governance and controls`: Controls catching up with agents: service principals, connector inventory, MCP policies, in-chat connections, model-provider defaults, DLP and admin settings\r\n  - `Agents and Work IQ platform`: The agent substrate changing underneath builders: dynamic skills, live meeting data, MCP, new models and mode switching\r\n  - `Maker experience`: Incremental improvements to Power Apps, Power Automate, Power Pages and Dataverse for makers: useful, rarely strategic\r\n  - `Copilot for end users`: Features people use in Copilot Chat, the Microsoft 365 Copilot app, Office apps and Teams: what changes for users and what adoption, training and enablement it needs\r\n  - `AI models and lifecycle`: Models arriving, becoming defaults, changing version or retiring in Copilot, Copilot Studio and prompts: which agents and prompts are affected and what to re-test\r\n  - `Service incidents`: Service health incidents and advisories: outages, degradations and their resolution\r\n  - `Other`: Anything that fits none of the themes above\r\n- confidence: how sure you are of this assessment given the announcement text. One of: high, medium, low.\r\n- rationale: two or three sentences.\r\n  - If the estate summary describes an estate: why this matters to THAT estate, using only its facts (counts, resource types, environment types, the facets that matched, settings not in place, the action date). Do not invent assets, names, numbers or dates. If any environment is unknown, say that the production impact can't be confirmed.\r\n  - If the estate summary is \"Not assessed against an estate.\": why this matters to a typical enterprise.\r\n- recommendedAction: one to three short imperative sentences an admin can act on, for example who to contact, what to inventory, what to migrate, and by when. Base dates only on the announcement or the estate summary.\r\n\r\nThe estate summary never contains names. Refer to assets by type and count, for example \"two cloud flows in production\".\r\n\r\n## Announcement\r\n\r\nTitle: "},{"type":"inputVariable","id":"Title"},{"type":"literal","text":" \r\n\r\nProducts: "},{"type":"inputVariable","id":"Products"},{"type":"literal","text":" \r\n\r\nText:\r\n"},{"type":"inputVariable","id":"Body"},{"type":"literal","text":" \r\n\r\n## Estate summary\r\n\r\n"},{"type":"inputVariable","id":"Exposure"},{"type":"literal","text":" \r\n"}],"definitions":{"inputs":[{"id":"Title","text":"Title","type":"text"},{"id":"Products","text":"Products","type":"text"},{"id":"Body","text":"Body","type":"text"},{"id":"Exposure","text":"Exposure","type":"text"}],"formulas":[],"data":[],"output":{"formats":["json"],"jsonSchema":{"type":"object","properties":{"genericImpact":{"type":"string"},"nature":{"type":"string"},"impactType":{"type":"string"},"risk":{"type":"string"},"opportunity":{"type":"string"},"audience":{"type":"string"},"theme":{"type":"string"},"confidence":{"type":"string"},"rationale":{"type":"string"},"recommendedAction":{"type":"string"}}},"jsonExamples":[{"genericImpact":"medium","nature":"deprecation","impactType":"risk_and_opportunity","risk":"Flows created by scheduled prompts stop running if users do not recreate their schedules.","opportunity":"A clear moment to brief users on where scheduled prompts now live and retire the old flows.","audience":"Admins; CoE; End users","theme":"Capability moving into Copilot","confidence":"high","rationale":"Two cloud flows in production use Copilot scheduled prompts, which move off Power Platform on 31 December. Both stop running unless they are recreated in Copilot.","recommendedAction":"Ask the owners of the two flows to recreate their scheduled prompts in Copilot before 31 December, then turn the old flows off."}],"isCustomUserFormat":true}},"modelParameters":{"modelType":"gpt-6-sol","gptParameters":{"temperature":1}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":"","signature":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>5</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>4f1d7e5a-2343-46a5-b262-3f7b7db3cc66_11/22/2026 5:41:19 PM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWSMW/CMBCF/0p1c5ZKVYds0ILEUipA3Y19ULeJbdlnCYT4741jCim+Ic14733Pz86dYO1Qzq1vBX2gD9oaqB8rWBgXaWUtzQxpOkJ9glcdXCOOb6JFqAEqmBB5vY2EIckbTQ2WvjyuYOmoyxYN1DvRBKxgc3RJX3cZZg/nCt69VVFSKDOuypiYqVVM3X46Bp8dnA3RMze5KmNihFI6e16sITxQmTcpLMNg8vGWOxUBn59+089d/jLSf38Q32KTDy4usNNGh88VipA24p6a9+rDRWbw0PWX1L2Wyk37Dcmm5fYLZTpzdPM9GvRaLlonOrDw/5WZMkakJiV4mTOE7rPy+J4aaAzpdfgumX7KuK1z1lM07DsMRW7FotJoJNPwqjAUfWLy3CN5zPilNTut+HMGGvcSIu8yA94kjkNp2xaNQjWRycfwhaXIyd8Pn2uzM98EAAA=</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{4f1d7e5a-2343-46a5-b262-3f7b7db3cc66}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{8267358e-abe5-f111-84ea-002248db5401}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{8267358e-abe5-f111-84ea-002248db5401}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>f4461340-ac41-4c12-8719-6bea2fe90d14</msdyn_modeldata>
+          <msdyn_name>4f1d7e5a-2343-46a5-b262-3f7b7db3cc66_Training_11/21/2026 1:00:46 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{4f1d7e5a-2343-46a5-b262-3f7b7db3cc66}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+    <AIModel>
+      <msdyn_aimodelid>{345a48c6-8678-414c-a285-d95d00796d15}</msdyn_aimodelid>
+      <msdyn_name>Change Radar signal fingerprint</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{58f6b8e2-3957-4e4c-9ffc-c316ec9a4fca}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{58f6b8e2-3957-4e4c-9ffc-c316ec9a4fca}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"You fingerprint Microsoft change announcements for Change Radar. Change Radar matches each announcement against an organisation's Power Platform and Copilot estate, so it can tell admins which of their apps, flows and agents a change affects.\r\n\r\nDescribe the announcement below using ONLY the facets and values listed under Vocabulary. Never invent a facet or a value. If nothing in the vocabulary fits, return an empty list. Each value belongs to the facet whose heading lists it: use that facet name exactly (for example custom_web_ui is a capability, not a setting).\r\n\r\n## How facets are used\r\n\r\n- Trigger facets (model, connector, capability, auth_mode, setting) create exposures: every asset that has the value is reported as affected. Only use a trigger facet when the announcement changes behaviour for assets that have it. A wrong trigger facet sends false alarms to every matching asset.\r\n- Scope facets (product, resource_type, environment_type, harness) only narrow a match. Use them when the announcement says which products, resource types, environments or harnesses are affected.\r\n- Groups: put facets that must ALL hold for an asset to be affected in the same group (\"A\"). Use another group (\"B\", \"C\") for a different, independent way of being affected. A group with only scope facets affects nothing on its own, which is correct for general announcements. When an announcement affects several kinds of asset (for example apps that use code components with SharePoint, and custom connectors that load SharePoint files), use one group per kind.\r\n- model: use when the announcement retires a named model, replaces it, moves agents or prompts off it, or changes how it behaves. Use the model the change happens TO (the retiring one), not its replacement, and add resource_type (agent or prompt) and harness when the announcement says which. A model that only becomes available affects no existing asset: no model facet. Use default only when the default model itself changes, and m365-copilot only when the model behind Copilot Chat changes (Agent Builder agents follow it).\r\n- setting: use only when the announcement depends on a tenant setting or policy an admin configures (for example a Copilot Credits spending policy). The asset match is then on the tenant, not on apps.\r\n\r\n## Be careful\r\n\r\n- Announcements about agents or features Microsoft builds and ships (for example Teams Channel Agent, Interpreter, Facilitator, Researcher, Outlook features) do NOT affect makers' assets, even when they say those agents use MCP, connectors or knowledge. Do not use capability or connector facets for them. A Copilot Credits spending policy can still apply.\r\n- Announcements about what admins see in admin centres, licensing pages or reports change no app, flow or agent: no trigger facets unless a tenant setting is involved.\r\n- Mentioning a technology is not enough. Use a capability only when assets that use it must change, will break, or behave differently.\r\n- Think about which assets must act. A change that offers a new way of doing something affects the assets still doing it the old way (see the auth_mode descriptions).\r\n\r\n## Confidence\r\n\r\nFor each facet give a confidence from 0 to 1: 0.9 or more when the announcement states it directly, about 0.7 when it is clearly implied, 0.5 or less when you are guessing. Low confidence goes to a human review queue, so prefer an honest low value to a confident guess.\r\n\r\n## Vocabulary\r\n\r\n### product\r\n- `Power Apps`: Power Apps canvas, model-driven and code apps\r\n- `Power Automate`: Power Automate cloud and desktop flows\r\n- `Copilot Studio`: Microsoft Copilot Studio agents (custom agents built by makers)\r\n- `Dataverse`: Microsoft Dataverse\r\n- `Power Pages`: Power Pages sites\r\n- `M365 Copilot`: Microsoft 365 Copilot, Copilot Chat, Agent Builder agents, Work IQ\r\n- `Power BI`: Power BI\r\n\r\n### resource_type\r\n- `canvas app`: Power Apps canvas app\r\n- `model-driven app`: Power Apps model-driven app\r\n- `code app`: Power Apps code app\r\n- `cloud flow`: Power Automate cloud flow\r\n- `agent flow`: Copilot Studio agent flow\r\n- `desktop flow`: Power Automate desktop flow (RPA)\r\n- `agent`: Copilot Studio or Agent Builder agent\r\n- `custom connector`: Custom connector defined in an environment\r\n- `workflow agent flow`: Microsoft 365 Copilot Workflows agent flow\r\n- `power pages site`: Power Pages website\r\n- `prompt`: Prompt (AI Builder / prompt builder) used in Copilot Studio, Power Automate or Power Apps\r\n\r\n### environment_type\r\n- `production`: Production environment\r\n- `sandbox`: Sandbox environment\r\n- `developer`: Developer environment\r\n- `default`: The tenant's default environment\r\n- `trial`: Trial environment\r\n\r\n### harness\r\n- `standard`: Agent runs on the standard Copilot Studio harness\r\n- `microsoft_copilot`: Agent runs inside Microsoft 365 Copilot or Copilot Chat\r\n\r\n### model\r\n- `gpt-4.1`: GPT-4.1\r\n- `gpt-4.1-mini`: GPT-4.1 mini (also written `gpt-41-mini`)\r\n- `gpt-4o`: GPT-4o\r\n- `gpt-4o-mini`: GPT-4o mini\r\n- `o1`: o1\r\n- `o3`: o3\r\n- `gpt-5-chat`: GPT-5 Chat\r\n- `gpt-5-auto`: GPT-5 Auto\r\n- `gpt-5-reasoning`: GPT-5 Reasoning\r\n- `gpt-5.2-reasoning`: GPT-5.2 reasoning\r\n- `gpt-5.3-chat`: GPT-5.3 Chat\r\n- `gpt-5.4-reasoning`: GPT-5.4 Reasoning\r\n- `gpt-5.5-chat`: GPT-5.5 Chat\r\n- `gpt-5.6-sol`: GPT-5.6 Sol\r\n- `gpt-5.6-luna`: GPT-5.6 Luna\r\n- `gpt-6-luna`: GPT-6 Luna\r\n- `gpt-6-sol`: GPT-6 Sol\r\n- `gpt-6.1-sol`: GPT-6.1 Sol\r\n- `gpt-6-reasoning`: GPT-6 Reasoning\r\n- `gpt-chat-latest`: GPT Chat Latest\r\n- `chatgpt-latest`: ChatGPT-latest\r\n- `claude-sonnet-4.6`: Claude Sonnet 4.6\r\n- `claude-sonnet-5`: Claude Sonnet 5\r\n- `claude-sonnet-5.5`: Claude Sonnet 5.5\r\n- `claude-opus-4.6`: Claude Opus 4.6\r\n- `claude-opus-4.8`: Claude Opus 4.8\r\n- `claude-opus-5`: Claude Opus 5\r\n- `claude-opus-5.5`: Claude Opus 5.5\r\n- `grok-4.1-fast-reasoning`: Grok 4.1 Fast reasoning\r\n- `mistral-medium-3.5`: Mistral Medium 3.5\r\n- `mistral-large-4`: Mistral Large 4\r\n- `default`: Default model (follows the environment or tier default) (also written `Default`)\r\n- `m365-copilot`: Microsoft 365 Copilot (Agent Builder agents follow Copilot Chat) (also written `Microsoft 365 Copilot`)\r\n\r\n### connector\r\n- `shared_sharepointonline`: SharePoint\r\n- `shared_office365`: Office 365 Outlook\r\n- `shared_commondataserviceforapps`: Microsoft Dataverse\r\n- `shared_teams`: Microsoft Teams\r\n- `shared_office365users`: Office 365 Users\r\n- `shared_wordonlinebusiness`: Word Online (Business)\r\n- `shared_microsoft365copilot`: Assumed id for the Copilot connector used by scheduled prompts (T5 placeholder)\r\n- `custom`: Any custom connector\r\n\r\n### capability\r\n- `uses_mcp`: Agent invokes MCP tools. Use for changes to how makers' agents connect to MCP servers, including admin policies that allow or block MCP servers\r\n- `generative_orchestration`: Agent uses generative orchestration\r\n- `autonomous_trigger`: Agent has an external trigger\r\n- `http_action`: Agent or flow calls an HTTP endpoint directly\r\n- `ai_prompt`: Uses an AI Builder or Copilot prompt action\r\n- `custom_knowledge`: Agent grounded on its own knowledge sources (SharePoint, websites, files)\r\n- `file_input`: Agent accepts file uploads from users\r\n- `pcf_control`: Custom code component (PCF), also called a custom control, in an app. Apps whose code components load SharePoint content use pcf_control together with connector shared_sharepointonline (one group)\r\n- `scheduled_prompt`: Copilot scheduled prompt implemented as a flow\r\n- `sharepoint_tempauth`: Custom connector or code that loads SharePoint files through temporary authentication URLs\r\n- `custom_web_ui`: Agent published to a custom web channel\r\n\r\n### auth_mode\r\n- `maker`: Connector actions run with the maker's credentials\r\n- `invoker`: Connector actions run with the end user's credentials\r\n- `service_principal`: Resource already owned by or running as a service principal. Use only when such resources are affected\r\n- `user_owned_production`: Production resource owned by a named user. Use when a change introduces or requires service-principal or non-user ownership: resources still owned by a user are the ones that must act\r\n\r\n### setting\r\n- `anthropic_subprocessor`: Anthropic enabled as a Microsoft subprocessor\r\n- `copilot_in_power_bi`: Copilot in Power BI tenant setting\r\n- `copilot_spending_policy`: Copilot Credits spending policy covering a service. Use only for Copilot Credits, usage-based billing or spending; not for other kinds of policy\r\n\r\n## Announcement\r\n\r\nTitle: "},{"type":"inputVariable","id":"Title"},{"type":"literal","text":" \r\n\r\nProducts: "},{"type":"inputVariable","id":"Products"},{"type":"literal","text":" \r\n\r\nText:\r\n"},{"type":"inputVariable","id":"Body"},{"type":"literal","text":" \r\n\r\n## Output\r\n\r\nReturn JSON only, with no markdown. Use exactly this shape: an object with a \"facets\" list. Each item has group, facet, value, confidence and a short reason quoting or paraphrasing the announcement.\r\n"}],"definitions":{"inputs":[{"id":"Title","text":"Title","type":"text"},{"id":"Products","text":"Products","type":"text"},{"id":"Body","text":"Body","type":"text"}],"formulas":[],"data":[],"output":{"formats":["json"],"jsonSchema":{"type":"object","properties":{"facets":{"type":"array","items":{"type":"object","properties":{"group":{"type":"string"},"facet":{"type":"string"},"value":{"type":"string"},"confidence":{"type":"number"},"reason":{"type":"string"}},"required":["group","facet","value","confidence","reason"]}}}},"jsonExamples":[{"facets":[{"group":"A","facet":"capability","value":"uses_mcp","confidence":0.9,"reason":"Admins can now restrict which MCP servers agents may call."},{"group":"A","facet":"product","value":"Copilot Studio","confidence":0.8,"reason":"Applies to Copilot Studio agents."}]}],"isCustomUserFormat":true}},"modelParameters":{"modelType":"gpt-6-sol","gptParameters":{"temperature":1}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":"","signature":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>8</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>345a48c6-8678-414c-a285-d95d00796d15_11/22/2026 5:43:25 PM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpVSz0/DIBT+V8w792JiPPTWqUu8WLM13hm8TgwDAg9js+x/t5RaF8Fk4/j9eh88jrC1yNfGHRi9ofPSaKhvK3jWNtDGGHrSJGmA+giP0lvFhhd2QKgBKmiInNwFQh/pTpLCXJfgClpLYzZTUPdMeaygG2zkt2OG3sOpgldnRODk84yFuSRmZUSh7oReYmdCyKR5MJrwi/KsJpOcB5MLv7kr5vH+7if9NOa3ga592XKLLg3OLtBLLf37BpmPq/zrWk/szUwX7H7szyk4FKnptNokancfyOPMi5v3jGNa6BzROMeGaxL2zgSb6xJcun2cmOsTXNB/MhUKvzbBBT03upcCNS+YzrjFOT60ij73zz5mPJu0nG8mEcVQoQMAAA==</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{345a48c6-8678-414c-a285-d95d00796d15}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{f2f234f3-20e5-f111-84ea-002248db5401}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{f2f234f3-20e5-f111-84ea-002248db5401}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>21a7fdb6-7db3-45f2-8f23-5cc22814d76d</msdyn_modeldata>
+          <msdyn_name>345a48c6-8678-414c-a285-d95d00796d15_Training_11/20/2026 8:28:31 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{345a48c6-8678-414c-a285-d95d00796d15}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+  </AIModels>
+  <connectionreferences>
+    <connectionreference connectionreferencelogicalname="crdr_dataverse">
+      <connectionreferencedisplayname>Change Radar Dataverse</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <description>Dataverse connection used by Change Radar flows to read config and write signals</description>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="crdr_powerplatformadmin">
+      <connectionreferencedisplayname>Change Radar Power Platform admin (delegated)</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_powerplatformadminv2</connectorid>
+      <description>Delegated Power Platform for Admins V2 connection used to read tenant inventory (ADR 0008). Read-only use: Query Power Platform resources.</description>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+  </connectionreferences>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

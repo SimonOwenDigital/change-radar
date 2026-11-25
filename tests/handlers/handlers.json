@@ -1,0 +1,54 @@
+{
+  "description": "Switching handlers (ADR 0023): engine/ChangeRadar.Handlers.psm1 Get-HandlerPlan, used by setup/Set-Handlers.ps1. Written before the engine function. A handler is on when its flow is on and its subscriptions are enabled; the plan switches both together. A handler's name comes from its flow name 'Change Radar handler: <name>'. Names compare without case. Errors stop the whole plan: an unknown name, a handler whose flow isn't installed (Handlers solution not imported), or the same name in -On and -Off. Steps are listed flows first, then subscriptions, each in name order; anything already in the wanted state is 'unchanged' and isn't a step.",
+  "installed": [
+    { "flow": "Change Radar handler: Notify-Teams", "on": false },
+    { "flow": "Change Radar handler: Digest-Weekly", "on": false },
+    { "flow": "Change Radar handler: Notify-Email", "on": false },
+    { "flow": "Change Radar handler: Digest-Email", "on": false },
+    { "flow": "Change Radar handler: Handler template", "on": false }
+  ],
+  "subscriptions": [
+    { "name": "Incident opened to Teams", "handler": "Notify-Teams", "enabled": false },
+    { "name": "High or Critical rating to Teams", "handler": "Notify-Teams", "enabled": false },
+    { "name": "New signals in the digest", "handler": "Digest-Weekly", "enabled": false },
+    { "name": "Incident opened by email", "handler": "Notify-Email", "enabled": false }
+  ],
+  "cases": [
+    { "id": "handlers-01", "note": "turn on Teams cards and the digest from a fresh import",
+      "on": ["Notify-Teams", "Digest-Weekly"], "off": [],
+      "expected": { "error": null, "steps": [
+        "flow Digest-Weekly on", "flow Notify-Teams on",
+        "subscription High or Critical rating to Teams enable", "subscription Incident opened to Teams enable", "subscription New signals in the digest enable" ] } },
+    { "id": "handlers-02", "note": "names compare without case",
+      "on": ["notify-teams"], "off": [],
+      "expected": { "error": null, "steps": [ "flow Notify-Teams on", "subscription High or Critical rating to Teams enable", "subscription Incident opened to Teams enable" ] } },
+    { "id": "handlers-03", "note": "already on: nothing to do",
+      "state": { "flowsOn": ["Notify-Teams"], "subscriptionsEnabled": ["Incident opened to Teams", "High or Critical rating to Teams"] },
+      "on": ["Notify-Teams"], "off": [],
+      "expected": { "error": null, "steps": [] } },
+    { "id": "handlers-04", "note": "half on (flow on, subscriptions off, as an old install had them): completes it",
+      "state": { "flowsOn": ["Notify-Teams"], "subscriptionsEnabled": [] },
+      "on": ["Notify-Teams"], "off": [],
+      "expected": { "error": null, "steps": [ "subscription High or Critical rating to Teams enable", "subscription Incident opened to Teams enable" ] } },
+    { "id": "handlers-05", "note": "turn off: flow and subscriptions together",
+      "state": { "flowsOn": ["Notify-Teams", "Digest-Weekly"], "subscriptionsEnabled": ["Incident opened to Teams", "High or Critical rating to Teams", "New signals in the digest"] },
+      "on": [], "off": ["Notify-Teams"],
+      "expected": { "error": null, "steps": [ "flow Notify-Teams off", "subscription High or Critical rating to Teams disable", "subscription Incident opened to Teams disable" ] } },
+    { "id": "handlers-06", "note": "the template has no subscriptions: only its flow switches",
+      "on": ["Handler template"], "off": [],
+      "expected": { "error": null, "steps": [ "flow Handler template on" ] } },
+    { "id": "handlers-07", "note": "unknown name stops the plan",
+      "on": ["Notify-Slack"], "off": [],
+      "expected": { "error": "unknown handler: Notify-Slack (installed: Digest-Email, Digest-Weekly, Handler template, Notify-Email, Notify-Teams)", "steps": [] } },
+    { "id": "handlers-08", "note": "a subscription names a handler whose flow isn't installed (Handlers solution not imported)",
+      "installed": [],
+      "on": ["Notify-Teams"], "off": [],
+      "expected": { "error": "not installed: Notify-Teams (import ChangeRadarHandlers first)", "steps": [] } },
+    { "id": "handlers-09", "note": "the same name both on and off",
+      "on": ["Notify-Teams"], "off": ["notify-teams"],
+      "expected": { "error": "both on and off: Notify-Teams", "steps": [] } },
+    { "id": "handlers-10", "note": "nothing asked: nothing to do",
+      "on": [], "off": [],
+      "expected": { "error": null, "steps": [] } }
+  ]
+}

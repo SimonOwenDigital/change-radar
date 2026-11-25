@@ -1,0 +1,1899 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "6"
+              ],
+              "minutes": [
+                "30"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_max": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'estate_impact_max')"
+          }
+        },
+        "Config_scope": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'rating_scope')"
+          }
+        },
+        "Config_ratemax": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'rating_max_per_run')"
+          }
+        },
+        "Config_demo": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'demo_data')"
+          }
+        },
+        "Config_assessmax": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'assessment_max_per_run')"
+          }
+        },
+        "Config_catchup_max": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'catchup_max_per_run')"
+          }
+        },
+        "Config_catchup_until": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'catchup_until')"
+          }
+        },
+        "Cap_rate": {
+          "type": "Compose",
+          "runAfter": {
+            "Config_catchup_max": [
+              "Succeeded"
+            ],
+            "Config_catchup_until": [
+              "Succeeded"
+            ],
+            "Config_ratemax": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@if(and(greater(int(coalesce(first(body('Config_catchup_max'))?['crdr_value'], '100')), 0), greater(int(coalesce(first(body('Config_ratemax'))?['crdr_value'], '25')), 0), equals(length(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], ''))), 10), startsWith(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '20'), equals(substring(concat(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '          '), 4, 1), '-'), equals(substring(concat(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '          '), 7, 1), '-'), less(formatDateTime(utcNow(), 'yyyy-MM-dd'), trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], ''))), less(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), formatDateTime(addDays(utcNow(), 120), 'yyyy-MM-dd'))), max(int(coalesce(first(body('Config_ratemax'))?['crdr_value'], '25')), int(coalesce(first(body('Config_catchup_max'))?['crdr_value'], '100'))), int(coalesce(first(body('Config_ratemax'))?['crdr_value'], '25')))"
+        },
+        "Cap_assess": {
+          "type": "Compose",
+          "runAfter": {
+            "Config_assessmax": [
+              "Succeeded"
+            ],
+            "Config_catchup_max": [
+              "Succeeded"
+            ],
+            "Config_catchup_until": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@if(and(greater(int(coalesce(first(body('Config_catchup_max'))?['crdr_value'], '100')), 0), greater(int(coalesce(first(body('Config_assessmax'))?['crdr_value'], '25')), 0), equals(length(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], ''))), 10), startsWith(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '20'), equals(substring(concat(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '          '), 4, 1), '-'), equals(substring(concat(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), '          '), 7, 1), '-'), less(formatDateTime(utcNow(), 'yyyy-MM-dd'), trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], ''))), less(trim(coalesce(first(body('Config_catchup_until'))?['crdr_value'], '')), formatDateTime(addDays(utcNow(), 120), 'yyyy-MM-dd'))), max(int(coalesce(first(body('Config_assessmax'))?['crdr_value'], '25')), int(coalesce(first(body('Config_catchup_max'))?['crdr_value'], '100'))), int(coalesce(first(body('Config_assessmax'))?['crdr_value'], '25')))"
+        },
+        "Init_Rated": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Config_max": [
+              "Succeeded"
+            ],
+            "Config_scope": [
+              "Succeeded"
+            ],
+            "Cap_rate": [
+              "Succeeded"
+            ],
+            "Config_demo": [
+              "Succeeded"
+            ],
+            "Cap_assess": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Rated",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Signals": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Rated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Signals",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Prompted": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Signals": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Prompted",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Rescored": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Prompted": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Rescored",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Cleared": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Rescored": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Cleared",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Invalid": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Cleared": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Invalid",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Tokens": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Invalid": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Tokens",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Themed": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Tokens": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Themed",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_Deferred": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Themed": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "Deferred",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Init_TypeLines": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_Deferred": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "TypeLines",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Init_GroupTexts": {
+          "type": "InitializeVariable",
+          "runAfter": {
+            "Init_TypeLines": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "variables": [
+              {
+                "name": "GroupTexts",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Collect": {
+          "type": "Scope",
+          "runAfter": {
+            "Init_GroupTexts": [
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Find_prompt": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "msdyn_aimodelid eq 4f1d7e5a-2343-46a5-b262-3f7b7db3cc66",
+                  "$select": "msdyn_aimodelid,msdyn_name",
+                  "$top": 1,
+                  "entityName": "msdyn_aimodels"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Open_exposures": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Find_prompt": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$expand": "crdr_asset($select=crdr_resourcetype,crdr_environmenttype)",
+                  "$filter": "crdr_status eq 169890000 or crdr_status eq 169890001",
+                  "$select": "crdr_name,crdr_group,crdr_source,_crdr_signal_value,_crdr_asset_value",
+                  "entityName": "crdr_exposures"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "Assessments": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Open_exposures": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$select": "crdr_assessmentid,_crdr_signal_value,crdr_source,crdr_exposuresummary,crdr_assessedon,crdr_genericimpact,crdr_estateimpact,crdr_overrideimpact",
+                  "entityName": "crdr_assessments"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "Exposure_signal_ids": {
+              "type": "Select",
+              "runAfter": {
+                "Assessments": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Open_exposures')?['value']",
+                "select": "@item()?['_crdr_signal_value']"
+              }
+            },
+            "Assessed_signal_ids": {
+              "type": "Select",
+              "runAfter": {
+                "Exposure_signal_ids": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Assessments')?['value']",
+                "select": "@item()?['_crdr_signal_value']"
+              }
+            },
+            "Signal_ids": {
+              "type": "Compose",
+              "runAfter": {
+                "Assessed_signal_ids": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@union(body('Exposure_signal_ids'), body('Assessed_signal_ids'))"
+            },
+            "Rows": {
+              "type": "Select",
+              "runAfter": {
+                "Signal_ids": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Open_exposures')?['value']",
+                "select": {
+                  "signal": "@item()?['_crdr_signal_value']",
+                  "source": "@item()?['crdr_source']",
+                  "asset": "@coalesce(item()?['_crdr_asset_value'], '')",
+                  "group": "@item()?['crdr_group']",
+                  "type": "@coalesce(json('{\"microsoft.powerapps/canvasapps\":\"canvas app\",\"microsoft.powerapps/modeldrivenapps\":\"model-driven app\",\"microsoft.powerapps/codeapps\":\"code app\",\"microsoft.powerautomate/cloudflows\":\"cloud flow\",\"microsoft.powerautomate/agentflows\":\"agent flow\",\"microsoft.powerautomate/m365agentflows\":\"workflow agent flow\",\"microsoft.copilotstudio/agents\":\"agent\",\"microsoft.powerpages/sites\":\"power pages site\",\"microsoft.powerplatformconnector/connectors\":\"custom connector\",\"microsoft.aibuilder/prompts\":\"prompt\"}')?[toLower(coalesce(item()?['crdr_asset']?['crdr_resourcetype'], ''))], toLower(coalesce(item()?['crdr_asset']?['crdr_resourcetype'], '')))",
+                  "env": "@coalesce(json('{\"169890000\":\"production\",\"169890001\":\"sandbox\",\"169890002\":\"developer\",\"169890003\":\"default\",\"169890004\":\"trial\"}')?[string(item()?['crdr_asset']?['crdr_environmenttype'])], 'unknown')",
+                  "setting": "@if(empty(item()?['_crdr_asset_value']), last(split(item()?['crdr_name'], ' | setting: ')), '')"
+                }
+              }
+            },
+            "Unrated_feeds": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Rows": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_unrated eq true",
+                  "$select": "crdr_feedid",
+                  "entityName": "crdr_feeds"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Unrated_ids": {
+              "type": "Select",
+              "runAfter": {
+                "Unrated_feeds": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Unrated_feeds')?['value']",
+                "select": "@item()?['crdr_feedid']"
+              }
+            },
+            "Rate_list": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Unrated_ids": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "statecode eq 0 and crdr_source ne 169890001",
+                  "$select": "crdr_signalid,crdr_title,crdr_products,crdr_summary,crdr_horizon,crdr_keydate,crdr_lastchanged,crdr_ratedon,_crdr_feed_value",
+                  "entityName": "crdr_signals"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "To_rate": {
+              "type": "Query",
+              "runAfter": {
+                "Rate_list": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Rate_list')?['value']",
+                "where": "@and(not(contains(body('Unrated_ids'), coalesce(item()?['_crdr_feed_value'], ''))), or(equals(toLower(trim(coalesce(first(body('Config_scope'))?['crdr_value'], 'window'))), 'all'), or(contains(outputs('Signal_ids'), item()?['crdr_signalid']), equals(item()?['crdr_horizon'], 169890000), equals(item()?['crdr_horizon'], 169890001), and(not(empty(item()?['crdr_keydate'])), greaterOrEquals(ticks(startOfDay(item()?['crdr_keydate'])), ticks(startOfDay(utcNow()))), lessOrEquals(ticks(startOfDay(item()?['crdr_keydate'])), ticks(addDays(startOfDay(utcNow()), 183)))))), or(empty(item()?['crdr_ratedon']), greater(ticks(coalesce(item()?['crdr_lastchanged'], '1900-01-01T00:00:00Z')), ticks(item()?['crdr_ratedon']))))"
+              }
+            },
+            "Rate_capped": {
+              "type": "Compose",
+              "runAfter": {
+                "To_rate": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@if(greater(outputs('Cap_rate'), 0), take(body('To_rate'), outputs('Cap_rate')), body('To_rate'))"
+            },
+            "Each_rate": {
+              "type": "Foreach",
+              "foreach": "@outputs('Rate_capped')",
+              "runAfter": {
+                "Rate_capped": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 1
+                }
+              },
+              "actions": {
+                "Rate_prompt": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "aibuilderpredict_customprompt",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "recordId": "4f1d7e5a-2343-46a5-b262-3f7b7db3cc66",
+                      "item": {
+                        "version": "2.0",
+                        "requestv2": {
+                          "@@odata.type": "#Microsoft.Dynamics.CRM.expando",
+                          "Title": "@items('Each_rate')?['crdr_title']",
+                          "Products": "@coalesce(items('Each_rate')?['crdr_products'], '')",
+                          "Body": "@coalesce(items('Each_rate')?['crdr_summary'], '')",
+                          "Exposure": "Not assessed against an estate."
+                        },
+                        "source": "@concat('{\"consumptionSource\":\"PowerAutomate\",\"partnerSource\":\"AIBuilder\",\"consumptionSourceVersion\":\"Flow\",\"partnerSourceVersion\":\"', workflow()?['name'], '\"}')"
+                      }
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Rate_answer": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Rate_prompt": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@coalesce(outputs('Rate_prompt')?['body/responsev2/predictionOutput']?['structuredOutput'], json(coalesce(outputs('Rate_prompt')?['body/responsev2/predictionOutput']?['text'], '{}')))"
+                },
+                "Rate_tokens": {
+                  "type": "IncrementVariable",
+                  "runAfter": {
+                    "Rate_answer": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Tokens",
+                    "value": "@add(int(coalesce(outputs('Rate_prompt')?['body/responsev2/predictionOutput']?['promptTokens'], 0)), int(coalesce(outputs('Rate_prompt')?['body/responsev2/predictionOutput']?['completionTokens'], 0)))"
+                  }
+                },
+                "Rate_valid": {
+                  "type": "If",
+                  "runAfter": {
+                    "Rate_tokens": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@and(not(equals(string(coalesce(json('{\"none\":0,\"low\":1,\"medium\":2,\"high\":3,\"critical\":4}')?[toLower(string(coalesce(outputs('Rate_answer')?['genericImpact'], '')))], '')), '')), not(equals(string(coalesce(json('{\"breaking\":169890000,\"deprecation\":169890001,\"behaviour_change\":169890002,\"new_capability\":169890003,\"licensing\":169890004,\"incident\":169890005,\"informational\":169890006}')?[toLower(string(coalesce(outputs('Rate_answer')?['nature'], '')))], '')), '')), not(equals(string(coalesce(json('{\"risk\":169890000,\"opportunity\":169890001,\"risk_and_opportunity\":169890002}')?[toLower(string(coalesce(outputs('Rate_answer')?['impactType'], '')))], '')), '')), contains(json('[\"Copilot Credits and consumption\",\"Capability moving into Copilot\",\"Governance and controls\",\"Agents and Work IQ platform\",\"Maker experience\",\"Copilot for end users\",\"AI models and lifecycle\",\"Service incidents\",\"Other\"]'), string(coalesce(outputs('Rate_answer')?['theme'], ''))))",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Save_rating": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signals",
+                          "item/crdr_audience": "@if(greater(length(coalesce(string(coalesce(outputs('Rate_answer')?['audience'], '')), '')), 200), substring(string(coalesce(outputs('Rate_answer')?['audience'], '')), 0, 200), coalesce(string(coalesce(outputs('Rate_answer')?['audience'], '')), ''))",
+                          "item/crdr_genericimpact": "@add(169890000, json('{\"none\":0,\"low\":1,\"medium\":2,\"high\":3,\"critical\":4}')?[toLower(string(coalesce(outputs('Rate_answer')?['genericImpact'], '')))])",
+                          "item/crdr_impacttype": "@json('{\"risk\":169890000,\"opportunity\":169890001,\"risk_and_opportunity\":169890002}')?[toLower(string(coalesce(outputs('Rate_answer')?['impactType'], '')))]",
+                          "item/crdr_nature": "@json('{\"breaking\":169890000,\"deprecation\":169890001,\"behaviour_change\":169890002,\"new_capability\":169890003,\"licensing\":169890004,\"incident\":169890005,\"informational\":169890006}')?[toLower(string(coalesce(outputs('Rate_answer')?['nature'], '')))]",
+                          "item/crdr_opportunity": "@if(greater(length(coalesce(string(coalesce(outputs('Rate_answer')?['opportunity'], '')), '')), 1000), substring(string(coalesce(outputs('Rate_answer')?['opportunity'], '')), 0, 1000), coalesce(string(coalesce(outputs('Rate_answer')?['opportunity'], '')), ''))",
+                          "item/crdr_ratedon": "@utcNow()",
+                          "item/crdr_ratingconfidence": "@if(greater(length(coalesce(toLower(string(coalesce(outputs('Rate_answer')?['confidence'], ''))), '')), 20), substring(toLower(string(coalesce(outputs('Rate_answer')?['confidence'], ''))), 0, 20), coalesce(toLower(string(coalesce(outputs('Rate_answer')?['confidence'], ''))), ''))",
+                          "item/crdr_risk": "@if(greater(length(coalesce(string(coalesce(outputs('Rate_answer')?['risk'], '')), '')), 1000), substring(string(coalesce(outputs('Rate_answer')?['risk'], '')), 0, 1000), coalesce(string(coalesce(outputs('Rate_answer')?['risk'], '')), ''))",
+                          "item/crdr_theme": "@outputs('Rate_answer')?['theme']",
+                          "recordId": "@items('Each_rate')?['crdr_signalid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Count_rated": {
+                      "type": "IncrementVariable",
+                      "runAfter": {
+                        "Save_rating": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Rated",
+                        "value": 1
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Count_rate_invalid": {
+                        "inputs": {
+                          "name": "Invalid",
+                          "value": 1
+                        },
+                        "runAfter": {},
+                        "type": "IncrementVariable"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Each_assess_signal": {
+              "type": "Foreach",
+              "foreach": "@outputs('Signal_ids')",
+              "runAfter": {
+                "Each_rate": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 1
+                }
+              },
+              "actions": {
+                "Signal": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "GetItem",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$select": "crdr_externalid,crdr_title,crdr_products,crdr_summary,crdr_actionrequired,crdr_keydate,crdr_lastchanged,crdr_genericimpact,crdr_nature",
+                      "entityName": "crdr_signals",
+                      "recordId": "@items('Each_assess_signal')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Fingerprints": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {
+                    "Signal": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('_crdr_signal_value eq ', items('Each_assess_signal'), ' and crdr_status eq 169890000')",
+                      "$orderby": "crdr_group asc,crdr_name asc",
+                      "$select": "crdr_group,crdr_name",
+                      "entityName": "crdr_signalfingerprints"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Action_text": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Fingerprints": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@if(not(equals(body('Signal')?['crdr_actionrequired'], true)), 'no', if(empty(body('Signal')?['crdr_keydate']), 'yes, no date given', if(less(ticks(startOfDay(body('Signal')?['crdr_keydate'])), ticks(startOfDay(utcNow()))), concat('yes, overdue since ', formatDateTime(body('Signal')?['crdr_keydate'], 'yyyy-MM-dd')), concat('yes, by ', formatDateTime(body('Signal')?['crdr_keydate'], 'yyyy-MM-dd')))))"
+                },
+                "Action_bonus": {
+                  "type": "Compose",
+                  "runAfter": {
+                    "Action_text": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": "@and(equals(body('Signal')?['crdr_actionrequired'], true), not(empty(body('Signal')?['crdr_keydate'])), lessOrEquals(div(sub(ticks(startOfDay(body('Signal')?['crdr_keydate'])), ticks(startOfDay(utcNow()))), 864000000000), 30))"
+                },
+                "Each_source": {
+                  "type": "Foreach",
+                  "foreach": "@if(contains(createArray('off', 'false', 'no', '0'), toLower(trim(coalesce(first(body('Config_demo'))?['crdr_value'], '')))), json('[{\"n\":\"live\",\"o\":169890000},{\"n\":\"fixture\",\"o\":169890001}]'), json('[{\"n\":\"live\",\"o\":169890000},{\"n\":\"fixture\",\"o\":169890001},{\"n\":\"synthetic\",\"o\":169890002}]'))",
+                  "runAfter": {
+                    "Action_bonus": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 1
+                    }
+                  },
+                  "actions": {
+                    "Src_rows": {
+                      "type": "Query",
+                      "runAfter": {},
+                      "inputs": {
+                        "from": "@body('Rows')",
+                        "where": "@and(equals(item()?['signal'], items('Each_assess_signal')), equals(item()?['source'], items('Each_source')?['o']))"
+                      }
+                    },
+                    "Existing": {
+                      "type": "Query",
+                      "runAfter": {
+                        "Src_rows": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "from": "@body('Assessments')?['value']",
+                        "where": "@and(equals(item()?['_crdr_signal_value'], items('Each_assess_signal')), equals(item()?['crdr_source'], items('Each_source')?['o']))"
+                      }
+                    },
+                    "Exposed_or_cleared": {
+                      "type": "If",
+                      "runAfter": {
+                        "Existing": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "equals": [
+                          "@empty(body('Src_rows'))",
+                          false
+                        ]
+                      },
+                      "actions": {
+                        "Asset_rows": {
+                          "type": "Query",
+                          "runAfter": {},
+                          "inputs": {
+                            "from": "@body('Src_rows')",
+                            "where": "@not(empty(item()?['asset']))"
+                          }
+                        },
+                        "Asset_shapes": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Asset_rows": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Asset_rows')",
+                            "select": {
+                              "asset": "@item()?['asset']",
+                              "type": "@item()?['type']",
+                              "env": "@item()?['env']"
+                            }
+                          }
+                        },
+                        "Assets": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Asset_shapes": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@union(body('Asset_shapes'), body('Asset_shapes'))"
+                        },
+                        "Setting_rows": {
+                          "type": "Query",
+                          "runAfter": {
+                            "Assets": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Src_rows')",
+                            "where": "@empty(item()?['asset'])"
+                          }
+                        },
+                        "Setting_names": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Setting_rows": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Setting_rows')",
+                            "select": "@item()?['setting']"
+                          }
+                        },
+                        "Settings_sorted": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Setting_names": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@sort(union(body('Setting_names'), body('Setting_names')))"
+                        },
+                        "Env_list": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Settings_sorted": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@outputs('Assets')",
+                            "select": "@item()?['env']"
+                          }
+                        },
+                        "Env_tokens": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Env_list": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@concat('|', join(body('Env_list'), '||'), '|')"
+                        },
+                        "Counts": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Env_tokens": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "assets": "@length(outputs('Assets'))",
+                            "settings": "@length(outputs('Settings_sorted'))",
+                            "unknown": "@sub(length(split(outputs('Env_tokens'), '|unknown|')), 1)",
+                            "production": "@contains(outputs('Env_tokens'), '|production|')"
+                          }
+                        },
+                        "Reset_type_lines": {
+                          "type": "SetVariable",
+                          "runAfter": {
+                            "Counts": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "TypeLines",
+                            "value": []
+                          }
+                        },
+                        "Type_names": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Reset_type_lines": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@outputs('Assets')",
+                            "select": "@item()?['type']"
+                          }
+                        },
+                        "Each_type": {
+                          "type": "Foreach",
+                          "foreach": "@union(body('Type_names'), body('Type_names'))",
+                          "runAfter": {
+                            "Type_names": [
+                              "Succeeded"
+                            ]
+                          },
+                          "runtimeConfiguration": {
+                            "concurrency": {
+                              "repetitions": 1
+                            }
+                          },
+                          "actions": {
+                            "Type_assets": {
+                              "type": "Query",
+                              "runAfter": {},
+                              "inputs": {
+                                "from": "@outputs('Assets')",
+                                "where": "@equals(item()?['type'], items('Each_type'))"
+                              }
+                            },
+                            "Type_envs": {
+                              "type": "Select",
+                              "runAfter": {
+                                "Type_assets": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "inputs": {
+                                "from": "@body('Type_assets')",
+                                "select": "@item()?['env']"
+                              }
+                            },
+                            "Type_env_tokens": {
+                              "type": "Compose",
+                              "runAfter": {
+                                "Type_envs": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "inputs": "@concat('|', join(body('Type_envs'), '||'), '|')"
+                            },
+                            "Type_env_text": {
+                              "type": "Compose",
+                              "runAfter": {
+                                "Type_env_tokens": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "inputs": "@substring(concat(if(greater(sub(length(split(outputs('Type_env_tokens'), '|production|')), 1), 0), concat(', production ', string(sub(length(split(outputs('Type_env_tokens'), '|production|')), 1))), ''), if(greater(sub(length(split(outputs('Type_env_tokens'), '|sandbox|')), 1), 0), concat(', sandbox ', string(sub(length(split(outputs('Type_env_tokens'), '|sandbox|')), 1))), ''), if(greater(sub(length(split(outputs('Type_env_tokens'), '|developer|')), 1), 0), concat(', developer ', string(sub(length(split(outputs('Type_env_tokens'), '|developer|')), 1))), ''), if(greater(sub(length(split(outputs('Type_env_tokens'), '|default|')), 1), 0), concat(', default ', string(sub(length(split(outputs('Type_env_tokens'), '|default|')), 1))), ''), if(greater(sub(length(split(outputs('Type_env_tokens'), '|trial|')), 1), 0), concat(', trial ', string(sub(length(split(outputs('Type_env_tokens'), '|trial|')), 1))), ''), if(greater(sub(length(split(outputs('Type_env_tokens'), '|unknown|')), 1), 0), concat(', environment unknown ', string(sub(length(split(outputs('Type_env_tokens'), '|unknown|')), 1))), '')), 2)"
+                            },
+                            "Add_type_line": {
+                              "type": "AppendToArrayVariable",
+                              "runAfter": {
+                                "Type_env_text": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "inputs": {
+                                "name": "TypeLines",
+                                "value": {
+                                  "k": "@concat(string(sub(100000, length(body('Type_assets')))), '|', items('Each_type'))",
+                                  "line": "@concat('- ', items('Each_type'), ': ', string(length(body('Type_assets'))), ' (', outputs('Type_env_text'), ')')"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "Type_lines": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Each_type": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@if(empty(variables('TypeLines')), variables('TypeLines'), sort(variables('TypeLines'), 'k'))",
+                            "select": "@item()?['line']"
+                          }
+                        },
+                        "Reset_group_texts": {
+                          "type": "SetVariable",
+                          "runAfter": {
+                            "Type_lines": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "name": "GroupTexts",
+                            "value": []
+                          }
+                        },
+                        "Group_names": {
+                          "type": "Select",
+                          "runAfter": {
+                            "Reset_group_texts": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": {
+                            "from": "@body('Src_rows')",
+                            "select": "@item()?['group']"
+                          }
+                        },
+                        "Each_used_group": {
+                          "type": "Foreach",
+                          "foreach": "@sort(union(body('Group_names'), body('Group_names')))",
+                          "runAfter": {
+                            "Group_names": [
+                              "Succeeded"
+                            ]
+                          },
+                          "runtimeConfiguration": {
+                            "concurrency": {
+                              "repetitions": 1
+                            }
+                          },
+                          "actions": {
+                            "Group_fps": {
+                              "type": "Query",
+                              "runAfter": {},
+                              "inputs": {
+                                "from": "@body('Fingerprints')?['value']",
+                                "where": "@equals(item()?['crdr_group'], items('Each_used_group'))"
+                              }
+                            },
+                            "Group_fp_names": {
+                              "type": "Select",
+                              "runAfter": {
+                                "Group_fps": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "inputs": {
+                                "from": "@body('Group_fps')",
+                                "select": "@item()?['crdr_name']"
+                              }
+                            },
+                            "Has_fps": {
+                              "type": "If",
+                              "runAfter": {
+                                "Group_fp_names": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "expression": {
+                                "equals": [
+                                  "@empty(body('Group_fp_names'))",
+                                  false
+                                ]
+                              },
+                              "actions": {
+                                "Add_group_text": {
+                                  "inputs": {
+                                    "name": "GroupTexts",
+                                    "value": "@concat('group ', items('Each_used_group'), ' (', join(body('Group_fp_names'), ' + '), ')')"
+                                  },
+                                  "runAfter": {},
+                                  "type": "AppendToArrayVariable"
+                                }
+                              },
+                              "else": {
+                                "actions": {}
+                              }
+                            }
+                          }
+                        },
+                        "Summary": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Each_used_group": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@concat('Estate: ', items('Each_source')?['n'], decodeUriComponent('%0A'), 'Affected: ', if(and(equals(length(outputs('Assets')), 0), equals(length(outputs('Settings_sorted')), 0)), 'none', concat(if(greater(length(outputs('Assets')), 0), concat(string(length(outputs('Assets'))), ' asset', if(equals(length(outputs('Assets')), 1), '', 's')), ''), if(and(greater(length(outputs('Assets')), 0), greater(length(outputs('Settings_sorted')), 0)), ', ', ''), if(greater(length(outputs('Settings_sorted')), 0), concat(string(length(outputs('Settings_sorted'))), ' tenant setting', if(equals(length(outputs('Settings_sorted')), 1), '', 's')), ''))), if(empty(body('Type_lines')), '', concat(decodeUriComponent('%0A'), join(body('Type_lines'), decodeUriComponent('%0A')))), if(empty(variables('GroupTexts')), '', concat(decodeUriComponent('%0A'), 'Matched on: ', join(variables('GroupTexts'), '; '))), if(equals(length(outputs('Settings_sorted')), 0), '', concat(decodeUriComponent('%0A'), 'Tenant settings not in place: ', join(outputs('Settings_sorted'), ', '))), decodeUriComponent('%0A'), 'Action required: ', outputs('Action_text'))"
+                        },
+                        "Needs_prompt": {
+                          "type": "Compose",
+                          "runAfter": {
+                            "Summary": [
+                              "Succeeded"
+                            ]
+                          },
+                          "inputs": "@or(empty(body('Existing')), not(equals(coalesce(first(body('Existing'))?['crdr_exposuresummary'], ''), outputs('Summary'))), equals(string(coalesce(first(body('Existing'))?['crdr_genericimpact'], '')), ''), greater(ticks(coalesce(body('Signal')?['crdr_lastchanged'], '1900-01-01T00:00:00Z')), ticks(coalesce(first(body('Existing'))?['crdr_assessedon'], '1900-01-01T00:00:00Z'))))"
+                        },
+                        "Prompt_or_rescore": {
+                          "type": "If",
+                          "runAfter": {
+                            "Needs_prompt": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "equals": [
+                              "@outputs('Needs_prompt')",
+                              true
+                            ]
+                          },
+                          "actions": {
+                            "Under_cap": {
+                              "type": "If",
+                              "runAfter": {},
+                              "expression": {
+                                "equals": [
+                                  "@or(lessOrEquals(outputs('Cap_assess'), 0), less(variables('Prompted'), outputs('Cap_assess')))",
+                                  true
+                                ]
+                              },
+                              "actions": {
+                                "Run_assessment_prompt": {
+                                  "type": "OpenApiConnection",
+                                  "runAfter": {},
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_commondataserviceforapps",
+                                      "operationId": "aibuilderpredict_customprompt",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                    },
+                                    "parameters": {
+                                      "recordId": "4f1d7e5a-2343-46a5-b262-3f7b7db3cc66",
+                                      "item": {
+                                        "version": "2.0",
+                                        "requestv2": {
+                                          "@@odata.type": "#Microsoft.Dynamics.CRM.expando",
+                                          "Title": "@body('Signal')?['crdr_title']",
+                                          "Products": "@coalesce(body('Signal')?['crdr_products'], '')",
+                                          "Body": "@coalesce(body('Signal')?['crdr_summary'], '')",
+                                          "Exposure": "@outputs('Summary')"
+                                        },
+                                        "source": "@concat('{\"consumptionSource\":\"PowerAutomate\",\"partnerSource\":\"AIBuilder\",\"consumptionSourceVersion\":\"Flow\",\"partnerSourceVersion\":\"', workflow()?['name'], '\"}')"
+                                      }
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  }
+                                },
+                                "Answer": {
+                                  "type": "Compose",
+                                  "runAfter": {
+                                    "Run_assessment_prompt": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "inputs": "@coalesce(outputs('Run_assessment_prompt')?['body/responsev2/predictionOutput']?['structuredOutput'], json(coalesce(outputs('Run_assessment_prompt')?['body/responsev2/predictionOutput']?['text'], '{}')))"
+                                },
+                                "Add_prompt_tokens": {
+                                  "type": "IncrementVariable",
+                                  "runAfter": {
+                                    "Answer": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "inputs": {
+                                    "name": "Tokens",
+                                    "value": "@add(int(coalesce(outputs('Run_assessment_prompt')?['body/responsev2/predictionOutput']?['promptTokens'], 0)), int(coalesce(outputs('Run_assessment_prompt')?['body/responsev2/predictionOutput']?['completionTokens'], 0)))"
+                                  }
+                                },
+                                "Generic_value": {
+                                  "type": "Compose",
+                                  "runAfter": {
+                                    "Add_prompt_tokens": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "inputs": "@coalesce(json('{\"none\":0,\"low\":1,\"medium\":2,\"high\":3,\"critical\":4}')?[toLower(coalesce(outputs('Answer')?['genericImpact'], ''))], -1)"
+                                },
+                                "Valid": {
+                                  "type": "If",
+                                  "runAfter": {
+                                    "Generic_value": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "expression": {
+                                    "and": [
+                                      {
+                                        "greaterOrEquals": [
+                                          "@outputs('Generic_value')",
+                                          0
+                                        ]
+                                      },
+                                      {
+                                        "not": {
+                                          "equals": [
+                                            "@string(coalesce(json('{\"breaking\":169890000,\"deprecation\":169890001,\"behaviour_change\":169890002,\"new_capability\":169890003,\"licensing\":169890004,\"incident\":169890005,\"informational\":169890006}')?[toLower(coalesce(outputs('Answer')?['nature'], ''))], ''))",
+                                            ""
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "actions": {
+                                    "Prompt_fields": {
+                                      "type": "Compose",
+                                      "runAfter": {},
+                                      "inputs": {
+                                        "genericimpact": "@coalesce(body('Signal')?['crdr_genericimpact'], add(169890000, outputs('Generic_value')))",
+                                        "estateimpact": "@add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], add(169890000, outputs('Generic_value'))), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0)))))",
+                                        "nature": "@coalesce(body('Signal')?['crdr_nature'], json('{\"breaking\":169890000,\"deprecation\":169890001,\"behaviour_change\":169890002,\"new_capability\":169890003,\"licensing\":169890004,\"incident\":169890005,\"informational\":169890006}')?[toLower(coalesce(outputs('Answer')?['nature'], ''))])",
+                                        "rationale": "@if(greater(length(coalesce(string(coalesce(outputs('Answer')?['rationale'], '')), '')), 10000), substring(string(coalesce(outputs('Answer')?['rationale'], '')), 0, 10000), coalesce(string(coalesce(outputs('Answer')?['rationale'], '')), ''))",
+                                        "action": "@if(greater(length(coalesce(string(coalesce(outputs('Answer')?['recommendedAction'], '')), '')), 4000), substring(string(coalesce(outputs('Answer')?['recommendedAction'], '')), 0, 4000), coalesce(string(coalesce(outputs('Answer')?['recommendedAction'], '')), ''))",
+                                        "model": "@if(greater(length(coalesce('Change Radar signal assessment', '')), 100), substring('Change Radar signal assessment', 0, 100), coalesce('Change Radar signal assessment', ''))"
+                                      }
+                                    },
+                                    "Is_new_assessment": {
+                                      "type": "If",
+                                      "runAfter": {
+                                        "Prompt_fields": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "expression": {
+                                        "equals": [
+                                          "@empty(body('Existing'))",
+                                          true
+                                        ]
+                                      },
+                                      "actions": {
+                                        "Create_assessment": {
+                                          "type": "OpenApiConnection",
+                                          "runAfter": {},
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "CreateRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "crdr_assessments",
+                                              "item/crdr_actionbonus": "@outputs('Action_bonus')",
+                                              "item/crdr_affectedcount": "@add(length(outputs('Assets')), length(outputs('Settings_sorted')))",
+                                              "item/crdr_assessedon": "@utcNow()",
+                                              "item/crdr_estateimpact": "@outputs('Prompt_fields')?['estateimpact']",
+                                              "item/crdr_exposuresummary": "@outputs('Summary')",
+                                              "item/crdr_genericimpact": "@outputs('Prompt_fields')?['genericimpact']",
+                                              "item/crdr_model": "@outputs('Prompt_fields')?['model']",
+                                              "item/crdr_name": "@if(greater(length(coalesce(concat(body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n']), '')), 400), substring(concat(body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n']), 0, 400), coalesce(concat(body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n']), ''))",
+                                              "item/crdr_nature": "@outputs('Prompt_fields')?['nature']",
+                                              "item/crdr_productionbonus": "@outputs('Counts')?['production']",
+                                              "item/crdr_rationale": "@outputs('Prompt_fields')?['rationale']",
+                                              "item/crdr_recommendedaction": "@outputs('Prompt_fields')?['action']",
+                                              "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', items('Each_assess_signal'), ')')",
+                                              "item/crdr_source": "@items('Each_source')?['o']",
+                                              "item/crdr_unknownenvcount": "@outputs('Counts')?['unknown']"
+                                            },
+                                            "authentication": "@parameters('$authentication')"
+                                          }
+                                        }
+                                      },
+                                      "else": {
+                                        "actions": {
+                                          "Update_assessed": {
+                                            "type": "OpenApiConnection",
+                                            "runAfter": {},
+                                            "inputs": {
+                                              "host": {
+                                                "connectionName": "shared_commondataserviceforapps",
+                                                "operationId": "UpdateRecord",
+                                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                              },
+                                              "parameters": {
+                                                "entityName": "crdr_assessments",
+                                                "item/crdr_actionbonus": "@outputs('Action_bonus')",
+                                                "item/crdr_affectedcount": "@add(length(outputs('Assets')), length(outputs('Settings_sorted')))",
+                                                "item/crdr_assessedon": "@utcNow()",
+                                                "item/crdr_estateimpact": "@outputs('Prompt_fields')?['estateimpact']",
+                                                "item/crdr_exposuresummary": "@outputs('Summary')",
+                                                "item/crdr_genericimpact": "@outputs('Prompt_fields')?['genericimpact']",
+                                                "item/crdr_model": "@outputs('Prompt_fields')?['model']",
+                                                "item/crdr_nature": "@outputs('Prompt_fields')?['nature']",
+                                                "item/crdr_productionbonus": "@outputs('Counts')?['production']",
+                                                "item/crdr_rationale": "@outputs('Prompt_fields')?['rationale']",
+                                                "item/crdr_recommendedaction": "@outputs('Prompt_fields')?['action']",
+                                                "item/crdr_unknownenvcount": "@outputs('Counts')?['unknown']",
+                                                "recordId": "@first(body('Existing'))?['crdr_assessmentid']"
+                                              },
+                                              "authentication": "@parameters('$authentication')"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "Count_prompted": {
+                                      "type": "IncrementVariable",
+                                      "runAfter": {
+                                        "Is_new_assessment": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "inputs": {
+                                        "name": "Prompted",
+                                        "value": 1
+                                      }
+                                    },
+                                    "If_rated": {
+                                      "type": "If",
+                                      "runAfter": {
+                                        "Count_prompted": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "expression": {
+                                        "equals": [
+                                          "@or(empty(body('Existing')), not(equals(string(coalesce(first(body('Existing'))?['crdr_estateimpact'], '')), string(outputs('Prompt_fields')?['estateimpact']))))",
+                                          true
+                                        ]
+                                      },
+                                      "actions": {
+                                        "Raise_rated_payload": {
+                                          "type": "Compose",
+                                          "runAfter": {},
+                                          "inputs": {
+                                            "externalId": "@body('Signal')?['crdr_externalid']",
+                                            "estate": "@items('Each_source')?['n']",
+                                            "estateImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(outputs('Prompt_fields')?['estateimpact'])]",
+                                            "overrideImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])]",
+                                            "effectiveImpact": "@coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(outputs('Prompt_fields')?['estateimpact'])])"
+                                          }
+                                        },
+                                        "Raise_rated": {
+                                          "type": "OpenApiConnection",
+                                          "runAfter": {
+                                            "Raise_rated_payload": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps",
+                                              "operationId": "CreateRecord",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "entityName": "crdr_events",
+                                              "item/crdr_assessment@odata.bind": "@concat('/crdr_assessments(', coalesce(actions('Create_assessment')?['outputs']?['body']?['crdr_assessmentid'], first(body('Existing'))?['crdr_assessmentid']), ')')",
+                                              "item/crdr_correlationid": "@if(greater(length(coalesce(concat('assessment.rated|', coalesce(actions('Create_assessment')?['outputs']?['body']?['crdr_assessmentid'], first(body('Existing'))?['crdr_assessmentid']), '|', utcNow()), '')), 100), substring(concat('assessment.rated|', coalesce(actions('Create_assessment')?['outputs']?['body']?['crdr_assessmentid'], first(body('Existing'))?['crdr_assessmentid']), '|', utcNow()), 0, 100), coalesce(concat('assessment.rated|', coalesce(actions('Create_assessment')?['outputs']?['body']?['crdr_assessmentid'], first(body('Existing'))?['crdr_assessmentid']), '|', utcNow()), ''))",
+                                              "item/crdr_eventtype": 169890005,
+                                              "item/crdr_name": "@if(greater(length(coalesce(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(outputs('Prompt_fields')?['estateimpact'])])), '')), 200), substring(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(outputs('Prompt_fields')?['estateimpact'])])), 0, 200), coalesce(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(outputs('Prompt_fields')?['estateimpact'])])), ''))",
+                                              "item/crdr_payloadjson": "@string(outputs('Raise_rated_payload'))",
+                                              "item/crdr_raisedon": "@utcNow()",
+                                              "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', items('Each_assess_signal'), ')')"
+                                            },
+                                            "authentication": "@parameters('$authentication')"
+                                          }
+                                        }
+                                      },
+                                      "else": {
+                                        "actions": {}
+                                      }
+                                    }
+                                  },
+                                  "else": {
+                                    "actions": {
+                                      "Count_invalid": {
+                                        "inputs": {
+                                          "name": "Invalid",
+                                          "value": 1
+                                        },
+                                        "runAfter": {},
+                                        "type": "IncrementVariable"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "else": {
+                                "actions": {
+                                  "Count_deferred": {
+                                    "inputs": {
+                                      "name": "Deferred",
+                                      "value": 1
+                                    },
+                                    "runAfter": {},
+                                    "type": "IncrementVariable"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {
+                              "Rescore": {
+                                "type": "OpenApiConnection",
+                                "runAfter": {},
+                                "inputs": {
+                                  "host": {
+                                    "connectionName": "shared_commondataserviceforapps",
+                                    "operationId": "UpdateRecord",
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                  },
+                                  "parameters": {
+                                    "entityName": "crdr_assessments",
+                                    "item/crdr_actionbonus": "@outputs('Action_bonus')",
+                                    "item/crdr_affectedcount": "@add(length(outputs('Assets')), length(outputs('Settings_sorted')))",
+                                    "item/crdr_estateimpact": "@add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact']), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0)))))",
+                                    "item/crdr_exposuresummary": "@outputs('Summary')",
+                                    "item/crdr_genericimpact": "@coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact'])",
+                                    "item/crdr_productionbonus": "@outputs('Counts')?['production']",
+                                    "item/crdr_unknownenvcount": "@outputs('Counts')?['unknown']",
+                                    "recordId": "@first(body('Existing'))?['crdr_assessmentid']"
+                                  },
+                                  "authentication": "@parameters('$authentication')"
+                                }
+                              },
+                              "Count_rescored": {
+                                "type": "IncrementVariable",
+                                "runAfter": {
+                                  "Rescore": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "inputs": {
+                                  "name": "Rescored",
+                                  "value": 1
+                                }
+                              },
+                              "If_rerated": {
+                                "type": "If",
+                                "runAfter": {
+                                  "Count_rescored": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "expression": {
+                                  "equals": [
+                                    "@or(empty(body('Existing')), not(equals(string(coalesce(first(body('Existing'))?['crdr_estateimpact'], '')), string(add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact']), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0)))))))))",
+                                    true
+                                  ]
+                                },
+                                "actions": {
+                                  "Raise_rerated_payload": {
+                                    "type": "Compose",
+                                    "runAfter": {},
+                                    "inputs": {
+                                      "externalId": "@body('Signal')?['crdr_externalid']",
+                                      "estate": "@items('Each_source')?['n']",
+                                      "estateImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact']), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0))))))]",
+                                      "overrideImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])]",
+                                      "effectiveImpact": "@coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact']), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0))))))])"
+                                    }
+                                  },
+                                  "Raise_rerated": {
+                                    "type": "OpenApiConnection",
+                                    "runAfter": {
+                                      "Raise_rerated_payload": [
+                                        "Succeeded"
+                                      ]
+                                    },
+                                    "inputs": {
+                                      "host": {
+                                        "connectionName": "shared_commondataserviceforapps",
+                                        "operationId": "CreateRecord",
+                                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                      },
+                                      "parameters": {
+                                        "entityName": "crdr_events",
+                                        "item/crdr_assessment@odata.bind": "@concat('/crdr_assessments(', first(body('Existing'))?['crdr_assessmentid'], ')')",
+                                        "item/crdr_correlationid": "@if(greater(length(coalesce(concat('assessment.rated|', first(body('Existing'))?['crdr_assessmentid'], '|', utcNow()), '')), 100), substring(concat('assessment.rated|', first(body('Existing'))?['crdr_assessmentid'], '|', utcNow()), 0, 100), coalesce(concat('assessment.rated|', first(body('Existing'))?['crdr_assessmentid'], '|', utcNow()), ''))",
+                                        "item/crdr_eventtype": 169890005,
+                                        "item/crdr_name": "@if(greater(length(coalesce(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact']), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0))))))])), '')), 200), substring(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact']), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0))))))])), 0, 200), coalesce(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(add(169890000, min(int(coalesce(first(body('Config_max'))?['crdr_value'], '4')), max(1, add(add(sub(coalesce(body('Signal')?['crdr_genericimpact'], first(body('Existing'))?['crdr_genericimpact']), 169890000), if(outputs('Counts')?['production'], 1, 0)), if(outputs('Action_bonus'), 1, 0))))))])), ''))",
+                                        "item/crdr_payloadjson": "@string(outputs('Raise_rerated_payload'))",
+                                        "item/crdr_raisedon": "@utcNow()",
+                                        "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', items('Each_assess_signal'), ')')"
+                                      },
+                                      "authentication": "@parameters('$authentication')"
+                                    }
+                                  }
+                                },
+                                "else": {
+                                  "actions": {}
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Had_assessment": {
+                            "type": "If",
+                            "runAfter": {},
+                            "expression": {
+                              "equals": [
+                                "@empty(body('Existing'))",
+                                false
+                              ]
+                            },
+                            "actions": {
+                              "Clear": {
+                                "type": "OpenApiConnection",
+                                "runAfter": {},
+                                "inputs": {
+                                  "host": {
+                                    "connectionName": "shared_commondataserviceforapps",
+                                    "operationId": "UpdateRecord",
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                  },
+                                  "parameters": {
+                                    "entityName": "crdr_assessments",
+                                    "item/crdr_actionbonus": false,
+                                    "item/crdr_affectedcount": 0,
+                                    "item/crdr_estateimpact": 169890000,
+                                    "item/crdr_productionbonus": false,
+                                    "item/crdr_unknownenvcount": 0,
+                                    "recordId": "@first(body('Existing'))?['crdr_assessmentid']"
+                                  },
+                                  "authentication": "@parameters('$authentication')"
+                                }
+                              },
+                              "Count_cleared": {
+                                "type": "IncrementVariable",
+                                "runAfter": {
+                                  "Clear": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "inputs": {
+                                  "name": "Cleared",
+                                  "value": 1
+                                }
+                              },
+                              "If_was_rated": {
+                                "type": "If",
+                                "runAfter": {
+                                  "Count_cleared": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "expression": {
+                                  "equals": [
+                                    "@or(empty(body('Existing')), not(equals(string(coalesce(first(body('Existing'))?['crdr_estateimpact'], '')), string(169890000))))",
+                                    true
+                                  ]
+                                },
+                                "actions": {
+                                  "Raise_cleared_payload": {
+                                    "type": "Compose",
+                                    "runAfter": {},
+                                    "inputs": {
+                                      "externalId": "@body('Signal')?['crdr_externalid']",
+                                      "estate": "@items('Each_source')?['n']",
+                                      "estateImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(169890000)]",
+                                      "overrideImpact": "@json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])]",
+                                      "effectiveImpact": "@coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(169890000)])"
+                                    }
+                                  },
+                                  "Raise_cleared": {
+                                    "type": "OpenApiConnection",
+                                    "runAfter": {
+                                      "Raise_cleared_payload": [
+                                        "Succeeded"
+                                      ]
+                                    },
+                                    "inputs": {
+                                      "host": {
+                                        "connectionName": "shared_commondataserviceforapps",
+                                        "operationId": "CreateRecord",
+                                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                      },
+                                      "parameters": {
+                                        "entityName": "crdr_events",
+                                        "item/crdr_assessment@odata.bind": "@concat('/crdr_assessments(', first(body('Existing'))?['crdr_assessmentid'], ')')",
+                                        "item/crdr_correlationid": "@if(greater(length(coalesce(concat('assessment.rated|', first(body('Existing'))?['crdr_assessmentid'], '|', utcNow()), '')), 100), substring(concat('assessment.rated|', first(body('Existing'))?['crdr_assessmentid'], '|', utcNow()), 0, 100), coalesce(concat('assessment.rated|', first(body('Existing'))?['crdr_assessmentid'], '|', utcNow()), ''))",
+                                        "item/crdr_eventtype": 169890005,
+                                        "item/crdr_name": "@if(greater(length(coalesce(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(169890000)])), '')), 200), substring(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(169890000)])), 0, 200), coalesce(concat('assessment.rated | ', body('Signal')?['crdr_externalid'], ' | ', items('Each_source')?['n'], ' | ', coalesce(json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(first(body('Existing'))?['crdr_overrideimpact'])], json('{\"169890000\":\"none\",\"169890001\":\"low\",\"169890002\":\"medium\",\"169890003\":\"high\",\"169890004\":\"critical\"}')?[string(169890000)])), ''))",
+                                        "item/crdr_payloadjson": "@string(outputs('Raise_cleared_payload'))",
+                                        "item/crdr_raisedon": "@utcNow()",
+                                        "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', items('Each_assess_signal'), ')')"
+                                      },
+                                      "authentication": "@parameters('$authentication')"
+                                    }
+                                  }
+                                },
+                                "else": {
+                                  "actions": {}
+                                }
+                              }
+                            },
+                            "else": {
+                              "actions": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "Count_signal": {
+                  "type": "IncrementVariable",
+                  "runAfter": {
+                    "Each_source": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "Signals",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "Each_nature_rule": {
+              "type": "Foreach",
+              "foreach": "@json('[{\"nature\":169890000,\"filter\":\"statecode eq 0 and crdr_feed/crdr_key eq ''ML-CS'' and (crdr_nature eq null or crdr_nature ne 169890000)\"},{\"nature\":169890002,\"filter\":\"statecode eq 0 and crdr_feed/crdr_key eq ''ML-CSM'' and (crdr_nature eq null or crdr_nature ne 169890002)\"},{\"nature\":169890002,\"filter\":\"statecode eq 0 and crdr_feed/crdr_key eq ''ML-PR'' and (crdr_nature eq null or crdr_nature ne 169890002)\"}]')",
+              "runAfter": {
+                "Each_theme_rule": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 1
+                }
+              },
+              "actions": {
+                "Nature_signals": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@items('Each_nature_rule')?['filter']",
+                      "$select": "crdr_signalid",
+                      "entityName": "crdr_signals"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Each_nature_signal": {
+                  "type": "Foreach",
+                  "foreach": "@body('Nature_signals')?['value']",
+                  "runAfter": {
+                    "Nature_signals": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 4
+                    }
+                  },
+                  "actions": {
+                    "Save_rule_nature": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signals",
+                          "item/crdr_nature": "@items('Each_nature_rule')?['nature']",
+                          "recordId": "@items('Each_nature_signal')?['crdr_signalid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Each_theme_rule": {
+              "type": "Foreach",
+              "foreach": "@json('[{\"theme\":\"Service incidents\",\"filter\":\"statecode eq 0 and crdr_source eq 169890001 and (crdr_theme eq null or crdr_theme ne ''Service incidents'')\"},{\"theme\":\"AI models and lifecycle\",\"filter\":\"statecode eq 0 and crdr_feed/crdr_key eq ''ML-CS'' and (crdr_theme eq null or crdr_theme ne ''AI models and lifecycle'')\"},{\"theme\":\"AI models and lifecycle\",\"filter\":\"statecode eq 0 and crdr_feed/crdr_key eq ''ML-CSM'' and (crdr_theme eq null or crdr_theme ne ''AI models and lifecycle'')\"},{\"theme\":\"AI models and lifecycle\",\"filter\":\"statecode eq 0 and crdr_feed/crdr_key eq ''ML-PR'' and (crdr_theme eq null or crdr_theme ne ''AI models and lifecycle'')\"}]')",
+              "runAfter": {
+                "Each_assess_signal": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 1
+                }
+              },
+              "actions": {
+                "Rule_signals": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@items('Each_theme_rule')?['filter']",
+                      "$select": "crdr_signalid",
+                      "entityName": "crdr_signals"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
+                  }
+                },
+                "Each_rule_signal": {
+                  "type": "Foreach",
+                  "foreach": "@body('Rule_signals')?['value']",
+                  "runAfter": {
+                    "Rule_signals": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 4
+                    }
+                  },
+                  "actions": {
+                    "Save_rule_theme": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signals",
+                          "item/crdr_theme": "@items('Each_theme_rule')?['theme']",
+                          "recordId": "@items('Each_rule_signal')?['crdr_signalid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Count_themed": {
+                      "type": "IncrementVariable",
+                      "runAfter": {
+                        "Save_rule_theme": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "name": "Themed",
+                        "value": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Record_run": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Collect": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_collectionruns",
+              "item/crdr_accesstier": 169890000,
+              "item/crdr_collector": "assess",
+              "item/crdr_gaps": "@if(equals(actions('Collect')?['status'], 'Succeeded'), concat('Prompt ''', 'Change Radar signal assessment', '''. Only signals with open exposures are assessed (ADR 0010). Invalid prompt answers are skipped and retried on the next run. Signals over assessment_max_per_run are deferred to the next run. Caps this run: rating ', string(outputs('Cap_rate')), ', assessment ', string(outputs('Cap_assess')), ' (0 = none).'), concat('Collect scope: ', actions('Collect')?['status'], '. Check the prompt exists (assessment_prompt_name) and Copilot credit capacity.'))",
+              "item/crdr_itemcount": "@if(equals(actions('Collect')?['status'], 'Succeeded'), add(variables('Prompted'), variables('Rescored')), 0)",
+              "item/crdr_name": "@if(greater(length(coalesce(concat('assess ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), 'rated ', string(variables('Rated')), ', signals ', string(variables('Signals')), ', prompted ', string(variables('Prompted')), ' rescored ', string(variables('Rescored')), ' deferred ', string(variables('Deferred')), ' cleared ', string(variables('Cleared')), ' invalid ', string(variables('Invalid')), ', rule themes ', string(variables('Themed')), ', tokens ', string(variables('Tokens'))), '')), 200), substring(concat('assess ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), 'rated ', string(variables('Rated')), ', signals ', string(variables('Signals')), ', prompted ', string(variables('Prompted')), ' rescored ', string(variables('Rescored')), ' deferred ', string(variables('Deferred')), ' cleared ', string(variables('Cleared')), ' invalid ', string(variables('Invalid')), ', rule themes ', string(variables('Themed')), ', tokens ', string(variables('Tokens'))), 0, 200), coalesce(concat('assess ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), if(equals(actions('Collect')?['status'], 'Succeeded'), ': ', ': FAILED: '), 'rated ', string(variables('Rated')), ', signals ', string(variables('Signals')), ', prompted ', string(variables('Prompted')), ' rescored ', string(variables('Rescored')), ' deferred ', string(variables('Deferred')), ' cleared ', string(variables('Cleared')), ' invalid ', string(variables('Invalid')), ', rule themes ', string(variables('Themed')), ', tokens ', string(variables('Tokens'))), ''))",
+              "item/crdr_startedon": "@trigger()?['startTime']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Fail_if_collect_failed": {
+          "type": "If",
+          "runAfter": {
+            "Record_run": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@actions('Collect')?['status']",
+                "Succeeded"
+              ]
+            }
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "CollectFailed",
+                  "message": "Assessment failed: see the Collect scope and the crdr_collectionrun row."
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: rate each exposed signal per source (generic impact from the AI hub assessment prompt + production + action date), with rationale and recommended action; never touches overrides (ADR 0010)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

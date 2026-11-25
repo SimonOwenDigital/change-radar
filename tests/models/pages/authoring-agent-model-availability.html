@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!-- Trimmed copy of a public Microsoft Learn page (headings and tables only), saved 2026-11-22 for spike T9 / ADR 0013 tests. Source: https://learn.microsoft.com/en-us/... authoring-agent-model-availability -->
+<html><head>
+<meta name="updated_at" content="2026-11-19T01:07:00Z" />
+<meta name="git_commit_id" content="1e3f96ceefa0720f77481f1ebdada101337e28dc" />
+</head><body>
+<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				In this article
+			</h2>
+<h2 id="model-release-types-and-availability-labels">Model release types and availability labels</h2>
+<h3 id="release-type">Release type</h3>
+<table>
+<thead>
+<tr>
+<th>Release type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Experimental</td>
+<td>Used for experimentation, and not intended for production use. Subject to preview terms and <a href="#limitations-of-experimental-and-preview-models" data-linktype="self-bookmark">limitations on availability and quality</a>.</td>
+</tr>
+<tr>
+<td>Preview</td>
+<td>Might eventually become a generally available model, but currently not intended for production use. Subject to preview terms and <a href="#limitations-of-experimental-and-preview-models" data-linktype="self-bookmark">limitations on availability and quality</a>.</td>
+</tr>
+<tr>
+<td>Generally available (GA)</td>
+<td>Models without a release tag are generally available. You can use these models for scaled and production use. In most cases, generally available models have no limitations on availability and quality, but some might still have some limitations, like regional availability.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="other-label">Other label</h3>
+<table>
+<thead>
+<tr>
+<th>Other label</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retiring soon</td>
+<td>Still available, but will retire on a set date. Switch your agent to the replacement model before that date. To see the date and replacement for each model, see <a href="#model-retirement-lifecycle" data-linktype="self-bookmark">Model retirement lifecycle</a>.</td>
+</tr>
+<tr>
+<td>Retired</td>
+<td>No longer available. Agents that used a retired model automatically switch to its replacement model. To see the replacement for each model, see <a href="#model-retirement-lifecycle" data-linktype="self-bookmark">Model retirement lifecycle</a>.</td>
+</tr>
+<tr>
+<td>Early access environment</td>
+<td>Only available in early release cycle environments. These environments receive new updates and features first. Learn more in <a href="/en-us/power-platform/admin/early-release" data-linktype="absolute-path">Early release cycle environments</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="model-lifecycle-summary">Model lifecycle summary</h2>
+<h3 id="available-models">Available models</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Provider</th>
+<th>Release type</th>
+<th>Lifecycle note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-5.6 Terra</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-6 Astra</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-6 Sol</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-6.1 Sol</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-6.1 Terra</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-6.2 Sol</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-6.2 Astra</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPT-6 Luna</td>
+<td>OpenAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td>Retiring February 15, 2027</td>
+</tr>
+<tr>
+<td>Claude Sonnet 5</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td>Retiring February 15, 2027</td>
+</tr>
+<tr>
+<td>Claude Haiku 5.5</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Claude Sonnet 5.5</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Claude Fable 5</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Claude Fable 5.1</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Claude Fable 5.2</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Claude Opus 4.8</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td>Retiring February 15, 2027</td>
+</tr>
+<tr>
+<td>Claude Opus 5</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td>Retiring February 15, 2027</td>
+</tr>
+<tr>
+<td>Claude Opus 5.5</td>
+<td>Anthropic</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Grok 4.6</td>
+<td>SpaceXAI</td>
+<td>GA</td>
+<td></td>
+</tr>
+<tr>
+<td>Mistral Large 4</td>
+<td>Mistral</td>
+<td>Preview</td>
+<td></td>
+</tr>
+<tr>
+<td>Mistral Medium 3.5</td>
+<td>Mistral</td>
+<td>Experimental</td>
+<td>Available only in early-access Europe environments. Retiring November 30, 2026.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-retirement-lifecycle">Model retirement lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Provider</th>
+<th>Lifecycle status</th>
+<th>Date</th>
+<th>Replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-5 Chat (EU/EFTA, data movement across regions turned off)</td>
+<td>OpenAI</td>
+<td>Retiring soon</td>
+<td>November 30, 2026</td>
+<td>GPT-6 Luna</td>
+</tr>
+<tr>
+<td>Mistral Medium 3.5</td>
+<td>Mistral</td>
+<td>Retiring soon</td>
+<td>November 30, 2026</td>
+<td>Mistral Large 4</td>
+</tr>
+<tr>
+<td>Claude Opus 4.8</td>
+<td>Anthropic</td>
+<td>Retiring soon</td>
+<td>February 15, 2027</td>
+<td>Claude Opus 5.5</td>
+</tr>
+<tr>
+<td>Claude Opus 5</td>
+<td>Anthropic</td>
+<td>Retiring soon</td>
+<td>February 15, 2027</td>
+<td>Claude Opus 5.5</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>Anthropic</td>
+<td>Retiring soon</td>
+<td>February 15, 2027</td>
+<td>Claude Sonnet 5.5</td>
+</tr>
+<tr>
+<td>Claude Sonnet 5</td>
+<td>Anthropic</td>
+<td>Retiring soon</td>
+<td>February 15, 2027</td>
+<td>Claude Sonnet 5.5</td>
+</tr>
+<tr>
+<td>GPT-5 Chat</td>
+<td>OpenAI</td>
+<td>Retired</td>
+<td>November 12, 2026</td>
+<td>GPT-6 Luna</td>
+</tr>
+<tr>
+<td>GPT-5.6 Sol</td>
+<td>OpenAI</td>
+<td>Retired</td>
+<td>November 12, 2026</td>
+<td>GPT-6.1 Sol</td>
+</tr>
+<tr>
+<td>GPT-5.6 Luna</td>
+<td>OpenAI</td>
+<td>Retired</td>
+<td>November 12, 2026</td>
+<td>GPT-6 Luna</td>
+</tr>
+<tr>
+<td>GPT-5.5 Chat</td>
+<td>OpenAI</td>
+<td>Retired</td>
+<td>October 31, 2026</td>
+<td>GPT-6 Luna</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ai-model-providers-and-data-processing">AI model providers and data processing</h2>
+<h3 id="openai-models">OpenAI models</h3>
+<h3 id="models-from-other-providers">Models from other providers</h3>
+<h3 id="provider-settings-and-terms">Provider settings and terms</h3>
+<table>
+<thead>
+<tr>
+<th>Provider setting</th>
+<th>Models it turns on</th>
+<th>On by default</th>
+<th>Setup and terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI providers operating as Microsoft subprocessors: OpenAI</td>
+<td>GPT models operated by OpenAI. GPT models operated by Microsoft stay available when this setting is off.</td>
+<td>Yes</td>
+<td><a href="/en-us/copilot/implement/openai-subprocessor" data-linktype="absolute-path">OpenAI as a subprocessor in Microsoft Online Services</a></td>
+</tr>
+<tr>
+<td>AI providers operating as Microsoft subprocessors: Anthropic</td>
+<td>Claude models</td>
+<td>Yes, except in the EU/EFTA and the United Kingdom</td>
+<td><a href="/en-us/copilot/implement/connect-to-ai-subprocessor" data-linktype="absolute-path">Claude models from Anthropic in Microsoft Online Services</a></td>
+</tr>
+<tr>
+<td>Anthropic models with data retention</td>
+<td>Claude Fable models</td>
+<td>No</td>
+<td><a href="/en-us/copilot/implement/connect-to-ai-subprocessor" data-linktype="absolute-path">Claude models from Anthropic in Microsoft Online Services</a></td>
+</tr>
+<tr>
+<td>AI providers operating as independent processors: SpaceXAI</td>
+<td>Grok models</td>
+<td>No</td>
+<td><a href="/en-us/copilot/implement/connect-to-ai-models" data-linktype="absolute-path">Connect to SpaceXAI models</a></td>
+</tr>
+<tr>
+<td>AI providers operating as independent processors: Mistral AI</td>
+<td>Mistral models</td>
+<td>No</td>
+<td><a href="/en-us/copilot/implement/connect-mistral-ai-models" data-linktype="absolute-path">Connect to Mistral AI models</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-admins-make-models-available">How admins make models available</h3>
+<h3 id="where-your-data-is-processed">Where your data is processed</h3>
+<h3 id="eu-data-boundary">EU Data Boundary</h3>
+<h2 id="model-use-categories">Model use categories</h2>
+<h2 id="limitations-of-experimental-and-preview-models">Limitations of experimental and preview models</h2>
+<h2 id="troubleshoot-model-access">Troubleshoot model access</h2>
+<h2 id="related-information">Related information</h2>
+<h2 id="ms--feedback" class="title is-3">Feedback</h2>
+<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Additional resources
+			</h2>
+<h3>In this article</h3>
+</body></html>

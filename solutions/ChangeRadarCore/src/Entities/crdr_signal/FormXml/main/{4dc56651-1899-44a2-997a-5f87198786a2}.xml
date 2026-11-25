@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{4dc56651-1899-44a2-997a-5f87198786a2}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_signal" verticallayout="true" id="{3e60572c-a635-44f3-872f-55952a4a5d0a}" IsUserDefined="1">
+          <labels>
+            <label description="Signal" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="40%">
+              <sections>
+                <section name="sec_details" showlabel="true" showbar="false" id="{f4847470-d317-459a-bc7f-a2e0aea8c8a7}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{b5120da2-8916-44ca-92f3-db5b6fc40589}">
+                        <labels>
+                          <label description="Title" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_title" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_title" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6931175c-a476-47dc-945b-cf1c536fa701}">
+                        <labels>
+                          <label description="Source" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_source" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_source" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c7084716-55d3-4829-891a-f7a0eb8a9f9b}">
+                        <labels>
+                          <label description="External ID" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_externalid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_externalid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9e97b750-6780-431f-9457-07eaf4b72a26}">
+                        <labels>
+                          <label description="Horizon" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_horizon" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_horizon" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7af946d1-1c9c-4d1a-b938-45282fbeb822}">
+                        <labels>
+                          <label description="Date" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_datelabel" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_datelabel" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2f8ea306-68ab-4e23-883f-10ecc2c00dab}">
+                        <labels>
+                          <label description="Key date" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_keydate" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_keydate" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e12e6b9b-66d9-4326-8ad8-0129f1960bb0}">
+                        <labels>
+                          <label description="Products" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_products" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_products" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{76171c39-04e1-4fbd-bee8-936f04256dcd}">
+                        <labels>
+                          <label description="Action required" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_actionrequired" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="crdr_actionrequired" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{59ef5601-f217-4370-9cb4-71e48f63d602}">
+                        <labels>
+                          <label description="Link" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_url" classid="{71716B6C-711E-476c-8AB8-5D11542BFB47}" datafieldname="crdr_url" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{606cf878-add5-48f2-b9bf-bc9560dfd58f}">
+                        <labels>
+                          <label description="First seen" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_firstseen" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_firstseen" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c0b18a11-21bf-4f78-a777-59e0dda010c6}">
+                        <labels>
+                          <label description="Last changed" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_lastchanged" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_lastchanged" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{69e2fb7c-9fa7-4da0-a9ba-b962cd2637b1}">
+                        <labels>
+                          <label description="Fingerprinted on" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_fingerprintedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_fingerprintedon" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="sec_watch" showlabel="true" showbar="false" id="{f06f6b41-335e-4b64-9df0-a3d85dd14062}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Watch list (changes to a watched signal raise a card)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0d587016-a0fd-4aee-8a7b-872e770990f7}">
+                        <labels>
+                          <label description="Watched" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_watched" classid="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}" datafieldname="crdr_watched" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e05f9ad9-2549-4eee-9921-12a0f42ebd97}">
+                        <labels>
+                          <label description="Watched because of" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_watch" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="crdr_watch" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{de45f047-5926-4a0c-b8a0-fe1ec73ca642}">
+                        <labels>
+                          <label description="Watched on" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_watchedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_watchedon" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="60%">
+              <sections>
+                <section name="sec_fingerprints" showlabel="true" showbar="false" id="{3e9ce86e-1dbf-4baf-9631-270219df85d1}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Fingerprint (groups are alternatives; facets in a group must all hold)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{6b6dcda9-e612-4494-911c-d647075ed5df}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Fingerprints" languagecode="1033" />
+                        </labels>
+                        <control id="fingerprints" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{b208b354-78e5-f111-84ea-002248db5401}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>crdr_signal_signalfingerprint_signal</RelationshipName>
+                            <TargetEntityType>crdr_signalfingerprint</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>16</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="sec_assessments" showlabel="true" showbar="false" id="{5b3ba652-fe16-48bd-84b8-ad2a2f99ef20}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Assessment (estate rating per source)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{311f5430-3ec6-449a-abc3-08a3cde5add5}" showlabel="true" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Assessments" languagecode="1033" />
+                        </labels>
+                        <control id="assessments" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{2dda1aea-ade5-f111-84ea-002248db5401}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>crdr_signal_assessment_signal</RelationshipName>
+                            <TargetEntityType>crdr_assessment</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>8</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="sec_exposures" showlabel="true" showbar="false" id="{0a0efdce-6b6e-40f3-b6da-e4e95692db56}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Exposures" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{eb7a4900-5507-4102-950a-5129b08e45a1}" showlabel="true" rowspan="8" colspan="1" auto="false">
+                        <labels>
+                          <label description="Exposures" languagecode="1033" />
+                        </labels>
+                        <control id="exposures" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{bd08b354-78e5-f111-84ea-002248db5401}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>crdr_signal_exposure_signal</RelationshipName>
+                            <TargetEntityType>crdr_exposure</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>16</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_text" verticallayout="true" id="{e1071f14-76e8-4e13-abf4-97d9de2119a6}" IsUserDefined="1">
+          <labels>
+            <label description="Text" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="sec_readable" showlabel="true" showbar="false" id="{89f8d1f1-377e-41ef-83be-a192caaaec5d}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Summary" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4d56bcbd-3816-46d7-b436-8a57f2de1cc2}" rowspan="8">
+                        <labels>
+                          <label description="Summary" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_summarytext" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_summarytext" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="sec_text" showlabel="true" showbar="false" id="{1f160a90-fe80-478b-baaf-294fcf4445ba}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="As collected (HTML for Message Center posts and blogs)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{baaf5efd-4c5a-4785-a903-31c2cadfcc0f}" rowspan="8">
+                        <labels>
+                          <label description="As collected" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_summary" classid="{E0DECE4B-6FC8-4a8f-A065-082708572369}" datafieldname="crdr_summary" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

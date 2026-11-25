@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModule>
+  <UniqueName>crdr_ChangeRadar</UniqueName>
+  <IntroducedVersion>0.1.0.0</IntroducedVersion>
+  <WebResourceId>953b9fac-1e5e-e611-80d6-00155ded156f</WebResourceId>
+  <OptimizedFor></OptimizedFor>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <FormFactor>1</FormFactor>
+  <ClientType>4</ClientType>
+  <NavigationType>0</NavigationType>
+  <AppModuleComponents>
+    <AppModuleComponent type="1" schemaName="crdr_assessment" />
+    <AppModuleComponent type="1" schemaName="crdr_asset" />
+    <AppModuleComponent type="1" schemaName="crdr_assetfingerprint" />
+    <AppModuleComponent type="1" schemaName="crdr_collectionrun" />
+    <AppModuleComponent type="1" schemaName="crdr_config" />
+    <AppModuleComponent type="1" schemaName="crdr_exposure" />
+    <AppModuleComponent type="1" schemaName="crdr_facetvalue" />
+    <AppModuleComponent type="1" schemaName="crdr_feed" />
+    <AppModuleComponent type="1" schemaName="crdr_rule" />
+    <AppModuleComponent type="1" schemaName="crdr_signal" />
+    <AppModuleComponent type="1" schemaName="crdr_signalfingerprint" />
+    <AppModuleComponent type="1" schemaName="crdr_signalversion" />
+    <AppModuleComponent type="1" schemaName="crdr_subscription" />
+    <AppModuleComponent type="1" schemaName="crdr_tenantsetting" />
+    <AppModuleComponent type="1" schemaName="crdr_watch" />
+    <AppModuleComponent type="26" id="{6b51afd6-10e5-f111-84ea-002248db5401}" />
+    <AppModuleComponent type="26" id="{af08b354-78e5-f111-84ea-002248db5401}" />
+    <AppModuleComponent type="26" id="{b708b354-78e5-f111-84ea-002248db5401}" />
+    <AppModuleComponent type="26" id="{23da1aea-ade5-f111-84ea-002248db5401}" />
+    <AppModuleComponent type="26" id="{d4943a22-ec8c-4df6-8a55-13033ecec148}" />
+    <AppModuleComponent type="26" id="{39c473e9-9eb8-45e2-9ef8-4d7b34e523f4}" />
+    <AppModuleComponent type="26" id="{95ce702b-9db4-4ea3-bb50-9782c568c762}" />
+    <AppModuleComponent type="26" id="{5f1231b5-90e7-402f-ab94-982e3314ee78}" />
+    <AppModuleComponent type="26" id="{3277634f-4cab-49ee-bab2-cf2709bb9d39}" />
+    <AppModuleComponent type="62" schemaName="crdr_ChangeRadar" />
+  </AppModuleComponents>
+  <AppModuleRoleMaps>
+    <Role id="{b54f1008-01e8-f111-84ea-002248db5401}" />
+    <Role id="{0056ef01-01e8-f111-84ea-002248db5401}" />
+    <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+    <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+  </AppModuleRoleMaps>
+  <LocalizedNames>
+    <LocalizedName description="Change Radar" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="What is changing in Power Platform and Copilot, and when. Phase 1: signals from Graph and the public roadmap." languagecode="1033" />
+  </Descriptions>
+  <appsettings>
+    <appsetting settingdefinitionid.uniquename="AppChannel">
+      <iscustomizable>1</iscustomizable>
+      <value>1</value>
+    </appsetting>
+  </appsettings>
+</AppModule>

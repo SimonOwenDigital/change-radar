@@ -1,0 +1,245 @@
+{
+  "description": "Expected effects of a fingerprint review decision (phase 6 step 4b, fingerprint review page). Written before the page's effect functions (CLAUDE.md). Derived from engine Find-Exposures (engine/ChangeRadar.Matching.psm1): accepted rows only; rows grouped by group; facets within a group ANDed; facet with no active rule ignored; a group matches assets only with at least one trigger clause; setting-role facets are tenant setting checks; values compared case-insensitively; an exposure records the first group (by name) that matched it, so an asset also matched by another group stays open when one group closes.",
+  "contract": {
+    "input": "rules (active rules: facet, role), vocabulary (active facet values), rows (one signal's fingerprints: id, group, facet, value, status accepted|review|rejected), exposures (that signal's exposures: group, status new|confirmed|dismissed|unmatched, source live|fixture|synthetic), target (row id), decision (accept|reject|review)",
+    "output": "kind (opens|closes|narrows|widens|setting-added|setting-removed|none), notInVocabulary, signalLeftEmpty, groupOpen {live, other} (open = new or confirmed, target's group), otherTriggerGroups (other groups of the signal that still have a trigger clause after the decision, sorted)"
+  },
+  "defaults": {
+    "rules": [
+      { "facet": "product", "role": "scope" },
+      { "facet": "resource_type", "role": "scope" },
+      { "facet": "environment_type", "role": "scope" },
+      { "facet": "harness", "role": "scope" },
+      { "facet": "connector", "role": "trigger" },
+      { "facet": "capability", "role": "trigger" },
+      { "facet": "auth_mode", "role": "trigger" },
+      { "facet": "setting", "role": "setting" }
+    ],
+    "vocabulary": [
+      { "facet": "product", "value": "Power Apps" },
+      { "facet": "product", "value": "Copilot Studio" },
+      { "facet": "product", "value": "M365 Copilot" },
+      { "facet": "capability", "value": "uses_mcp" },
+      { "facet": "capability", "value": "pcf_control" },
+      { "facet": "connector", "value": "shared_sharepointonline" },
+      { "facet": "connector", "value": "shared_commondataserviceforapps" },
+      { "facet": "environment_type", "value": "production" },
+      { "facet": "auth_mode", "value": "maker" },
+      { "facet": "setting", "value": "anthropic_subprocessor" }
+    ]
+  },
+  "cases": [
+    {
+      "name": "Rejecting the last trigger closes the group",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "product", "value": "Copilot Studio", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "capability", "value": "uses_mcp", "status": "accepted" }
+      ],
+      "exposures": [
+        { "group": "A", "status": "new", "source": "live" },
+        { "group": "A", "status": "confirmed", "source": "live" },
+        { "group": "A", "status": "new", "source": "synthetic" },
+        { "group": "A", "status": "dismissed", "source": "live" },
+        { "group": "A", "status": "unmatched", "source": "live" }
+      ],
+      "target": "2", "decision": "reject",
+      "expected": { "kind": "closes", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 2, "other": 1 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Live today: rejecting RM570671's manual M1 uses_mcp closes 5 synthetic exposures; group A is scope only",
+      "rows": [
+        { "id": "a", "group": "A", "facet": "product", "value": "M365 Copilot", "status": "accepted" },
+        { "id": "m", "group": "M1", "facet": "capability", "value": "uses_mcp", "status": "accepted" }
+      ],
+      "exposures": [
+        { "group": "M1", "status": "new", "source": "synthetic" },
+        { "group": "M1", "status": "new", "source": "synthetic" },
+        { "group": "M1", "status": "new", "source": "synthetic" },
+        { "group": "M1", "status": "new", "source": "synthetic" },
+        { "group": "M1", "status": "new", "source": "synthetic" }
+      ],
+      "target": "m", "decision": "reject",
+      "expected": { "kind": "closes", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 5 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Closing one group while another still has a trigger: assets that group also matches stay open",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "capability", "value": "uses_mcp", "status": "accepted" },
+        { "id": "2", "group": "M1", "facet": "capability", "value": "uses_mcp", "status": "accepted" }
+      ],
+      "exposures": [
+        { "group": "A", "status": "new", "source": "live" },
+        { "group": "A", "status": "new", "source": "live" }
+      ],
+      "target": "1", "decision": "reject",
+      "expected": { "kind": "closes", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 2, "other": 0 }, "otherTriggerGroups": ["M1"] }
+    },
+    {
+      "name": "Rejecting the only fingerprint leaves the signal with none",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" }
+      ],
+      "exposures": [ { "group": "A", "status": "new", "source": "live" } ],
+      "target": "1", "decision": "reject",
+      "expected": { "kind": "closes", "notInVocabulary": false, "signalLeftEmpty": true, "groupOpen": { "live": 1, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Rejecting a scope facet widens the group",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "product", "value": "Power Apps", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" }
+      ],
+      "exposures": [],
+      "target": "1", "decision": "reject",
+      "expected": { "kind": "widens", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Rejecting one trigger clause when another trigger clause remains widens the group (fewer AND conditions)",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "capability", "value": "pcf_control", "status": "accepted" }
+      ],
+      "exposures": [ { "group": "A", "status": "new", "source": "live" } ],
+      "target": "2", "decision": "reject",
+      "expected": { "kind": "widens", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 1, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Accepting a second value of an existing facet widens the group (OR within a facet)",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "connector", "value": "shared_commondataserviceforapps", "status": "review" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "widens", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Accepting a new AND clause narrows the group",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "environment_type", "value": "production", "status": "review" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "narrows", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Rejecting one of several values of a facet narrows the group",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "connector", "value": "shared_commondataserviceforapps", "status": "accepted" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "reject",
+      "expected": { "kind": "narrows", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Accepting the first trigger of a scope-only group opens it",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "product", "value": "Copilot Studio", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "capability", "value": "uses_mcp", "status": "review" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "opens", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Accepting a scope facet in a scope-only group changes nothing",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "product", "value": "Copilot Studio", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "environment_type", "value": "production", "status": "review" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "none", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "A facet with no active rule is ignored",
+      "rules": [
+        { "facet": "product", "role": "scope" },
+        { "facet": "connector", "role": "trigger" }
+      ],
+      "rows": [
+        { "id": "1", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "auth_mode", "value": "maker", "status": "review" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "none", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Accepting a value already accepted (different case) changes nothing",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "connector", "value": "Shared_SharePointOnline", "status": "review" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "none", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Back to review on a rejected row changes nothing",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "capability", "value": "uses_mcp", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "connector", "value": "shared_sharepointonline", "status": "rejected" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "review",
+      "expected": { "kind": "none", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Back to review on an accepted last trigger closes the group, like a reject",
+      "rows": [
+        { "id": "1", "group": "B", "facet": "capability", "value": "uses_mcp", "status": "accepted" }
+      ],
+      "exposures": [ { "group": "B", "status": "new", "source": "fixture" } ],
+      "target": "1", "decision": "review",
+      "expected": { "kind": "closes", "notInVocabulary": false, "signalLeftEmpty": true, "groupOpen": { "live": 0, "other": 1 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Accepting a setting adds a tenant setting check",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "product", "value": "Copilot Studio", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "setting", "value": "anthropic_subprocessor", "status": "review" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "setting-added", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "Rejecting a setting removes the tenant setting check",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "setting", "value": "anthropic_subprocessor", "status": "accepted" },
+        { "id": "2", "group": "B", "facet": "capability", "value": "uses_mcp", "status": "accepted" }
+      ],
+      "exposures": [ { "group": "A", "status": "new", "source": "live" } ],
+      "target": "1", "decision": "reject",
+      "expected": { "kind": "setting-removed", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 1, "other": 0 }, "otherTriggerGroups": ["B"] }
+    },
+    {
+      "name": "A value outside the vocabulary is flagged",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "product", "value": "Copilot Studio", "status": "accepted" },
+        { "id": "2", "group": "A", "facet": "capability", "value": "made_up_capability", "status": "rejected" }
+      ],
+      "exposures": [],
+      "target": "2", "decision": "accept",
+      "expected": { "kind": "opens", "notInVocabulary": true, "signalLeftEmpty": false, "groupOpen": { "live": 0, "other": 0 }, "otherTriggerGroups": [] }
+    },
+    {
+      "name": "A decision in one group leaves other groups alone and counts only its own exposures",
+      "rows": [
+        { "id": "1", "group": "A", "facet": "capability", "value": "uses_mcp", "status": "accepted" },
+        { "id": "2", "group": "B", "facet": "connector", "value": "shared_sharepointonline", "status": "accepted" },
+        { "id": "3", "group": "B", "facet": "product", "value": "Power Apps", "status": "accepted" }
+      ],
+      "exposures": [
+        { "group": "A", "status": "new", "source": "live" },
+        { "group": "B", "status": "new", "source": "live" },
+        { "group": "B", "status": "confirmed", "source": "live" }
+      ],
+      "target": "3", "decision": "reject",
+      "expected": { "kind": "widens", "notInVocabulary": false, "signalLeftEmpty": false, "groupOpen": { "live": 2, "other": 0 }, "otherTriggerGroups": ["A"] }
+    }
+  ]
+}

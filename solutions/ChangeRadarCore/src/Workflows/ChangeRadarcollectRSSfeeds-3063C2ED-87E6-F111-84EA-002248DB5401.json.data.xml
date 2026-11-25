@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{3063c2ed-87e6-f111-84ea-002248db5401}" Name="Change Radar: collect RSS feeds" Description="Change Radar: collect the active RSS feeds (crdr_feed kind rss), such as the Copilot Studio blog: one informational signal per item, dated by publication (ADR 0014)." xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <JsonFileName>/Workflows/ChangeRadarcollectRSSfeeds-3063C2ED-87E6-F111-84EA-002248DB5401.json</JsonFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>5</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>0.1.0.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ModernFlowType>0</ModernFlowType>
+  <PrimaryEntity>none</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Change Radar: collect RSS feeds" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1033" description="Change Radar: collect the active RSS feeds (crdr_feed kind rss), such as the Copilot Studio blog: one informational signal per item, dated by publication (ADR 0014)." />
+  </Descriptions>
+</Workflow>

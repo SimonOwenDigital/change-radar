@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{6b51afd6-10e5-f111-84ea-002248db5401}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="crdr_name" select="1" icon="1" preview="1">
+        <row name="result" id="crdr_assetid">
+          <cell name="crdr_name" width="300" />
+          <cell name="crdr_resourcetype" width="230" />
+          <cell name="crdr_environmentname" width="150" />
+          <cell name="crdr_environmenttype" width="110" />
+          <cell name="crdr_source" width="90" />
+          <cell name="crdr_solutionuniquename" width="160" />
+          <cell name="crdr_lastseen" width="130" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="crdr_asset">
+          <attribute name="crdr_name" />
+          <attribute name="crdr_resourcetype" />
+          <attribute name="crdr_environmentname" />
+          <attribute name="crdr_environmenttype" />
+          <attribute name="crdr_source" />
+          <attribute name="crdr_solutionuniquename" />
+          <attribute name="crdr_lastseen" />
+          <attribute name="crdr_assetid" />
+          <order attribute="crdr_resourcetype" descending="false" />
+          <order attribute="crdr_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="crdr_source" operator="ne" value="169890002" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>0.1.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Estate assets" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Every collected app, flow and agent in the tenant (live, plus fixtures labelled as such), by type, with environment and source." languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

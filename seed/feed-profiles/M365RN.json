@@ -1,0 +1,4 @@
+{ "sinceDays": 90,
+  "areas": ["Microsoft 365 Copilot Chat", "Microsoft 365 Copilot extensibility", "Microsoft 365 Copilot Studio", "Microsoft 365 Copilot"],
+  "titleKeywords": ["gpt", "claude", "anthropic", "model", "agent builder", "copilot chat"],
+  "areaProducts": { "Microsoft 365 Copilot Studio": "Microsoft Copilot Studio" } }

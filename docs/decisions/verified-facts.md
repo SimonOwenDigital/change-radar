@@ -1,0 +1,149 @@
+# Verified platform facts log
+
+> **From:** [Empower Your World](https://www.empoweryour.world/?utm_source=github&utm_medium=docs&utm_campaign=change-radar&utm_content=verified-facts) · [The story behind Change Radar](https://www.empoweryour.world/blog/change-radar?utm_source=github&utm_medium=docs&utm_campaign=change-radar&utm_content=verified-facts)
+
+Facts checked against Microsoft Learn, with the date checked. Assumptions are listed separately so they're never mistaken for facts.
+
+## Checked 2026-11-18 (overnight run)
+
+| Fact | Source |
+|---|---|
+| Publisher `customizationprefix` is required, text, max length 8. `customizationoptionvalueprefix` is an integer 10000–99999. | [Publisher table reference](https://learn.microsoft.com/power-apps/developer/data-platform/reference/entities/publisher) |
+| Claude models are available in Microsoft Copilot and Copilot Studio with Anthropic as a Microsoft subprocessor. Enabled in the M365 admin centre (AI Administrator or Global Administrator), then allowed per environment or environment group in PPAC. On by default except EU/EFTA/UK. | [Claude models from Anthropic in Microsoft Online Services](https://learn.microsoft.com/copilot/implement/connect-to-ai-subprocessor); [Model availability and controls](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-agent-model-availability) |
+| Anthropic model processing in Word/Excel/PowerPoint happens outside the EU Data Boundary. | [Copilot in M365 apps with Anthropic models](https://learn.microsoft.com/copilot/implement/copilot-anthropic-apps) |
+| Model-driven apps host generative pages (React, up to six Dataverse tables, PAC CLI deployable) and embedded Power BI dashboards. | [Generative pages](https://learn.microsoft.com/power-apps/maker/model-driven-apps/generative-pages); [Power BI in model-driven apps](https://learn.microsoft.com/power-apps/maker/model-driven-apps/add-powerbi-visual) |
+| `PowerPlatformResources` types: `microsoft.powerapps/canvasapps`, `.../modeldrivenapps`, `.../codeapps`, `.../apps`, `microsoft.powerautomate/cloudflows`, `.../agentflows`, `.../m365agentflows`, `microsoft.copilotstudio/agents`, `microsoft.powerpages/sites`, `microsoft.powerplatformconnector/connectors`, `microsoft.powerplatform/environments`, `.../environmentgroups`. Shared fields: `name`, `type`, `location`, `properties.displayName`, `properties.createdAt`, `properties.createdBy`. | [Inventory schema reference](https://learn.microsoft.com/power-platform/admin/inventory-schema) |
+| Connector usage per resource is `properties.powerPlatformConnectors[].connectorId` and `.operations[].operationId`. Flows also carry `properties.trigger` and `properties.triggerOperation`. | As above |
+| Agent inventory adds `properties.harness` (e.g. `Standard`), `ownerId`, `environmentId`, `lastPublishedAt`, `createdIn` (Copilot Studio / Agent Builder), `isManaged` (preview), and preview configuration fields `orchestration` (`Classic`/`Generative`), `authentication`, `channels` (display names), `sharedWithViewers`, and per-operation `usedAs`, `connectionProvider` (`User`/`Maker`). No MCP field. Classic (PVA v1) bots aren't included. | [Copilot Studio agent inventory](https://learn.microsoft.com/microsoft-copilot-studio/admin-agent-inventory) |
+
+**Consequence for the design:** most of the agent fingerprint (orchestration, harness, channels, maker vs end-user connections) is now in native inventory. The Copilot Studio Kit is still needed for MCP use, autonomous triggers and HTTP actions. Spec §3 understates native inventory; worth a spec update.
+
+## Checked 2026-11-22 (phase 6b, model-change signals)
+
+| Fact | Source |
+|---|---|
+| Copilot Studio (standard harness) publishes a "Model retirement dates and extension availability" table. Agents on the GPT Chat Latest alias or in managed solutions move automatically; a new major version under the alias gets at least 30 days' notice. | [Select a primary AI model](https://learn.microsoft.com/microsoft-copilot-studio/authoring-select-agent-model) |
+| Copilot Studio (Microsoft Copilot harness) publishes "Available models" and "Model lifecycle summary" tables (model, provider, status, date, replacement); e.g. Claude Sonnet 4.6 retires 2027-02-15, replaced by Claude Sonnet 5.5. | [Model availability](https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-agent-model-availability) |
+| Prompts move automatically to the tier's replacement model on 2026-12-02; keeping a retiring model configured doesn't prevent migration; responses can differ. | [Prompt model availability](https://learn.microsoft.com/microsoft-copilot-studio/prompt-model-availability) |
+| Not every Microsoft 365 Copilot model change gets a Message Center post; only those needing admin action, affecting commitments, or significant. | [AI models overview](https://learn.microsoft.com/copilot/plan/ai-models-overview) |
+| Inventory `microsoft.copilotstudio/agents` has `properties.model` (published version); Microsoft recommends grouping by it to find agents on a retiring model. Agent Builder agents are included. Prompts are not an inventory resource type. | [Agent inventory](https://learn.microsoft.com/microsoft-copilot-studio/admin-agent-inventory); [Plan the agent model lifecycle](https://learn.microsoft.com/microsoft-copilot-studio/guidance/plan-agent-model-lifecycle) |
+| Learn pages carry `git_commit_id` and `updated_at` meta tags, usable to detect edits. Their source repos are private. | Page source of the pages above (checked by HTTP GET) |
+
+Seen in data, not documented (treat as assumptions until a spike confirms): a prompt's model is `msdyn_aiconfiguration.msdyn_customconfiguration` → `modelParameters.modelType` on the active run configuration (pp-lab, 2026-11-22: values `gpt-6-sol`, `gpt-41-mini`, `default`); Agent Builder agents report `properties.model = "Microsoft 365 Copilot"` (live inventory sample, 2026-11-19).
+
+## Assumptions (not verified)
+
+| Assumption | Used in |
+|---|---|
+| Environment SKU values `Production`, `Sandbox`, `Developer`, `Default`, `Trial` | `seed/asset-signatures.json` |
+| Custom web channel display name is `Custom website` | `seed/asset-signatures.json` |
+| Scheduled-prompt flows: Recurrence trigger plus connector `shared_microsoft365copilot` (T5 placeholder) | `seed/asset-signatures.json` |
+| Custom connectors loading SharePoint content can be spotted by a `*.sharepoint.com` host in the connector definition | `seed/asset-signatures.json` |
+| Copilot Studio Kit fields named here `usesMcp`, `hasAutonomousTriggers`, `hasHttpActions` (real `cat_` names unverified) | estate file format |
+| Publisher prefix must start with a letter, be alphanumeric, and not start with `mscrm` | ADR 0003 |
+
+## Checked 2026-11-18, roadmap (spike T3)
+
+| Fact | Source |
+|---|---|
+| The roadmap is now the **Microsoft Copilot Roadmap**, formerly Microsoft 365 Roadmap and AI at Work Roadmap. RSS subscription is supported from the site. | [Use the Microsoft Copilot Roadmap](https://learn.microsoft.com/microsoft-365/admin/manage/roadmap) |
+| Dynamics 365, Power Platform and Dataverse roadmap content moved to it from September 2026; Release Planner retired by 15 November 2026. | [Partner Center: September 2026 announcements](https://learn.microsoft.com/partner-center/announcements/2026-september) |
+| Microsoft Release Communications MCP server: `https://www.microsoft.com/releasecommunications/mcp`, no authentication, no licence, Microsoft API Terms of Use; tools `get_recent_roadmaps`, `get_roadmap_by_id` (plus Azure Updates). Data refreshes daily. | [MRC MCP Server](https://learn.microsoft.com/microsoft-365/admin/manage/mrc-mcp) |
+| Observed (not documented): JSON at `/releasecommunications/api/v1/m365` and RSS at `/api/v2/m365/rss` both return the full catalogue. | `spikes/T3-roadmap-schema.md` |
+
+## Checked 2026-11-19, phase 0 tooling and authentication
+
+- **Getting a Dataverse token.** The documented way for scripts is the Az PowerShell module, with no app registration of our own: `Connect-AzAccount`, then `Get-AzAccessToken -ResourceUrl <environment url>`. ([Authenticate to Dataverse with the Web API](https://learn.microsoft.com/power-apps/developer/data-platform/webapi/authenticate-web-api), [Quickstart: Web API with PowerShell](https://learn.microsoft.com/power-apps/developer/data-platform/webapi/quick-start-ps).)
+- **The token is a SecureString.** `Get-AzAccessToken` returns it as `SecureString` by default. ([Get-AzAccessToken](https://learn.microsoft.com/powershell/module/az.accounts/get-azaccesstoken).)
+- **Observed on the dev machine.** Az.Accounts 5.5.3 is installed.
+  - With delegated sign-in it got a Dataverse token, and `WhoAmI` against the dev environment succeeded.
+  - A Graph token (`-ResourceTypeName MSGraph`) is issued to the "Microsoft Azure PowerShell" app. Its delegated scopes include `Application.ReadWrite.All` and `AppRoleAssignment.ReadWrite.All`.
+  - So the same sign-in can create the reader app registration and grant admin consent through Graph REST, provided the signed-in user holds a suitable directory role.
+- **Not a route.** `pac` doesn't expose an access token, so it can't drive Web API metadata calls.
+
+## Observed 2026-11-19, creating the schema in the dev environment (Web API)
+
+| Observation | Source | What we do about it |
+|---|---|---|
+| A choice column's `GlobalOptionSet@odata.bind` must use the choice's MetadataId (`/GlobalOptionSetDefinitions(<guid>)`); binding by `Name='…'` fails with "Guid should contain 32 digits" | Observed; Learn samples use the MetadataId ([Create and update choices](https://learn.microsoft.com/power-apps/developer/data-platform/webapi/create-update-optionsets)) | Deploy script looks up the MetadataId at apply time |
+| Creating a table ignores the requested `MaxLength` of its primary name column: it's always 850 characters (`DatabaseLength` 1700) | Observed for all 16 tables | Deploy script sets `MaxLength` afterwards. That limits input, but `DatabaseLength` stays 1700 |
+| Alternate key creation enforced a **1700-byte** index limit ("Index size exceeded the size limit of 1700 bytes"). Learn says 900 | Observed | A primary name column can only be a key on its own (exactly 1700). `Test-Schema.ps1` rejects it in multi-column keys |
+| Every table gets a primary key column `<prefix>_<table>id`, so a custom column with that name conflicts (`rule.ruleid`) | Observed | Renamed to `rulecode`; `Test-Schema.ps1` rejects `<table>id` columns |
+| `PublishAllXml` needs a JSON content type even with no parameters (HTTP 415 otherwise) | Observed | Script sends `{}` |
+| Updating column metadata is a full-definition `PUT` with `MSCRM.MergeLabels: true` | Observed (worked for `MaxLength` and `Description`) | Used for the length step |
+| Lookups to `systemuser` add `systemuser` to the solution as a root component with behaviour 1 (no subcomponents) | Observed in the export | Accepted; Solution Checker reported 0 issues |
+
+## Observed 2026-11-19, creating the reader identity
+
+| Observation | Source | What we do about it |
+|---|---|---|
+| A subscription that has never used Key Vault refuses vault creation (HTTP 409, "not registered to use namespace 'Microsoft.KeyVault'") | Observed | `New-ReaderIdentity.ps1` plans and applies the provider registration as its own step |
+| Contributor can't create role assignments, even on a vault it just created. Granting **Key Vault Data Access Administrator** on the vault is enough. Added in the portal from the subscription's IAM page, it landed at subscription scope **with no condition** (so it could assign any role) | Observed | Assign it from the vault's own IAM page, use it once, then remove it |
+| A newly granted Azure role wasn't honoured with an access token issued before the grant, even 10 minutes later; a fresh sign-in fixed it immediately | Observed (the 403 message says "refresh your credentials") | After a role grant, run `Connect-AzAccount -UseDeviceAuthentication` (the WAM window can't open from the VS Code terminal) |
+| Dataverse adds 9 baseline privileges to every new security role: read on plug-in assembly, plug-in type, SDK message, processing step and step image, SharePoint document and SharePoint data, plus **create and write on SharePoint data**. Basic User, Environment Maker and Support User hold the same two SharePoint data privileges | Observed with `RetrieveRolePrivilegesRole` | Accepted as platform defaults; `Test-ReaderIdentity.ps1` allows exactly those two and fails on any other create, write, delete, append, assign or share. Assumption, unverified: `sharepointdata` backs the SharePoint documents grid and holds no Change Radar data |
+| In PowerShell, `GetRSAPrivateKey()` is an extension method and must be called as `[RSACertificateExtensions]::GetRSAPrivateKey($cert)` | Observed | Used in `Test-ReaderIdentity.ps1` |
+| Client credentials with a certificate assertion (`x5t` header, RS256) work with the vault-generated, password-less PFX loaded in memory (`EphemeralKeySet`) | Observed: Graph and Dataverse tokens issued | Basis for phase 1; the flow HTTP action accepts the same PFX (spike T6, below) |
+| A cloud flow's HTTP action (`ActiveDirectoryOAuth`, certificate) signs in with the vault-generated, **password-less** PFX, whether `password` is `@string('')` or omitted, although Learn lists it as required. The PFX comes from a secret environment variable that points at the certificate's backing secret | Observed in spike T6 (`spikes/T6/README.md`), HTTP 200 from Graph | Collector flows use the certificate with `password: @string('')`; no client secret |
+
+## Observed 2026-11-19, live inventory (phase 2, Simon's delegated account)
+
+| Fact | Evidence |
+|---|---|
+| A delegated user token for `https://api.powerplatform.com` can call `POST /resourcequery/resources/query?api-version=2024-10-01`. So can `pac resource-query query-resources`. | Live call. Learn says service principals get 403 ([Inventory API](https://learn.microsoft.com/power-platform/admin/inventory-api)) |
+| Clause objects must have `$type` as the **first** JSON key. Otherwise the call returns "KQLOM format is wrong or it cannot be null". In PowerShell, use `[ordered]`. | Live call |
+| Environments carry `properties.environmentType` (`Production`, `Developer`, `Default`), not `environmentSku`. | Live inventory |
+| A flow's `properties.trigger` is an object `{ operationId, connectorId, connectorDisplayName }`, with empty `connectorId` for Recurrence. `flowTriggerType` (e.g. `Scheduled`) and `status` (e.g. `Activated`) sit alongside it. Flow connector operations carry no `connectionProvider`. | Live inventory |
+| A scheduled Copilot prompt flow has a Recurrence trigger and connector `shared_m365copilotautomations`, operation `OfficeAIActionExecution`. This is evidence for spike T5, not yet a full answer. | Live inventory |
+| Agent `harness` values seen: `Standard` and `Copilot Chat`. Agent Builder agents show `createdIn = Copilot Studio Lite`, with `orchestration = Generative`. Agents also carry `capabilitiesCounts`, `componentsCounts` (knowledge by type, tools, topics, connected agents), `triggers`, `flows`, `model`, `isQuarantined` and `entraAgentId`. | Live inventory |
+| `microsoft.powerplatformusage/usagerecords` rows give `properties.lastUsed` per resource, keyed by `properties.resourceId`. This is a candidate source for "abandoned". | Live inventory |
+| `microsoft.powerplatformconnector/connectors` rows (about 1,870) are Microsoft's connector **catalogue**, not tenant resources. They have an empty `tenantId`, `tier`, `isDeprecated`, `releaseTag`, `publisher` and `operations`, and no `isCustom`. | Live inventory |
+
+## Observed 2026-11-20, pp-lab (phase 2, step 3)
+
+| Fact | Evidence |
+|---|---|
+| Flow expressions reject `createArray()` with no arguments ("expects a comma separated list of parameters"). Use `json('[]')` for an empty array. | First live run of "collect estate inventory" |
+| Read privileges for component tables: `prvReadSolution` (covers `solution` and `solutioncomponent`), `prvReadbot`, `prvReadbotcomponent`, `prvReadWorkflow`, `prvReadconnectionreference`. | `EntityDefinitions(...)?$select=Privileges` in pp-lab |
+| `customcontrol` has no read privilege. An application user with no privilege on it can still read it. | `Test-ReaderIdentity.ps1`: read allowed before the role change |
+| Before the role change, the reader got HTTP 403 on all six other component tables. After it, reads are allowed, and the reader still holds no create, write, delete, append, assign or share privilege. | `Test-ReaderIdentity.ps1`, 15 of 15 checks pass |
+| pp-lab holds no agents (`bots` returns 0 rows). The tenant's 5 agents are all in the default environment. | Reader read of `bots`; live `crdr_asset` rows by environment |
+| A code component imported in a solution gets the publisher prefix: `ChangeRadarFixture.FixtureLabel` becomes `crdr_ChangeRadarFixture.FixtureLabel`. | `customcontrols` after importing ChangeRadarFixtures |
+| In formxml, `controlDescription/@forControl` points at the cell control's `uniqueid` (a GUID), not its `id`. The parameter element is named after the manifest property. | Existing pp-lab system form; fixture form update |
+| A new app module is unpublished until `PublishXml`. Until then only `appmodules/RetrieveUnpublishedMultiple()` returns it. | `New-FixturePcfApp.ps1` |
+| `dependency` rows link control (66) ← form (60) ← app module (80). No read privilege is needed, but `$expand` to `publisher` needs `prvReadPublisher`. | Reader identity, `queries/dataverse-detail.ps1` |
+| Inventory `microsoft.powerapps/modeldrivenapps` carries `properties.appModuleId` = `appmoduleid`; the inventory `name` is a different id. For canvas apps the inventory `name` = `canvasappid`. | Live inventory vs `appmodules` and `canvasapps` |
+| Shipped controls belong to solutions from `microsoftdynamics`, `MicrosoftCorporation` or `microsoftfirstparty`. Some `MscrmControls.*` have no `solutioncomponent` rows at all. Every control also sits in `Default`. | `solutioncomponents` type 66 in pp-lab |
+| Inventory flows carry `properties.workflowEntityId` = `workflow.workflowid`. The inventory `name` = `workflow.resourceid`. | Live inventory vs `workflows` in pp-lab |
+| An HTTP action with a pagination policy rejects a single-object response ("missing a property 'value' of type array"), e.g. `RetrieveCurrentOrganization`. Set pagination only on collection calls. | First run of "collect Dataverse detail" |
+| The played model-driven app's left menu can lag a site map publish by over an hour. Hard refresh, a new session and **Publish** in the app editor don't clear it, though the editor preview and the published `sitemaps` row are already current. Direct `pagetype=entitylist` links work straight away. | Phase 4 Assessments entry: deployed 13:18, visible about 14:40, 2026-11-21 (also seen in phase 3) |
+| `empty()` in a flow expression rejects a choice value (an integer), e.g. `crdr_genericimpact`. Test `equals(string(coalesce(x, '')), '')` instead. | Second run of "assess signals" |
+| Dataverse trigger "When a row is added, modified or deleted": `subscriptionRequest/message` 1 = added, 3 = modified; `scope` 4 = organization; `filteringattributes` is a comma-separated list. | "record assessment override" flow, 2026-11-21 |
+| `msdyn_aiconfiguration` has ownership type None: it has no privileges of its own and is read through `prvReadmsdyn_AIModel` (user-owned). The reader app with that privilege read 43 run configurations; `msdyn_aitemplate` stays forbidden without `prvReadmsdyn_aitemplate`. `msdyn_aimodel._msdyn_activerunconfigurationid_value` has no navigation property (no `$expand`). A lookup's formatted value (template name) still comes back to the reader. | pp-lab, 2026-11-22 |
+| A prompt is an active `msdyn_aimodel` (statecode 1) with an active run configuration whose `msdyn_customconfiguration` names `modelParameters.modelType`. pp-lab: 13 GptPowerPrompt models, 3 with an active run configuration (one managed system prompt on `gpt-41-mini`, Change Radar's two on `gpt-6-sol`). One stored configuration is not valid JSON (a trailing comma), so the value is read as text. | pp-lab, 2026-11-22 |
+| The Power Platform inventory (PowerPlatformResources) can return `microsoft.powerplatform/environmentgroups`, which has no `properties.environmentId`. It first appeared in pp-lab's tenant on 2026-11-22 and broke the local query's environment lookups. Groups are tenant structure, not maker assets: the estate flow and `queries/inventory.ps1` now exclude the type, and the detail query reads `environmentId` defensively. | pp-lab, 2026-11-22 |
+| The Power Platform blog feed (`/en-us/power-platform/blog/feed/`) is RSS 2.0 (WordPress), 10 items, with no `dc:creator`. Descriptions use numeric HTML entities (`&#8217;`, `&#8220;`, `&#8211;` and so on). The Copilot Studio blog's sample had none. | public, 2026-11-22 |
+| Prompt calls in Change Radar's cloud flows are logged in pp-lab's `msdyn_aievent` table, one row per call (`msdyn_eventdata` gives `partnerSource: AIBuilder` and `llmModelName`). `msdyn_creditconsumed` matches the **AI Builder** credit rate for a **basic** prompt (1 credit per 1K input tokens, 3 per 1K output): about 5 a call for about 4,600 tokens. November 2026 to the 23rd: 1,041 calls, 4,786 AI Builder credits; about 480 Copilot credits if they had been billed in Copilot credits instead (basic, 0.1 per 1K tokens). Classic cloud flows use AI Builder credits first and Copilot credits only when those run out. So the Microsoft 365 admin centre's Copilot Credits report, which covers Copilot Chat pay-as-you-go agent use, doesn't show these calls. The tenant figure is in the Power Platform admin centre (Licensing, Capacity add-ons, AI Builder; computed daily, up to 5 days late). The AI Builder Activity page in Power Automate shows each call and its currency in real time. | pp-lab `msdyn_aievent`, Learn (AI Builder licensing, capability rate table), 2026-11-23 |
+| A table created through the Web API as `crdr_watch` gets the entity set (and logical collection) name `crdr_watchs`, not `crdr_watches`: no English pluralisation. Read `EntityDefinitions(LogicalName=...)?$select=EntitySetName` rather than guessing. | pp-lab metadata, 2026-11-23 |
+| OData `startswith(crdr_name,'[TEST]')` doesn't match a name starting "[TEST]": Dataverse runs it as SQL `LIKE`, where `[TEST]` is a character class, so it matches names starting **T, E or S** instead. **Never use it to choose rows to delete**: on 2026-11-24 it deleted two real subscriptions ("Exposures in the digest", "Exposures in the email digest"; restored from the seed). Filter such names on the client, or use `eq` with the exact name. | `Remove-TestSignals.ps1`, pp-lab, 2026-11-23; ADR 0023 template test, 2026-11-24 |
+| pp-lab's database was unavailable for some minutes ("Database is currently unavailable … retry later", error 0x80048551) during a schema deploy. The components were created; only `PublishAllXml` failed (a SQL exception, then the outage message). Publishing again once it was back succeeded. | pp-lab, 2026-11-23 |
+| A generative page's data API leaves out a column the app's cached table metadata doesn't know yet: right after a new column (crdr_signal.crdr_watched) was published, the page's query omitted it with no error. One reload, after the app refreshed its metadata, fixed it. | Radar page, pp-lab, 2026-11-23 |
+| OData `contains(clientdata,'aibuilderpredict_')` on `workflows` works, and returns only flows with an AI Builder action. Cloud flows in a solution are `category` 5 and `type` 1. A stored definition is compact JSON: `"operationId":"aibuilderpredict_customprompt"` in the action's `host`, then `"parameters":{"recordId":"…"}`. A prompt picked in the designer is a literal id; Change Radar's own flows used an expression until ADR 0017. | pp-lab `workflows`, 2026-11-23 (ADR 0017) |
+| A flow's definition contains the text `aibuilderpredict_` in escaped form (`\"operationId\":\"…`) when the flow only mentions it in an expression, as the detail flow does. Reading for the unescaped `"operationId":"aibuilderpredict_` doesn't count such a flow as a caller. | pp-lab, 2026-11-23 |
+| WDL `substring()` fails ("parameter is out of range: start index") when the start index equals the text's length, including `substring('', 0, 0)`. Cutting from the text padded with a space, then trimming, avoids it. | pp-lab test flow, 2026-11-23 (ADR 0011 addendum) |
+| Dataverse lets a cloud flow be created whose connection reference has no connection yet, but refuses to update its definition ("A connector was imported, however the related connection references need connections created…"). | pp-lab `workflows`, 2026-11-23 |
+| A Compose action's `outputsLink` content (Flow management API, run actions) is the value itself, not wrapped in `body`. | pp-lab, 2026-11-23 |
+| Teams "Post card in a chat or channel" (PostCardToConversation) as the Flow bot posts to a channel with `poster: 'Flow bot'`, `location: 'Channel'`, `body/recipient/groupId` (team id) and `body/recipient/channelId` (`19:…@thread.tacv2`). The post shows as from Workflows. | pp-lab live test, 2026-11-23 (ADR 0011 addendum) |
+| Dataverse search is off in pp-lab: `searchquery` returns 0x80048d0b "Dataverse Search feature is disabled". Dataverse tables as Copilot Studio knowledge need it on; the Dataverse MCP server's `read_query` and `describe` work without it. | pp-lab, 2026-11-23 (spike T10) |
+| A Copilot Studio MCP tool limited in the portal is stored as `tools: kind: UseSpecificTools` with the tool names, and end-user credentials as `connectionProperties: mode: Invoker` (botcomponent data). | pp-lab, 2026-11-23 (spike T10) |
+| `pac copilot pack --publisher-prefix crdr` writes a solution whose publisher unique name is the prefix itself (`crdr`), with a random option value prefix; importing it as is would add a second publisher with the same prefix. | pac 2.15.1, 2026-11-23 (spike T10) |
+| A standard-harness agent imported with `modelNameHint: GPT5Chat` after GPT-5 Chat's retirement runs on "GPT Chat Latest (Oct 2026)" (portal notice, switch back possible until 30 Nov 2026); the cloned definition still says GPT5Chat. | pp-lab, 2026-11-23 (spike T10) |
+| Copilot Studio test-chat conversations are not written to `conversationtranscripts`; the Activity tab shows each tool call per turn. | pp-lab, 2026-11-23 (spike T10) |
+| news.microsoft.com (Book of News) is behind a Cloudflare firewall: a bare request gets HTTP 403 "Sorry, you have been blocked"; the same request with `Accept: text/html` and `Accept-Language` headers and an honest user agent (`ChangeRadar/1.0 (signal collector)`, or `azure-logic-apps/1.0`) gets 200. robots.txt disallows nothing, `Crawl-delay: 10`. The WordPress REST API needs sign-in (401). | dev machine, 2026-11-23 (spike T11) |
+| Book of News addresses: Ignite 2025 `news.microsoft.com/ignite-2025-book-of-news/`; Ignite 2026 `news.microsoft.com/events/ignite/2026/book-of-news/` (the old pattern 404s). No Build 2025 or 2026 Book of News found. 2026 headings have no anchors; `ld+json` carries `dateModified`. | dev machine, 2026-11-23 (spike T11) |
+| Learn pages carry people's names in `author`, `ms.author`, `ms.reviewer` and `contributors` meta tags (GitHub handles); remove them from saved samples. | 2026-11-23 |
+| The cloud flow HTTP action does not follow redirects: HEAD or GET on a `go.microsoft.com/fwlink` gives 302, the action is marked Failed, and the target is in `outputs(...)?['headers']?['Location']`. | pp-lab test flow, 2026-11-23 (spike T12) |
+| AI Builder text recognition (`aibuilderpredict_textrecognition`, prebuilt model) in a flow: `requestv2` = expando with `mimeType` and `base64Encoded` = `base64(body('<HTTP GET>'))`; the `pages` value is ignored (all pages returned). Output `predictionOutput.results[]` per page with `fullPageText` and `lines[]` with bounding boxes, plus `costAsAiBuilderCredits` / `costAsCopilotCredits`. A 22 to 95 page PDF cost 3 AI Builder credits per call and 0.0 Copilot credits in pp-lab. | pp-lab, 2026-11-23 (spike T12) |
+| Action names must be unique across a whole cloud flow, including inside If branches and loops: two `Add_gap` actions failed the save with "An item with the same key has already been added". | pp-lab, 2026-11-23 |
+| A webpage_sections signal's summary (section HTML) round-trips through Dataverse unchanged: comparing it with the freshly built HTML found 0 changes across 241 sections on a forced re-read. | pp-lab, 2026-11-23 |
+| `pac copilot pack` refuses a workspace cloned with `pac copilot clone` when it has a connector tool or connection references ("Unsupported file: connectionreferences.mcs.yml. Unsupported directory: actions/"); `pac copilot push` from the cloned workspace works. Component types: bot 10232, botcomponent 10233, connection reference 10169. | pac 2.15.1, 2026-11-23 |
+| A Copilot Studio Fallback topic made from the template hands over to Escalate after three fallbacks in a row (`System.FallbackCount < 3`). | pp-lab, 2026-11-23 |

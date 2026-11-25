@@ -1,0 +1,2419 @@
+ <!DOCTYPE html>
+		<html
+			class="layout layout-holy-grail   show-table-of-contents conceptual show-breadcrumb default-focus"
+			lang="en-us"
+			dir="ltr"
+			data-authenticated="false"
+			data-auth-status-determined="false"
+			data-target="docs"
+			x-ms-format-detection="none"
+		>
+			
+		<head>
+			<title>Dataverse capacity-based storage details - Power Platform | Microsoft Learn</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="color-scheme" content="light dark" />
+
+			<meta name="description" content="Learn about the Microsoft Dataverse capacity-based storage model." />
+			<link rel="canonical" href="https://learn.microsoft.com/en-us/power-platform/admin/capacity-storage" /> 
+
+			<!-- Non-customizable open graph and sharing-related metadata -->
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@MicrosoftLearn" />
+			<meta property="og:type" content="website" />
+			<meta property="og:image:alt" content="Microsoft Learn" />
+			<meta property="og:image" content="https://learn.microsoft.com/en-us/media/open-graph-image.png" />
+			<!-- Page specific open graph and sharing-related metadata -->
+			<meta property="og:title" content="Dataverse capacity-based storage details - Power Platform" />
+			<meta property="og:url" content="https://learn.microsoft.com/en-us/power-platform/admin/capacity-storage" />
+			<meta property="og:description" content="Learn about the Microsoft Dataverse capacity-based storage model." />
+			<meta name="platform_id" content="3885bd2c-4701-2c3f-7db9-562b15865d91" /> <meta name="scope" content="Power Platform" />
+			<meta name="locale" content="en-us" />
+			 
+			<meta name="uhfHeaderId" content="MSDocsHeader-PowerPlatform" />
+
+			<meta name="page_type" content="conceptual" />
+
+			<!--page specific meta tags-->
+			
+
+			<!-- custom meta tags -->
+			
+		<meta name="breadcrumb_path" content="/power-platform/breadcrumb/toc.json" />
+	
+		<meta name="feedback_system" content="Standard" />
+	
+		<meta name="feedback_product_url" content="https://powerusers.microsoft.com/" />
+	
+		<meta name="recommendations" content="true" />
+	
+		<meta name="ms.service" content="power-platform" />
+	
+		<meta name="ms.subservice" content="admin" />
+	
+		<meta name="search.app" content="administration-docs" />
+	
+		<meta name="ms.date" content="2026-11-19T00:00:00Z" />
+	
+		<meta name="ms.topic" content="concept-article" />
+	
+		<meta name="search.audienceType" content="admin" />
+	
+		<meta name="ms.contributors" content="ceian" />
+	
+		<meta name="ms.contributors" content="ampatra" />
+	
+		<meta name="ms.contributors" content="maraujo" />
+	
+		<meta name="ms.contributors" content="swatim" />
+	
+		<meta name="ms.custom" content="NewPPAC" />
+	
+		<meta name="ms.custom" content="sfi-ga-nochange" />
+	
+		<meta name="ai-usage" content="ai-assisted" />
+	
+		<meta name="document_id" content="c3f8c1ca-4250-85c7-2b8e-caab633d8d9d" />
+	
+		<meta name="document_version_independent_id" content="70065f90-617e-d812-e04e-7594708b0cce" />
+	
+		<meta name="updated_at" content="2026-11-19T19:03:00Z" />
+	
+		<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/power-platform-pr/blob/live/power-platform/admin/capacity-storage.md" />
+	
+		<meta name="gitcommit" content="https://github.com/MicrosoftDocs/power-platform-pr/blob/4ec4d568a429abcf5ebb593eee27abc174a97c81/power-platform/admin/capacity-storage.md" />
+	
+		<meta name="git_commit_id" content="4ec4d568a429abcf5ebb593eee27abc174a97c81" />
+	
+		<meta name="site_name" content="Docs" />
+	
+		<meta name="depot_name" content="MSDN.power-platform" />
+	
+		<meta name="schema" content="Conceptual" />
+	
+		<meta name="toc_rel" content="toc.json" />
+	
+		<meta name="pdf_url_template" content="https://learn.microsoft.com/pdfstore/en-us/MSDN.power-platform/{branchName}{pdfName}" />
+	
+		<meta name="feedback_help_link_type" content="" />
+	
+		<meta name="feedback_help_link_url" content="" />
+	
+		<meta name="word_count" content="8332" />
+	
+		<meta name="asset_id" content="admin/capacity-storage" />
+	
+		<meta name="moniker_range_name" content="" />
+	
+		<meta name="item_type" content="Content" />
+	
+		<meta name="source_path" content="power-platform/admin/capacity-storage.md" />
+	
+		<meta name="previous_tlsh_hash" content="5E804943744C8561FF805E1275AAEB0036F0C88BB8F01ECD083A66939E6A5C775B58BDE6631267052332178301D5F30EA0E5DB36D26937975BE1646FC11CA299BF9B3F71CA" />
+	
+		<meta name="github_feedback_content_git_url" content="https://github.com/MicrosoftDocs/power-platform/blob/main/power-platform/admin/capacity-storage.md" />
+	
+		<meta name="markdown_url" content="https://learn.microsoft.com/en-us/power-platform/admin/capacity-storage?accept=text/markdown" />
+	 
+		<meta name="cmProducts" content="https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/0ceb3227-2ff7-4d97-8e75-3d7b9ccc937a" data-source="generated" />
+	
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/e6f942e8-55a7-4c86-b8e3-7456508ea850" data-source="generated" />
+	
+		<meta name="spProducts" content="https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/4d680e1a-c470-4772-a236-5c714bd09be0" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/f1834696-48d6-470d-966b-6ee418881596" data-source="generated" />
+	
+
+			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
+			<script id="theme-preference">
+				(function () {
+			try {
+				var stored = localStorage.getItem('theme');
+				var theme = /^(light|dark|high-contrast)$/.test(stored)
+					? stored
+					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				document.documentElement.classList.add('theme-' + theme);
+			} catch (e) {}
+		})();;
+			</script>
+
+			<script id="atlas-layout-preferences">
+				(function () {
+			try {
+				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
+				var view = state["docs-layout-persistence"] || {};
+				var excludesKey = "";
+				var blocked = {};
+				if (excludesKey) {
+					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
+					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
+						var scoped = exclusions[excludesKey];
+						if (scoped) {
+							if (typeof scoped === 'object') blocked = scoped;
+						}
+					}
+				}
+				var html = document.documentElement;
+				for (var c in view) {
+					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
+					if (view[c]) html.classList.add(c);
+					else html.classList.remove(c);
+				}
+			} catch (e) {}
+		})();;
+			</script>
+
+			<!-- assets and js globals -->
+			
+			<link rel="stylesheet" href="/static/assets/0.4.03603.8379-b7d5d6ac/styles/site.css" />
+			
+			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
+			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
+
+			<!-- msdocs global object -->
+			<script id="msdocs-script">
+		var msDocs = {
+  "environment": {
+    "accessLevel": "online",
+    "azurePortalHostname": "portal.azure.com",
+    "reviewFeatures": false,
+    "supportLevel": "production",
+    "systemContent": true,
+    "siteName": "learn",
+    "legacyHosting": false
+  },
+  "data": {
+    "contentLocale": "en-us",
+    "contentDir": "ltr",
+    "userLocale": "en-us",
+    "userDir": "ltr",
+    "pageTemplate": "Conceptual",
+    "layoutStateStorageKey": "docs-layout-persistence",
+    "brand": "",
+    "context": {},
+    "standardFeedback": true,
+    "showFeedbackReport": false,
+    "feedbackHelpLinkType": "",
+    "feedbackHelpLinkUrl": "",
+    "feedbackSystem": "Standard",
+    "feedbackGitHubRepo": "",
+    "feedbackProductUrl": "https://powerusers.microsoft.com/",
+    "extendBreadcrumb": false,
+    "isEditDisplayable": true,
+    "isPrivateUnauthorized": false,
+    "hideViewSource": false,
+    "isPermissioned": false,
+    "hasRecommendations": true
+  },
+  "functions": {}
+};;
+	</script>
+
+			<!-- base scripts, msdocs global should be before this -->
+			<script
+				src="/static/assets/0.4.03603.8379-b7d5d6ac/scripts/en-us/index-docs.js"
+				async
+			></script>
+			
+
+			<!-- json-ld -->
+			
+		<script >bazadebezolkohpepadr="1739498695"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/67aea502"  defer></script></head>
+	
+			<body
+				id="body"
+				data-bi-name="body"
+				class="layout-body "
+				lang="en-us"
+				dir="ltr"
+			>
+				<header class="layout-body-header background-color-body-medium">
+		<div class="header-holder has-default-focus">
+			
+		<a
+			href="#main"
+			
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			
+		>
+			Skip to main content
+		</a>
+	
+		<a
+			href="#"
+			data-skip-to-ask-learn
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			hidden
+		>
+			Skip to Ask Learn chat experience
+		</a>
+	
+
+			<div hidden id="cookie-consent-holder" data-test-id="cookie-consent-container"></div>
+			<!-- Unsupported browser warning -->
+			<div
+				id="unsupported-browser"
+				style="background-color: white; color: black; padding: 16px; border-bottom: 1px solid grey;"
+				hidden
+			>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<p style="font-size: 24px">This browser is no longer supported.</p>
+					<p style="font-size: 16px; margin-top: 16px;">
+						Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+					</p>
+					<div style="margin-top: 12px;">
+						<a
+							href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+							style="background-color: #0078d4; border: 1px solid #0078d4; color: white; padding: 6px 12px; border-radius: 2px; display: inline-block;"
+						>
+							Download Microsoft Edge
+						</a>
+						<a
+							href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+							style="background-color: white; padding: 6px 12px; border: 1px solid #505050; color: #171717; border-radius: 2px; display: inline-block;"
+						>
+							More info about Internet Explorer and Microsoft Edge
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- site header -->
+			<div
+				id="ms--site-header"
+				data-test-id="site-header-wrapper"
+				itemscope="itemscope"
+				itemtype="http://schema.org/Organization"
+			>
+				<div
+					id="ms--mobile-nav"
+					class="site-header display-none-tablet padding-inline-none gap-none"
+					data-bi-name="mobile-header"
+					data-test-id="mobile-header"
+				></div>
+				<div
+					id="ms--primary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L1-header"
+					data-test-id="primary-header"
+				></div>
+				<div
+					id="ms--secondary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L2-header"
+					data-test-id="secondary-header"
+					
+				></div>
+			</div>
+			
+		<!-- banner -->
+		<div data-banner>
+			<div id="disclaimer-holder"></div>
+			
+		</div>
+		<!-- banner end -->
+	
+		</div>
+	</header>
+				 <section
+					id="layout-body-menu"
+					class="layout-body-menu border-right display-flex background-color-body-medium"
+					data-bi-name="menu"
+			  >
+					
+		<div
+			id="left-container"
+			class="left-container display-none padding-none display-block-tablet width-full display-none-until-layout-restored"
+			data-toc-container="true"
+		>
+			<div
+				id="ms--toc-content"
+				class="padding-left-sm padding-right-none padding-bottom-sm height-full"
+			>
+				<nav
+					id="affixed-left-container"
+					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
+					aria-label="Primary"
+					data-bi-name="left-toc"
+					role="navigation"
+				>
+					<div
+						id="ms--collapsible-toc-header"
+						class="display-flex flex-direction-row-reverse justify-content-center align-items-center margin-bottom-xxs margin-right-xxs"
+					>
+						<button
+							type="button"
+							class="button button-clear button-sm inner-focus"
+							data-collapsible-toc-toggle
+							aria-expanded="true"
+							hidden
+							aria-controls="ms--toc-content"
+							aria-label="Table of contents"
+						>
+							<span class="icon icon-mirrored-rtl" aria-hidden="true">
+								<span
+									class="docon docon-panel-left-contract display-none-layout-menu-collapsed"
+								></span>
+								<span
+									class="docon docon-panel-left-expand display-none display-inline-layout-menu-collapsed"
+								></span>
+							</span>
+						</button>
+						<div
+							id="ms--collapsible-toc-moniker-slot"
+							class="flex-grow-1 display-none-layout-menu-collapsed"
+						></div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	
+			  </section>
+
+				<main
+					id="main"
+					role="main"
+					class="layout-body-main "
+					data-bi-name="content"
+					lang="en-us"
+					dir="ltr"
+				>
+					
+			<div
+		id="ms--content-header"
+		class="content-header default-focus border-bottom-none"
+		data-bi-name="content-header"
+	>
+		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+			<button
+				type="button"
+				class="contents-button button button-sm margin-right-xxs"
+				data-bi-name="contents-expand"
+				aria-haspopup="true"
+				data-contents-button
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-menu"></span></span>
+				<span class="contents-expand-title"> Table of contents </span>
+			</button>
+			<button
+				type="button"
+				class="ap-collapse-behavior ap-expanded button button-sm"
+				data-bi-name="ap-collapse"
+				aria-controls="action-panel"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
+				<span>Exit editor mode</span>
+			</button>
+		</div>
+	</div> 
+		<div
+			id="action-panel"
+			role="region"
+			aria-label="Action Panel"
+			class="action-panel"
+			tabindex="-1"
+		></div>
+	
+			<div
+				data-main-column
+				class="reading-width margin-inline-auto layout-padding padding-top-none padding-top-sm-tablet padding-bottom-sm"
+			>
+				<div>
+					
+		<div id="article-header" class="background-color-body margin-bottom-xs display-none-print">
+			<div class="display-flex align-items-center justify-content-space-between">
+				
+		<details
+			id="article-header-breadcrumbs-overflow-popover"
+			class="popover popover-left"
+			data-for="article-header-breadcrumbs"
+		>
+			<summary
+				class="button button-clear button-primary button-sm inner-focus"
+				aria-label="All breadcrumbs"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-more"></span>
+				</span>
+			</summary>
+			<div id="article-header-breadcrumbs-overflow" class="popover-content"></div>
+		</details>
+
+		<bread-crumbs
+			id="article-header-breadcrumbs"
+			role="group"
+			aria-label="Breadcrumbs"
+			data-test-id="article-header-breadcrumbs"
+			class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop margin-left-negative-xxs padding-left-xxs"
+		></bread-crumbs>
+	 
+		<div
+			id="article-header-page-actions"
+			class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch"
+		>
+			
+		<button
+			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
+			data-bi-name="ask-learn-assistant-entry"
+			data-test-id="ask-learn-assistant-modal-entry-mobile"
+			data-ask-learn-modal-entry
+			
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-modal-entry-tablet"
+			data-ask-learn-modal-entry
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-flyout-entry"
+			data-ask-learn-flyout-entry
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	 
+
+			<details class="popover popover-right" id="article-header-page-actions-overflow">
+				<summary
+					class="justify-content-flex-start button button-clear button-sm button-primary inner-focus"
+					aria-label="More actions"
+					aria-expanded="false"
+					title="More actions"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-more-vertical"></span>
+					</span>
+				</summary>
+				<div class="popover-content">
+					
+		<button
+			type="button"
+			id="ms--focus-mode-button"
+			data-focus-mode
+			data-bi-name="focus-mode-entry"
+			data-page-action-item="overflow-all"
+			data-popover-close
+			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-glasses"></span>
+			</span>
+			<span>Reading mode</span>
+		</button>
+	 
+		<button
+			data-page-action-item="overflow-mobile"
+			type="button"
+			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
+			data-bi-name="contents-expand"
+			data-contents-button
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true"
+				><span class="docon docon-editor-list-bullet"></span
+			></span>
+			<span class="contents-expand-title">Table of contents</span>
+		</button>
+	 
+		<a
+			id="lang-link-overflow"
+			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
+			data-bi-name="language-toggle"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-read-in-link
+			href="#"
+			hidden
+		>
+			<span class="icon" aria-hidden="true" data-read-in-link-icon>
+				<span class="docon docon-locale-globe"></span>
+			</span>
+			<span data-read-in-link-text>Read in English</span>
+		</a>
+	
+					
+		<button
+			type="button"
+			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
+			data-list-type="collection"
+			data-bi-name="collection"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="collection-status">Add</span>
+		</button>
+	 
+		<button
+			type="button"
+			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			data-list-type="plan"
+			data-bi-name="plan"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="plan-status">Add to Plans</span>
+		</button>
+	 
+					
+		<a
+			data-contenteditbtn
+			class="button button-clear button-block button-sm inner-focus justify-content-flex-start text-align-left text-decoration-none"
+			data-bi-name="edit"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			
+			href="https://github.com/MicrosoftDocs/power-platform/blob/main/power-platform/admin/capacity-storage.md"
+			data-original_content_git_url="https://github.com/MicrosoftDocs/power-platform-pr/blob/live/power-platform/admin/capacity-storage.md"
+			data-original_content_git_url_template="{repo}/blob/{branch}/power-platform/admin/capacity-storage.md"
+			data-pr_repo=""
+			data-pr_branch=""
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-edit-outline"></span>
+			</span>
+			<span>Edit</span>
+		</a>
+	  
+		<hr class="margin-block-xxs" />
+		
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="copy-markdown"
+					data-page-action-item="overflow-all"
+					data-copy-markdown
+					data-copy-state="idle"
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span data-show-when="idle" class="docon docon-code-lang"></span>
+						<span data-show-when="loading" class="loader" hidden></span>
+						<span data-show-when="success" class="docon docon-check-mark" hidden></span>
+					</span>
+					<span>Copy Markdown</span>
+				</button>
+		   
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="print"
+					data-page-action-item="overflow-all"
+					data-popover-close
+					data-print-page
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span class="docon docon-print"></span>
+					</span>
+					<span>Print</span>
+				</button>
+		  
+	
+				</div>
+			</details>
+		</div>
+	
+			</div>
+		</div>
+	  
+		<!-- privateUnauthorizedTemplate is hidden by default -->
+		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+			<hr class="hr margin-top-xs margin-bottom-sm" />
+			<div class="notification notification-info">
+				<div class="notification-content">
+					<p class="margin-top-none notification-title">
+						<span class="icon" aria-hidden="true"
+							><span class="docon docon-exclamation-circle-solid"></span
+						></span>
+						<span>Note</span>
+					</p>
+					<p class="margin-top-none authentication-determined not-authenticated">
+						Access to this page requires authorization. You can try <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">signing in</a> or <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">changing directories</a>.
+					</p>
+					<p class="margin-top-none authentication-determined authenticated">
+						Access to this page requires authorization. You can try <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">changing directories</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	
+					<div class="content"><h1 id="dataverse-capacity-based-storage-details">Dataverse capacity-based storage details</h1></div>
+					
+		<div
+			id="article-metadata"
+			data-bi-name="article-metadata"
+			data-test-id="article-metadata"
+			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
+		>
+			 
+				<div
+					id="user-feedback"
+					class="margin-block-xxs display-none display-none-print"
+					hidden
+					data-hide-on-archived
+				>
+					
+		<button
+			id="user-feedback-button"
+			data-test-id="conceptual-feedback-button"
+			class="button button-sm button-clear button-primary display-none"
+			type="button"
+			data-bi-name="user-feedback-button"
+			data-user-feedback-button
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-like"></span>
+			</span>
+			<span>Feedback</span>
+		</button>
+	
+				</div>
+		  
+		</div>
+	 
+		<div data-id="ai-summary" class="display-none-print">
+			<div id="ms--ai-summary-cta" class="margin-top-xs display-flex align-items-center">
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-sparkle-fill gradient-text-vivid"></span>
+				</span>
+				<button
+					id="ms--ai-summary"
+					type="button"
+					class="tag tag-sm tag-suggestion margin-left-xxs"
+					data-test-id="ai-summary-cta"
+					data-bi-name="ai-summary-cta"
+					data-an="ai-summary"
+				>
+					<span class="ai-summary-cta-text">
+						Summarize this article for me
+					</span>
+				</button>
+			</div>
+			<!-- Slot where the client will render the summary card after the user clicks the CTA -->
+			<div id="ms--ai-summary-header" class="margin-top-xs"></div>
+		</div>
+	 
+		<nav
+			id="center-doc-outline"
+			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
+			data-bi-name="intopic toc"
+			aria-label="In this article"
+		>
+			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				In this article
+			</h2>
+		</nav>
+	 <div class="content"><p>If you purchased storage after April 2019, or if you have a mix of storage purchases made before and after April 2019, you see your storage capacity entitlement and usage by database, file, and log as it appears in the Microsoft Power Platform admin center today.</p>
+<p>Data volume continues to grow exponentially as businesses advance their digital transformation journey and bring data together across their organizations. Modern business applications need to support new business scenarios, manage new data types, and help organizations with the increasing complexity of compliance mandates. To support the growing needs of today's organizations, data storage solutions need to evolve continuously and provide the right solution to support expanding business needs.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>For licensing information, see the <a href="https://go.microsoft.com/fwlink/p/?linkid=2085130" data-linktype="external">Power Platform Licensing Guide</a>.</p>
+<p>If you purchased your Dynamics 365 subscription through a Microsoft partner, contact them to manage storage capacity. The following steps don't apply to partner-based subscriptions.</p>
+</div>
+<h2 id="licenses-for-microsoft-dataverse-capacity-based-storage-model">Licenses for Microsoft Dataverse capacity-based storage model</h2>
+<p>The following licenses provide capacity by using the new storage model. You see the new model report if you have any of these licenses:</p>
+<ul>
+<li>Dataverse for Apps Database Capacity</li>
+<li>Dataverse for Apps File Capacity</li>
+<li>Dataverse for Apps Log Capacity</li>
+</ul>
+<p>To check whether you have any of these licenses, sign in to the Microsoft 365 admin center and then go to <strong>Billing</strong> &gt; <strong>Licenses</strong>.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>If you have a mix of <a href="legacy-capacity-storage#licenses-for-the-legacy-storage-model" data-linktype="relative-path">legacy model licenses</a> and new model licenses, a new model report is displayed.</p>
+<p>If you have none of the <a href="legacy-capacity-storage#licenses-for-the-legacy-storage-model" data-linktype="relative-path">legacy model licenses</a> nor the new model licenses, a new model report is displayed.</p>
+</div>
+<h2 id="verifying-your-microsoft-dataverse-capacity-based-storage-model">Verifying your Microsoft Dataverse capacity-based storage model</h2>
+<p>To view the <strong>Capacity add-ons</strong> summary page, you need one of the following roles:</p>
+<ul>
+<li>Tenant administrator</li>
+<li>Power Platform administrator</li>
+<li>Dynamics 365 administrator</li>
+</ul>
+<p>Alternatively, a user with any of the preceding roles can grant permissions to the environment administrator to view the <strong>Capacity summary</strong> tab within the <strong>Tenant setting</strong> page.</p>
+<p>Follow these steps to verify that you have the Microsoft Dataverse capacity-based storage model:</p>
+<ol>
+<li>Sign in to the <a href="https://admin.powerplatform.microsoft.com/" data-linktype="external">Power Platform admin center</a>.</li>
+<li>On the navigation pane, select <strong>Licensing</strong>.</li>
+<li>On the <strong>Licensing</strong> pane, select <strong>Capacity add-ons</strong> to go to the <strong>Capacity add-ons</strong> summary page where you can see your tenant's storage, add-ons, and Microsoft Power Platform requests.</li>
+</ol>
+<p>Learn more in <a href="whats-new-storage" data-linktype="relative-path">Dataverse capacity-based storage overview</a>.</p>
+<h2 id="capacity-page-details">Capacity page details</h2>
+<p>The tabs <strong>Summary</strong>, <strong>Dataverse</strong>, <strong>Microsoft Teams</strong>, <strong>Add-ons</strong>, and <strong>Trial</strong> are available on the <strong>Capacity add-ons</strong> page.</p>
+<h3 id="summary-tab">Summary tab</h3>
+<p>On the Capacity page, <strong>Summary</strong> is the default view where you see a tenant-level view of where your organization is using storage capacity. You can view:</p>
+<ul>
+<li>Storage capacity usage</li>
+<li>Storage capacity, by source</li>
+<li>Top storage usage, by environment</li>
+</ul>
+<p>All Dataverse tables, including system tables, are included in the storage capacity reports. Files such as .pdf (or any other file attachment type) are stored in file storage. However, the database stores certain attributes needed to access the files.</p>
+<h4 id="storage-capacity-usage">Storage capacity usage</h4>
+<p>In the <em>storage capacity usage</em> section, you can see:</p>
+<ul>
+<li><p><strong>File and database</strong>: The following tables store data in file and database storage:</p>
+<ul>
+<li>Attachment</li>
+<li>AnnotationBase</li>
+<li>Any custom or out-of-the-box table that has columns of datatype file or image (full size)</li>
+<li>Any table used by one or more install Insights applications and that ends in - <em>Analytics</em></li>
+<li>WebResourceBase</li>
+<li>RibbonClientMetadataBase</li>
+</ul>
+</li>
+<li><p><strong>Log</strong>: The following tables are used:</p>
+<ul>
+<li>AuditBase</li>
+<li>PlugInTraceLogBase</li>
+<li>Elastic tables</li>
+</ul>
+</li>
+<li><p><strong>Database only</strong>: All other tables count for your database</p>
+</li>
+</ul>
+<h4 id="storage-capacity-by-source">Storage capacity, by source</h4>
+<p>In the <em>storage capacity, by source</em> section, you can see:</p>
+<ul>
+<li><strong>Org (tenant) default</strong>: The default capacity given at the time of sign up.</li>
+<li><strong>User licenses</strong>: More capacity added for every user license purchased.</li>
+<li><strong>Additional storage</strong>: Any extra storage you bought.</li>
+<li><strong>Total</strong>: Total storage available.</li>
+<li><strong>View self-service sources</strong>: Learn more at <a href="view-self-service-capacity" data-linktype="relative-path">View self-service license amounts and storage capacity</a>.</li>
+</ul>
+<h4 id="top-storage-usage-by-environment">Top storage usage, by environment</h4>
+<p>In the <em>top storage usage, by environment</em> section, you can see the environments that consume the most capacity.</p>
+<h4 id="add-ons">Add-ons</h4>
+<p>In the <em>add-ons</em> section, you can see the details of add-ons that your organization purchased. Learn more at <a href="capacity-add-on" data-linktype="relative-path">View capacity add-ons in Power Platform admin center</a>.</p>
+<p>In the <em>add-ons</em> section, you can also select <strong>Manage</strong> to assign add-ons to environments or <strong>Download reports</strong> to view a downloaded report. Add-on reports expire after 30 days.</p>
+<h3 id="dataverse-tab">Dataverse tab</h3>
+<p>On the Capacity page, select <strong>Dataverse</strong>. This page provides information similar to the summary tab, but with an environment-level view of where your organization is using capacity.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>There's no technical limit on the size of a Dataverse environment. The limits mentioned on this page are entitlement limits based on product licenses you purchase.</p>
+</div>
+<p>This table highlights some of the features you can see on the Dataverse page.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Download</td>
+<td>Select <strong>Download</strong> above the list of environments to download an Excel .csv file with high-level storage information for each environment that the signed-in admin can see in the Power Platform admin center.</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>Use <strong>Search</strong> to search by environment name and environment type.</td>
+</tr>
+<tr>
+<td>Details</td>
+<td>Select the <strong>Details</strong> button (<img src="media/storage-data-details-button.png" role="presentation" data-linktype="relative-path">
+) to see  an environment-level detailed view of where your organization is using capacity, in addition to the three types of capacity consumption.</td>
+</tr>
+<tr>
+<td>Default environment tip</td>
+<td>The calculated storage usage in this view only displays what is <strong>above</strong> the default environment's included capacity. Tool tips indicate how to view actual usage in the <strong>Details</strong> section.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<p>Note</p>
+<ul>
+<li>The following environments don't count against capacity and show as 0 GB:
+<ul>
+<li>Microsoft Teams</li>
+<li>Trial</li>
+<li>Preview</li>
+<li>Support</li>
+<li>Developer</li>
+</ul>
+</li>
+<li>The default environment has the following included storage capacity: 3 GB Dataverse database capacity, 3 GB Dataverse file capacity, and 1 GB Dataverse log capacity.</li>
+<li>You can select an environment that's showing 0 GB and then go to its environment capacity analytics page to see the actual consumption.</li>
+<li>For the default environment, the list view shows the amount of capacity consumed beyond the included quota. Select the <strong>Details</strong> button (<img src="media/storage-data-details-button.png" role="presentation" data-linktype="relative-path">
+) to see usage.</li>
+<li>The capacity check—conducted before creating new environments—excludes the default environment's included storage capacity when calculating whether you have sufficient capacity to create a new environment.</li>
+</ul>
+</div>
+<h4 id="environment-storage-capacity-details">Environment storage capacity details</h4>
+<p>Select the <strong>Details</strong> button (<img src="media/storage-data-details-button.png" role="presentation" data-linktype="relative-path">
+) associated with the environment you want to see more information about.</p>
+<p><span class="mx-imgBorder">
+<img src="media/environment-capacity-details.png" alt="Screenshot of the capacity storage data details view for an environment that includes database usage, file usage, and log usage." data-linktype="relative-path">
+</span>
+The following details are provided:</p>
+<ul>
+<li>Actual database usage</li>
+<li>Top database tables and their growth over time</li>
+<li>Actual file usage</li>
+<li>Top files tables and their growth over time</li>
+<li>Actual log usage</li>
+<li>Top tables and their growth over time</li>
+</ul>
+<div class="NOTE">
+<p>Note</p>
+<p>Refer to the <a href="/en-us/power-apps/maker/data-platform/data-retention-overview#storage-capacity-reports" data-linktype="absolute-path">storage capacity reports</a> under <a href="/en-us/power-apps/maker/data-platform/data-retention-overview" data-linktype="absolute-path">Dataverse long term retention</a> to understand details on storage capacity with the retention feature.</p>
+</div>
+<h3 id="microsoft-teams-tab">Microsoft Teams tab</h3>
+<p>On the Capacity page, select <strong>Microsoft Teams</strong>. This tab shows the capacity storage used by your Microsoft Teams environments. Teams environment capacity usage doesn't count toward your organization's Dataverse usage.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Download</td>
+<td>Select <strong>Download</strong> above the list of environments to download an Excel .csv file with high-level storage information for each environment that the signed-in admin can see in the Power Platform admin center.</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>Use <strong>Search</strong> to search by environment name and environment type.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="add-ons-tab">Add-ons tab</h3>
+<p>On the Capacity page, select <strong>Add-ons</strong>. This tab shows your organization's add-on usage details and lets you assign add-ons to environments. For more information, see <a href="capacity-add-on#view-capacity-add-ons-in-power-platform-admin-center" data-linktype="relative-path">View capacity add-ons in Power Platform admin center</a>.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>This tab only appears if your tenant includes add-ons.</p>
+</div>
+<h3 id="trial-tab">Trial tab</h3>
+<p>On the Capacity page, select <strong>Trial</strong>. This tab shows the capacity storage used by your trial environments. Trial environment capacity usage doesn't count toward your organization's Dataverse usage.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Download</td>
+<td>Select <strong>Download</strong> above the list of environments to download an Excel .csv file with high-level storage information for each environment that the signed-in admin can see in the Power Platform admin center.</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>Use <strong>Search</strong> to search by environment name and environment type.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dataverse-page-in-licenses">Dataverse page in Licenses</h2>
+<h3 id="track-tenant-usage">Track tenant usage</h3>
+<p>You can track and manage Dataverse capacity in the <strong>Licenses</strong> section of the Power Platform admin center.</p>
+<ol>
+<li>Sign in to the <a href="https://admin.powerplatform.microsoft.com/" data-linktype="external">Power Platform admin center</a>.</li>
+<li>On the navigation pane, select <strong>Licensing</strong>.</li>
+<li>On the Licensing pane, select <strong>Dataverse</strong> under <strong>Products</strong>.</li>
+</ol>
+<h4 id="usage-per-storage-type">Usage per storage type</h4>
+<p>In the <strong>Usage per storage type</strong> tile, you can view the consumption of your database, log, and file storage. This section displays your prepaid entitled capacity along with the corresponding usage. Additionally, it indicates if any part of your Dataverse usage is billed under a pay-as-you-go plan.</p>
+<p>The tile provides the following details for database, file, and log storage:</p>
+<ul>
+<li><strong>Total prepaid entitlement</strong>: Database and file capacity can be pooled across <strong>Dataverse</strong> and <strong>Operations</strong> workloads respectively. Log entitlement is provided separately for
+Dataverse only.</li>
+<li><strong>Total consumption</strong>: Combined usage from both Dataverse and finance and operations environments.</li>
+<li><strong>Reserved capacity</strong>: Capacity reserved for specific environments. Currently applicable to Dataverse only.</li>
+<li><strong>Pay-as-you-go usage</strong>: Any consumption that exceeds prepaid entitlement and is billed under a pay-as-you-go plan.</li>
+</ul>
+<p><strong>Dataverse - Database capacity</strong>: Tracks structured data stored directly in Dataverse, including table rows, metadata, and relational data created by Power Apps, Power Automate, Dynamics 365 customer engagement apps (Dynamics 365 Sales, Dynamics 365 Service, Dynamics 365 Marketing), and custom model-driven apps.</p>
+<p><strong>Operations - Database capacity</strong>: Tracks structured data stored in finance and operations environments, including Dynamics 365 Finance, Dynamics 365 Supply Chain Management, Dynamics 365 Project Operations, and Dynamics 365 Commerce.</p>
+<p>Although displayed separately in the admin center, Dataverse and Operations database capacity form a single combined pool for enforcement purposes. Similarly, Dataverse and Operations file capacity are pooled together. This means:</p>
+<ul>
+<li>Your total Database entitlement covers both Dataverse and Operations database usage combined.</li>
+<li>Your total File entitlement covers both Dataverse and Operations file usage combined.</li>
+<li>Log entitlement is tracked separately for Dataverse only.</li>
+</ul>
+<p>Select any of the following categories to view a day-by-day usage trend for that storage type:</p>
+<ul>
+<li>Dataverse – Database</li>
+<li>Operations – Database</li>
+<li>Dataverse – File</li>
+<li>Operations – File</li>
+<li>Dataverse – Log</li>
+</ul>
+<p>Select the <strong>See Dataverse capacity per license</strong> button in the <strong>Summary (Dataverse &amp; Operations) Database usage</strong> tab to see a detailed breakdown of how your entitlement was calculated, including base capacity and per-user license accruals.</p>
+<h4 id="top-environment-consuming-storage">Top environment consuming storage</h4>
+<p>The <strong>Top environment consuming storage</strong> tile displays the environments using the most capacity. It also indicates whether any of these top-consuming environments are in overage and provides a breakdown of prepaid versus pay-as-you-go usage. You can select <strong>Database</strong>, <strong>File</strong>, or <strong>Log</strong> to view the corresponding consumption details.</p>
+<h4 id="dataverse-environment-usage">Dataverse environment usage</h4>
+<p>In the <strong>Top environments consuming storage</strong> tile, select <strong>See all environments</strong> to view capacity consumption across all your Dataverse environments. The following details are provided:</p>
+<ul>
+<li>Name of the environment</li>
+<li>Overage status if capacity is allocated to the environment</li>
+<li>Whether capacity is preallocated to the environment</li>
+<li>Environment type</li>
+<li>Managed environment status</li>
+<li>Pay-as-you-go plan linkage status</li>
+<li>Ability to draw capacity from available tenant pool</li>
+<li>Database, file, and log consumption</li>
+</ul>
+<h3 id="track-environment-usage">Track environment usage</h3>
+<ol>
+<li>On the <strong>Dataverse</strong> page, select <strong>Environment</strong> and choose an environment from the list.</li>
+<li>Alternatively, in the <strong>Top environment consuming storage</strong> tile, select <strong>See all environments</strong> and select an environment name.</li>
+</ol>
+<h4 id="usage-per-storage-type-tile">Usage per storage type tile</h4>
+<p>In the <strong>Usage per storage type</strong> tile, you can view the consumption of your database, log, and file storage. This section displays your prepaid allocated capacity, if any, along with the corresponding usage. It also indicates if any part of your Dataverse usage is billed under a pay-as-you-go plan.</p>
+<h4 id="consumption-per-table">Consumption per table</h4>
+<p>In the <strong>Consumption per table</strong> section, you can view the amount of storage consumed by each Dataverse table. To see table consumption for a specific storage type, select <strong>Database</strong>, <strong>File</strong>, or <strong>Log</strong> in the <strong>Usage per storage type</strong> tile. Select the table name for the consumption trend, with the option to track daily usage trends, for up to the past three months.</p>
+<h3 id="dataverse-storage-advisor-preview">Dataverse storage advisor (preview)</h3>
+<p>Preview features aren't meant for production use and may have restricted functionality. These features are available before an official release so that customers can get early access and provide feedback.</p>
+<p>Dataverse storage advisor analyzes table-level storage consumption and recommends data you can clean up to reduce storage usage. The advisor surfaces these recommendations directly in the <strong>Licensing</strong> &gt; <strong>Dataverse</strong> capacity view, so you can act on them without leaving the Power Platform admin center.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>Dataverse storage advisor is rolling out gradually and might not be available in your environment yet. When it's available, recommendations appear only for environments that have storage you can clean up.</p>
+</div>
+<p>When recommendations are available, the advisor adds the following experiences:</p>
+<ul>
+<li><p><strong>Storage recommendation banner</strong>: A banner appears above the capacity details that estimates how much space the advisor can help you reclaim—for example, <em>Storage advisor has action plans to clean up space and manage the environment</em>. Select the banner to open the <strong>Dataverse storage advisor</strong> pane.</p>
+</li>
+<li><p><strong>Clean up column</strong>: The <strong>Consumption per table</strong> grid includes a <strong>Clean up</strong> column that shows the estimated space the advisor recommends cleaning up for each table. The environment list in the <strong>Manage capacity</strong> experience shows a similar <strong>Cleanup</strong> value so you can compare opportunities across environments.</p>
+</li>
+<li><p><strong>Free up storage space</strong>: The <strong>Dataverse storage advisor</strong> pane includes a <strong>Free up storage space</strong> section that lists per-table cleanup recommendations. For each recommended table, you can review the <strong>Cleanable data</strong> and preview the records that match the cleanup criteria. These records are moved to long-term retention when you act on the recommendation, which keeps them available for audit or compliance needs while freeing up active Dataverse storage and improving performance.</p>
+</li>
+</ul>
+<h4 id="act-on-a-storage-recommendation">Act on a storage recommendation</h4>
+<p>From a storage recommendation, you can choose how to reclaim space:</p>
+<ul>
+<li><strong>Create an archival policy</strong>: Turn a recommendation into a long-term retention archival policy that moves inactive data out of active storage. For more information, see <a href="/en-us/power-apps/maker/data-platform/data-retention-overview" data-linktype="absolute-path">Long term retention policies</a>.</li>
+<li><strong>Bulk delete data</strong>: Remove obsolete or unnecessary data through a bulk delete operation to free up storage capacity, see <a href="delete-bulk-records" data-linktype="relative-path">Bulk deletion</a>.</li>
+<li><strong>Manage capacity</strong>: Adjust capacity allocation for the environment from the same view.</li>
+</ul>
+<p>The table trends pane also shows <strong>Cleanup recommendations</strong> with curated Microsoft Learn articles to help you manage a table's growth. For more ways to reduce storage, see <a href="free-storage-space" data-linktype="relative-path">Free up storage space</a>.</p>
+<h3 id="dataverse-search-consumption-and-reporting">Dataverse search consumption and reporting</h3>
+<p>In addition to database and file storage, Dataverse search includes the indexes that power different experiences. These indexes support search and generative AI across structured or tabular data and unstructured data stored in Dataverse, such as files.</p>
+<p>Storage consumed by Dataverse search is reported at the environment level as a table called <strong>DataverseSearch</strong>. It was previously named <strong>RelevanceSearch</strong>.</p>
+<h4 id="dataverse-search-can-also-be-monitored-at-the-dataverse-environment-report-in-the-power-platform-admin-center">Dataverse search can also be monitored at the Dataverse Environment report in the Power Platform admin center</h4>
+<p>The Dataverse Environment report is located at the <strong>Licensing</strong> &gt; <strong>Dataverse</strong> &gt; <strong>Environments</strong> tab (consumption per table reporting).</p>
+<h4 id="cost-of-the-indexed-dataverse-search-data">Cost of the indexed Dataverse search data</h4>
+<p>All Dataverse indexes are reported at the Dataverse database capacity rate. Turning on Dataverse search doesn't turn on any other experience automatically. For more information, see <a href="/en-us/power-apps/user/relevance-search-benefits" data-linktype="absolute-path">What is Dataverse search?</a></p>
+<h3 id="allocate-capacity-for-an-environment">Allocate capacity for an environment</h3>
+<p>When you select the <strong>Dataverse</strong> tab, you can allocate capacity to a specific environment. After you allocate capacity, you can view the status of your environments to see whether they're within capacity or in an overage state.</p>
+<ol>
+<li>Sign in to the <a href="https://admin.powerplatform.microsoft.com" data-linktype="external">Power Platform admin center</a>.</li>
+<li>On the navigation pane, select <strong>Licensing</strong>.</li>
+<li>On the <strong>Licensing</strong> pane, select <strong>Dataverse</strong> in the <strong>Products</strong> section.</li>
+<li>On the <strong>Summary</strong> page, select <strong>Manage capacity</strong>.</li>
+<li>Select the environment for which you want to allocate capacity.</li>
+<li>In the <strong>Manage capacity</strong> panel, view the currently allocated and consumed capacity for the environment.</li>
+<li>Allocate capacity by entering the desired value in the <strong>Database</strong>, <strong>File</strong>, and <strong>Log</strong> fields. Ensure the capacity values are positive integers and don't exceed the available capacity displayed at the top of the panel.</li>
+<li>Opt in to receive daily email alerts sent to tenant and environment admins when the consumed capacity (database, log, or file) reaches a set percentage of the allocated capacity.</li>
+<li>Select <strong>Save</strong> to apply the changes.
+To manage environment-level storage overages, see <a href="#manage-an-environment-level-capacity-overage" data-linktype="self-bookmark">Manage an environment-level capacity overage</a>.</li>
+</ol>
+<h2 id="changes-for-exceeding-storage-capacity-entitlements">Changes for exceeding storage capacity entitlements</h2>
+<p>Microsoft notifies administrators when the organization's effective database, file, or log consumption approaches or exceeds its entitled capacity. Effective consumption is calculated after eligible cross capacity-type borrowing is applied. Notifications help administrators identify the affected storage type, review the environments contributing to consumption, and begin remediation before further restrictions apply.</p>
+<p>Environment lifecycle operations, such as creating, copying, restoring, recovering, or converting environments, are evaluated differently from storage notifications and overage status. While notifications and overage status are based on the tenant's effective capacity position after cross-capacity type borrowing, these operations require sufficient available capacity in the underlying Database, File, or Log capacity types. As a result, some environment lifecycle operations may be unavailable when the required capacity type does not have sufficient available capacity, even if the tenant's overall capacity position remains within entitlement limits after borrowing.</p>
+<p>The following administrative environment lifecycle operations aren't available when the required storage capacity isn't available to support the operation:</p>
+<ul>
+<li>Create new environment (requires minimum 1-GB capacity available)</li>
+<li>Copy an environment (requires minimum 1-GB capacity available)</li>
+<li>Restore an environment (requires minimum 1-GB capacity available)</li>
+<li>Convert a trial environment to paid (requires minimum 1-GB capacity available)</li>
+<li>Recover an environment (requires minimum 1-GB capacity available)</li>
+<li>Add Dataverse database to an environment</li>
+</ul>
+<h3 id="dataverse-capacity-banner-and-email-notifications">Dataverse capacity banner and email notifications</h3>
+<p>A notification email and banner appear in <strong>Dataverse-only</strong> tenants across the Power Platform admin center, Power Apps maker portal, Power Automate maker portal, Power Pages maker portal, and Dynamics 365 apps when database, file, or log capacities have less than 15% remaining capacity or exceed capacity after <a href="#how-storage-overages-are-calculated" data-linktype="self-bookmark">cross capacity-type borrowing</a> is applied. Notifications are triggered when database, file, or log storage falls below 15% remaining capacity, followed by an additional warning when available capacity drops below 5%. The final notification tier is triggered when the tenant exceeds its entitled capacity after <a href="#how-storage-overages-are-calculated" data-linktype="self-bookmark">cross capacity-type borrowing</a> is applied.</p>
+<p>Global admins, Power Platform admins, and Dynamics 365 admins, system admins, and makers receive these notifications automatically on a weekly basis. There's no option for a customer to opt out of these notifications or delegate these notifications to someone else.</p>
+<p>For more information, see <a href="#example-storage-capacity-scenarios-and-impact" data-linktype="self-bookmark">Example storage capacity notification and validation scenarios</a>. Banner notifications are based on periodic storage evaluations and might not always update immediately after a capacity change. Storage capacity is evaluated approximately every 24 hours, while banner visibility is refreshed through a separate asynchronous process that runs every seven days.</p>
+<p>The following behavior applies:</p>
+<ul>
+<li>If the banner is <strong>not dismissed</strong>, it remains visible while the tenant continues to meet the notification criteria.</li>
+<li>If the storage issue is resolved, the banner doesn't disappear immediately. It's removed during the next banner refresh cycle, which can take up to seven days from when the banner was originally created.</li>
+<li>If the banner is <strong>dismissed</strong>, it remains hidden for seven days, even if the tenant continues to meet the notification criteria during that period.</li>
+<li>After seven days, the banner is reevaluated and reappears if the tenant still meets the notification criteria.</li>
+<li>Because storage capacity is evaluated more frequently than banner visibility, you might notice a temporary difference between reported capacity status and the presence of banner notifications.</li>
+<li>In model-driven apps, dismissed banners reappear when the page is refreshed if the tenant continues to meet the notification criteria.</li>
+</ul>
+<p>These banner notifications are visible to <a href="#for-tenant-admins" data-linktype="self-bookmark">tenant admins</a> and <a href="#for-system-admins" data-linktype="self-bookmark">system admins</a>.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>The storage-driven capacity model calculation of these thresholds also considers the <a href="#how-storage-overages-are-calculated" data-linktype="self-bookmark">cross capacity-type borrowing</a> and overflow usage allowed in the storage-driven model. For example, extra database capacity can be used to cover log and file overuse, and extra log capacity can be used to cover file overuse. Therefore, <a href="#how-storage-overages-are-calculated" data-linktype="self-bookmark">cross capacity-type borrowing</a> is taken into consideration to reduce the number of emails a tenant admin receives.</p>
+</div>
+<h4 id="for-tenant-admins">For tenant admins</h4>
+<p>The banner displays two call-to-action buttons:</p>
+<ul>
+<li><strong>Buy more capacity</strong>: Takes you directly to the <a href="https://go.microsoft.com/fwlink/?LinkId=2364302" data-linktype="external">Microsoft 365 admin center</a> where you can purchase more storage capacity. <a href="add-storage" data-linktype="relative-path">Learn how to add more Dataverse capacity to your tenant</a>.</li>
+<li><strong>Manage capacity</strong>: Takes you to the <a href="https://go.microsoft.com/fwlink/?LinkId=2364104" data-linktype="external">Licensing page in the Power Platform admin center</a> where you can view capacity consumption by type (database, log, file) and by environment. From there, you can:
+<ul>
+<li><a href="free-storage-space" data-linktype="relative-path">Free up storage</a> for environments.</li>
+<li><a href="pay-as-you-go-set-up" data-linktype="relative-path">Set up a pay-as-you-go plan</a> to be billed automatically through Azure.</li>
+<li><a href="delete-environment" data-linktype="relative-path">Delete environments</a> to recover storage.</li>
+<li>Request a <a href="extend-capacity" data-linktype="relative-path">capacity extension</a>.</li>
+</ul>
+</li>
+</ul>
+<h4 id="for-system-admins">For system admins</h4>
+<p>The banner displays one call-to-action button: <strong>Manage environment</strong>, which takes you to your <a href="https://admin.powerplatform.microsoft.com/manage/environments" data-linktype="external">environments in Power Platform admin center</a> where you can free up storage to optimize capacity usage. If freeing up storage doesn't resolve your capacity concerns, reach out to your IT department or tenant admin to purchase more storage. <a href="free-storage-space" data-linktype="relative-path">Learn to free up storage space</a> for environments.</p>
+<h2 id="how-storage-overages-are-calculated">How storage overages are calculated</h2>
+<p>Storage overages are calculated by comparing your organization's combined Dataverse and Finance &amp; Operations (F&amp;O) storage usage against its total entitled storage capacity. To determine whether a tenant is in overage, Microsoft first combines storage entitlements and consumption across Dataverse and Finance &amp; Operations for each capacity type separately: Database, Log, and File. It then applies eligible cross capacity-type borrowing. This process ensures that available capacity is used as efficiently as possible before an overage is identified.</p>
+<p><strong>Cross capacity-type borrowing</strong> allows unused capacity from a higher-value storage type to offset excess usage in a lower-value storage type. Capacity can flow only from Database to File, and never in the opposite direction: Database → Log → File.</p>
+<table>
+<thead>
+<tr>
+<th>Capacity type</th>
+<th>Can borrow from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>Database</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>Log, then Database</td>
+</tr>
+</tbody>
+</table>
+<p>For example:</p>
+<ul>
+<li>Database capacity can be used to offset Log or File overages.</li>
+<li>Log capacity can be used to offset File overages.</li>
+<li>File capacity can't be used to offset Database or Log overages.</li>
+<li>Database overages can't be offset because Database is the highest-value storage type.</li>
+</ul>
+<p>A tenant is considered to be in storage overage only after all eligible cross capacity-type borrowing has been applied and one or more storage types still exceed their effective available capacity. If borrowing fully offsets any deficits, the tenant isn't considered to be in overage, even if an individual storage type initially exceeded its allocated entitlement.</p>
+<h2 id="storage-overage-lifecycle">Storage overage lifecycle</h2>
+<div class="NOTE">
+<p>Note</p>
+<p>This section provides guidance for the upcoming Dataverse Storage Validation experience and applies after the feature rollout. For rollout details, see the related Message center communication.</p>
+</div>
+<p>When a tenant exceeds its entitled storage capacity, it enters a series of progressively more restrictive states, until/unless the overage is remediated. The following progressive restrictions apply when a tenant remains over its entitled storage capacity for an extended period:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>When it happens</th>
+<th>Customer experience</th>
+<th>Recommended action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Early notification</strong></td>
+<td>Effective consumption is more than 85%</td>
+<td>Informational or warning notifications appear.</td>
+<td>Review growth and begin remediation.</td>
+</tr>
+<tr>
+<td><strong>Stage 1: Restricted</strong></td>
+<td>The tenant first exceeds 100% effective consumption (time zero, or T0).</td>
+<td>Critical notifications appear. Environment create, copy, restore, convert, recover and add Dataverse to an environment operations are blocked.</td>
+<td>Free storage, archive eligible data, add capacity, configure pay-as-you-go billing, or request a capacity extension.</td>
+</tr>
+<tr>
+<td><strong>Stage 2: Administration mode</strong></td>
+<td>The overage remains unresolved for 30 days from T0</td>
+<td>In addition to the restrictions applied in Stage 1, access to affected sandbox environments is limited to administrators.</td>
+<td>Free storage, archive eligible data, add capacity, configure pay-as-you-go billing, or request a capacity extension. Administrators can temporarily take affected sandbox environments out of Administration mode to perform remediation activities. However, the storage overage lifecycle and timer continue to progress until the overage is resolved.</td>
+</tr>
+<tr>
+<td><strong>Stage 3: Disabled</strong></td>
+<td>The overage remains unresolved for 90 days from T0</td>
+<td>In addition to the restrictions applied in Stage 1, sign-in to affected sandbox environments is blocked for all users, including administrators. The environment and its data are limited to data export and recovery options through support tickets.</td>
+<td>Free storage, archive eligible data, add capacity, configure pay-as-you-go billing, or request a capacity extension. Return the tenant to compliance, and then re-enable the environment. If tenant remains in overage, customer can reach the Microsoft support for the sole purpose of directing data export options, if needed.</td>
+</tr>
+</tbody>
+</table>
+<p>The date the tenant first exceeds 100% effective consumption is the start of the lifecycle timeline. Resolving the effective deficit before the next stage prevents further progression. Sandbox environments with pay-as-you-go enabled do not progress through the storage overage lifecycle.</p>
+<p>[!IMPORTANT]</p>
+<blockquote>
+<ul>
+<li>Effective consumption represents the storage usage remaining after cross-capacity-type borrowing has been applied. Storage notifications, overage calculations, and storage validation actions are based on effective consumption rather than raw storage consumption.</li>
+<li>Affected environments are sandbox environments that don't have pay-as-you-go billing enabled and are therefore subject to Administration mode and disablement when the organization remains in storage overage.</li>
+<li>During the Disabled stage, tenants can reach Microsoft support at all times for the sole purposes of directing data export and recovery options, if needed.</li>
+</ul>
+</blockquote>
+<h2 id="scope-and-exclusions">Scope and exclusions</h2>
+<div class="NOTE">
+<p>Note</p>
+<p>This section provides guidance for the upcoming Dataverse Storage Validation experience and applies after the feature rollout. For rollout details, see the related Message center communication.</p>
+</div>
+<h3 id="in-scope-for-dataverse-storage-validation">In scope for Dataverse storage validation</h3>
+<p>Dataverse storage validation applies only to eligible tenants using <strong>Microsoft Dataverse</strong>, including those running Power Platform workloads backed by Dataverse or selected Dynamics 365 applications. The following products and workloads are in scope:</p>
+<ul>
+<li>Microsoft Power Platform workloads backed by Dataverse</li>
+<li>Microsoft Dynamics 365 Sales</li>
+<li>Microsoft Dynamics 365 Customer Service</li>
+<li>Microsoft Dynamics 365 Field Service</li>
+<li>Microsoft Dynamics 365 Customer Insights</li>
+<li>Microsoft Dynamics 365 Customer Voice</li>
+<li>Microsoft Dynamics 365 Contact</li>
+<li>Microsoft Dynamics 365 Project Operations (Dataverse deployments)</li>
+</ul>
+<h3 id="exclusions">Exclusions</h3>
+<ul>
+<li>Production environments don't go through the administration mode and become disabled.</li>
+<li>Sandbox environments with active pay-as-you-go billing don't go through the administration mode and become disabled.</li>
+<li>Tenants with Dynamics 365 Finance and Operations applications, environments, or consumption (including those with pooled Dataverse and Finance and Operations capacity) are excluded from this rollout.</li>
+</ul>
+<h2 id="example-storage-capacity-scenarios-and-impact">Example storage capacity scenarios and impact</h2>
+<p>Stay within the limits for your entitled capacity for database, log, and file storage. If you use more capacity than you're entitled to, free up some space or buy more capacity. However, if you overuse database, log, or file capacity, review the following scenarios to understand when environment lifecycle operation restrictions apply.</p>
+<h3 id="scenario-1-database-storage-is-running-low-no-restrictions">Scenario 1: Database storage is running low, no restrictions</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Entitled</th>
+<th>Consumed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>100 GB</td>
+<td>97 GB</td>
+<td><strong>Running low</strong></td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>10 GB</td>
+<td>5 GB</td>
+<td>Within capacity</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>400 GB</td>
+<td>200 GB</td>
+<td>Within capacity</td>
+</tr>
+</tbody>
+</table>
+<p>Database can't borrow from Log or File and hence receives <strong>less than 5% capacity remaining</strong> banner and email notifications. No restrictions are applied.</p>
+<h3 id="scenario-2-log-storage-remains-low-after-cross-capacity-type-borrowing-no-restrictions">Scenario 2: Log storage remains low after cross capacity-type borrowing, no restrictions</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Entitled</th>
+<th>Consumed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>200 GB</td>
+<td>160 GB</td>
+<td>Within capacity</td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>100 GB</td>
+<td>130 GB</td>
+<td><strong>Running low</strong></td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>500 GB</td>
+<td>300 GB</td>
+<td>Within capacity</td>
+</tr>
+</tbody>
+</table>
+<p>How the calculation works</p>
+<ol>
+<li>Calculate the capacity Log needs to reach the 85% threshold.<br>
+&nbsp;130 GB ÷ 85% = 152.94 GB&nbsp;<br>
+Log therefore needs an effective entitlement of 152.94 GB to avoid a capacity notification.</li>
+<li>Calculate how much Log would need to borrow.<br>
+&nbsp;152.94 GB - 100 GB = 52.94 GB&nbsp;<br>
+Log needs to borrow 52.94 GB, but Database has only 40 GB available.</li>
+<li>Apply the available borrowing.<br>
+&nbsp;100 GB + 40 GB = 140 GB effective Log entitlement&nbsp;</li>
+<li>Calculate Log usage after borrowing.<br>
+&nbsp;130 GB ÷ 140 GB = 92.86% consumed&nbsp;<br>
+&nbsp;100% - 92.86% = 7.14% remaining&nbsp;</li>
+<li>Determine the outcome.<br>
+Log still has less than 15% effective capacity remaining, so administrators receive the <strong>less-than-15%-remaining capacity banner</strong>. However, because Log consumption is below its effective entitlement of 140 GB, the tenant isn't over capacity and no restrictions are applied.</li>
+</ol>
+<div class="NOTE">
+<p>Note</p>
+<p>Borrowing doesn't reduce Log consumption or change the tenant's purchased entitlement. It temporarily reallocates eligible unused capacity for notification calculations. In this example, Database can provide only 40 GB of the 52.94 GB needed to bring Log usage down to 85%, leaving Log at 92.86% usage and 7.14% remaining.</p>
+</div>
+<h3 id="scenario-3-file-storage-borrows-from-both-database-and-log-but-remains-low-no-restrictions">Scenario 3: File storage borrows from both Database and Log but remains low, no restrictions</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Entitled</th>
+<th>Consumed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>100 GB</td>
+<td>80 GB</td>
+<td>Within capacity</td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>100 GB</td>
+<td>70 GB</td>
+<td>Within capacity</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>100 GB</td>
+<td>140 GB</td>
+<td><strong>Running low</strong></td>
+</tr>
+</tbody>
+</table>
+<p>How the calculation works</p>
+<ol>
+<li>Calculate the capacity File needs to reach the 85% threshold.<br>
+&nbsp;140 GB ÷ 85% = 164.71 GB&nbsp;<br>
+File needs an effective entitlement of 164.71 GB to avoid a capacity notification.</li>
+<li>Calculate how much File needs to borrow.<br>
+&nbsp;164.71 GB - 100 GB = 64.71 GB&nbsp;<br>
+File needs to borrow 64.71 GB, but Database and Log have only 50 GB available in total.</li>
+<li>Apply the available borrowing.<br>
+File borrows 20 GB from Database and 30 GB from Log:<br>
+&nbsp;100 GB + 20 GB + 30 GB = 150 GB effective File entitlement&nbsp;</li>
+<li>Calculate File usage after borrowing.<br>
+&nbsp;140 GB ÷ 150 GB = 93.33% consumed&nbsp;<br>
+&nbsp;100% - 93.33% = 6.67% remaining&nbsp;</li>
+<li>Determine the outcome.<br>
+Borrowing removes the File storage deficit because its 140 GB consumption is covered by the 150 GB effective entitlement. However, only 6.67% remains, so administrators receive the less-than-15%-remaining capacity banner. The tenant isn't over capacity, so no restrictions are applied.</li>
+</ol>
+<h3 id="scenario-4-database-storage-is-over-capacity-restrictions-applied">Scenario 4: Database storage is over capacity, restrictions applied</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Entitled</th>
+<th>Consumed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>100 GB</td>
+<td>110 GB</td>
+<td>10GB Deficit</td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>10 GB</td>
+<td>5 GB</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>400 GB</td>
+<td>200 GB</td>
+<td>Available</td>
+</tr>
+</tbody>
+</table>
+<p>The tenant has a 10-GB effective Database deficit and is over capacity. Database is the highest-value storage type and can't borrow unused capacity from Log or File. The 5 GB of unused Log capacity and 200 GB of unused File capacity can't cover the Database deficit. The tenant should free up Database storage or purchase more Database capacity.</p>
+<p>To resolve the overage, see <a href="#manage-storage-overage" data-linktype="self-bookmark">Manage storage overage</a>. If the overage limits access to an affected sandbox environment, see <a href="#restore-user-access-to-affected-sandbox-environments" data-linktype="self-bookmark">Restore user access to affected sandbox environments</a>.</p>
+<h3 id="scenario-5-log-storage-is-over-capacity-restrictions-applied">Scenario 5: Log storage is over capacity, restrictions applied</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Entitled</th>
+<th>Consumed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>100 GB</td>
+<td>95 GB</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>10 GB</td>
+<td>20 GB</td>
+<td>5GB Deficit</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>400 GB</td>
+<td>200 GB</td>
+<td>Available</td>
+</tr>
+</tbody>
+</table>
+<p>How the calculation works</p>
+<ol>
+<li>Calculate the initial Log deficit.<br>
+Log has 10 GB of entitlement but is consuming 20 GB:<br>
+&nbsp;20 GB consumed - 10 GB entitled = 10 GB raw deficit&nbsp;</li>
+<li>Use the unused Database capacity to cover part of the Log deficit.<br>
+Database is entitled to 100 GB and consumes 95 GB, leaving 5 GB unused:<br>
+&nbsp;100 GB Database entitlement - 95 GB Database consumption = 5 GB available&nbsp;<br>
+Log can use this 5 GB for the capacity calculation, increasing its effective entitlement from 10 GB to 15 GB:<br>
+&nbsp;10 GB Log entitlement + 5 GB borrowed = 15 GB effective Log entitlement&nbsp;<br>
+Log is still consuming 20 GB, so a 5 GB deficit remains:<br>
+&nbsp;20 GB Log consumption - 15 GB effective entitlement = <strong>5 GB effective deficit</strong>&nbsp;</li>
+<li>Check the available File capacity.<br>
+File has 200 GB available, but File capacity can't be used to cover a Log deficit. The remaining 5 GB deficit therefore can't be covered through borrowing.</li>
+<li>Determine the outcome.<br>
+The tenant remains 5 GB over its effective Log capacity and receives a critical over-capacity notification. The tenant should free up Log storage or purchase more Log or eligible Database capacity.</li>
+</ol>
+<p>To resolve the overage, see <a href="#manage-storage-overage" data-linktype="self-bookmark">Manage storage overage</a>. If the overage limits access to an affected sandbox environment, see <a href="#restore-user-access-to-affected-sandbox-environments" data-linktype="self-bookmark">Restore user access to affected sandbox environments</a>.</p>
+<h3 id="scenario-6-file-storage-is-over-capacity-restrictions-applied">Scenario 6: File storage is over capacity, restrictions applied</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Entitled</th>
+<th>Consumed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>100 GB</td>
+<td>20 GB</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>10 GB</td>
+<td>5 GB</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>200 GB</td>
+<td>290 GB</td>
+<td>5GB Deficit</td>
+</tr>
+</tbody>
+</table>
+<p>File borrows all 80 GB of unused Database capacity and all 5 GB of unused Log capacity. This covers 85 GB of the 90-GB raw File deficit, but leaves the tenant with a 5-GB effective File deficit. The tenant should free up File storage or purchase more File, Log, or eligible Database capacity.</p>
+<p>To resolve the overage, see <a href="#manage-storage-overage" data-linktype="self-bookmark">Manage storage overage</a>. If the overage limits access to an affected sandbox environment, see <a href="#restore-user-access-to-affected-sandbox-environments" data-linktype="self-bookmark">Restore user access to affected sandbox environments</a>.</p>
+<h3 id="scenario-7-log-storage-is-over-its-original-capacity-but-covered-by-borrowing-no-restrictions">Scenario 7: Log storage is over its original capacity but covered by borrowing, no restrictions</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Entitled</th>
+<th>Consumed</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Database</strong></td>
+<td>100 GB</td>
+<td>80 GB</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><strong>Log</strong></td>
+<td>10 GB</td>
+<td>20 GB</td>
+<td>Available</td>
+</tr>
+<tr>
+<td><strong>File</strong></td>
+<td>400 GB</td>
+<td>200 GB</td>
+<td>Available</td>
+</tr>
+</tbody>
+</table>
+<p>Log storage is above its original entitled capacity, but eligible Database borrowing increases its effective Log entitlement to 20 GB. The tenant has no effective storage deficit and isn't considered over capacity. Although eligible Database borrowing currently covers the Log deficit, the tenant has no effective Log capacity remaining. The tenant should remove unneeded data or environments, review Log growth, or purchase the appropriate additional capacity to avoid entering overage and experiencing related restrictions.</p>
+<h2 id="manage-storage-overage">Manage storage overage</h2>
+<h3 id="manage-a-tenant-level-capacity-overage">Manage a tenant-level capacity overage</h3>
+<p>Use the Dataverse tenant capacity report to confirm:</p>
+<ul>
+<li>Current database, file, and log entitlement.</li>
+<li>Current consumption by storage type.</li>
+<li>The effective deficit after eligible borrowing.</li>
+<li>The environments and tables contributing most to consumption.</li>
+<li>Recent growth and expected future demand.</li>
+</ul>
+<p>Contact Microsoft Support if the entitlement details and consumption shown in Power Platform admin center reports don't align with the information in the <a href="https://go.microsoft.com/fwlink/p/?LinkId=866544" data-linktype="external">Dynamics 365 Licensing Guide</a>.</p>
+<p>Use one or more of the following remediation options.</p>
+<h4 id="free-storage">Free storage</h4>
+<p>Remove data that no longer has business, legal, regulatory, audit, or recovery value. Common cleanup opportunities include:</p>
+<ul>
+<li><a href="free-storage-space#free-up-storage-for-dataverse" data-linktype="relative-path">Remove data</a> and apps that you no longer need.</li>
+<li><a href="delete-environment" data-linktype="relative-path">Remove unused environments</a>.</li>
+<li>Establish <a href="dataverse-governance-policies" data-linktype="relative-path">data governance policies in Dataverse</a> to prevent future overages. Go to <strong>Manage</strong> &gt; <strong>Dataverse</strong> in Power Platform admin center.</li>
+</ul>
+<p>Explore <a href="storage-management#how-can-i-manage-the-ever-growing-storage" data-linktype="relative-path">best practices for storage management</a>.</p>
+<h4 id="retain-inactive-data">Retain inactive data</h4>
+<p>Use Dataverse long-term retention for eligible inactive data that you must keep for business, legal, audit, or regulatory reasons but no longer need in active operations.</p>
+<p>Long-term retention can reduce active database capacity consumption. Policy processing and capacity reporting aren't immediate. For details, see <a href="/en-us/power-apps/maker/data-platform/data-retention-overview" data-linktype="absolute-path">long-term retention (LTR)</a>.</p>
+<h4 id="purchase-capacity">Purchase capacity</h4>
+<p>Purchase the storage type indicated by the validated effective deficit. Plan capacity by using:</p>
+<p><strong>Required capacity = effective deficit + expected growth + operating buffer - confirmed cleanup not yet reported</strong></p>
+<p>Purchase database capacity for a database deficit, file capacity for a file deficit, and log capacity for a log deficit. File capacity can't resolve a database deficit. For details, see <a href="capacity-add-on" data-linktype="relative-path">capacity add-ons</a>.</p>
+<h4 id="use-pay-as-you-go">Use pay-as-you-go</h4>
+<p>Pay-as-you-go links an environment to an Azure billing policy. It can be appropriate when storage demand is variable, urgent, or isolated to specific environments.</p>
+<p>Review the applicable meter, pricing, Azure subscription ownership, procurement process, and budget before linking an environment. Complete the billing setup and verify that the environment is linked. Linking a sandbox environment to pay-as-you-go removes overage restrictions, even if the tenant remains in an overage state.</p>
+<p>For details, see Set up a <a href="pay-as-you-go-meters#dataverse-capacity-meter" data-linktype="relative-path">pay-as-you-go</a> plan.</p>
+<h4 id="enable-capacity-extension">Enable capacity extension</h4>
+<ol>
+<li><p>Go to the Dataverse <em>Licenses</em> page in the <a href="https://admin.powerplatform.microsoft.com/billing/licenses/dataverse/overview" data-linktype="external">Power Platform admin center</a>.</p>
+</li>
+<li><p>If you're running low on storage capacity, the <strong>Enable capacity extension</strong> tab is highlighted.</p>
+<p><span class="mx-imgBorder">
+<a href="media/storage-extend-capacity-banner.png#lightbox" data-linktype="relative-path">
+<img src="media/storage-extend-capacity-banner.png" alt="Extend capacity in Power Platform admin center." data-linktype="relative-path">
+</a>
+</span>
+</p>
+</li>
+<li><p>Review the details of the capacity overage. The 25% capacity is calculated based on capacity used and applies to each capacity type (database, file, and log). Select <strong>Enable capacity extension</strong>.</p>
+<p><span class="mx-imgBorder">
+<a href="media/storage-extend-capacity-details.png#lightbox" data-linktype="relative-path">
+<img src="media/storage-extend-capacity-details.png" alt="Extend capacity details." data-linktype="relative-path">
+</a>
+</span>
+</p>
+</li>
+<li><p>Select <strong>Confirm</strong>.</p>
+</li>
+</ol>
+<h4 id="about-extensions">About extensions</h4>
+<ul>
+<li>An extension is at the tenant level.</li>
+<li>An extension applies to both the legacy and new storage capacity models.</li>
+<li>You can request a capacity extension after consumption reaches over 80% overall.</li>
+<li>An extension allows you to create an environment, copy, restore, and convert if the extension covers the storage in overage.</li>
+<li>An extension is granted for 25% of the consumption and for a maximum of 45 days.</li>
+<li>Your organization can request an extension a maximum of three times in the last 365 days.</li>
+<li>After extension, copying and restoring environments is blocked again if the tenant doesn't have available storage capacity. To avoid this situation, admins should reduce storage usage and/or purchase more storage capacity.</li>
+</ul>
+<h3 id="manage-an-environment-level-capacity-overage">Manage an environment-level capacity overage</h3>
+<p>An environment-level overage means an environment consumes more than its allocated capacity. The tenant might still have unused capacity.</p>
+<h4 id="allocate-capacity-for-an-environment-1">Allocate capacity for an environment</h4>
+<ol>
+<li><p>Sign in to the <a href="https://admin.powerplatform.microsoft.com" data-linktype="external">Power Platform admin center</a> as a system admin.</p>
+</li>
+<li><p>On the navigation pane, select <strong>Licensing</strong>.</p>
+</li>
+<li><p>Select <strong>Dataverse</strong>.</p>
+</li>
+<li><p>Select <strong>Manage capacity</strong>.</p>
+</li>
+<li><p>On the <em>Manage capacity</em> pane, select an environment to see capacity management options for that environment. You can draw from available capacity within the tenant or bill to your pay-as-you-go billing plan. You can also select the option to receive an overage notification when the environment nears reaching any amount between 50-100%.</p>
+</li>
+<li><p>Select <strong>Save</strong>.</p>
+<p><span class="mx-imgBorder">
+<a href="media/storage-extend-capacity-banner.png#lightbox" data-linktype="relative-path">
+<img src="media/storage-manage-capacity.png" alt="Manage Dataverse storage capacity in Power Platform admin center." data-linktype="relative-path">
+</a>
+</span>
+</p>
+</li>
+</ol>
+<h4 id="use-pay-as-you-go-1">Use pay-as-you-go</h4>
+<p>Pay-as-you-go links an environment to an Azure billing policy. It can be appropriate when storage demand is variable, urgent, or isolated to specific environments.</p>
+<p>Review the applicable meter, pricing, Azure subscription ownership, procurement process, and budget before linking an environment. Complete the billing setup and verify that the environment is linked. Linking a sandbox environment to pay-as-you-go removes overage restrictions, even if the tenant remains in an overage state.</p>
+<p>For details, see Set up a <a href="pay-as-you-go-meters#dataverse-capacity-meter" data-linktype="relative-path">pay-as-you-go</a> plan.</p>
+<h2 id="restore-user-access-to-affected-sandbox-environments">Restore user access to affected sandbox environments.</h2>
+<div class="NOTE">
+<p>Note</p>
+<p>This section provides guidance for the upcoming Dataverse Storage Validation experience and applies after the feature rollout. For rollout details, see the related Message center communication.</p>
+</div>
+<h3 id="exit-administration-mode">Exit administration mode</h3>
+<p>A tenant administrator can use the Power Platform admin center to exit administration mode for an affected sandbox environment. You perform this action one environment at a time.</p>
+<p>Exiting administration mode can restore access temporarily, but it doesn't:</p>
+<ul>
+<li>Resolve the tenant storage overage.</li>
+<li>Add storage entitlement.</li>
+<li>Pause or reset the overage lifecycle timeline.</li>
+<li>Prevent the environment from progressing to the next stage if the tenant remains over capacity.</li>
+<li>Complete a tenant-level remediation to stop the overage lifecycle.</li>
+</ul>
+<h3 id="re-enable-a-disabled-sandbox">Re-enable a disabled sandbox</h3>
+<p>Before re-enabling a disabled sandbox, bring the tenant back within its effective storage entitlement by following one of these <a href="#manage-a-tenant-level-capacity-overage" data-linktype="self-bookmark">remediation options</a>.</p>
+<p>After capacity validation confirms that the tenant is within entitlement, an administrator can re-enable each affected environment in the Power Platform admin center. If the customer remains in an overage state, they can contact Microsoft Support for the sole purpose of directing data export options, if needed.</p>
+<h2 id="frequently-asked-questions-about-storage-faq">Frequently asked questions about storage (FAQ)</h2>
+<h3 id="why-does-my-storage-consumption-decrease-in-the-database-and-grow-in-the-file-storage">Why does my storage consumption decrease in the database and grow in the file storage?</h3>
+<p>Microsoft constantly optimizes Dataverse for ease of use, performance, and efficiency. Part of this ongoing effort is moving data to the best possible storage with the lowest cost for customers. File-type data such as "Annotation" and "Attachment" is moving from database to file storage. This change leads to decreased usage of database capacity and an increase in file capacity.</p>
+<h3 id="why-could-my-database-table-size-decrease-while-my-table-and-file-data-sizes-remain-the-same">Why could my database table size decrease while my table and file data sizes remain the same?</h3>
+<p>As part of moving file-type data such as "Annotation" and "Attachment" out from database and into file storage, Microsoft periodically reclaims the freed database space. This change leads to decreased usage of database capacity, while the table and file data size computations remain unchanged.</p>
+<h3 id="do-indexes-affect-database-storage-usage">Do indexes affect database storage usage?</h3>
+<p>Database storage includes both the database rows and index files that improve search performance. You create and optimize indexes for peak performance. The system frequently updates them by analyzing data use patterns. You don't need to take any action to optimize the indexes, as all Dataverse stores have tuning enabled by default. An increase or decrease in the number of indexes can cause a fluctuation in database storage. Dataverse is continually being tuned to increase efficiency and incorporate new technologies that improve user experience and optimize storage capacity. Common causes for an increase in index size include:</p>
+<ul>
+<li>An organization uses new functionality. This functionality can be custom, out of the box, or part of an update or solution installation.</li>
+<li>Data volume or complexity changes.</li>
+<li>A change in usage patterns that indicates new indexes need reevaluation.</li>
+</ul>
+<p>If you configure Quick Find lookups for data that's frequently used, this configuration also creates more indexes in the database. Admin-configured Quick Find values can increase the size of the indexes based on:</p>
+<ul>
+<li>The number of columns chosen and the data type of those columns.</li>
+<li>The volume of rows for the tables and columns.</li>
+<li>The complexity of the database structure.</li>
+</ul>
+<p>Because an admin creates custom Quick Find lookups in the org, these indexes can be user-controlled. Admins can reduce some of the storage used by these custom indexes by taking the following actions:</p>
+<ul>
+<li>Remove unneeded columns or tables.</li>
+<li>Eliminate multiline text columns from inclusion.</li>
+</ul>
+<div class="NOTE">
+<p>Note</p>
+<p>The Dataverse search indexed data is the data that improves the search quality for the global search and generative AI experiences, as well as interpreting the content by using natural language. This index data accrues to the overall Dataverse search consumption.</p>
+</div>
+<h3 id="i-just-bought-the-new-capacity-based-licenses-how-do-i-provision-an-environment-by-using-this-model">I just bought the new capacity-based licenses. How do I provision an environment by using this model?</h3>
+<p>You can provision environments through the Power Platform admin center. Learn more in <a href="create-environment" data-linktype="relative-path">Create and manage environments in the Power Platform admin center</a>.</p>
+<h3 id="im-a-new-customer-and-i-recently-purchased-the-new-offers-my-usage-of-database-log-or-file-is-showing-red-what-should-i-do">I'm a new customer and I recently purchased the new offers. My usage of database, log, or file is showing red. What should I do?</h3>
+<p>Consider buying more capacity by using the <a href="https://go.microsoft.com/fwlink/p/?LinkId=866544" data-linktype="external">Licensing Guide</a>. Alternatively, you can <a href="free-storage-space" data-linktype="relative-path">free up storage</a>.</p>
+<h3 id="im-an-existing-customer-and-my-renewal-is-coming-up-will-i-be-affected">I'm an existing customer, and my renewal is coming up. Will I be affected?</h3>
+<p>Customers who renew existing subscriptions can choose to continue to transact by using the existing offers for a certain period of time. Contact your Microsoft partner or Microsoft sales team for details.</p>
+<h3 id="im-a-power-apps-or-power-automate-customer-and-have-environments-with-and-without-database-do-they-consume-storage-capacity">I'm a Power Apps or Power Automate customer and have environments with and without database. Do they consume storage capacity?</h3>
+<p>Yes. All environments consume 1 GB, regardless of whether they have an associated database.</p>
+<h3 id="do-i-get-notified-through-email-when-my-organization-is-over-capacity">Do I get notified through email when my organization is over capacity?</h3>
+<p>Yes, tenant admins receive email notifications on a weekly basis if their organization is at or over capacity. Additionally, tenant admins get notified when their organization reaches 15 percent of available capacity, 5 percent of available capacity or exceeds entitled capacity.</p>
+<h3 id="is-there-a-database-size-restriction-for-backing-up-or-restoring-an-organization-through-the-user-interface-or-api">Is there a database size restriction for backing-up or restoring an organization through the user interface or API?</h3>
+<p>Refer <a href="backup-restore-environments#is-there-a-database-size-restriction-for-backing-up-or-restoring-an-organization-through-the-user-interface-or-api" data-linktype="relative-path">here</a>.</p>
+<h3 id="can-an-environment-operation-be-blocked-when-the-tenant-report-shows-no-deficit">Can an environment operation be blocked when the tenant report shows no deficit?</h3>
+<p>Yes. Tenant notifications apply eligible cross capacity-type borrowing. An environment operation such as environment creatinn, copy, restore, recover, or converting environments can require available capacity in the native database, file, or log storage type.</p>
+<h3 id="does-reallocating-capacity-between-environments-resolve-a-tenant-overage">Does reallocating capacity between environments resolve a tenant overage?</h3>
+<p>No. Reallocation only changes how existing tenant capacity is distributed. Resolve a tenant overage by reducing consumption, adding capacity, using an eligible billing option, or requesting temporary tenant capacity.</p>
+<h3 id="why-am-i-no-longer-getting-storage-notifications">Why am I no longer getting storage notifications?</h3>
+<p>Tenant admins receive capacity email notifications weekly based on three different thresholds (&gt;85%, 95% or 100%). If you're no longer getting storage notifications, check your admin role.</p>
+<h3 id="im-an-existing-customer-should-i-expect-my-file-and-log-usage-to-change">I'm an existing customer. Should I expect my file and log usage to change?</h3>
+<p>Log and files data usage isn't expected to be exactly the same size as when the same data is stored by using database, due to different storage and indexing technologies. The current set of out-of-the-box tables stored in file and log storage might change in the future.</p>
+<h3 id="the-capacity-report-shows-the-entitlement-breakdown-per-license-but-i-have-more-licenses-in-my-tenant-and-not-all-of-them-are-listed-in-the-breakdown-why">The capacity report shows the entitlement breakdown per license, but I have more licenses in my tenant and not all of them are listed in the breakdown. Why?</h3>
+<p>Not all licenses give per-user entitlement. For example, the Team Member license doesn't give any per-user database, file, or log entitlement. So in this case, the license isn't listed in the breakdown.</p>
+<h3 id="which-environment-types-does-the-capacity-report-count-for-consumption">Which environment types does the capacity report count for consumption?</h3>
+<p>The capacity report counts default, production, and sandbox environments for consumption. It doesn't count trial, preview, support, and developer environments.</p>
+<h3 id="what-are-tables-ending-in--analytics-in-my-capacity-report">What are tables ending in <em>– analytics</em> in my capacity report?</h3>
+<p>Tables ending in <em>– analytics</em> are tables used by one or more Insights applications, such as Sales Insights, Customer Service Hub, or Field Service and resource scheduling and optimization analytics dashboard, to generate predictive insights or analytics dashboards. The data syncs from Dataverse tables. For documentation about the installed Insights applications and the tables they use to create insights and dashboards, see the <strong>More information</strong> section.</p>
+<h3 id="why-cant-i-see-the-summary-tab-in-my-capacity-report">Why can't I see the Summary tab in my capacity report?</h3>
+<p>In April 2023, Microsoft changed the roles that can see the <strong>Summary</strong> tab in the capacity report. Now, only users with the tenant admin, Power Platform admin, or Dynamics 365 admin roles can see the <strong>Summary</strong> tab. Users with other roles, such as environment admins, no longer see this tab and are redirected to the <strong>Dataverse</strong> tab when accessing the report. If you need access to the <strong>Summary</strong> tab, ask your admin to assign one of the required roles.</p>
+<h3 id="who-can-allocate-capacity">Who can allocate capacity?</h3>
+<p>Users with global admin, Power Platform admin, and Dynamics 365 admin roles can allocate Dataverse capacity.</p>
+<h3 id="does-allocating-capacity-affect-the-total-available-capacity-in-my-tenant">Does allocating capacity affect the total available capacity in my tenant?</h3>
+<p>Allocating capacity doesn't affect the overall capacity available at the tenant level. Admins can choose to pre-allocate capacity from the tenant pool to an environment. When they pre-allocate capacity, it reduces the tenant level's total available capacity for use by other environments.</p>
+<h3 id="what-happens-if-capacity-consumption-goes-beyond-the-allocated-capacity">What happens if capacity consumption goes beyond the allocated capacity?</h3>
+<p>Currently, only <em>soft enforcement</em> through email notification is turned on. Power Platform admins and environment admins start receiving notifications when capacity usage exceeds 85 percent of the allocated capacity. As part of the upcoming Dataverse storage validation, affected sandbox environments will experience restrictions. Refer <a href="#storage-overage-lifecycle" data-linktype="self-bookmark">storage overage lifecycle</a> for details about the impact on sandbox environments. For rollout information, see the Message center communication.</p>
+<h3 id="what-types-of-dataverse-capacity-can-i-allocate">What types of Dataverse capacity can I allocate?</h3>
+<p>You can allocate database, file, and log capacity.</p>
+<h3 id="do-i-need-to-allocate-capacity-to-every-environment-like-other-supported-currencies">Do I need to allocate capacity to every environment like other supported currencies?</h3>
+<p>No, admins can select specific environments to allocate capacity.</p>
+<h3 id="can-i-receive-a-capacity-notification-when-my-deficit-is-0-gb">Can I receive a capacity notification when my deficit is 0 GB?</h3>
+<p>Yes. Informational and warning notifications appear before capacity is exhausted. For example, a tenant at 90% effective consumption has no deficit but has less than 15% capacity available.</p>
+<h3 id="why-can-an-operation-be-blocked-when-the-tenant-report-shows-no-deficit">Why can an operation be blocked when the tenant report shows no deficit?</h3>
+<p>Notifications evaluate the tenant's effective storage position after eligible borrowing. An environment operation performs a separate validation and can require available capacity in a native storage type.</p>
+<h3 id="should-i-purchase-capacity-or-use-pay-as-you-go">Should I purchase capacity or use pay-as-you-go?</h3>
+<p>Capacity add-ons can suit predictable, sustained tenant demand. Pay-as-you-go can suit variable or environment-specific usage. Consider pricing, procurement, Azure billing ownership, the number of environments, and expected growth.</p>
+<h3 id="does-a-capacity-extension-permanently-resolve-an-overage">Does a capacity extension permanently resolve an overage?</h3>
+<p>No. An extension is temporary. Continue cleanup or procurement so the tenant remains within entitlement after the extension expires.</p>
+<h3 id="are-production-environments-disabled-as-part-of-the-upcoming-dataverse-storage-validation">Are production environments disabled as part of the upcoming Dataverse storage validation?</h3>
+<p>No. Production environments don't enter the administration mode or disabled stages. Production work can still be affected when it depends on a blocked create, copy, restore, or recovery operation.</p>
+<h2 id="frequently-asked-questions-about-dataverse-search-faq">Frequently asked questions about Dataverse search (FAQ)</h2>
+<h3 id="what-is-the-dataversesearch-table-and-how-can-i-reduce-it">What is the DataverseSearch table and how can I reduce it?</h3>
+<p>The <strong>DataverseSearch</strong> table (previously known as <strong>RelevanceSearch</strong>) stores indexed data for the global search and generative AI experiences. It includes data from all searchable, retrievable, and filterable fields of the tables you indexed for your environment and Copilot semantic indexes.</p>
+<p>For more information, see <a href="configure-relevance-search-organization#managing-dataverse-search" data-linktype="relative-path">Managing Dataverse search</a>.</p>
+<h3 id="can-i-manage-dataverse-search">Can I manage Dataverse search?</h3>
+<p>An admin can manage Dataverse search through the three states associated with this setting: On, Default, and Off. Learn more in <a href="configure-relevance-search-organization" data-linktype="relative-path">Configure Dataverse search for your environment</a>.</p>
+<div class="NOTE">
+<p>Note</p>
+<ul>
+<li>Dataverse search is set to <strong>On</strong> for any new production, sandbox, or default environment type. It's set to <strong>Default</strong> for any other type of new environment.</li>
+<li>If you set Dataverse search to <strong>On</strong> or <strong>Default</strong>, no other setting is turned on.</li>
+</ul>
+</div>
+<h3 id="what-actions-can-makers-take">What actions can makers take?</h3>
+<p>Depending on the experience that uses Dataverse search and its usage, the consumption size might increase. Learn more in <a href="/en-us/power-apps/user/relevance-search-benefits" data-linktype="absolute-path">What is Dataverse search?</a></p>
+<div class="IMPORTANT">
+<p>Important</p>
+<p>Don't turn off Dataverse search. Turning off Dataverse search directly impacts all dependent generative AI experiences in your different applications and all users using them.</p>
+</div>
+<h3 id="turning-off-dataverse-search">Turning off Dataverse search</h3>
+<p>When you turn off Dataverse search, the system deletes its indexed Dataverse data. All experiences that depend on this data, including search and generative AI conversational capabilities, become limited or unusable for all users.</p>
+<p>Environment admins have 12 hours to turn the feature back on without losing indexed data.</p>
+<p><strong>During 12 hours:</strong></p>
+<ul>
+<li>You can turn Dataverse search back on without losing indexed data.</li>
+</ul>
+<p><strong>After 12 hours:</strong></p>
+<ul>
+<li>The system permanently deletes all indexed Dataverse data.</li>
+<li>Turning Dataverse search back on retriggers the indexing of Dataverse data.</li>
+</ul>
+<div class="IMPORTANT">
+<p>Important</p>
+<p>Turning off Dataverse search deprovisions and removes the index within a period of 12 hours. If you turn on Dataverse search after it's been off for 12 hours, it provisions a fresh index that needs to go through a full sync. Syncing might take up to an hour or more for average size organizations, and a couple of days for large organizations. Be sure to consider these implications when you turn off Dataverse search temporarily.</p>
+<p>Index removal (or provisioning) can take multiple days to complete, depending on the amount of Dataverse search consumption. For example, an organization with 10 GB of indexed data might take one day to clean up all indexes, while an organization with 500 GB might take multiple days to see it reflected in Dataverse search reporting. You should wait a few days to a week before submitting a support ticket, to ensure a complete removal of Dataverse search indexed data.</p>
+</div>
+<h3 id="what-happens-if-i-turn-off-dataverse-search">What happens if I turn off Dataverse search?</h3>
+<p>All experiences that use Dataverse search become limited. For more information, see <a href="/en-us/power-apps/user/relevance-faq" data-linktype="absolute-path">Frequently asked questions about Dataverse search</a>.</p>
+<h3 id="turning-on-dataverse-search-again">Turning on Dataverse search again</h3>
+<ul>
+<li><p><strong>Selecting On</strong>:
+When you set Dataverse search to <strong>On</strong> after setting it to <strong>Off</strong>, the system immediately retriggers all indexes across all enabled experiences for them to work accordingly, and Dataverse search costs resume.</p>
+</li>
+<li><p><strong>Selecting Default</strong>:
+When you set Dataverse search to <strong>Default</strong> after setting it to <strong>Off</strong>, the system only regenerates the indexes when triggered. Examples include when a Copilot Studio agent uses a file—such as a local file, OneDrive file, SharePoint file upload, or Dataverse table—or if a prompt is submitted to an agent or Copilot. When the indexes are triggered, Dataverse search costs resume.</p>
+</li>
+</ul>
+<div class="NOTE">
+<p>Note</p>
+<p>You can't turn Dataverse search <strong>On</strong> or <strong>Off</strong> for different applications in the same environment. The status of the setting applies to all applications in the environment that use Dataverse search.</p>
+</div>
+<h3 id="related-information">Related information</h3>
+<ul>
+<li><a href="add-storage" data-linktype="relative-path">Add Microsoft Dataverse storage capacity</a></li>
+<li><a href="capacity-add-on" data-linktype="relative-path">Capacity add-ons</a></li>
+<li><a href="/en-us/azure/sql-database/sql-database-automatic-tuning" data-linktype="absolute-path">Automatic tuning in Azure SQL Database</a></li>
+<li><a href="whats-new-storage" data-linktype="relative-path">What's new in storage</a></li>
+<li><a href="free-storage-space" data-linktype="relative-path">Free up storage space</a></li>
+</ul>
+</div>
+					
+		<div
+			id="ms--inline-notifications"
+			class="margin-block-xs"
+			data-bi-name="inline-notification"
+		></div>
+	 
+		<div
+			id="assertive-live-region"
+			role="alert"
+			aria-live="assertive"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+		<div
+			id="polite-live-region"
+			role="status"
+			aria-live="polite"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+	
+					
+		<!-- feedback section -->
+		<section
+			id="site-user-feedback-footer"
+			class="font-size-sm margin-top-md display-none-print display-none-desktop"
+			data-test-id="site-user-feedback-footer"
+			data-bi-name="site-feedback-section"
+		>
+			<hr class="hr" />
+			<h2 id="ms--feedback" class="title is-3">Feedback</h2>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					Was this page helpful?
+				</p>
+				<div class="buttons">
+					<button
+						class="thumb-rating-button like button button-primary button-sm"
+						data-test-id="footer-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="This article is helpful"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+						<span>Yes</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike button button-primary button-sm"
+						id="standard-rating-no-button"
+						hidden
+						data-test-id="footer-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="This article is not helpful"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+						<span>No</span>
+					</button>
+					<details
+						class="popover popover-top"
+						id="mobile-help-popover"
+						data-test-id="footer-feedback-popover"
+					>
+						<summary
+							class="thumb-rating-button dislike button button-primary button-sm"
+							data-test-id="details-footer-rating-no"
+							data-binary-rating-response="rating-no"
+							title="This article is not helpful"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+							<span>No</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading"
+							aria-describedby="popover-description"
+						>
+							<p id="popover-heading" class="font-size-lg margin-bottom-xxs font-weight-semibold">
+								Need help with this topic?
+							</p>
+							<p id="popover-description" class="font-size-sm margin-bottom-xs">
+								Want to try using Ask Learn to clarify or guide you through this topic?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> Suggest a fix? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+		<!-- end feedback section -->
+	
+				</div>
+				
+		<div id="ms--additional-resources-mobile" class="display-none-print">
+			<hr class="hr" hidden />
+			<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Additional resources
+			</h2>
+			
+		<section
+			id="right-rail-recommendations-mobile"
+			class=""
+			data-bi-name="recommendations"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-training-mobile"
+			class=""
+			data-bi-name="learning-resource-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-events-mobile"
+			class=""
+			data-bi-name="events-card"
+			hidden
+		></section>
+	
+		</div>
+	 
+		<div
+			id="article-metadata-footer"
+			data-bi-name="article-metadata-footer"
+			data-test-id="article-metadata-footer"
+			class="page-metadata-container"
+		>
+			<hr class="hr" />
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+				<li class="visibility-hidden-visual-diff">
+			<span class="badge badge-sm text-wrap-pretty">
+				<span>Last updated on <local-time format="twoDigitNumeric"
+		datetime="2026-11-19T08:00:00.000Z"
+		data-article-date-source="calculated"
+		class="is-invisible"
+	>
+		2026-11-19
+	</local-time></span>
+			</span>
+		</li>
+			</ul>
+		</div>
+	
+			</div>
+		
+				</main>
+				<aside
+					id="layout-body-aside"
+					class="layout-body-aside  "
+					data-bi-name="aside"
+					aria-label="Additional resources"
+			  >
+					
+		<div
+			id="ms--additional-resources"
+			class="right-container padding-sm display-none display-block-desktop height-full"
+			data-bi-name="pageactions"
+		>
+			<div id="affixed-right-container" data-bi-name="right-column">
+				
+		<nav
+			id="side-doc-outline"
+			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
+			data-bi-name="intopic toc"
+			aria-label="In this article"
+		>
+			<h3>In this article</h3>
+		</nav>
+	
+				<!-- Feedback -->
+				
+		<section
+			id="ms--site-user-feedback-right-rail"
+			class="font-size-sm display-none-print"
+			data-test-id="site-user-feedback-right-rail"
+			data-bi-name="site-feedback-right-rail"
+		>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					Was this page helpful?
+				</p>
+				<div class="display-flex flex-wrap-nowrap">
+					<button
+						class="thumb-rating-button like inner-focus"
+						data-test-id="right-rail-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="This article is helpful"
+						aria-label="This article is helpful"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike inner-focus"
+						id="right-rail-no-button"
+						hidden
+						data-test-id="right-rail-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="This article is not helpful"
+						aria-label="This article is not helpful"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+					</button>
+					<details class="popover popover-right" id="help-popover" data-test-id="feedback-popover">
+						<summary
+							tabindex="0"
+							class="thumb-rating-button dislike inner-focus"
+							data-test-id="details-right-rail-rating-no"
+							data-binary-rating-response="rating-no"
+							title="This article is not helpful"
+							aria-label="This article is not helpful"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading-right-rail"
+							aria-describedby="popover-description-right-rail"
+						>
+							<p
+								id="popover-heading-right-rail"
+								class="font-size-lg margin-bottom-xxs font-weight-semibold"
+							>
+								Need help with this topic?
+							</p>
+							<p id="popover-description-right-rail" class="font-size-sm margin-bottom-xs">
+								Want to try using Ask Learn to clarify or guide you through this topic?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> Suggest a fix? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+	
+			</div>
+		</div>
+	
+			  </aside> <section
+					id="layout-body-flyout"
+					class="layout-body-flyout "
+					data-bi-name="flyout"
+			  >
+					 <div
+	class="height-full border-left background-color-body-medium"
+	id="ask-learn-flyout"
+></div>
+			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+		<footer
+			id="footer"
+			data-test-id="footer"
+			data-bi-name="footer"
+			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
+			role="contentinfo"
+		>
+			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
+				
+		<a
+			data-mscc-ic="false"
+			href="#"
+			data-bi-name="select-locale"
+			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
+			id=""
+			title=""
+			><span class="icon" aria-hidden="true"
+				><span class="docon docon-world"></span></span
+			><span class="local-selector-link-text">en-us</span></a
+		>
+	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://aka.ms/yourcaliforniaprivacychoices"
+			data-bi-name="your-privacy-choices"
+			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
+			id=""
+			title=""
+			>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 30 14"
+			xml:space="preserve"
+			height="16"
+			width="43"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"
+			></path>
+			<path
+				d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"
+			></path>
+			<path
+				d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z"
+				style="fill:#fff"
+			></path>
+			<path
+				d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z"
+				style="fill:#06f"
+			></path>
+		</svg>
+	
+			<span>Your Privacy Choices</span></a
+		>
+	
+	</div>
+				<div class="flex-shrink-0">
+		<div class="dropdown has-caret-up">
+			<button
+				data-test-id="theme-selector-button"
+				class="dropdown-trigger button button-clear button-sm inner-focus theme-dropdown-trigger"
+				aria-controls="{{ themeMenuId }}"
+				aria-haspopup="true"
+				aria-expanded="false"
+				data-bi-name="theme"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
+				<span>Theme</span>
+				<span class="icon expanded-indicator" aria-hidden="true">
+					<span class="docon docon-chevron-down-light"></span>
+				</span>
+			</button>
+			<div class="dropdown-menu" id="{{ themeMenuId }}" role="menu">
+				<ul class="theme-selector padding-xxs" data-test-id="theme-dropdown-menu" role="none">
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="light"
+							tabindex="-1"
+						>
+							<span class="theme-light margin-right-xxs">
+								<span
+									class="theme-selector-icon border display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Light </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="dark"
+							tabindex="-1"
+						>
+							<span class="theme-dark margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Dark </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="high-contrast"
+							tabindex="-1"
+						>
+							<span class="theme-high-contrast margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> High contrast </span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			</div>
+			<ul class="links" data-bi-name="footerlinks">
+				<li class="manage-cookies-holder" hidden=""></li>
+				<li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/principles-for-ai-generated-content"
+			data-bi-name="aiDisclaimer"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>AI Disclaimer</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/previous-versions/"
+			data-bi-name="archivelink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Previous Versions</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
+			data-bi-name="bloglink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Blog</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/contribute"
+			data-bi-name="contributorGuide"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Contribute</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?LinkId=521839"
+			data-bi-name="privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacy</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?linkid=2259814"
+			data-bi-name="consumer-health-privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Consumer Health Privacy</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/legal/termsofuse"
+			data-bi-name="termsofuse"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Terms of Use</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
+			data-bi-name="trademarks"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Trademarks</a
+		>
+	
+	</li>
+				<li>&copy; Microsoft 2026</li>
+			</ul>
+		</footer>
+	</footer>
+			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_67aea502?a=dD1jMjM5ZjI0ZDBiY2ZmZWY5YWJjNjAxMjRkZWZhM2YyNGRjOGY5NWRmJmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+		</html>

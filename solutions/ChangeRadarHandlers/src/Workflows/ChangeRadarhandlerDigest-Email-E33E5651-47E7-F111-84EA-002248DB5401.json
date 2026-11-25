@@ -1,0 +1,796 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_outlook"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Week",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "8"
+              ],
+              "weekDays": [
+                "Monday"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "Init_results": {
+          "type": "InitializeVariable",
+          "runAfter": {},
+          "inputs": {
+            "variables": [
+              {
+                "name": "results",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Init_results": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_destinations": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'alert_destinations')"
+          }
+        },
+        "Config_recipient": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'alert_recipient')"
+          }
+        },
+        "Config_app": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'app_url')"
+          }
+        },
+        "Dest_entries": {
+          "type": "Query",
+          "runAfter": {
+            "Config_app": [
+              "Succeeded"
+            ],
+            "Config_destinations": [
+              "Succeeded"
+            ],
+            "Config_recipient": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@split(concat(string(coalesce(first(body('Config_destinations'))?['crdr_value'], '')), ';', if(equals(trim(string(coalesce(first(body('Config_recipient'))?['crdr_value'], ''))), ''), '', concat('chat:', trim(string(coalesce(first(body('Config_recipient'))?['crdr_value'], '')))))), ';')",
+            "where": "@not(equals(trim(item()), ''))"
+          }
+        },
+        "Dest_split": {
+          "type": "Select",
+          "runAfter": {
+            "Dest_entries": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Dest_entries')",
+            "select": {
+              "e": "@trim(item())",
+              "colon": "@greaterOrEquals(indexOf(trim(item()), ':'), 0)",
+              "k": "@toLower(trim(substring(concat(trim(item()), ' '), 0, max(indexOf(trim(item()), ':'), 0))))",
+              "v": "@trim(substring(concat(trim(item()), ' '), add(indexOf(trim(item()), ':'), 1)))"
+            }
+          }
+        },
+        "Dest_check": {
+          "type": "Select",
+          "runAfter": {
+            "Dest_split": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Dest_split')",
+            "select": {
+              "e": "@item()?['e']",
+              "k": "@item()?['k']",
+              "v": "@item()?['v']",
+              "team": "@trim(substring(concat(item()?['v'], ' '), 0, max(indexOf(item()?['v'], '/'), 0)))",
+              "ch": "@trim(substring(concat(item()?['v'], ' '), add(indexOf(item()?['v'], '/'), 1)))",
+              "reason": "@if(not(item()?['colon']), 'no kind: start with chat:, channel: or email:', if(or(equals(item()?['k'], 'chat'), equals(item()?['k'], 'email')), if(and(equals(length(split(item()?['v'], '@')), 2), greater(indexOf(item()?['v'], '@'), 0), contains(last(split(item()?['v'], '@')), '.'), not(startsWith(last(split(item()?['v'], '@')), '.')), not(endsWith(last(split(item()?['v'], '@')), '.')), not(contains(item()?['v'], ' ')), not(contains(item()?['v'], decodeUriComponent('%09')))), '', 'not an email address'), if(equals(item()?['k'], 'channel'), if(less(indexOf(item()?['v'], '/'), 0), 'use channel:<team id>/<channel id>', if(not(and(equals(length(trim(substring(concat(item()?['v'], ' '), 0, max(indexOf(item()?['v'], '/'), 0)))), 36), equals(substring(concat(trim(substring(concat(item()?['v'], ' '), 0, max(indexOf(item()?['v'], '/'), 0))), '                                    '), 8, 1), '-'), equals(substring(concat(trim(substring(concat(item()?['v'], ' '), 0, max(indexOf(item()?['v'], '/'), 0))), '                                    '), 13, 1), '-'), equals(substring(concat(trim(substring(concat(item()?['v'], ' '), 0, max(indexOf(item()?['v'], '/'), 0))), '                                    '), 18, 1), '-'), equals(substring(concat(trim(substring(concat(item()?['v'], ' '), 0, max(indexOf(item()?['v'], '/'), 0))), '                                    '), 23, 1), '-'), equals(length(split(trim(substring(concat(item()?['v'], ' '), 0, max(indexOf(item()?['v'], '/'), 0))), '-')), 5))), 'team id is not a GUID', if(not(and(startsWith(trim(substring(concat(item()?['v'], ' '), add(indexOf(item()?['v'], '/'), 1))), '19:'), greater(length(trim(substring(concat(item()?['v'], ' '), add(indexOf(item()?['v'], '/'), 1)))), 3), not(contains(trim(substring(concat(item()?['v'], ' '), add(indexOf(item()?['v'], '/'), 1))), ' ')))), 'channel id should start with 19:', ''))), concat('unknown kind ''', item()?['k'], ''': use chat:, channel: or email:'))))"
+            }
+          }
+        },
+        "Dest_final": {
+          "type": "Select",
+          "runAfter": {
+            "Dest_check": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Dest_check')",
+            "select": {
+              "kind": "@if(equals(item()?['reason'], ''), item()?['k'], 'invalid')",
+              "address": "@if(and(equals(item()?['reason'], ''), not(equals(item()?['k'], 'channel'))), toLower(item()?['v']), '')",
+              "teamId": "@if(and(equals(item()?['reason'], ''), equals(item()?['k'], 'channel')), toLower(item()?['team']), '')",
+              "channelId": "@if(and(equals(item()?['reason'], ''), equals(item()?['k'], 'channel')), item()?['ch'], '')",
+              "entry": "@if(equals(item()?['reason'], ''), '', item()?['e'])",
+              "reason": "@item()?['reason']"
+            }
+          }
+        },
+        "Destinations": {
+          "type": "Compose",
+          "runAfter": {
+            "Dest_final": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Dest_final'), body('Dest_final'))"
+        },
+        "Queued": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Destinations": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$expand": "crdr_event($select=crdr_eventtype,crdr_name)",
+              "$filter": "crdr_outcome eq 169890003 and startswith(crdr_name,'Digest-Email |')",
+              "$select": "crdr_handlerrunid,crdr_name",
+              "entityName": "crdr_handlerruns"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 100000
+            }
+          }
+        },
+        "Rows_watch_matched": {
+          "type": "Query",
+          "runAfter": {
+            "Queued": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Queued')?['value']",
+            "where": "@equals(item()?['crdr_event']?['crdr_eventtype'], 169890009)"
+          }
+        },
+        "Lines_watch_matched": {
+          "type": "Select",
+          "runAfter": {
+            "Rows_watch_matched": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Rows_watch_matched')",
+            "select": "@concat('- ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), ' · ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[2], ''), ' · watch: ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[3], ''))"
+          }
+        },
+        "Unique_watch_matched": {
+          "type": "Compose",
+          "runAfter": {
+            "Lines_watch_matched": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Lines_watch_matched'), body('Lines_watch_matched'))"
+        },
+        "Html_watch_matched": {
+          "type": "Select",
+          "runAfter": {
+            "Unique_watch_matched": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@outputs('Unique_watch_matched')",
+            "select": "@replace(replace(replace(replace(string(item()), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;')"
+          }
+        },
+        "Rows_watch_updated": {
+          "type": "Query",
+          "runAfter": {
+            "Html_watch_matched": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Queued')?['value']",
+            "where": "@equals(item()?['crdr_event']?['crdr_eventtype'], 169890010)"
+          }
+        },
+        "Lines_watch_updated": {
+          "type": "Select",
+          "runAfter": {
+            "Rows_watch_updated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Rows_watch_updated')",
+            "select": "@concat('- ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), ' · ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[2], ''), ' · changed: ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[3], ''))"
+          }
+        },
+        "Unique_watch_updated": {
+          "type": "Compose",
+          "runAfter": {
+            "Lines_watch_updated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Lines_watch_updated'), body('Lines_watch_updated'))"
+        },
+        "Html_watch_updated": {
+          "type": "Select",
+          "runAfter": {
+            "Unique_watch_updated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@outputs('Unique_watch_updated')",
+            "select": "@replace(replace(replace(replace(string(item()), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;')"
+          }
+        },
+        "Rows_signal_new": {
+          "type": "Query",
+          "runAfter": {
+            "Html_watch_updated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Queued')?['value']",
+            "where": "@equals(item()?['crdr_event']?['crdr_eventtype'], 169890000)"
+          }
+        },
+        "Lines_signal_new": {
+          "type": "Select",
+          "runAfter": {
+            "Rows_signal_new": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Rows_signal_new')",
+            "select": "@concat('- ', join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 1), ' · '))"
+          }
+        },
+        "Unique_signal_new": {
+          "type": "Compose",
+          "runAfter": {
+            "Lines_signal_new": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Lines_signal_new'), body('Lines_signal_new'))"
+        },
+        "Html_signal_new": {
+          "type": "Select",
+          "runAfter": {
+            "Unique_signal_new": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@outputs('Unique_signal_new')",
+            "select": "@replace(replace(replace(replace(string(item()), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;')"
+          }
+        },
+        "Rows_signal_changed": {
+          "type": "Query",
+          "runAfter": {
+            "Html_signal_new": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Queued')?['value']",
+            "where": "@equals(item()?['crdr_event']?['crdr_eventtype'], 169890001)"
+          }
+        },
+        "Lines_signal_changed": {
+          "type": "Select",
+          "runAfter": {
+            "Rows_signal_changed": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Rows_signal_changed')",
+            "select": "@concat('- ', join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 1), ' · '))"
+          }
+        },
+        "Unique_signal_changed": {
+          "type": "Compose",
+          "runAfter": {
+            "Lines_signal_changed": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Lines_signal_changed'), body('Lines_signal_changed'))"
+        },
+        "Html_signal_changed": {
+          "type": "Select",
+          "runAfter": {
+            "Unique_signal_changed": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@outputs('Unique_signal_changed')",
+            "select": "@replace(replace(replace(replace(string(item()), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;')"
+          }
+        },
+        "Rows_exposure_found": {
+          "type": "Query",
+          "runAfter": {
+            "Html_signal_changed": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Queued')?['value']",
+            "where": "@equals(item()?['crdr_event']?['crdr_eventtype'], 169890004)"
+          }
+        },
+        "Lines_exposure_found": {
+          "type": "Select",
+          "runAfter": {
+            "Rows_exposure_found": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Rows_exposure_found')",
+            "select": "@concat('- ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), ' · ', if(and(startsWith(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), 'OAI_'), equals(substring(concat(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), '_________________________________________'), 12, 1), '-'), equals(substring(concat(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), '_________________________________________'), 17, 1), '-'), equals(substring(concat(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), '_________________________________________'), 22, 1), '-'), equals(substring(concat(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), '_________________________________________'), 27, 1), '-'), equals(substring(concat(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), '_________________________________________'), 40, 1), '_')), if(empty(first(split(substring(concat(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), '_________________________________________'), 41), '_'))), 'Flow created by Copilot', concat(first(split(substring(concat(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | '), '_________________________________________'), 41), '_')), ' (created by Copilot)')), join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 2), ' | ')))"
+          }
+        },
+        "Unique_exposure_found": {
+          "type": "Compose",
+          "runAfter": {
+            "Lines_exposure_found": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Lines_exposure_found'), body('Lines_exposure_found'))"
+        },
+        "Html_exposure_found": {
+          "type": "Select",
+          "runAfter": {
+            "Unique_exposure_found": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@outputs('Unique_exposure_found')",
+            "select": "@replace(replace(replace(replace(string(item()), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;')"
+          }
+        },
+        "Rows_assessment_rated": {
+          "type": "Query",
+          "runAfter": {
+            "Html_exposure_found": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Queued')?['value']",
+            "where": "@equals(item()?['crdr_event']?['crdr_eventtype'], 169890005)"
+          }
+        },
+        "Lines_assessment_rated": {
+          "type": "Select",
+          "runAfter": {
+            "Rows_assessment_rated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Rows_assessment_rated')",
+            "select": "@concat('- ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), ' · ', concat(toUpper(take(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[2], ''), 1)), substring(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[2], ''), min(1, length(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[2], ''))))), ' · ', concat(toUpper(take(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 3), ' · '), 1)), substring(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 3), ' · '), min(1, length(join(skip(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | '), 3), ' · '))))))"
+          }
+        },
+        "Unique_assessment_rated": {
+          "type": "Compose",
+          "runAfter": {
+            "Lines_assessment_rated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Lines_assessment_rated'), body('Lines_assessment_rated'))"
+        },
+        "Html_assessment_rated": {
+          "type": "Select",
+          "runAfter": {
+            "Unique_assessment_rated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@outputs('Unique_assessment_rated')",
+            "select": "@replace(replace(replace(replace(string(item()), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;')"
+          }
+        },
+        "Rows_asset_modelchanged": {
+          "type": "Query",
+          "runAfter": {
+            "Html_assessment_rated": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Queued')?['value']",
+            "where": "@equals(item()?['crdr_event']?['crdr_eventtype'], 169890008)"
+          }
+        },
+        "Lines_asset_modelchanged": {
+          "type": "Select",
+          "runAfter": {
+            "Rows_asset_modelchanged": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Rows_asset_modelchanged')",
+            "select": "@concat('- ', if(and(startsWith(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), 'OAI_'), equals(substring(concat(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), '_________________________________________'), 12, 1), '-'), equals(substring(concat(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), '_________________________________________'), 17, 1), '-'), equals(substring(concat(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), '_________________________________________'), 22, 1), '-'), equals(substring(concat(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), '_________________________________________'), 27, 1), '-'), equals(substring(concat(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), '_________________________________________'), 40, 1), '_')), if(empty(first(split(substring(concat(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), '_________________________________________'), 41), '_'))), 'Flow created by Copilot', concat(first(split(substring(concat(coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], ''), '_________________________________________'), 41), '_')), ' (created by Copilot)')), coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[1], '')), ' · moved from ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[2], ''), ' to ', coalesce(split(coalesce(item()?['crdr_event']?['crdr_name'], ''), ' | ')?[3], ''))"
+          }
+        },
+        "Unique_asset_modelchanged": {
+          "type": "Compose",
+          "runAfter": {
+            "Lines_asset_modelchanged": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@union(body('Lines_asset_modelchanged'), body('Lines_asset_modelchanged'))"
+        },
+        "Html_asset_modelchanged": {
+          "type": "Select",
+          "runAfter": {
+            "Unique_asset_modelchanged": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@outputs('Unique_asset_modelchanged')",
+            "select": "@replace(replace(replace(replace(string(item()), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;')"
+          }
+        },
+        "Digest_text": {
+          "type": "Compose",
+          "runAfter": {
+            "Html_asset_modelchanged": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@concat(if(empty(outputs('Unique_watch_matched')), '', concat('<p><strong>Added to your watch list (', string(length(outputs('Unique_watch_matched'))), ')</strong><br>', join(take(body('Html_watch_matched'), 10), '<br>'), if(greater(length(outputs('Unique_watch_matched')), 10), concat('<br>- and ', string(sub(length(outputs('Unique_watch_matched')), 10)), ' more'), ''), '</p>')), if(empty(outputs('Unique_watch_updated')), '', concat('<p><strong>Watched items updated (', string(length(outputs('Unique_watch_updated'))), ')</strong><br>', join(take(body('Html_watch_updated'), 10), '<br>'), if(greater(length(outputs('Unique_watch_updated')), 10), concat('<br>- and ', string(sub(length(outputs('Unique_watch_updated')), 10)), ' more'), ''), '</p>')), if(empty(outputs('Unique_signal_new')), '', concat('<p><strong>New signals (', string(length(outputs('Unique_signal_new'))), ')</strong><br>', join(take(body('Html_signal_new'), 10), '<br>'), if(greater(length(outputs('Unique_signal_new')), 10), concat('<br>- and ', string(sub(length(outputs('Unique_signal_new')), 10)), ' more'), ''), '</p>')), if(empty(outputs('Unique_signal_changed')), '', concat('<p><strong>Changed signals (', string(length(outputs('Unique_signal_changed'))), ')</strong><br>', join(take(body('Html_signal_changed'), 10), '<br>'), if(greater(length(outputs('Unique_signal_changed')), 10), concat('<br>- and ', string(sub(length(outputs('Unique_signal_changed')), 10)), ' more'), ''), '</p>')), if(empty(outputs('Unique_exposure_found')), '', concat('<p><strong>Newly exposed assets (', string(length(outputs('Unique_exposure_found'))), ')</strong><br>', join(take(body('Html_exposure_found'), 10), '<br>'), if(greater(length(outputs('Unique_exposure_found')), 10), concat('<br>- and ', string(sub(length(outputs('Unique_exposure_found')), 10)), ' more'), ''), '</p>')), if(empty(outputs('Unique_assessment_rated')), '', concat('<p><strong>New or changed ratings (', string(length(outputs('Unique_assessment_rated'))), ')</strong><br>', join(take(body('Html_assessment_rated'), 10), '<br>'), if(greater(length(outputs('Unique_assessment_rated')), 10), concat('<br>- and ', string(sub(length(outputs('Unique_assessment_rated')), 10)), ' more'), ''), '</p>')), if(empty(outputs('Unique_asset_modelchanged')), '', concat('<p><strong>Model changes (', string(length(outputs('Unique_asset_modelchanged'))), ')</strong><br>', join(take(body('Html_asset_modelchanged'), 10), '<br>'), if(greater(length(outputs('Unique_asset_modelchanged')), 10), concat('<br>- and ', string(sub(length(outputs('Unique_asset_modelchanged')), 10)), ' more'), ''), '</p>')))"
+        },
+        "Digest_html": {
+          "type": "Compose",
+          "runAfter": {
+            "Digest_text": [
+              "Succeeded"
+            ]
+          },
+          "inputs": "@concat('<p><strong>Change Radar weekly digest</strong></p><p style=\"color:#666666\">', replace(replace(replace(replace(string(concat('Your live estate, week to ', formatDateTime(utcNow(), 'yyyy-MM-dd'), '. Incidents, High and Critical ratings and deadlines were sent as they happened.')), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;'), '</p>', outputs('Digest_text'), '<p><a href=\"', replace(replace(replace(replace(string(coalesce(first(body('Config_app'))?['crdr_value'], '')), '&', '&amp;'), '<', '&lt;'), '>', '&gt;'), '\"', '&quot;'), '\">Open Change Radar</a></p>')"
+        },
+        "If_anything": {
+          "type": "If",
+          "runAfter": {
+            "Digest_html": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@empty(body('Queued')?['value'])",
+              false
+            ]
+          },
+          "actions": {
+            "My_dests": {
+              "type": "Query",
+              "runAfter": {},
+              "inputs": {
+                "from": "@outputs('Destinations')",
+                "where": "@equals(item()?['kind'], 'email')"
+              }
+            },
+            "Bad_dests": {
+              "type": "Query",
+              "runAfter": {
+                "My_dests": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@outputs('Destinations')",
+                "where": "@equals(item()?['kind'], 'invalid')"
+              }
+            },
+            "Each_dest": {
+              "type": "Foreach",
+              "foreach": "@body('My_dests')",
+              "runAfter": {
+                "Bad_dests": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 1
+                }
+              },
+              "actions": {
+                "Send": {
+                  "type": "Scope",
+                  "runAfter": {},
+                  "actions": {
+                    "Send_email": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_office365",
+                          "operationId": "SendEmailV2",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                        },
+                        "parameters": {
+                          "emailMessage/To": "@items('Each_dest')?['address']",
+                          "emailMessage/Subject": "@concat('Change Radar weekly digest, week to ', formatDateTime(utcNow(), 'yyyy-MM-dd'))",
+                          "emailMessage/Body": "@outputs('Digest_html')",
+                          "emailMessage/Importance": "Normal"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                },
+                "Note_sent": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {
+                    "Send": [
+                      "Succeeded"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "results",
+                    "value": {
+                      "to": "@if(equals(items('Each_dest')?['kind'], 'channel'), concat('channel:', items('Each_dest')?['teamId'], '/', items('Each_dest')?['channelId']), concat(items('Each_dest')?['kind'], ':', items('Each_dest')?['address']))",
+                      "ok": true,
+                      "error": ""
+                    }
+                  }
+                },
+                "Note_failed": {
+                  "type": "AppendToArrayVariable",
+                  "runAfter": {
+                    "Send": [
+                      "Failed",
+                      "TimedOut"
+                    ]
+                  },
+                  "inputs": {
+                    "name": "results",
+                    "value": {
+                      "to": "@if(equals(items('Each_dest')?['kind'], 'channel'), concat('channel:', items('Each_dest')?['teamId'], '/', items('Each_dest')?['channelId']), concat(items('Each_dest')?['kind'], ':', items('Each_dest')?['address']))",
+                      "ok": false,
+                      "error": "@if(greater(length(coalesce(string(coalesce(actions('Send_email')?['outputs']?['body']?['error']?['message'], actions('Send_email')?['outputs']?['body']?['message'], actions('Send_email')?['error']?['message'], 'the email failed')), '')), 300), substring(string(coalesce(actions('Send_email')?['outputs']?['body']?['error']?['message'], actions('Send_email')?['outputs']?['body']?['message'], actions('Send_email')?['error']?['message'], 'the email failed')), 0, 300), coalesce(string(coalesce(actions('Send_email')?['outputs']?['body']?['error']?['message'], actions('Send_email')?['outputs']?['body']?['message'], actions('Send_email')?['error']?['message'], 'the email failed')), ''))"
+                    }
+                  }
+                }
+              }
+            },
+            "Failed_sends": {
+              "type": "Query",
+              "runAfter": {
+                "Each_dest": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "inputs": {
+                "from": "@variables('results')",
+                "where": "@equals(item()?['ok'], false)"
+              }
+            },
+            "Failed_text": {
+              "type": "Select",
+              "runAfter": {
+                "Failed_sends": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Failed_sends')",
+                "select": "@concat(item()?['to'], ' (', item()?['error'], ')')"
+              }
+            },
+            "Bad_text": {
+              "type": "Select",
+              "runAfter": {
+                "Failed_text": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Bad_dests')",
+                "select": "@concat(item()?['entry'], ' (', item()?['reason'], ')')"
+              }
+            },
+            "Delivery": {
+              "type": "Compose",
+              "runAfter": {
+                "Bad_text": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "sent": "@sub(length(body('My_dests')), length(body('Failed_sends')))",
+                "ok": "@and(greater(length(body('My_dests')), 0), equals(length(body('Failed_sends')), 0), empty(body('Bad_dests')))",
+                "text": "@concat(if(equals(length(body('My_dests')), 0), 'No email destination in alert_destinations or alert_recipient: nothing was sent.', concat('Sent to ', string(sub(length(body('My_dests')), length(body('Failed_sends')))), ' of ', string(length(body('My_dests'))), ' email destination', if(equals(length(body('My_dests')), 1), '', 's'), '.')), if(equals(length(body('Failed_sends')), 0), '', concat(' Failed: ', join(body('Failed_text'), '; '), '.')), if(empty(body('Bad_dests')), '', concat(' Invalid entries in alert_destinations: ', join(body('Bad_text'), '; '), '.')))"
+              }
+            },
+            "If_delivered": {
+              "type": "If",
+              "runAfter": {
+                "Delivery": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "greater": [
+                  "@outputs('Delivery')?['sent']",
+                  0
+                ]
+              },
+              "actions": {
+                "Each_included": {
+                  "type": "Foreach",
+                  "foreach": "@body('Queued')?['value']",
+                  "runAfter": {},
+                  "actions": {
+                    "Mark_included": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_handlerruns",
+                          "item/crdr_detail": "@if(greater(length(coalesce(concat('Included in the digest of ', formatDateTime(utcNow(), 'yyyy-MM-dd'), '. ', outputs('Delivery')?['text']), '')), 4000), substring(concat('Included in the digest of ', formatDateTime(utcNow(), 'yyyy-MM-dd'), '. ', outputs('Delivery')?['text']), 0, 4000), coalesce(concat('Included in the digest of ', formatDateTime(utcNow(), 'yyyy-MM-dd'), '. ', outputs('Delivery')?['text']), ''))",
+                          "item/crdr_outcome": "@if(outputs('Delivery')?['ok'], 169890000, 169890002)",
+                          "item/crdr_ranon": "@utcNow()",
+                          "recordId": "@items('Each_included')?['crdr_handlerrunid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar handler Digest-Email: every Monday, the week's queued Digest-Email runs as one email to each email: entry in alert_destinations, as the owner of the Office 365 Outlook connection (crdr_outlook). Sends only (writes = no; ADR 0011 addendum). Ships off, with its subscriptions disabled."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

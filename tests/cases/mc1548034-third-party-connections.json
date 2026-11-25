@@ -1,0 +1,41 @@
+{
+  "id": "mc1548034-third-party-connections",
+  "workedExample": "spec §5 row 3",
+  "signal": {
+    "id": "MC1548034",
+    "source": "graph_mc",
+    "title": "Third-party connections in agent chat",
+    "fingerprint": [
+      { "group": "A", "facet": "product", "value": "Copilot Studio", "confidence": 0.95, "extractedBy": "manual" },
+      { "group": "A", "facet": "harness", "value": "standard", "confidence": 0.85, "extractedBy": "manual" },
+      { "group": "A", "facet": "capability", "value": "custom_web_ui", "confidence": 0.8, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "agt-std-web", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Customer help", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "channels": ["Custom website", "Teams"],
+          "lastPublishedAt": "2026-10-01T09:00:00Z", "powerPlatformConnectors": [] } },
+      { "name": "agt-std-teams", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "HR questions", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Standard", "orchestration": "Generative", "createdIn": "Copilot Studio", "channels": ["Teams"],
+          "lastPublishedAt": "2026-10-01T09:00:00Z", "powerPlatformConnectors": [] } },
+      { "name": "agt-mc-web", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Policy lookup", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "harness": "Microsoft Copilot", "orchestration": "Generative", "createdIn": "Copilot Studio", "channels": ["Custom website"],
+          "lastPublishedAt": "2026-10-01T09:00:00Z", "powerPlatformConnectors": [] } }
+    ]
+  },
+  "cases": [
+    { "id": "thirdparty-01", "kind": "positive", "assetId": "agt-std-web",
+      "description": "Standard harness agent published to a custom web channel",
+      "expect": { "match": true, "matchedFacets": ["capability", "harness", "product"] } },
+    { "id": "thirdparty-02", "kind": "near_miss", "assetId": "agt-std-teams",
+      "description": "Standard harness agent on Teams only",
+      "expect": { "match": false } },
+    { "id": "thirdparty-03", "kind": "near_miss", "assetId": "agt-mc-web",
+      "description": "Custom web channel, but on the Microsoft Copilot harness",
+      "expect": { "match": false } }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "id": "mid-size-enterprise",
+  "description": "Generic mid-size enterprise, about 4,000 staff, five years into Power Platform with light governance. Default-environment sprawl, a few prolific makers, a long tail of abandoned flows and a growing mix of classic and generative agents.",
+  "seed": 4242,
+  "asOf": "2026-11-18T00:00:00Z",
+  "location": "europe",
+  "org": {
+    "name": "Harbourline Group (synthetic)",
+    "domain": "harbourline.example",
+    "sector": "Logistics and financial services",
+    "employees": 4200,
+    "maturity": "adopting"
+  },
+  "environments": [
+    { "key": "default", "sku": "Default",    "isDefault": true,  "isManaged": false, "names": ["Harbourline (default)"] },
+    { "key": "prod",    "sku": "Production", "isDefault": false, "isManaged": true,  "names": ["Finance", "People", "Operations", "Customer Service"] },
+    { "key": "sandbox", "sku": "Sandbox",    "isDefault": false, "isManaged": true,  "names": ["Finance UAT", "Operations UAT", "CoE Sandbox"] },
+    { "key": "dev",     "sku": "Developer",  "isDefault": false, "isManaged": false, "count": 9, "namePattern": "Dev - Maker {0:000}" },
+    { "key": "trial",   "sku": "Trial",      "isDefault": false, "isManaged": false, "names": ["Trial - AI pilot", "Trial - Pages test"] }
+  ],
+  "makers": {
+    "count": 140,
+    "ownershipSkew": 1.15,
+    "departedShare": 0.12,
+    "departments": ["Finance", "People", "Operations", "Customer Service", "IT", "Sales", "Legal", "Facilities", "Risk"],
+    "servicePrincipals": ["Integration identity", "Finance automation identity", "CoE automation identity"]
+  },
+  "counts": {
+    "canvasApps": 230,
+    "modelDrivenApps": 24,
+    "codeApps": 4,
+    "cloudFlows": 520,
+    "agentFlows": 28,
+    "workflowAgentFlows": 14,
+    "copilotStudioAgents": 38,
+    "agentBuilderAgents": 26,
+    "customConnectors": 12,
+    "scheduledPromptFlows": 15
+  },
+  "placement": {
+    "canvasApps":          { "default": 0.48, "prod": 0.22, "sandbox": 0.08, "dev": 0.18, "trial": 0.04 },
+    "modelDrivenApps":     { "default": 0.05, "prod": 0.55, "sandbox": 0.20, "dev": 0.20, "trial": 0.00 },
+    "codeApps":            { "default": 0.00, "prod": 0.25, "sandbox": 0.25, "dev": 0.50, "trial": 0.00 },
+    "cloudFlows":          { "default": 0.52, "prod": 0.22, "sandbox": 0.07, "dev": 0.16, "trial": 0.03 },
+    "agentFlows":          { "default": 0.10, "prod": 0.50, "sandbox": 0.15, "dev": 0.25, "trial": 0.00 },
+    "copilotStudioAgents": { "default": 0.30, "prod": 0.30, "sandbox": 0.10, "dev": 0.25, "trial": 0.05 },
+    "customConnectors":    { "default": 0.25, "prod": 0.40, "sandbox": 0.10, "dev": 0.25, "trial": 0.00 }
+  },
+  "connectors": [
+    { "id": "shared_sharepointonline",          "weight": 0.50 },
+    { "id": "shared_office365",                 "weight": 0.36 },
+    { "id": "shared_commondataserviceforapps",  "weight": 0.28 },
+    { "id": "shared_office365users",            "weight": 0.24 },
+    { "id": "shared_teams",                     "weight": 0.24 },
+    { "id": "shared_excelonlinebusiness",       "weight": 0.16 },
+    { "id": "shared_approvals",                 "weight": 0.12 },
+    { "id": "shared_onedriveforbusiness",       "weight": 0.10 },
+    { "id": "shared_sql",                       "weight": 0.05, "premium": true },
+    { "id": "shared_azureblob",                 "weight": 0.03, "premium": true },
+    { "id": "shared_servicenow",                "weight": 0.02, "premium": true },
+    { "id": "shared_salesforce",                "weight": 0.01, "premium": true }
+  ],
+  "flows": {
+    "triggers": [
+      { "trigger": "recurrence",                      "operation": "Recurrence",     "weight": 0.28 },
+      { "trigger": "shared_sharepointonline",         "operation": "OnNewItem",      "weight": 0.24 },
+      { "trigger": "shared_office365",                "operation": "OnNewEmailV3",   "weight": 0.14 },
+      { "trigger": "manual",                          "operation": "manual",         "weight": 0.16 },
+      { "trigger": "shared_commondataserviceforapps", "operation": "SubscribeWebhookTrigger", "weight": 0.12 },
+      { "trigger": "shared_powerapps",                "operation": "PowerAppsV2",    "weight": 0.06 }
+    ],
+    "abandonedShare": 0.38,
+    "suspendedShare": 0.07,
+    "stoppedShare": 0.12,
+    "productionServicePrincipalOwnedShare": 0.25
+  },
+  "apps": {
+    "canvasPcfShare": 0.07,
+    "copyOfShare": 0.10,
+    "untouchedDaysMax": 1500
+  },
+  "agents": {
+    "generativeShare": 0.62,
+    "microsoftCopilotHarnessShare": 0.18,
+    "agentKitCoverage": 0.80,
+    "mcpShareOfGenerative": 0.22,
+    "httpActionShare": 0.15,
+    "autonomousTriggerShare": 0.10,
+    "customWebsiteChannelShare": 0.18,
+    "unpublishedShare": 0.30,
+    "channels": ["Teams", "Microsoft 365 Copilot", "SharePoint", "Custom website", "Direct Line"],
+    "modelsStandard": [ {"model": "GPT-4.1", "weight": 0.3}, {"model": "GPT-5 Chat", "weight": 0.3}, {"model": "GPT-4.1 mini", "weight": 0.1}, {"model": "Claude Sonnet 4.6", "weight": 0.1}, {"model": "GPT-6 Luna", "weight": 0.2} ],
+    "modelsMicrosoftCopilot": [ {"model": "GPT-6 Luna", "weight": 0.4}, {"model": "GPT Chat Latest", "weight": 0.2}, {"model": "Claude Sonnet 4.6", "weight": 0.2}, {"model": "GPT-5 Chat", "weight": 0.2} ]
+  },
+  "customConnectors": {
+    "sharePointHostShare": 0.25,
+    "hosts": ["api.rates.example", "erp.harbourline.example", "tms.partner.example", "hr-api.harbourline.example"]
+  },
+  "tenantSettings": [
+    { "key": "anthropic_subprocessor", "enabled": true,  "scope": ["Copilot Studio", "M365 Copilot"] },
+    { "key": "copilot_in_power_bi",    "enabled": true,  "scope": ["Power BI"] }
+  ],
+  "solutions": {
+    "note": "ADR 0020: solutions that hold the assets, drawn from their own random stream (seed + seedOffset) so nothing else moves. Business solutions per environment; the same solution in a production and a UAT environment shares its unique name, as it would after deployment.",
+    "seedOffset": 2027, "publisher": "harbourline", "uniquePrefix": "hlg_",
+    "byEnvironment": {
+      "Finance": ["Invoice approvals", "Expense claims", "Month-end close"],
+      "People": ["Onboarding", "Leave requests", "Learning records"],
+      "Operations": ["Site inspections", "Fleet bookings", "Stock checks"],
+      "Customer Service": ["Case desk", "Customer feedback", "Service agent"],
+      "Finance UAT": ["Invoice approvals", "Expense claims"],
+      "Operations UAT": ["Site inspections", "Fleet bookings"],
+      "CoE Sandbox": ["CoE toolkit"]
+    },
+    "makerSolution": "Maker experiments", "shared": "Core components", "defaultSolution": "Team productivity",
+    "inSolutionShare": 0.8, "sharedShare": 0.1, "makerShare": 0.4, "defaultShare": 0.05
+  },
+  "demoAgents": [
+    { "displayName": "Model retirement demo agent (synthetic)", "environment": "prod", "harness": "Microsoft Copilot", "model": "Claude Sonnet 4.6", "channels": ["Teams"],
+      "note": "ADR 0013 done-when 1: shows the Claude Sonnet 4.6 retirement (Microsoft Copilot harness) exposing an agent end to end" }
+  ]
+}

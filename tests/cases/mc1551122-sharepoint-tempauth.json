@@ -1,0 +1,58 @@
+{
+  "id": "mc1551122-sharepoint-tempauth",
+  "workedExample": "spec §5 row 1",
+  "signal": {
+    "id": "MC1551122",
+    "source": "graph_mc",
+    "title": "SharePoint temporary-auth URLs: end of support",
+    "fingerprint": [
+      { "group": "A", "facet": "product", "value": "Power Apps", "confidence": 0.95, "extractedBy": "manual" },
+      { "group": "A", "facet": "product", "value": "Power Automate", "confidence": 0.9, "extractedBy": "manual" },
+      { "group": "A", "facet": "capability", "value": "pcf_control", "confidence": 0.9, "extractedBy": "manual" },
+      { "group": "A", "facet": "connector", "value": "shared_sharepointonline", "confidence": 0.95, "extractedBy": "manual" },
+      { "group": "B", "facet": "capability", "value": "sharepoint_tempauth", "confidence": 0.85, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "app-pcf-sp", "type": "microsoft.powerapps/canvasapps", "location": "europe",
+        "properties": { "displayName": "Site inspections", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "powerPlatformConnectors": [ { "connectorId": "shared_sharepointonline", "operations": [ { "operationId": "GetItems" } ] } ] } },
+      { "name": "app-pcf-only", "type": "microsoft.powerapps/canvasapps", "location": "europe",
+        "properties": { "displayName": "Signature capture", "environmentId": "env-prod", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "powerPlatformConnectors": [ { "connectorId": "shared_office365", "operations": [ { "operationId": "SendEmailV2" } ] } ] } },
+      { "name": "app-sp-only", "type": "microsoft.powerapps/canvasapps", "location": "europe",
+        "properties": { "displayName": "Team document list", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "powerPlatformConnectors": [ { "connectorId": "shared_sharepointonline", "operations": [ { "operationId": "GetItems" } ] } ] } },
+      { "name": "cc-sp-loader", "type": "microsoft.powerplatformconnector/connectors", "location": "europe",
+        "properties": { "displayName": "Document loader (custom)", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b", "isCustom": true } },
+      { "name": "cc-other-api", "type": "microsoft.powerplatformconnector/connectors", "location": "europe",
+        "properties": { "displayName": "Rates API (custom)", "environmentId": "env-prod", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b", "isCustom": true } }
+    ],
+    "codeComponents": [
+      { "resourceId": "app-pcf-sp", "controlName": "fx_ImageViewer" },
+      { "resourceId": "app-pcf-only", "controlName": "fx_SignaturePad" }
+    ],
+    "connectorDefinitions": [
+      { "resourceId": "cc-sp-loader", "hosts": ["fixture.sharepoint.com"] },
+      { "resourceId": "cc-other-api", "hosts": ["rates.example.com"] }
+    ]
+  },
+  "cases": [
+    { "id": "tempauth-01", "kind": "positive", "assetId": "app-pcf-sp",
+      "description": "Canvas app with a PCF control and the SharePoint connector",
+      "expect": { "match": true, "matchedFacets": ["capability", "connector", "product"] } },
+    { "id": "tempauth-02", "kind": "positive", "assetId": "cc-sp-loader",
+      "description": "Custom connector loading SharePoint content (group B)",
+      "expect": { "match": true, "matchedFacets": ["capability"] } },
+    { "id": "tempauth-03", "kind": "near_miss", "assetId": "app-pcf-only",
+      "description": "PCF control without SharePoint",
+      "expect": { "match": false } },
+    { "id": "tempauth-04", "kind": "near_miss", "assetId": "app-sp-only",
+      "description": "SharePoint connector without a PCF control",
+      "expect": { "match": false } },
+    { "id": "tempauth-05", "kind": "near_miss", "assetId": "cc-other-api",
+      "description": "Custom connector that doesn't touch SharePoint",
+      "expect": { "match": false } }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "marker": "git_commit_id",
+  "contentStart": "<main",
+  "contentEnd": "</main>",
+  "unit": "all",
+  "minChars": 1,
+  "skipTitles": [
+    "In this article",
+    "Feedback",
+    "Additional resources"
+  ],
+  "idFrom": "path",
+  "label": "Licensing page",
+  "nature": "licensing",
+  "titlePrefix": "Power Platform request limits"
+}

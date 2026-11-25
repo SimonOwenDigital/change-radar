@@ -1,0 +1,10 @@
+{
+  "description": "Expected assessment prompt outputs for the exposed test signals (ADR 0010, spike T8). Generic impact and nature are judgments, so each case allows a set. Rationale and action are checked mechanically: both present, and every number in the rationale appears in the announcement or the estate summary. Drafted 2026-11-21; confirmed by Simon 2026-11-21.",
+  "cases": [
+    { "signalId": "MC1550533", "genericImpact": ["medium", "high"], "nature": ["deprecation", "breaking", "behaviour_change"], "why": "Scheduled prompts leave Power Platform for native Copilot scheduling; flows created by them stop or must be recreated (action required, 31 December)." },
+    { "signalId": "MC1551122", "genericImpact": ["medium", "high"], "nature": ["breaking", "deprecation"], "why": "SharePoint temporary authentication URLs reach end of support; apps, flows and connectors using them break unless migrated." },
+    { "signalId": "MC1557509", "genericImpact": ["low", "medium"], "nature": ["new_capability", "behaviour_change"], "why": "Service principal authentication becomes available for Copilot Studio workflows; user-owned production flows should move, but nothing breaks." },
+    { "signalId": "MC1548034", "genericImpact": ["low", "medium"], "nature": ["new_capability", "behaviour_change"], "why": "Third-party agent connections in conversations: a new option for agents on custom web channels; custom web UIs need changes to support it, so behaviour_change is also accepted (Simon, after T8 run 1)." },
+    { "signalId": "RM570671", "genericImpact": ["low", "medium"], "nature": ["new_capability"], "why": "Granular MCP policies for admins (Work IQ): new governance control; agents using MCP may become subject to it." }
+  ]
+}

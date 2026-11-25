@@ -1,0 +1,40 @@
+{
+  "id": "mc1550533-scheduled-prompts",
+  "workedExample": "spec §5 row 5",
+  "note": "The scheduled-prompt signature is a T5 placeholder (seed/asset-signatures.json). Update these fixtures when T5 finds the real trigger and connector pattern.",
+  "signal": {
+    "id": "MC1550533",
+    "source": "graph_mc",
+    "title": "Copilot scheduled prompts move off Power Platform",
+    "fingerprint": [
+      { "group": "A", "facet": "capability", "value": "scheduled_prompt", "confidence": 0.9, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "cf-sched-prompt", "type": "microsoft.powerautomate/cloudflows", "location": "europe",
+        "properties": { "displayName": "Monday priorities summary", "environmentId": "env-default", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "trigger": { "connectorId": "", "operationId": "Recurrence" },
+          "powerPlatformConnectors": [ { "connectorId": "shared_microsoft365copilot", "operations": [ { "operationId": "ExecutePrompt" } ] } ] } },
+      { "name": "cf-recurrence-only", "type": "microsoft.powerautomate/cloudflows", "location": "europe",
+        "properties": { "displayName": "Nightly list clean-up", "environmentId": "env-default", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "trigger": { "connectorId": "", "operationId": "Recurrence" },
+          "powerPlatformConnectors": [ { "connectorId": "shared_sharepointonline", "operations": [ { "operationId": "DeleteItem" } ] } ] } },
+      { "name": "cf-manual-copilot", "type": "microsoft.powerautomate/cloudflows", "location": "europe",
+        "properties": { "displayName": "Summarise on demand", "environmentId": "env-default", "createdBy": "usr-maker-b", "ownerId": "usr-maker-b",
+          "trigger": { "connectorId": "shared_flowpush", "operationId": "ButtonTrigger" },
+          "powerPlatformConnectors": [ { "connectorId": "shared_microsoft365copilot", "operations": [ { "operationId": "ExecutePrompt" } ] } ] } }
+    ]
+  },
+  "cases": [
+    { "id": "schedprompt-01", "kind": "positive", "assetId": "cf-sched-prompt",
+      "description": "Recurrence trigger plus the Copilot prompt connector (placeholder signature)",
+      "expect": { "match": true, "matchedFacets": ["capability"] } },
+    { "id": "schedprompt-02", "kind": "near_miss", "assetId": "cf-recurrence-only",
+      "description": "Scheduled flow with no Copilot action",
+      "expect": { "match": false } },
+    { "id": "schedprompt-03", "kind": "near_miss", "assetId": "cf-manual-copilot",
+      "description": "Copilot action but a manual trigger",
+      "expect": { "match": false } }
+  ]
+}

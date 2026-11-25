@@ -1,0 +1,1511 @@
+{
+ "note": "Trimmed AI Builder text recognition output (predictionOutput) for the change log pages of the guide, captured in spike T12 on 2026-11-23. Lines keep text and bounding box only.",
+ "results": [
+  {
+   "page": 2,
+   "fullPageText": "Table of Contents\nMicrosoft Copilot Studio................................................................................................4\nOverview................................................................................................................4\nBuild apps in Microsoft Copilot Studio......................................................................8\nDataverse for Copilot Studio....................................................................................9\nBusiness Application Tools including Model Context Protocol .................................10\nManaged Environments.........................................................................................11\nCopilot Studio Usage and Governance ...................................................................12\nAdditional Resources............................................................................................13\nHow to Pay for Microsoft Copilot Studio........................................................................14\nCopilot Credits Overview.......................................................................................14\nCopilot Credits Purchasing Options .......................................................................14\nAppendix A: Multiplexing and Licensing Requirements for External Users........................18\nAppendix B: Offers in Paid Public Preview .....................................................................19\nAppendix C: Terminology .............................................................................................20\nAppendix D: Change Log..............................................................................................22\nMicrosoft Copilot Studio Licensing Guide | November 2026\nP a g e | 2",
+   "lines": [
+    {
+     "text": "Table of Contents",
+     "boundingBox": {
+      "left": 0.11792,
+      "top": 0.09645,
+      "width": 0.19755,
+      "height": 0.01358
+     }
+    },
+    {
+     "text": "Microsoft Copilot Studio................................................................................................4",
+     "boundingBox": {
+      "left": 0.11938,
+      "top": 0.12039,
+      "width": 0.76185,
+      "height": 0.01273
+     }
+    },
+    {
+     "text": "Overview................................................................................................................4",
+     "boundingBox": {
+      "left": 0.15402,
+      "top": 0.13842,
+      "width": 0.7272,
+      "height": 0.01021
+     }
+    },
+    {
+     "text": "Build apps in Microsoft Copilot Studio......................................................................8",
+     "boundingBox": {
+      "left": 0.15467,
+      "top": 0.15933,
+      "width": 0.72618,
+      "height": 0.01273
+     }
+    },
+    {
+     "text": "Dataverse for Copilot Studio....................................................................................9",
+     "boundingBox": {
+      "left": 0.15467,
+      "top": 0.18039,
+      "width": 0.72632,
+      "height": 0.01273
+     }
+    },
+    {
+     "text": "Business Application Tools including Model Context Protocol .................................10",
+     "boundingBox": {
+      "left": 0.15467,
+      "top": 0.20145,
+      "width": 0.72602,
+      "height": 0.01286
+     }
+    },
+    {
+     "text": "Managed Environments.........................................................................................11",
+     "boundingBox": {
+      "left": 0.15467,
+      "top": 0.22245,
+      "width": 0.72329,
+      "height": 0.01277
+     }
+    },
+    {
+     "text": "Copilot Studio Usage and Governance ...................................................................12",
+     "boundingBox": {
+      "left": 0.15402,
+      "top": 0.24342,
+      "width": 0.72665,
+      "height": 0.01286
+     }
+    },
+    {
+     "text": "Additional Resources............................................................................................13",
+     "boundingBox": {
+      "left": 0.15306,
+      "top": 0.26457,
+      "width": 0.72764,
+      "height": 0.01012
+     }
+    },
+    {
+     "text": "How to Pay for Microsoft Copilot Studio........................................................................14",
+     "boundingBox": {
+      "left": 0.11938,
+      "top": 0.28417,
+      "width": 0.76165,
+      "height": 0.01273
+     }
+    },
+    {
+     "text": "Copilot Credits Overview.......................................................................................14",
+     "boundingBox": {
+      "left": 0.15402,
+      "top": 0.30225,
+      "width": 0.727,
+      "height": 0.01273
+     }
+    },
+    {
+     "text": "Copilot Credits Purchasing Options .......................................................................14",
+     "boundingBox": {
+      "left": 0.15402,
+      "top": 0.32315,
+      "width": 0.727,
+      "height": 0.01286
+     }
+    },
+    {
+     "text": "Appendix A: Multiplexing and Licensing Requirements for External Users........................18",
+     "boundingBox": {
+      "left": 0.11776,
+      "top": 0.34295,
+      "width": 0.76289,
+      "height": 0.01277
+     }
+    },
+    {
+     "text": "Appendix B: Offers in Paid Public Preview .....................................................................19",
+     "boundingBox": {
+      "left": 0.11776,
+      "top": 0.35952,
+      "width": 0.76302,
+      "height": 0.01273
+     }
+    },
+    {
+     "text": "Appendix C: Terminology .............................................................................................20",
+     "boundingBox": {
+      "left": 0.11776,
+      "top": 0.37618,
+      "width": 0.76293,
+      "height": 0.01286
+     }
+    },
+    {
+     "text": "Appendix D: Change Log..............................................................................................22",
+     "boundingBox": {
+      "left": 0.11776,
+      "top": 0.3927,
+      "width": 0.76291,
+      "height": 0.01286
+     }
+    },
+    {
+     "text": "Microsoft Copilot Studio Licensing Guide | November 2026",
+     "boundingBox": {
+      "left": 0.29116,
+      "top": 0.95208,
+      "width": 0.34794,
+      "height": 0.01015
+     }
+    },
+    {
+     "text": "P a g e | 2",
+     "boundingBox": {
+      "left": 0.70301,
+      "top": 0.95208,
+      "width": 0.06512,
+      "height": 0.01015
+     }
+    }
+   ]
+  },
+  {
+   "page": 22,
+   "fullPageText": "Appendix D: Change Log\nPage(s)\nTopic\nChange\nAction\nDate\n4\nCopilot Studio\nUpdate\nGitHub Copilot harness rebranded as Microsoft Copilot harness\nNovember 2026\n8\nCopilot Studio\nUpdate\nMicrosoft Copilot Managed Runtime generally available (GA)\nNovember 2026\n10\nCopilot Studio\nUpdate\nBuild apps in Copilot Studio generally available (GA)\nNovember 2026\n4, 5\nCopilot Studio\nNew\nCustomer conversation harness\nOctober 2026\n10\nTools\nNew\nBusiness Applications Tools including Model Context Protocol (MCP)\nOctober 2026\n6, 7\nCopilot Managed Runtime\nNew\nCopilot Managed Runtime: Apps built in Copilot Studio hosted, managed\nand deployed in the Copilot Managed Runtime host\nSeptember 2026\n6, 7\nApps in Copilot Studio\nNew\nBuild apps in Copilot Studio (Paid Public Preview)\nSeptember 2026\nVarious\nMicrosoft 365 Copilot\nUpdate\nMicrosoft 365 Copilot rebranded as Microsoft Copilot\nAugust 2026\n4-6\nCopilot Studio\nNew\nCopilot Studio harnesses: Copilot Chat, Standard, GitHub Copilot\nAugust 2026\n5\nWork IQ API\nUpdate\nWork IQ API usage by Copilot Studio agents not included in Microsoft 365\nCopilot USL\nJuly 2026\nVarious\nCopilot Studio\nUpdate\nAgent flows updated to workflows\nJune 2026\n5, 10, 16\nCopilot Studio\nNew\nCopilot Studio voice agents\nMay 2026\n4, 7-8\nCopilot Studio\nNew\nMicrosoft Agent Pre-Purchase Plan (P3)\nFebruary 2026\nN/A\nFeatures in Paid Public\nPreview\nRemove\nMulti-agent orchestration (Learn more) and Bring Your Own Model (Learn\nmore) Copilot Studio features moved to MS Learn.\nFebruary 2026\nN/A\nCode Interpreter\nRemove\nMCS feature, Code Interpreter moved to MS Learn. Learn more\nFebruary 2026\n8, 10\nDataverse capacity\nUpdate\nDefault Dataverse Database capacity increased from 5 GB to 15 GB\nDecember 2025\n30\nCode Interpreter\nUpdate\nCode Interpreter now generally available (GA)\nNovember 2025\n29\nAI Builder\nUpdate\nText and Generative AI Tools > AI Builder capabilities renamed Copilot\nStudio AI Tools capabilities\nNovember 2025\nVarious\nCopilot Studio\nNew\nCopilot Credit Pre-Purchase Plan\nOctober 2025\n7, 18\nMicrosoft 365 Copilot\nUpdate\nUse rights updated\nOctober 2025\n22\nComputer Use\nNew\nComputer use in Copilot Studio (Paid Public Preview)\nOctober 2025\nVarious\nMessages\nUpdate\nCopilot Studio messages renamed to Copilot Studio Copilot Credits\nSeptember 2025\nVarious\nGPT model names\nUpdate\nRemoved references to specific GPT model names\nSeptember 2025\nVarious\nAccessibility\nUpdate\nLicensing guide accessibility updated\nAugust 2025\nN/A\nBilling Rates\nUpdate\nBilling Rates now referenced in Billing rates and management.\nJuly 2025\n10\nCloud flows\nNew\nCloud flows - Power Platform Requests limits added\nJune 2025\n© 2025 Microsoft Corporation. All rights reserved.\nThis document is for informational purposes only. MICROSOFT MAKES NO WARRANTIES, EXPRESS OR IMPLIED, IN THIS DOCUMENT. This information is\nprovided to help guide your authorized use of products you license; it is not your agreement. Your use of products licensed under your license agreement is\ngoverned by the terms and conditions of that agreement. In the case of any conflict between this information and your agreement, the terms and conditions\nof your agreement control. Prices for licenses acquired through Microsoft resellers are determined by the reseller.\nMicrosoft Copilot Studio Licensing Guide | November 2026\nP a g e | 22",
+   "lines": [
+    {
+     "text": "Appendix D: Change Log",
+     "boundingBox": {
+      "left": 0.11687,
+      "top": 0.09468,
+      "width": 0.19012,
+      "height": 0.01184
+     }
+    },
+    {
+     "text": "Page(s)",
+     "boundingBox": {
+      "left": 0.12147,
+      "top": 0.12786,
+      "width": 0.04202,
+      "height": 0.00856
+     }
+    },
+    {
+     "text": "Topic",
+     "boundingBox": {
+      "left": 0.18622,
+      "top": 0.12782,
+      "width": 0.0318,
+      "height": 0.00852
+     }
+    },
+    {
+     "text": "Change",
+     "boundingBox": {
+      "left": 0.35601,
+      "top": 0.12781,
+      "width": 0.04446,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "Action",
+     "boundingBox": {
+      "left": 0.41421,
+      "top": 0.12782,
+      "width": 0.03768,
+      "height": 0.00683
+     }
+    },
+    {
+     "text": "Date",
+     "boundingBox": {
+      "left": 0.84179,
+      "top": 0.1279,
+      "width": 0.02682,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "4",
+     "boundingBox": {
+      "left": 0.12196,
+      "top": 0.14595,
+      "width": 0.00626,
+      "height": 0.0065
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.14569,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.14578,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "GitHub Copilot harness rebranded as Microsoft Copilot harness",
+     "boundingBox": {
+      "left": 0.41607,
+      "top": 0.14569,
+      "width": 0.35689,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "November 2026",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.14578,
+      "width": 0.088,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "8",
+     "boundingBox": {
+      "left": 0.12225,
+      "top": 0.16635,
+      "width": 0.00573,
+      "height": 0.00664
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.16615,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.16624,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Microsoft Copilot Managed Runtime generally available (GA)",
+     "boundingBox": {
+      "left": 0.41651,
+      "top": 0.16615,
+      "width": 0.33578,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "November 2026",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.16624,
+      "width": 0.088,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "10",
+     "boundingBox": {
+      "left": 0.12285,
+      "top": 0.1868,
+      "width": 0.01221,
+      "height": 0.00664
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.1866,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.18669,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Build apps in Copilot Studio generally available (GA)",
+     "boundingBox": {
+      "left": 0.41651,
+      "top": 0.1866,
+      "width": 0.28892,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "November 2026",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.18669,
+      "width": 0.088,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "4, 5",
+     "boundingBox": {
+      "left": 0.12196,
+      "top": 0.20731,
+      "width": 0.01956,
+      "height": 0.00787
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.20705,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.20715,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Customer conversation harness",
+     "boundingBox": {
+      "left": 0.41607,
+      "top": 0.20705,
+      "width": 0.17948,
+      "height": 0.00684
+     }
+    },
+    {
+     "text": "October 2026",
+     "boundingBox": {
+      "left": 0.84262,
+      "top": 0.20705,
+      "width": 0.07589,
+      "height": 0.00684
+     }
+    },
+    {
+     "text": "10",
+     "boundingBox": {
+      "left": 0.12285,
+      "top": 0.22771,
+      "width": 0.01221,
+      "height": 0.00664
+     }
+    },
+    {
+     "text": "Tools",
+     "boundingBox": {
+      "left": 0.1874,
+      "top": 0.2276,
+      "width": 0.02974,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.2276,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Business Applications Tools including Model Context Protocol (MCP)",
+     "boundingBox": {
+      "left": 0.41651,
+      "top": 0.22751,
+      "width": 0.38355,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "October 2026",
+     "boundingBox": {
+      "left": 0.84262,
+      "top": 0.22751,
+      "width": 0.07598,
+      "height": 0.00684
+     }
+    },
+    {
+     "text": "6, 7",
+     "boundingBox": {
+      "left": 0.12222,
+      "top": 0.25059,
+      "width": 0.01928,
+      "height": 0.00793
+     }
+    },
+    {
+     "text": "Copilot Managed Runtime",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.25038,
+      "width": 0.14549,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.25047,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Copilot Managed Runtime: Apps built in Copilot Studio hosted, managed",
+     "boundingBox": {
+      "left": 0.41607,
+      "top": 0.24417,
+      "width": 0.40544,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "and deployed in the Copilot Managed Runtime host",
+     "boundingBox": {
+      "left": 0.41606,
+      "top": 0.25645,
+      "width": 0.28653,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "September 2026",
+     "boundingBox": {
+      "left": 0.84241,
+      "top": 0.25038,
+      "width": 0.09222,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "6, 7",
+     "boundingBox": {
+      "left": 0.12222,
+      "top": 0.27346,
+      "width": 0.01928,
+      "height": 0.00794
+     }
+    },
+    {
+     "text": "Apps in Copilot Studio",
+     "boundingBox": {
+      "left": 0.18734,
+      "top": 0.27326,
+      "width": 0.12445,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.27335,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Build apps in Copilot Studio (Paid Public Preview)",
+     "boundingBox": {
+      "left": 0.41651,
+      "top": 0.27342,
+      "width": 0.2742,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "September 2026",
+     "boundingBox": {
+      "left": 0.84241,
+      "top": 0.27326,
+      "width": 0.09222,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12166,
+      "top": 0.29378,
+      "width": 0.04232,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Microsoft 365 Copilot",
+     "boundingBox": {
+      "left": 0.18841,
+      "top": 0.29372,
+      "width": 0.11991,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.29381,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Microsoft 365 Copilot rebranded as Microsoft Copilot",
+     "boundingBox": {
+      "left": 0.41651,
+      "top": 0.29387,
+      "width": 0.29759,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "August 2026",
+     "boundingBox": {
+      "left": 0.84198,
+      "top": 0.29381,
+      "width": 0.06929,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "4-6",
+     "boundingBox": {
+      "left": 0.12196,
+      "top": 0.31442,
+      "width": 0.01769,
+      "height": 0.00664
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.31421,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.3143,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Copilot Studio harnesses: Copilot Chat, Standard, GitHub Copilot",
+     "boundingBox": {
+      "left": 0.41607,
+      "top": 0.31436,
+      "width": 0.36812,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "August 2026",
+     "boundingBox": {
+      "left": 0.84198,
+      "top": 0.3143,
+      "width": 0.06929,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "5",
+     "boundingBox": {
+      "left": 0.12221,
+      "top": 0.33738,
+      "width": 0.00579,
+      "height": 0.00655
+     }
+    },
+    {
+     "text": "Work IQ API",
+     "boundingBox": {
+      "left": 0.18731,
+      "top": 0.33709,
+      "width": 0.06555,
+      "height": 0.0082
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.33718,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Work IQ API usage by Copilot Studio agents not included in Microsoft 365",
+     "boundingBox": {
+      "left": 0.41539,
+      "top": 0.33103,
+      "width": 0.4084,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "Copilot USL",
+     "boundingBox": {
+      "left": 0.41607,
+      "top": 0.3433,
+      "width": 0.06619,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "July 2026",
+     "boundingBox": {
+      "left": 0.84216,
+      "top": 0.33718,
+      "width": 0.05089,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12166,
+      "top": 0.36003,
+      "width": 0.04232,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.35997,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.36006,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Agent flows updated to workflows",
+     "boundingBox": {
+      "left": 0.41542,
+      "top": 0.36006,
+      "width": 0.18904,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "June 2026",
+     "boundingBox": {
+      "left": 0.84216,
+      "top": 0.36006,
+      "width": 0.05561,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "5, 10, 16",
+     "boundingBox": {
+      "left": 0.12221,
+      "top": 0.38063,
+      "width": 0.04665,
+      "height": 0.00793
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.38043,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.38052,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Copilot Studio voice agents",
+     "boundingBox": {
+      "left": 0.41607,
+      "top": 0.38043,
+      "width": 0.15278,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "May 2026",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.38052,
+      "width": 0.05215,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "4, 7-8",
+     "boundingBox": {
+      "left": 0.12196,
+      "top": 0.40108,
+      "width": 0.03092,
+      "height": 0.00793
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.40088,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.40097,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Microsoft Agent Pre-Purchase Plan (P3)",
+     "boundingBox": {
+      "left": 0.41533,
+      "top": 0.40093,
+      "width": 0.21867,
+      "height": 0.00857
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.40097,
+      "width": 0.07898,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "N/A",
+     "boundingBox": {
+      "left": 0.12274,
+      "top": 0.42385,
+      "width": 0.02026,
+      "height": 0.00667
+     }
+    },
+    {
+     "text": "Features in Paid Public",
+     "boundingBox": {
+      "left": 0.18841,
+      "top": 0.41761,
+      "width": 0.12691,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Preview",
+     "boundingBox": {
+      "left": 0.18841,
+      "top": 0.42988,
+      "width": 0.04295,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.42385,
+      "width": 0.04432,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Multi-agent orchestration (Learn more) and Bring Your Own Model (Learn",
+     "boundingBox": {
+      "left": 0.41533,
+      "top": 0.41755,
+      "width": 0.40519,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "more) Copilot Studio features moved to MS Learn.",
+     "boundingBox": {
+      "left": 0.41524,
+      "top": 0.42982,
+      "width": 0.27866,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.42385,
+      "width": 0.07898,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "N/A",
+     "boundingBox": {
+      "left": 0.12274,
+      "top": 0.44673,
+      "width": 0.02026,
+      "height": 0.00667
+     }
+    },
+    {
+     "text": "Code Interpreter",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.44664,
+      "width": 0.09238,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.44673,
+      "width": 0.04432,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "MCS feature, Code Interpreter moved to MS Learn. Learn more",
+     "boundingBox": {
+      "left": 0.41533,
+      "top": 0.44664,
+      "width": 0.34881,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "February 2026",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.44673,
+      "width": 0.07898,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "8, 10",
+     "boundingBox": {
+      "left": 0.12225,
+      "top": 0.46729,
+      "width": 0.02612,
+      "height": 0.00793
+     }
+    },
+    {
+     "text": "Dataverse capacity",
+     "boundingBox": {
+      "left": 0.18841,
+      "top": 0.46715,
+      "width": 0.10724,
+      "height": 0.00846
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.46718,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Default Dataverse Database capacity increased from 5 GB to 15 GB",
+     "boundingBox": {
+      "left": 0.41533,
+      "top": 0.46709,
+      "width": 0.37581,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "December 2025",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.46718,
+      "width": 0.08833,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "30",
+     "boundingBox": {
+      "left": 0.12224,
+      "top": 0.48775,
+      "width": 0.01282,
+      "height": 0.00665
+     }
+    },
+    {
+     "text": "Code Interpreter",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.48755,
+      "width": 0.09238,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.48764,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Code Interpreter now generally available (GA)",
+     "boundingBox": {
+      "left": 0.41489,
+      "top": 0.48755,
+      "width": 0.25308,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.48764,
+      "width": 0.08793,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "29",
+     "boundingBox": {
+      "left": 0.1222,
+      "top": 0.51063,
+      "width": 0.01293,
+      "height": 0.00664
+     }
+    },
+    {
+     "text": "AI Builder",
+     "boundingBox": {
+      "left": 0.18734,
+      "top": 0.51048,
+      "width": 0.05386,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.51052,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Text and Generative AI Tools > AI Builder capabilities renamed Copilot",
+     "boundingBox": {
+      "left": 0.41432,
+      "top": 0.50421,
+      "width": 0.39008,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Studio AI Tools capabilities",
+     "boundingBox": {
+      "left": 0.41468,
+      "top": 0.51651,
+      "width": 0.15064,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.84306,
+      "top": 0.51052,
+      "width": 0.08793,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12166,
+      "top": 0.53324,
+      "width": 0.04232,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.53317,
+      "width": 0.07955,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.53326,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Copilot Credit Pre-Purchase Plan",
+     "boundingBox": {
+      "left": 0.41489,
+      "top": 0.53317,
+      "width": 0.18471,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.84262,
+      "top": 0.53317,
+      "width": 0.07581,
+      "height": 0.00685
+     }
+    },
+    {
+     "text": "7, 18",
+     "boundingBox": {
+      "left": 0.12221,
+      "top": 0.55384,
+      "width": 0.02616,
+      "height": 0.00793
+     }
+    },
+    {
+     "text": "Microsoft 365 Copilot",
+     "boundingBox": {
+      "left": 0.18841,
+      "top": 0.55363,
+      "width": 0.11991,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.55372,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Use rights updated",
+     "boundingBox": {
+      "left": 0.41522,
+      "top": 0.55369,
+      "width": 0.10441,
+      "height": 0.00855
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.84262,
+      "top": 0.55363,
+      "width": 0.07581,
+      "height": 0.00685
+     }
+    },
+    {
+     "text": "22",
+     "boundingBox": {
+      "left": 0.1222,
+      "top": 0.57429,
+      "width": 0.01285,
+      "height": 0.00655
+     }
+    },
+    {
+     "text": "Computer Use",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.57408,
+      "width": 0.08118,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.57417,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Computer use in Copilot Studio (Paid Public Preview)",
+     "boundingBox": {
+      "left": 0.41489,
+      "top": 0.57408,
+      "width": 0.29576,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.84262,
+      "top": 0.57408,
+      "width": 0.07581,
+      "height": 0.00685
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12166,
+      "top": 0.5946,
+      "width": 0.04232,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Messages",
+     "boundingBox": {
+      "left": 0.18841,
+      "top": 0.59463,
+      "width": 0.05478,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.59463,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Copilot Studio messages renamed to Copilot Studio Copilot Credits",
+     "boundingBox": {
+      "left": 0.41489,
+      "top": 0.59454,
+      "width": 0.37847,
+      "height": 0.00862
+     }
+    },
+    {
+     "text": "September 2025",
+     "boundingBox": {
+      "left": 0.84241,
+      "top": 0.59454,
+      "width": 0.09208,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12166,
+      "top": 0.61505,
+      "width": 0.04232,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "GPT model names",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.61499,
+      "width": 0.1016,
+      "height": 0.00685
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.61508,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Removed references to specific GPT model names",
+     "boundingBox": {
+      "left": 0.41533,
+      "top": 0.61499,
+      "width": 0.28148,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "September 2025",
+     "boundingBox": {
+      "left": 0.84241,
+      "top": 0.61499,
+      "width": 0.09208,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12166,
+      "top": 0.63551,
+      "width": 0.04232,
+      "height": 0.00678
+     }
+    },
+    {
+     "text": "Accessibility",
+     "boundingBox": {
+      "left": 0.18734,
+      "top": 0.63551,
+      "width": 0.07135,
+      "height": 0.00846
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.63554,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Licensing guide accessibility updated",
+     "boundingBox": {
+      "left": 0.41533,
+      "top": 0.63551,
+      "width": 0.20816,
+      "height": 0.00855
+     }
+    },
+    {
+     "text": "August 2025",
+     "boundingBox": {
+      "left": 0.84198,
+      "top": 0.63554,
+      "width": 0.06921,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "N/A",
+     "boundingBox": {
+      "left": 0.12274,
+      "top": 0.65599,
+      "width": 0.02026,
+      "height": 0.00667
+     }
+    },
+    {
+     "text": "Billing Rates",
+     "boundingBox": {
+      "left": 0.18841,
+      "top": 0.65596,
+      "width": 0.06769,
+      "height": 0.00855
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.35758,
+      "top": 0.65599,
+      "width": 0.04007,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "Billing Rates now referenced in Billing rates and management.",
+     "boundingBox": {
+      "left": 0.41651,
+      "top": 0.65596,
+      "width": 0.34539,
+      "height": 0.00855
+     }
+    },
+    {
+     "text": "July 2025",
+     "boundingBox": {
+      "left": 0.84216,
+      "top": 0.65599,
+      "width": 0.05081,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "10",
+     "boundingBox": {
+      "left": 0.12285,
+      "top": 0.67656,
+      "width": 0.01221,
+      "height": 0.00664
+     }
+    },
+    {
+     "text": "Cloud flows",
+     "boundingBox": {
+      "left": 0.18799,
+      "top": 0.67635,
+      "width": 0.06599,
+      "height": 0.00685
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.35768,
+      "top": 0.67645,
+      "width": 0.02434,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "Cloud flows - Power Platform Requests limits added",
+     "boundingBox": {
+      "left": 0.41607,
+      "top": 0.67635,
+      "width": 0.29054,
+      "height": 0.00853
+     }
+    },
+    {
+     "text": "June 2025",
+     "boundingBox": {
+      "left": 0.84216,
+      "top": 0.67645,
+      "width": 0.05553,
+      "height": 0.00675
+     }
+    },
+    {
+     "text": "© 2025 Microsoft Corporation. All rights reserved.",
+     "boundingBox": {
+      "left": 0.11811,
+      "top": 0.71075,
+      "width": 0.24173,
+      "height": 0.00745
+     }
+    },
+    {
+     "text": "This document is for informational purposes only. MICROSOFT MAKES NO WARRANTIES, EXPRESS OR IMPLIED, IN THIS DOCUMENT. This information is",
+     "boundingBox": {
+      "left": 0.11779,
+      "top": 0.72151,
+      "width": 0.74627,
+      "height": 0.00738
+     }
+    },
+    {
+     "text": "provided to help guide your authorized use of products you license; it is not your agreement. Your use of products licensed under your license agreement is",
+     "boundingBox": {
+      "left": 0.11859,
+      "top": 0.73235,
+      "width": 0.75639,
+      "height": 0.00741
+     }
+    },
+    {
+     "text": "governed by the terms and conditions of that agreement. In the case of any conflict between this information and your agreement, the terms and conditions",
+     "boundingBox": {
+      "left": 0.11807,
+      "top": 0.74312,
+      "width": 0.75951,
+      "height": 0.0074
+     }
+    },
+    {
+     "text": "of your agreement control. Prices for licenses acquired through Microsoft resellers are determined by the reseller.",
+     "boundingBox": {
+      "left": 0.11828,
+      "top": 0.75494,
+      "width": 0.55611,
+      "height": 0.0074
+     }
+    },
+    {
+     "text": "Microsoft Copilot Studio Licensing Guide | November 2026",
+     "boundingBox": {
+      "left": 0.28744,
+      "top": 0.95208,
+      "width": 0.34794,
+      "height": 0.01015
+     }
+    },
+    {
+     "text": "P a g e | 22",
+     "boundingBox": {
+      "left": 0.69928,
+      "top": 0.95208,
+      "width": 0.07238,
+      "height": 0.01015
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+  "description": "Expected handlers per event (ADR 0011). Subscriptions mirror seed/subscriptions.csv. Handlers that post outside Change Radar (postsOutside) only receive live events. filterMinImpact compares the event's effective impact (override when set, else estate impact). Signal events have no estate and count as live.",
+  "subscriptions": [
+    { "name": "Incident opened to Teams", "eventType": "incident.opened", "handler": "Notify-Teams", "enabled": true, "postsOutside": true },
+    { "name": "Incident resolved to Teams", "eventType": "incident.resolved", "handler": "Notify-Teams", "enabled": true, "postsOutside": true },
+    { "name": "High or Critical rating to Teams", "eventType": "assessment.rated", "handler": "Notify-Teams", "filterMinImpact": "high", "enabled": true, "postsOutside": true },
+    { "name": "Deadline to Teams", "eventType": "deadline.approaching", "handler": "Notify-Teams", "enabled": true, "postsOutside": true },
+    { "name": "New signals in the digest", "eventType": "signal.new", "handler": "Digest-Weekly", "enabled": true, "postsOutside": true },
+    { "name": "Changed signals in the digest", "eventType": "signal.changed", "handler": "Digest-Weekly", "enabled": true, "postsOutside": true },
+    { "name": "Exposures in the digest", "eventType": "exposure.found", "handler": "Digest-Weekly", "enabled": true, "postsOutside": true },
+    { "name": "Ratings in the digest", "eventType": "assessment.rated", "handler": "Digest-Weekly", "enabled": true, "postsOutside": true },
+    { "name": "Disabled example", "eventType": "incident.opened", "handler": "Create-PlannerTask", "enabled": false, "postsOutside": true }
+  ],
+  "cases": [
+    { "id": "dispatch-01", "event": { "type": "incident.opened", "estate": "live" }, "expected": ["Notify-Teams"] },
+    { "id": "dispatch-02", "event": { "type": "assessment.rated", "estate": "live", "estateImpact": "high", "overrideImpact": null }, "expected": ["Digest-Weekly", "Notify-Teams"] },
+    { "id": "dispatch-03", "event": { "type": "assessment.rated", "estate": "live", "estateImpact": "medium", "overrideImpact": null }, "expected": ["Digest-Weekly"] },
+    { "id": "dispatch-04", "event": { "type": "assessment.rated", "estate": "live", "estateImpact": "medium", "overrideImpact": "critical" }, "expected": ["Digest-Weekly", "Notify-Teams"], "note": "override raises it" },
+    { "id": "dispatch-05", "event": { "type": "assessment.rated", "estate": "live", "estateImpact": "critical", "overrideImpact": "none" }, "expected": ["Digest-Weekly"], "note": "dismissed by override" },
+    { "id": "dispatch-06", "event": { "type": "assessment.rated", "estate": "synthetic", "estateImpact": "critical", "overrideImpact": null }, "expected": [], "note": "synthetic never posts outside" },
+    { "id": "dispatch-07", "event": { "type": "exposure.found", "estate": "fixture" }, "expected": [] },
+    { "id": "dispatch-08", "event": { "type": "signal.new", "estate": null }, "expected": ["Digest-Weekly"] },
+    { "id": "dispatch-09", "event": { "type": "deadline.approaching", "estate": "live" }, "expected": ["Notify-Teams"] },
+    { "id": "dispatch-10", "event": { "type": "idea.enabled", "estate": "live" }, "expected": [], "note": "no subscription" }
+  ]
+}

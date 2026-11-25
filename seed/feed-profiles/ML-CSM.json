@@ -1,0 +1,5 @@
+{ "surface": "Copilot Studio (Microsoft Copilot harness)", "retiredWithinDays": 90,
+  "tables": [ { "requires": ["Lifecycle status", "Replacement model"],
+    "columns": { "model": "Model", "status": "Lifecycle status", "date": "Date", "replacement": "Replacement model", "provider": "Provider" } } ],
+  "fingerprintScope": {"resource_type": ["agent"], "harness": ["microsoft_copilot"]},
+  "migrationNote": "Microsoft moves agents on this model to the replacement model automatically. Nothing stops working, but answers may change." }

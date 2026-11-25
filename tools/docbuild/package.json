@@ -1,0 +1,1 @@
+{"name":"crdr-docbuild","private":true,"type":"module","description":"Builds the client-facing Word documents from docs/*.md (ADR 0022).","dependencies":{"docx":"^9.16.0","marked":"^14.1.4"}}

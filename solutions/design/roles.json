@@ -1,0 +1,25 @@
+{
+  "about": "Security roles for people (ADR 0022). Tables are organisation-owned, so every privilege is at organisation level (Global). Assign alongside the platform's Basic User role, which gives access to the app and the system tables. Change Radar Reader (the reader app's read-only role) ships in the solution too; setup/New-ReaderIdentity.ps1 builds it in the dev environment from the solution's own tables, and only checks it in an installed one.",
+  "roles": [
+    {
+      "name": "Change Radar User",
+      "description": "Uses Change Radar: reads every Change Radar table, and changes what the pages and forms let people act on: an exposure's status (confirm or dismiss), an assessment's override, a signal's Watched flag, and a fingerprint's review status. Can't change settings, rules, vocabulary, feeds or subscriptions.",
+      "read": "all",
+      "write": ["exposure", "assessment", "signal", "signalfingerprint"],
+      "create": [],
+      "delete": [],
+      "appModules": ["crdr_ChangeRadar"]
+    },
+    {
+      "name": "Change Radar Admin",
+      "description": "Runs Change Radar: full rights on every Change Radar table (settings, rules, vocabulary, feeds, watch topics, subscriptions, and the records the flows write). The connection owner whose Dataverse connection the flows use can hold this role instead of System Administrator.",
+      "read": "all",
+      "write": "all",
+      "create": "all",
+      "delete": "all",
+      "append": "all",
+      "appendTo": "all",
+      "appModules": ["crdr_ChangeRadar"]
+    }
+  ]
+}

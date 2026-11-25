@@ -1,0 +1,29 @@
+name,event_type,handler,filter_min_impact,enabled,writes,description
+Incident opened to Teams,incident.opened,Notify-Teams,,false,false,"Card for every Power Platform, Dataverse or Copilot service incident, any severity (spec §7)"
+Incident resolved to Teams,incident.resolved,Notify-Teams,,false,false,Card when a service incident is resolved
+High or Critical rating to Teams,assessment.rated,Notify-Teams,high,false,false,"Card when a live estate rating (override when set) is High or Critical (spec §7)"
+Deadline to Teams,deadline.approaching,Notify-Teams,,false,false,"Card when an action-required date with live exposure is 14 or 3 days away (spec §7)"
+New signals in the digest,signal.new,Digest-Weekly,,false,false,Monday digest: new signals
+Changed signals in the digest,signal.changed,Digest-Weekly,,false,false,"Monday digest: changed dates, wording or status (roadmap slips)"
+Exposures in the digest,exposure.found,Digest-Weekly,,false,false,Monday digest: newly exposed assets
+Ratings in the digest,assessment.rated,Digest-Weekly,,false,false,Monday digest: new and changed ratings
+Model change to Teams,asset.modelchanged,Notify-Teams,,false,false,"Card when a live agent's or prompt's model moves to another model without anyone editing it (ADR 0013)"
+Model changes in the digest,asset.modelchanged,Digest-Weekly,,false,false,"Monday digest: agents and prompts whose model moved (ADR 0013)"
+Watch matches to Teams,watch.matched,Notify-Teams,,false,false,"Card when a new or changed signal matches a watch list topic and goes on the watch list (ADR 0015)"
+Watched item updates to Teams,watch.updated,Notify-Teams,,false,false,"Card when a signal on the watch list changes: dates, status, title or wording (ADR 0015)"
+Watch matches in the digest,watch.matched,Digest-Weekly,,false,false,"Monday digest: signals added to the watch list (ADR 0015)"
+Watched item updates in the digest,watch.updated,Digest-Weekly,,false,false,"Monday digest: watched signals that changed (ADR 0015)"
+Incident opened by email,incident.opened,Notify-Email,,false,false,"Email for every Power Platform, Dataverse or Copilot service incident, to each email: destination (ADR 0011 addendum; enable with the Notify-Email flow)"
+Incident resolved by email,incident.resolved,Notify-Email,,false,false,"Email when a service incident is resolved (ADR 0011 addendum)"
+High or Critical rating by email,assessment.rated,Notify-Email,high,false,false,"Email when a live estate rating (override when set) is High or Critical (ADR 0011 addendum)"
+Deadline by email,deadline.approaching,Notify-Email,,false,false,"Email when an action-required date with live exposure is 14 or 3 days away (ADR 0011 addendum)"
+Model change by email,asset.modelchanged,Notify-Email,,false,false,"Email when a live agent's or prompt's model moves without anyone editing it (ADR 0011 addendum)"
+Watch matches by email,watch.matched,Notify-Email,,false,false,"Email when a signal goes on the watch list (ADR 0011 addendum)"
+Watched item updates by email,watch.updated,Notify-Email,,false,false,"Email when a watched signal changes (ADR 0011 addendum)"
+New signals in the email digest,signal.new,Digest-Email,,false,false,"Weekly email digest: new signals (ADR 0011 addendum; enable with the Digest-Email flow)"
+Changed signals in the email digest,signal.changed,Digest-Email,,false,false,"Weekly email digest: changed signals (ADR 0011 addendum)"
+Exposures in the email digest,exposure.found,Digest-Email,,false,false,"Weekly email digest: newly exposed assets (ADR 0011 addendum)"
+Ratings in the email digest,assessment.rated,Digest-Email,,false,false,"Weekly email digest: new and changed ratings (ADR 0011 addendum)"
+Model changes in the email digest,asset.modelchanged,Digest-Email,,false,false,"Weekly email digest: agents and prompts whose model moved (ADR 0011 addendum)"
+Watch matches in the email digest,watch.matched,Digest-Email,,false,false,"Weekly email digest: signals added to the watch list (ADR 0011 addendum)"
+Watched item updates in the email digest,watch.updated,Digest-Email,,false,false,"Weekly email digest: watched signals that changed (ADR 0011 addendum)"

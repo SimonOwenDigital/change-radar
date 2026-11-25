@@ -1,0 +1,1 @@
+Row layout: the decision buttons sit in one row with each button's effect preview listed below. The "left with no accepted fingerprint" note only mentions closing exposures when the signal has open exposures, and gives their number.

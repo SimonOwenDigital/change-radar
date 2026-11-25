@@ -1,0 +1,609 @@
+{
+  "description": "Retiring rows end with the feed profile's migrationNote (ADR 0013 step 5, so the rating prompt knows what Microsoft does); retired rows don't. Expected shaped signals from the generic feed adapters (ADR 0014; lifecycle pages per ADR 0013 and spike T9). Written by hand from the saved fixtures before the reference engine (CLAUDE.md). Shaped fields match the collectors' Shape: externalid, title, summary, products, horizon, keydate, datelabel, actionrequired, url, lastchanged. Lifecycle status comes from the date as well as the label (a 'Retiring' row whose date has passed is Retired); retired rows older than the profile's retiredWithinDays are skipped. External ids are '<feed key>-<slug>', cut to 100 characters.",
+  "today": "2026-11-22",
+  "config": {
+    "horizon_now_days": 14,
+    "horizon_imminent_days": 90
+  },
+  "cases": [
+    {
+      "id": "feed-01",
+      "note": "Microsoft Copilot harness lifecycle table: all 10 rows (every retired row is within 90 days)",
+      "feed": "ML-CSM",
+      "sample": "../models/pages/authoring-agent-model-availability.html",
+      "expect": {
+        "count": 10,
+        "gaps": [],
+        "signals": {
+          "ML-CSM-claude-sonnet-4-6": {
+            "title": "Claude Sonnet 4.6 retires from Copilot Studio (Microsoft Copilot harness) on 15 February 2027",
+            "keydate": "2027-02-15",
+            "horizon": "imminent",
+            "actionrequired": true,
+            "datelabel": "Retiring · replacement Claude Sonnet 5.5",
+            "products": "Microsoft Copilot Studio",
+            "summary": "Replacement: Claude Sonnet 5.5. Provider: Anthropic. Microsoft moves agents on this model to the replacement model automatically. Nothing stops working, but answers may change.",
+            "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/authoring-agent-model-availability",
+            "lastchanged": "2026-11-19T01:07:00Z"
+          },
+          "ML-CSM-gpt-5-chat-eu-efta-data-movement-across-regions-turned-off": {
+            "title": "GPT-5 Chat (EU/EFTA, data movement across regions turned off) retires from Copilot Studio (Microsoft Copilot harness) on 30 November 2026",
+            "keydate": "2026-11-30",
+            "horizon": "now",
+            "actionrequired": true
+          },
+          "ML-CSM-gpt-5-chat": {
+            "title": "GPT-5 Chat retired from Copilot Studio (Microsoft Copilot harness) on 12 November 2026",
+            "keydate": "2026-11-12",
+            "horizon": "future",
+            "actionrequired": false,
+            "datelabel": "Retired · replaced by GPT-6 Luna"
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-02",
+      "note": "Standard harness: every row is labelled Retiring but all dates have passed, so all are Retired; all within 90 days",
+      "feed": "ML-CS",
+      "sample": "../models/pages/authoring-select-agent-model.html",
+      "expect": {
+        "count": 8,
+        "gaps": [],
+        "signals": {
+          "ML-CS-gpt-4-1": {
+            "title": "GPT-4.1 retired from Copilot Studio (standard harness) on 12 November 2026",
+            "keydate": "2026-11-12",
+            "horizon": "future",
+            "actionrequired": false,
+            "datelabel": "Retired · replaced by GPT Chat Latest",
+            "summary": "Replacement: GPT Chat Latest. Harness: Standard. Extension available: Yes (Continue using a retired AI model)."
+          },
+          "ML-CS-gpt-4-1-mini": {
+            "keydate": "2026-11-12",
+            "horizon": "future"
+          },
+          "ML-CS-gpt-5-3-chat": {
+            "title": "GPT-5.3 Chat retired from Copilot Studio (standard harness) on 15 October 2026",
+            "keydate": "2026-10-15"
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-03",
+      "note": "Prompts: 9 retiring models from the heading-dated table (several per cell); the retired table's rows are all older than 90 days, so skipped",
+      "feed": "ML-PR",
+      "sample": "../models/pages/prompt-model-availability.html",
+      "expect": {
+        "count": 9,
+        "gaps": [],
+        "signals": {
+          "ML-PR-gpt-4-1-mini": {
+            "title": "GPT-4.1 mini retires from prompts in Copilot Studio, Power Automate and Power Apps on 2 December 2026",
+            "keydate": "2026-12-02",
+            "horizon": "now",
+            "actionrequired": true,
+            "datelabel": "Retiring · replacement GPT-6 Luna",
+            "summary": "Replacement: GPT-6 Luna. Tier: Basic. Microsoft moves prompts on this model to their tier's replacement automatically. Nothing stops working, but answers may change.",
+            "products": "Microsoft Copilot Studio; Power Automate; Power Apps"
+          },
+          "ML-PR-claude-sonnet-4-6": {
+            "keydate": "2026-12-02",
+            "summary": "Replacement: ChatGPT-latest. Tier: Standard. Microsoft moves prompts on this model to their tier's replacement automatically. Nothing stops working, but answers may change."
+          }
+        },
+        "absent": [
+          "ML-PR-gpt-4o",
+          "ML-PR-o3",
+          "ML-PR-o1",
+          "ML-PR-gpt-4o-mini"
+        ]
+      }
+    },
+    {
+      "id": "feed-04",
+      "note": "Month-only dates: with the age limit lifted, GPT-4o (July 2025) gets the first of the month and 'in July 2025'",
+      "feed": "ML-PR",
+      "sample": "../models/pages/prompt-model-availability.html",
+      "options": {
+        "retiredWithinDays": 100000
+      },
+      "expect": {
+        "count": 13,
+        "gaps": [],
+        "signals": {
+          "ML-PR-gpt-4o": {
+            "title": "GPT-4o retired from prompts in Copilot Studio, Power Automate and Power Apps in July 2025",
+            "keydate": "2025-07-01",
+            "horizon": "future",
+            "actionrequired": false,
+            "datelabel": "Retired · replaced by GPT-4.1"
+          },
+          "ML-PR-o3": {
+            "keydate": "2025-12-04"
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-05",
+      "note": "Page unchanged since the last run (same git_commit_id): nothing to do",
+      "feed": "ML-CSM",
+      "sample": "../models/pages/authoring-agent-model-availability.html",
+      "options": {
+        "lastMarker": "1e3f96ceefa0720f77481f1ebdada101337e28dc"
+      },
+      "expect": {
+        "count": 0,
+        "gaps": [],
+        "status": "unchanged"
+      }
+    },
+    {
+      "id": "feed-06",
+      "note": "Page shape changed (the profile's table isn't there): a gap, never a guess",
+      "feed": "ML-CSM",
+      "sample": "../models/pages/prompt-model-availability.html",
+      "expect": {
+        "count": 0,
+        "gaps": [
+          "page shape changed: no table with headers 'Lifecycle status', 'Replacement model'"
+        ]
+      }
+    },
+    {
+      "id": "feed-07",
+      "note": "Release notes, last 90 days: the November 17 section's in-scope items (the duplicated Copilot Studio item once); entities and <br> are cleaned before parsing",
+      "feed": "M365RN",
+      "sample": "samples/m365-copilot-release-notes.html",
+      "expect": {
+        "count": 4,
+        "gaps": [],
+        "signals": {
+          "M365RN-20261117-invoke-agents-as-workflow-steps-with-the-agent-node": {
+            "title": "Invoke agents as workflow steps with the agent node",
+            "keydate": "2026-11-17",
+            "horizon": "future",
+            "actionrequired": false,
+            "datelabel": "Released · Microsoft 365 Copilot Studio",
+            "products": "Microsoft Copilot Studio",
+            "url": "https://learn.microsoft.com/en-us/microsoft-365/copilot/release-notes#november-17-2026"
+          },
+          "M365RN-20261117-connect-tableau-data-to-copilot": {
+            "products": "Microsoft 365 Copilot",
+            "datelabel": "Released · Microsoft 365 Copilot extensibility"
+          },
+          "M365RN-20261117-access-custom-engine-agents-directly-in-outlook": {},
+          "M365RN-20261117-support-for-refining-query-filters-for-the-confluence-cloud-copilot-connector": {}
+        },
+        "absent": [
+          "M365RN-20261117-sort-improvements-to-the-message-list",
+          "M365RN-20261117-share-custom-organizational-attributes-with-microsoft-365-people-experiences"
+        ]
+      }
+    },
+    {
+      "id": "feed-08",
+      "note": "Release notes with a longer window: January 13 adds the Agent Builder GPT-5 item, Copilot Chat and extensibility items, and an admin-centre item kept because its title mentions Copilot Chat",
+      "feed": "M365RN",
+      "sample": "samples/m365-copilot-release-notes.html",
+      "options": {
+        "sinceDays": 400
+      },
+      "expect": {
+        "count": 14,
+        "gaps": [],
+        "signals": {
+          "M365RN-20260113-build-smarter-agents-with-gpt-5-in-agent-builder": {
+            "title": "Build smarter agents with GPT-5 in Agent Builder",
+            "keydate": "2026-01-13",
+            "products": "Microsoft 365 Copilot",
+            "datelabel": "Released · Microsoft 365 Copilot extensibility"
+          },
+          "M365RN-20260113-admin-control-to-customize-ai-disclaimers-in-copilot-chat": {
+            "datelabel": "Released · Microsoft 365 admin center"
+          }
+        },
+        "absent": [
+          "M365RN-20260113-access-all-your-copilot-generated-content-in-one-library"
+        ]
+      }
+    },
+    {
+      "id": "feed-10",
+      "note": "Release notes with list items that break out of their feature (October 6): only items whose first paragraph starts with a bold title are features, so continuation bullets such as 'Try this:' are skipped",
+      "feed": "M365RN",
+      "sample": "samples/m365-copilot-release-notes-oct06.html",
+      "options": {
+        "sinceDays": 400
+      },
+      "expect": {
+        "count": 3,
+        "gaps": [],
+        "signals": {
+          "M365RN-20261006-seamless-search-and-chat-integration": {
+            "title": "Seamless Search and Chat Integration",
+            "datelabel": "Released · Microsoft 365 Copilot"
+          },
+          "M365RN-20261006-regenerate-response-for-alternative-answers": {},
+          "M365RN-20261006-edit-query-string-and-user-identity-mapping-rules-for-copilot-connectors": {
+            "datelabel": "Released · Microsoft 365 Copilot extensibility"
+          }
+        },
+        "absent": [
+          "M365RN-20261006-try-this",
+          "M365RN-20261006-create-custom-skills-in-copilot-in-powerpoint"
+        ]
+      }
+    },
+    {
+      "id": "feed-09",
+      "note": "RSS: each item becomes an informational signal dated by its publication",
+      "feed": "CSBLOG",
+      "sample": "samples/copilot-studio-blog.xml",
+      "expect": {
+        "count": 3,
+        "gaps": [],
+        "signals": {
+          "CSBLOG-build-apps-in-copilot-cowork-and-copilot-studio": {
+            "title": "Build apps in Copilot Cowork and Copilot Studio",
+            "keydate": "2026-09-10T15:00:00Z",
+            "lastchanged": "2026-09-10T15:00:00Z",
+            "horizon": "future",
+            "actionrequired": false,
+            "datelabel": "Blog · published",
+            "products": "Microsoft Copilot Studio",
+            "url": "https://www.microsoft.com/en-us/copilot/blog/copilot-studio/build-apps-in-copilot-cowork-and-copilot-studio/",
+            "summaryStartsWith": "Introducing app building in Copilot Cowork and Copilot Studio."
+          },
+          "CSBLOG-build-where-you-want-run-with-confidence-now-microsoft-hosts-and-manages-the-code-created-by": {
+            "keydate": "2026-09-25T12:00:00Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-11",
+      "note": "Power Platform blog (added with the runbook, ADR 0014 done-when 2): every item is an informational signal dated by publication; a title's trailing space is trimmed; ids come from the last path segment whatever the link style (category or dated path)",
+      "feed": "PPBLOG",
+      "sample": "samples/power-platform-blog.xml",
+      "expect": {
+        "count": 4,
+        "gaps": [],
+        "signals": {
+          "PPBLOG-act-faster-hourly-alerts-for-your-critical-flows-apps-and-agents": {
+            "title": "Act faster: hourly alerts for your critical flows, apps, and agents",
+            "keydate": "2026-11-11T17:00:00Z",
+            "lastchanged": "2026-11-11T17:00:00Z",
+            "horizon": "future",
+            "actionrequired": false,
+            "datelabel": "Blog · published",
+            "products": "Power Platform",
+            "url": "https://www.microsoft.com/en-us/power-platform/blog/2026/11/11/act-faster-hourly-alerts-for-your-critical-flows-apps-and-agents/",
+            "summaryStartsWith": "Spot performance and reliability issues sooner with hourly alerts in Monitor."
+          },
+          "PPBLOG-turn-ai-ambition-into-real-business-value-with-power-platform": {
+            "title": "Turn AI ambition into real business value with Power Platform",
+            "keydate": "2026-11-18T19:00:00Z"
+          },
+          "PPBLOG-whats-new-in-power-platform-october-2026-feature-update": {
+            "title": "What’s new in Power Platform: October/November 2026 feature update",
+            "keydate": "2026-11-10T16:00:37Z"
+          },
+          "PPBLOG-discover-and-review-power-pages-sites-with-power-platform-inventory-public-preview": {
+            "keydate": "2026-11-20T07:08:22Z",
+            "url": "https://www.microsoft.com/en-us/power-platform/blog/power-pages/discover-and-review-power-pages-sites-with-power-platform-inventory-public-preview/"
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-20",
+      "note": "Book of News (ADR 0018, spike T11): deepest headings with a body of 300+ characters inside <main>, skip list, scope by heading path or body words; a repeated title becomes one signal; headings outside <main> ignored; script and svg dropped from the summary",
+      "feed": "BON-IGNITE26",
+      "sample": "samples/bon-sample.html",
+      "expect": {
+        "count": 3,
+        "gaps": [],
+        "signals": {
+          "BON-IGNITE26-power-bi-introduces-custom-data-app-creation-in-preview": {
+            "title": "Power BI introduces custom data app creation in preview",
+            "keydate": "2026-11-17",
+            "lastchanged": "2026-11-17",
+            "horizon": "future",
+            "actionrequired": false,
+            "datelabel": "Ignite 2026 announcement",
+            "products": "Microsoft Copilot; Microsoft Copilot Studio; Power Platform",
+            "url": "https://news.microsoft.com/events/ignite/2026/book-of-news/",
+            "summaryStartsWith": "<div class=\"wp-block-group has-medium-font-size\"><p hidden class=\"wp-block-mks-bon-variation-heading\">Instant Summary:</p>"
+          },
+          "BON-IGNITE26-autopilot-is-rolling-out-to-frontier-customers": {
+            "title": "Autopilot is rolling out to Frontier customers"
+          },
+          "BON-IGNITE26-windows-introduces-controls-that-help-isolate-ai-agents": {
+            "title": "Windows introduces controls that help isolate AI agents"
+          }
+        },
+        "absent": [
+          "BON-IGNITE26-azure-sql-expands-modernisation-options",
+          "BON-IGNITE26-windows-365-adds-persistent-cloud-pcs",
+          "BON-IGNITE26-core",
+          "BON-IGNITE26-data",
+          "BON-IGNITE26-try-instant-summaries",
+          "BON-IGNITE26-what-is-the-book-of-news",
+          "BON-IGNITE26-site-header-heading-outside-main",
+          "BON-IGNITE26-footer-heading-outside-main"
+        ]
+      }
+    },
+    {
+      "id": "feed-21",
+      "note": "Book of News: an unchanged dateModified is skipped (status unchanged, no signals)",
+      "feed": "BON-IGNITE26",
+      "sample": "samples/bon-sample.html",
+      "options": {
+        "lastMarker": "2026-11-19T21:12:55+00:00"
+      },
+      "expect": {
+        "count": 0,
+        "gaps": [],
+        "status": "unchanged"
+      }
+    },
+    {
+      "id": "feed-22",
+      "note": "Learn licensing page (ADR 0019): every titled section inside <main> is a signal, id from the heading path, url with the heading anchor, dated by updated_at; 'In this article', 'Feedback' and 'Additional resources' skipped. Count 20 from the spike T11 parser (23 sections less the three skipped)",
+      "feed": "CS-BILLING",
+      "sample": "samples/licensing/cs-billing.html",
+      "expect": {
+        "count": 20,
+        "gaps": [],
+        "signals": {
+          "CS-BILLING-copilot-credits-billing-rates": {
+            "title": "Copilot Studio billing rates: Copilot Credits billing rates",
+            "keydate": "2026-11-17T01:03:00Z",
+            "lastchanged": "2026-11-17T01:03:00Z",
+            "datelabel": "Licensing page",
+            "products": "Microsoft Copilot Studio",
+            "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-messages-management#copilot-credits-billing-rates",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "CS-BILLING-billing-examples-customer-support-agent": {
+            "title": "Copilot Studio billing rates: Customer support agent",
+            "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-messages-management#customer-support-agent"
+          },
+          "CS-BILLING-overage-enforcement-agent-flow-enforcement-exemptions": {
+            "title": "Copilot Studio billing rates: Exemptions",
+            "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-messages-management#exemptions"
+          }
+        },
+        "absent": [
+          "CS-BILLING-in-this-article",
+          "CS-BILLING-feedback",
+          "CS-BILLING-additional-resources"
+        ]
+      }
+    },
+    {
+      "id": "feed-23",
+      "note": "Learn licensing page, short: 4 sections (spike T11 parser: 7 less the three skipped); a 20-character section ('Next step') still counts",
+      "feed": "PP-PAYG",
+      "sample": "samples/licensing/pp-payg.html",
+      "expect": {
+        "count": 4,
+        "gaps": [],
+        "signals": {
+          "PP-PAYG-common-use-cases": {
+            "title": "Power Platform pay-as-you-go: Common use cases"
+          },
+          "PP-PAYG-next-step": {
+            "title": "Power Platform pay-as-you-go: Next step"
+          },
+          "PP-PAYG-what-is-a-billing-plan": {
+            "title": "Power Platform pay-as-you-go: What is a billing plan?"
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-24",
+      "note": "Learn page whose content markers are missing: a gap, no signals",
+      "feed": "PP-PAYG",
+      "sample": "samples/power-platform-blog.xml",
+      "expect": {
+        "count": 0,
+        "gaps": [
+          "content markers not found"
+        ]
+      }
+    },
+    {
+      "id": "feed-30",
+      "note": "Copilot Studio Licensing Guide change log (ADR 0019, spike T12): one signal per row, rebuilt from text recognition lines by position (cells are top-aligned, each row runs from its date's top to the next date's top); the contents page's 'Change Log' entry is not the change log; columns by the header positions (the third column, headed 'Change', holds New/Update/Remove)",
+      "feed": "LIC-CS",
+      "sample": "samples/licensing-guides/LIC-CS.json",
+      "expect": {
+        "count": 26,
+        "gaps": [],
+        "signals": {
+          "LIC-CS-november-2026-github-copilot-harness-rebranded-as-microsoft-copilot-harness": {
+            "title": "Microsoft Copilot Studio Licensing Guide: GitHub Copilot harness rebranded as Microsoft Copilot harness",
+            "keydate": "2026-11-01",
+            "datelabel": "Licensing guide · Update",
+            "summary": "Update: GitHub Copilot harness rebranded as Microsoft Copilot harness. Topic: Copilot Studio. Page(s): 4. Month: November 2026. Source: the Microsoft Copilot Studio Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?linkid=2320995",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "LIC-CS-june-2025-cloud-flows-power-platform-requests-limits-added": {
+            "title": "Microsoft Copilot Studio Licensing Guide: Cloud flows - Power Platform Requests limits added",
+            "keydate": "2025-06-01",
+            "datelabel": "Licensing guide · New",
+            "summary": "New: Cloud flows - Power Platform Requests limits added. Topic: Cloud flows. Page(s): 10. Month: June 2025. Source: the Microsoft Copilot Studio Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?linkid=2320995",
+            "horizon": "future",
+            "actionrequired": false
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-31",
+      "note": "Power Platform Licensing Guide: 15 rows; a description that wraps onto three lines is one cell",
+      "feed": "LIC-PP",
+      "sample": "samples/licensing-guides/LIC-PP-2026-11-23.json",
+      "expect": {
+        "count": 15,
+        "gaps": [],
+        "signals": {
+          "LIC-PP-october-2026-business-application-tools-including-model-context-protocol": {
+            "title": "Power Platform Licensing Guide: Business Application tools, including Model Context Protocol",
+            "keydate": "2026-10-01",
+            "datelabel": "Licensing guide · New",
+            "summary": "New: Business Application tools, including Model Context Protocol. Topic: Business Applications. Page(s): 24. Month: October 2026. Source: the Power Platform Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?linkid=2085130",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "LIC-PP-july-2025-copilot-studio-now-referenced-in-the-microsoft-copilot-studio-licensing-guide": {
+            "title": "Power Platform Licensing Guide: Copilot Studio now referenced in the Microsoft Copilot Studio Licensing Guide",
+            "keydate": "2025-07-01",
+            "datelabel": "Licensing guide · Update",
+            "summary": "Update: Copilot Studio now referenced in the Microsoft Copilot Studio Licensing Guide. Topic: Copilot Studio. Page(s): Various. Month: July 2025. Source: the Power Platform Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?linkid=2085130",
+            "horizon": "future",
+            "actionrequired": false
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-32",
+      "note": "Copilot Credits Guide: 24 rows; the page footer 'Guide | November 2026' is not a date cell",
+      "feed": "LIC-CC",
+      "sample": "samples/licensing-guides/LIC-CC.json",
+      "expect": {
+        "count": 24,
+        "gaps": [],
+        "signals": {
+          "LIC-CC-november-2026-ai-flex-plan": {
+            "title": "Microsoft Copilot Credits Guide: AI Flex Plan",
+            "keydate": "2026-11-01",
+            "datelabel": "Licensing guide · New",
+            "summary": "New: AI Flex Plan. Topic: Purchase Options. Page(s): 3. Month: November 2026. Source: the Microsoft Copilot Credits Guide.",
+            "url": "https://go.microsoft.com/fwlink/?linkid=2368800",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "LIC-CC-august-2026-copilot-studio-harnesses-copilot-chat-standard-github-copilot": {
+            "title": "Microsoft Copilot Credits Guide: Copilot Studio harnesses: Copilot Chat, Standard, GitHub Copilot",
+            "keydate": "2026-08-01",
+            "datelabel": "Licensing guide · New",
+            "summary": "New: Copilot Studio harnesses: Copilot Chat, Standard, GitHub Copilot. Topic: Microsoft Copilot Studio. Page(s): 10-12. Month: August 2026. Source: the Microsoft Copilot Credits Guide.",
+            "url": "https://go.microsoft.com/fwlink/?linkid=2368800",
+            "horizon": "future",
+            "actionrequired": false
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-33",
+      "note": "Dynamics 365 Licensing Guide: 32 rows over two pages, including the four rows spike T12 missed, which pypdf split badly or whose cells text recognition merged ('Customer Insights New', 'Various Dynamics 365'). The count was first written as 33 from the reference extraction, which wrongly counted the page 94 footer 'Dynamics 365 Licensing Guide | November 2026' as a row; checked by month, 32 is right.",
+      "feed": "LIC-D365",
+      "sample": "samples/licensing-guides/LIC-D365.json",
+      "expect": {
+        "count": 32,
+        "gaps": [],
+        "signals": {
+          "LIC-D365-october-2026-business-application-tools-including-model-context-protocol-mcp": {
+            "title": "Dynamics 365 Licensing Guide: Business Application tools, including Model Context Protocol (MCP)",
+            "keydate": "2026-10-01",
+            "datelabel": "Licensing guide · Update",
+            "summary": "Update: Business Application tools, including Model Context Protocol (MCP). Topic: Business Applications. Page(s): 64. Month: October 2026. Source: the Dynamics 365 Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?LinkId=866544",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "LIC-D365-may-2026-procurement-agent-enters-paid-public-preview-replaces-supplier-communications-agen": {
+            "title": "Dynamics 365 Licensing Guide: Procurement Agent enters Paid Public Preview (replaces Supplier Communications Agent)",
+            "keydate": "2026-05-01",
+            "datelabel": "Licensing guide · New",
+            "summary": "New: Procurement Agent enters Paid Public Preview (replaces Supplier Communications Agent). Topic: Supply Chain Management. Page(s): 56. Month: May 2026. Source: the Dynamics 365 Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?LinkId=866544",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "LIC-D365-june-2026-licensing-entitlement-tables-for-dynamics-365-applications-added-to-the-licensing": {
+            "title": "Dynamics 365 Licensing Guide: Licensing entitlement tables for Dynamics 365 applications added to the licensing guide",
+            "keydate": "2026-06-01",
+            "datelabel": "Licensing guide · New",
+            "summary": "New: Licensing entitlement tables for Dynamics 365 applications added to the licensing guide. Topic: Dynamics 365 Applications. Page(s): Various. Month: June 2026. Source: the Dynamics 365 Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?LinkId=866544",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "LIC-D365-march-2026-increase-in-dataverse-database-default-and-accrued-and-dataverse-file-default-ca": {
+            "title": "Dynamics 365 Licensing Guide: Increase in Dataverse Database (Default and Accrued) and Dataverse File (Default) capacities",
+            "keydate": "2026-03-01",
+            "datelabel": "Licensing guide · Update",
+            "summary": "Update: Increase in Dataverse Database (Default and Accrued) and Dataverse File (Default) capacities. Topic: Sales Premium. Page(s): 46. Month: March 2026. Source: the Dynamics 365 Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?LinkId=866544",
+            "horizon": "future",
+            "actionrequired": false
+          },
+          "LIC-D365-february-2026-shop-floor-updated-to-production-floor": {
+            "title": "Dynamics 365 Licensing Guide: Shop floor updated to production floor",
+            "keydate": "2026-02-01",
+            "datelabel": "Licensing guide · Update",
+            "summary": "Update: Shop floor updated to production floor. Topic: Operations- Activity, Operations- Device. Page(s): 44. Month: February 2026. Source: the Dynamics 365 Licensing Guide.",
+            "url": "https://go.microsoft.com/fwlink/?LinkId=866544",
+            "horizon": "future",
+            "actionrequired": false
+          }
+        }
+      }
+    },
+    {
+      "id": "feed-34",
+      "note": "Power Platform Licensing Guide as Microsoft updated it on 2026-11-24 (Last-Modified Tue, 24 Nov 2026 00:57:09 GMT; the first real changed guide, read by CollectPdfChangeLogs at 05:40 UTC). 19 rows: 5 new November 2026 rows, and the October 2026 'Business Application tools' row reworded as a November 'generally available' row, so the October id is no longer produced (the stored signal is kept: keep all, ADR 0019). Expected values are the flow's stored rows. The guide's own text reads 'generally available GA'.",
+      "feed": "LIC-PP",
+      "sample": "samples/licensing-guides/LIC-PP.json",
+      "expect": {
+        "count": 19,
+        "gaps": [],
+        "signals": {
+          "LIC-PP-november-2026-microsoft-fabric-data-backend-support-for-copilot-managed-runtime": {
+            "title": "Power Platform Licensing Guide: Microsoft Fabric data backend support for Copilot Managed Runtime",
+            "keydate": "2026-11-01", "datelabel": "Licensing guide · New", "url": "https://go.microsoft.com/fwlink/?linkid=2085130", "horizon": "future", "actionrequired": false
+          },
+          "LIC-PP-november-2026-agentic-authoring": {
+            "title": "Power Platform Licensing Guide: Agentic authoring",
+            "keydate": "2026-11-01", "datelabel": "Licensing guide · New", "url": "https://go.microsoft.com/fwlink/?linkid=2085130", "horizon": "future", "actionrequired": false
+          },
+          "LIC-PP-november-2026-dataverse-for-teams-deprecated": {
+            "title": "Power Platform Licensing Guide: Dataverse for Teams deprecated",
+            "keydate": "2026-11-01", "datelabel": "Licensing guide · Remove", "url": "https://go.microsoft.com/fwlink/?linkid=2085130", "horizon": "future", "actionrequired": false
+          },
+          "LIC-PP-november-2026-developer-plan-for-power-apps-power-automate-and-dataverse-deprecated": {
+            "title": "Power Platform Licensing Guide: Developer Plan for Power Apps, Power Automate and Dataverse deprecated",
+            "keydate": "2026-11-01", "datelabel": "Licensing guide · Remove", "url": "https://go.microsoft.com/fwlink/?linkid=2085130", "horizon": "future", "actionrequired": false
+          },
+          "LIC-PP-november-2026-business-application-tools-including-model-context-protocol-generally-available": {
+            "title": "Power Platform Licensing Guide: Business Application tools, including Model Context Protocol generally available GA",
+            "keydate": "2026-11-01", "datelabel": "Licensing guide · New", "url": "https://go.microsoft.com/fwlink/?linkid=2085130", "horizon": "future", "actionrequired": false
+          },
+          "LIC-PP-july-2025-copilot-studio-now-referenced-in-the-microsoft-copilot-studio-licensing-guide": {
+            "title": "Power Platform Licensing Guide: Copilot Studio now referenced in the Microsoft Copilot Studio Licensing Guide",
+            "keydate": "2025-07-01", "datelabel": "Licensing guide · Update", "url": "https://go.microsoft.com/fwlink/?linkid=2085130", "horizon": "future", "actionrequired": false
+          }
+        },
+        "absent": [
+          "LIC-PP-october-2026-business-application-tools-including-model-context-protocol"
+        ]
+      }
+    }
+  ]
+}

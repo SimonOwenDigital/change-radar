@@ -1,0 +1,5 @@
+<botcomponent_connectionreferenceset>
+  <botcomponent_connectionreference botcomponentid.schemaname="crdr_AskChangeRadar.action.MicrosoftDataverse-MicrosoftDataverseMCPServer" connectionreferenceid.connectionreferencelogicalname="crdr_AskChangeRadar.shared_commondataserviceforapps.557a37bcd0f84f43b445e9bcb7adf0f8">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+</botcomponent_connectionreferenceset>

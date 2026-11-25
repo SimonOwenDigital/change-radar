@@ -1,0 +1,1505 @@
+{
+  "estate": {
+    "path": "samples/synthetic/mid-size-enterprise/estate.json",
+    "source": "synthetic",
+    "syntheticOrg": "Harbourline Group (synthetic)",
+    "asOf": "2026-11-18T00:00:00Z",
+    "assets": 912
+  },
+  "results": [
+    {
+      "signalId": "MC1548034",
+      "title": "Third-party connections in agent chat",
+      "exposures": [
+        {
+          "signalId": "MC1548034",
+          "target": "asset:e3bfcc39-6a22-407b-b825-a0ce5f4cdada",
+          "assetId": "e3bfcc39-6a22-407b-b825-a0ce5f4cdada",
+          "assetName": "Procurement agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:6f6aacf8-6cc6-4232-9c08-1fa7de036b3c",
+          "assetId": "6f6aacf8-6cc6-4232-9c08-1fa7de036b3c",
+          "assetName": "Sales assistant agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "developer",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:5ab28290-1afb-4c46-9629-7dd4a9932aff",
+          "assetId": "5ab28290-1afb-4c46-9629-7dd4a9932aff",
+          "assetName": "Procurement agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:4819234e-8751-4882-9774-e4be45f77640",
+          "assetId": "4819234e-8751-4882-9774-e4be45f77640",
+          "assetName": "Procurement agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:98399d56-584f-4c90-b42a-723302f53259",
+          "assetId": "98399d56-584f-4c90-b42a-723302f53259",
+          "assetName": "IT help agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "developer",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:e2d3b987-e284-4974-ba3b-a731858f5295",
+          "assetId": "e2d3b987-e284-4974-ba3b-a731858f5295",
+          "assetName": "Procurement agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:5e2be122-2eb3-4623-9307-349490dcd5e0",
+          "assetId": "5e2be122-2eb3-4623-9307-349490dcd5e0",
+          "assetName": "Travel agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:9f8e6018-8847-4662-90ba-042cf3190c15",
+          "assetId": "9f8e6018-8847-4662-90ba-042cf3190c15",
+          "assetName": "Travel agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "developer",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1548034",
+          "target": "asset:e652130f-ccd6-476c-af28-c3d09592e233",
+          "assetId": "e652130f-ccd6-476c-af28-c3d09592e233",
+          "assetName": "Travel agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "harness",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-HARNESS",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "custom_web_ui",
+              "field": "inventory.properties.channels contains 'Custom website' [placeholder: channel display name not verified]",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "harness",
+              "value": "standard",
+              "field": "inventory.properties.harness = 'Standard'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [],
+      "rejected": [],
+      "review": [],
+      "notes": []
+    },
+    {
+      "signalId": "MC1550533",
+      "title": "Copilot scheduled prompts move off Power Platform",
+      "exposures": [
+        {
+          "signalId": "MC1550533",
+          "target": "asset:5ac69739-4eae-4c70-85b4-b7a856cc165e",
+          "assetId": "5ac69739-4eae-4c70-85b4-b7a856cc165e",
+          "assetName": "Scheduled prompt: Monday priorities",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:9096321e-efb9-4ef8-b4ae-852592c8ea09",
+          "assetId": "9096321e-efb9-4ef8-b4ae-852592c8ea09",
+          "assetName": "Scheduled prompt: Monday priorities",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:3f0b5e13-bcd6-4c8f-9afb-4bc5bfa9e21d",
+          "assetId": "3f0b5e13-bcd6-4c8f-9afb-4bc5bfa9e21d",
+          "assetName": "Scheduled prompt: Meeting prep",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:7d28f3d4-0937-4abc-a7eb-16a3454ed639",
+          "assetId": "7d28f3d4-0937-4abc-a7eb-16a3454ed639",
+          "assetName": "Scheduled prompt: Monday priorities",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:49b74dce-2352-4c62-8601-c9679fa2f18f",
+          "assetId": "49b74dce-2352-4c62-8601-c9679fa2f18f",
+          "assetName": "Scheduled prompt: Team news",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:df7a18c1-f278-4514-a9bc-04e015c7b347",
+          "assetId": "df7a18c1-f278-4514-a9bc-04e015c7b347",
+          "assetName": "Scheduled prompt: Monday priorities",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:1e474204-6382-4749-a262-4ae12788d752",
+          "assetId": "1e474204-6382-4749-a262-4ae12788d752",
+          "assetName": "Scheduled prompt: Inbox digest",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:4070619c-2634-41d6-b4b0-cdc6e659bbd9",
+          "assetId": "4070619c-2634-41d6-b4b0-cdc6e659bbd9",
+          "assetName": "Scheduled prompt: Inbox digest",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:031abb53-4ac1-4c2e-b6c6-e796a12d230b",
+          "assetId": "031abb53-4ac1-4c2e-b6c6-e796a12d230b",
+          "assetName": "Scheduled prompt: Project status",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:ccb0910e-d7f4-402b-8be1-6bbc1db3659f",
+          "assetId": "ccb0910e-d7f4-402b-8be1-6bbc1db3659f",
+          "assetName": "Scheduled prompt: Inbox digest",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:fb0fb112-ff82-4bdf-a2b2-b97d2082eebb",
+          "assetId": "fb0fb112-ff82-4bdf-a2b2-b97d2082eebb",
+          "assetName": "Scheduled prompt: Meeting prep",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:f949e318-7c9e-4c59-b1e2-261cf548e18b",
+          "assetId": "f949e318-7c9e-4c59-b1e2-261cf548e18b",
+          "assetName": "Scheduled prompt: Meeting prep",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:8beabb9d-290b-4d50-956a-1c955184365f",
+          "assetId": "8beabb9d-290b-4d50-956a-1c955184365f",
+          "assetName": "Scheduled prompt: Monday priorities",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:c41560ec-f55e-40a6-80c1-6fe066b8d6cf",
+          "assetId": "c41560ec-f55e-40a6-80c1-6fe066b8d6cf",
+          "assetName": "Scheduled prompt: Project status",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1550533",
+          "target": "asset:ed7adb4e-7f2d-4c5f-bdf0-38510c26ef71",
+          "assetId": "ed7adb4e-7f2d-4c5f-bdf0-38510c26ef71",
+          "assetName": "Scheduled prompt: Project status",
+          "assetType": "microsoft.powerautomate/cloudflows",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "scheduled_prompt",
+              "field": "inventory.properties.trigger.operationId = 'Recurrence' and connector 'shared_m365copilotautomations'",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [],
+      "rejected": [],
+      "review": [],
+      "notes": []
+    },
+    {
+      "signalId": "MC1551122",
+      "title": "SharePoint temporary-auth URLs: end of support",
+      "exposures": [
+        {
+          "signalId": "MC1551122",
+          "target": "asset:6ce9f334-ceeb-4476-8436-f8223e3bb542",
+          "assetId": "6ce9f334-ceeb-4476-8436-f8223e3bb542",
+          "assetName": "Budget request",
+          "assetType": "microsoft.powerapps/canvasapps",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability",
+            "connector",
+            "product"
+          ],
+          "rules": [
+            "R-CAPABILITY",
+            "R-CONNECTOR",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "pcf_control",
+              "field": "codeComponents: syn_FileViewer",
+              "rule": "R-CAPABILITY"
+            },
+            {
+              "facet": "connector",
+              "value": "shared_sharepointonline",
+              "field": "inventory.properties.powerPlatformConnectors[].connectorId = 'shared_sharepointonline'",
+              "rule": "R-CONNECTOR"
+            },
+            {
+              "facet": "product",
+              "value": "Power Apps",
+              "field": "inventory.type = 'microsoft.powerapps/canvasapps'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1551122",
+          "target": "asset:a9bd9d5a-2253-44c2-951c-1838332c3a9f",
+          "assetId": "a9bd9d5a-2253-44c2-951c-1838332c3a9f",
+          "assetName": "Document loader 2 (custom)",
+          "assetType": "microsoft.powerplatformconnector/connectors",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "B",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "sharepoint_tempauth",
+              "field": "connectorDefinitions.hosts = 'harbourline.sharepoint.example' [placeholder: .example is for synthetic data only]",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1551122",
+          "target": "asset:a5d6a08b-ee35-42a5-a6a3-ba6cd88ef638",
+          "assetId": "a5d6a08b-ee35-42a5-a6a3-ba6cd88ef638",
+          "assetName": "Document loader 8 (custom)",
+          "assetType": "microsoft.powerplatformconnector/connectors",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "B",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "sharepoint_tempauth",
+              "field": "connectorDefinitions.hosts = 'harbourline.sharepoint.example' [placeholder: .example is for synthetic data only]",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1551122",
+          "target": "asset:aa3ddce3-5694-432e-bf6f-ceedca772a78",
+          "assetId": "aa3ddce3-5694-432e-bf6f-ceedca772a78",
+          "assetName": "Document loader 9 (custom)",
+          "assetType": "microsoft.powerplatformconnector/connectors",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "B",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "sharepoint_tempauth",
+              "field": "connectorDefinitions.hosts = 'harbourline.sharepoint.example' [placeholder: .example is for synthetic data only]",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1551122",
+          "target": "asset:d71014fb-2a53-48de-bfeb-0af2c9f84410",
+          "assetId": "d71014fb-2a53-48de-bfeb-0af2c9f84410",
+          "assetName": "Document loader 10 (custom)",
+          "assetType": "microsoft.powerplatformconnector/connectors",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "B",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "sharepoint_tempauth",
+              "field": "connectorDefinitions.hosts = 'harbourline.sharepoint.example' [placeholder: .example is for synthetic data only]",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [],
+      "rejected": [],
+      "review": [],
+      "notes": []
+    },
+    {
+      "signalId": "MC1557509",
+      "title": "Copilot Studio workflows: service principal authentication",
+      "exposures": [
+        {
+          "signalId": "MC1557509",
+          "target": "asset:0b257fb9-e170-4000-8e6c-0b3841de082f",
+          "assetId": "0b257fb9-e170-4000-8e6c-0b3841de082f",
+          "assetName": "Finance close agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 016' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:cdfd704e-aa11-46d8-8247-1a78475f736b",
+          "assetId": "cdfd704e-aa11-46d8-8247-1a78475f736b",
+          "assetName": "Knowledge finder agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 002' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:13858547-42dc-4fea-9a60-b840f0cea48c",
+          "assetId": "13858547-42dc-4fea-9a60-b840f0cea48c",
+          "assetName": "Travel agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 003' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:5bce7157-619b-4c66-b366-b2a0add2eeff",
+          "assetId": "5bce7157-619b-4c66-b366-b2a0add2eeff",
+          "assetName": "Fleet booking agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 001' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:837c7b88-72cb-482f-90aa-725110fb51fc",
+          "assetId": "837c7b88-72cb-482f-90aa-725110fb51fc",
+          "assetName": "Finance close agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 001' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:3b471eac-8870-4486-ae9e-be56392f3ab3",
+          "assetId": "3b471eac-8870-4486-ae9e-be56392f3ab3",
+          "assetName": "Procurement agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 002' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:4beefe5f-e3bb-4b5d-afcf-6a60a865e239",
+          "assetId": "4beefe5f-e3bb-4b5d-afcf-6a60a865e239",
+          "assetName": "Customer FAQ agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 001' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:fb7c0c7d-cd09-4d59-8884-a714c1490181",
+          "assetId": "fb7c0c7d-cd09-4d59-8884-a714c1490181",
+          "assetName": "Contract review agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 087' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        },
+        {
+          "signalId": "MC1557509",
+          "target": "asset:c8d41b8d-9db7-46b2-a552-7025f87b4682",
+          "assetId": "c8d41b8d-9db7-46b2-a552-7025f87b4682",
+          "assetName": "Safety agent flow",
+          "assetType": "microsoft.powerautomate/agentflows",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "auth_mode",
+            "product"
+          ],
+          "rules": [
+            "R-AUTHMODE",
+            "R-PRODUCT"
+          ],
+          "evidence": [
+            {
+              "facet": "auth_mode",
+              "value": "user_owned_production",
+              "field": "inventory.properties.ownerId is user 'Maker 011' and environment type is 'production'",
+              "rule": "R-AUTHMODE"
+            },
+            {
+              "facet": "product",
+              "value": "Copilot Studio",
+              "field": "inventory.type = 'microsoft.powerautomate/agentflows'",
+              "rule": "R-PRODUCT"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [],
+      "rejected": [],
+      "review": [],
+      "notes": []
+    },
+    {
+      "signalId": "MC1557754",
+      "title": "Copilot Credits: spending policies",
+      "exposures": [
+        {
+          "signalId": "MC1557754",
+          "target": "setting:copilot_spending_policy",
+          "assetId": null,
+          "assetName": "copilot_spending_policy",
+          "assetType": "tenant setting",
+          "environmentType": null,
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "setting"
+          ],
+          "rules": [
+            "R-SETTING"
+          ],
+          "evidence": [
+            {
+              "facet": "setting",
+              "value": "copilot_spending_policy",
+              "field": "no enabled tenantSettings row for 'copilot_spending_policy'",
+              "rule": "R-SETTING"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [
+        {
+          "target": "setting:copilot_spending_policy",
+          "group": "A",
+          "state": "absent",
+          "rule": "R-SETTING",
+          "evidence": "no enabled tenantSettings row for 'copilot_spending_policy'"
+        }
+      ],
+      "rejected": [],
+      "review": [],
+      "notes": [
+        "Group A: scope facets only (product); no asset exposures by design."
+      ]
+    },
+    {
+      "signalId": "MC1558033",
+      "title": "Copilot Credits: billing changes",
+      "exposures": [
+        {
+          "signalId": "MC1558033",
+          "target": "setting:copilot_spending_policy",
+          "assetId": null,
+          "assetName": "copilot_spending_policy",
+          "assetType": "tenant setting",
+          "environmentType": null,
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "setting"
+          ],
+          "rules": [
+            "R-SETTING"
+          ],
+          "evidence": [
+            {
+              "facet": "setting",
+              "value": "copilot_spending_policy",
+              "field": "no enabled tenantSettings row for 'copilot_spending_policy'",
+              "rule": "R-SETTING"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [
+        {
+          "target": "setting:copilot_spending_policy",
+          "group": "A",
+          "state": "absent",
+          "rule": "R-SETTING",
+          "evidence": "no enabled tenantSettings row for 'copilot_spending_policy'"
+        }
+      ],
+      "rejected": [],
+      "review": [],
+      "notes": [
+        "Group A: scope facets only (product); no asset exposures by design."
+      ]
+    },
+    {
+      "signalId": "ML-CSM-claude-sonnet-4-6",
+      "title": "Claude Sonnet 4.6 retires from Copilot Studio (Microsoft Copilot harness) on 15 February 2027",
+      "exposures": [
+        {
+          "signalId": "ML-CSM-claude-sonnet-4-6",
+          "target": "asset:86f75f1b-cfc8-4cbc-9fdb-81c83ecc4dc6",
+          "assetId": "86f75f1b-cfc8-4cbc-9fdb-81c83ecc4dc6",
+          "assetName": "Onboarding buddy agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "harness",
+            "model",
+            "resource_type"
+          ],
+          "rules": [
+            "R-HARNESS",
+            "R-MODEL",
+            "R-RTYPE"
+          ],
+          "evidence": [
+            {
+              "facet": "harness",
+              "value": "microsoft_copilot",
+              "field": "inventory.properties.harness = 'Copilot Chat'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "model",
+              "value": "claude-sonnet-4.6",
+              "field": "inventory.properties.model = 'Claude Sonnet 4.6'",
+              "rule": "R-MODEL"
+            },
+            {
+              "facet": "resource_type",
+              "value": "agent",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-RTYPE"
+            }
+          ]
+        },
+        {
+          "signalId": "ML-CSM-claude-sonnet-4-6",
+          "target": "asset:f4ecf813-0edf-4be8-a357-d48d3ed31324",
+          "assetId": "f4ecf813-0edf-4be8-a357-d48d3ed31324",
+          "assetName": "Model retirement demo agent (synthetic)",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "harness",
+            "model",
+            "resource_type"
+          ],
+          "rules": [
+            "R-HARNESS",
+            "R-MODEL",
+            "R-RTYPE"
+          ],
+          "evidence": [
+            {
+              "facet": "harness",
+              "value": "microsoft_copilot",
+              "field": "inventory.properties.harness = 'Microsoft Copilot'",
+              "rule": "R-HARNESS"
+            },
+            {
+              "facet": "model",
+              "value": "claude-sonnet-4.6",
+              "field": "inventory.properties.model = 'Claude Sonnet 4.6'",
+              "rule": "R-MODEL"
+            },
+            {
+              "facet": "resource_type",
+              "value": "agent",
+              "field": "inventory.type = 'microsoft.copilotstudio/agents'",
+              "rule": "R-RTYPE"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [],
+      "rejected": [],
+      "review": [],
+      "notes": []
+    },
+    {
+      "signalId": "RM570671",
+      "title": "Work IQ: granular MCP policies",
+      "exposures": [
+        {
+          "signalId": "RM570671",
+          "target": "asset:5ebddc2c-4edb-4382-858d-8f05853dca63",
+          "assetId": "5ebddc2c-4edb-4382-858d-8f05853dca63",
+          "assetName": "Safety agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "developer",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "uses_mcp",
+              "field": "agentKit.usesMcp = true",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "RM570671",
+          "target": "asset:e3bfcc39-6a22-407b-b825-a0ce5f4cdada",
+          "assetId": "e3bfcc39-6a22-407b-b825-a0ce5f4cdada",
+          "assetName": "Procurement agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "uses_mcp",
+              "field": "agentKit.usesMcp = true",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "RM570671",
+          "target": "asset:69e01d94-b340-45dd-a687-cc834fc2be2d",
+          "assetId": "69e01d94-b340-45dd-a687-cc834fc2be2d",
+          "assetName": "Finance close agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "default",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "uses_mcp",
+              "field": "agentKit.usesMcp = true",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "RM570671",
+          "target": "asset:a6f76260-fa77-4ebd-98fd-ec034dced1ad",
+          "assetId": "a6f76260-fa77-4ebd-98fd-ec034dced1ad",
+          "assetName": "Sales assistant agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "developer",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "uses_mcp",
+              "field": "agentKit.usesMcp = true",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        },
+        {
+          "signalId": "RM570671",
+          "target": "asset:f61d5067-32bc-405e-b40a-c240f9a259cf",
+          "assetId": "f61d5067-32bc-405e-b40a-c240f9a259cf",
+          "assetName": "HR policy agent",
+          "assetType": "microsoft.copilotstudio/agents",
+          "environmentType": "production",
+          "source": "synthetic",
+          "group": "A",
+          "matchedFacets": [
+            "capability"
+          ],
+          "rules": [
+            "R-CAPABILITY"
+          ],
+          "evidence": [
+            {
+              "facet": "capability",
+              "value": "uses_mcp",
+              "field": "agentKit.usesMcp = true",
+              "rule": "R-CAPABILITY"
+            }
+          ]
+        }
+      ],
+      "settingFindings": [],
+      "rejected": [],
+      "review": [],
+      "notes": [
+        "Group A: 32 agent(s) have no Agent Inventory (Kit) row, so 'uses_mcp' is unknown for them and they weren't matched."
+      ]
+    }
+  ]
+}

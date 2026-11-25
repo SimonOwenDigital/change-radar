@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!-- Trimmed copy of a public Microsoft Learn page (headings and tables only), saved 2026-11-22 for spike T9 / ADR 0013 tests. Source: https://learn.microsoft.com/en-us/... prompt-model-availability -->
+<html><head>
+<meta name="updated_at" content="2026-11-14T07:04:00Z" />
+<meta name="git_commit_id" content="910bbc23af8d408983c77d26e43cce09af5e4c5d" />
+</head><body>
+<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				In this article
+			</h2>
+<h2 id="model-availability-for-prompts-by-region">Model availability for prompts by region</h2>
+<h3 id="public-availability">Public availability</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Asia</th>
+<th>Australia</th>
+<th>Canada</th>
+<th>Europe</th>
+<th>France</th>
+<th>Germany</th>
+<th>India</th>
+<th>Japan</th>
+<th>Norway</th>
+<th>Singapore</th>
+<th>South Africa</th>
+<th>South America</th>
+<th>Korea</th>
+<th>Sweden</th>
+<th>Switzerland</th>
+<th>United Arab Emirates</th>
+<th>United Kingdom</th>
+<th>United States</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-4.1 mini</td>
+<td>GA</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>GPT-4.1</td>
+<td>GA</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>GPT-5 chat</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>GPT-5 reasoning</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA (cross-geo)</td>
+<td>GA</td>
+</tr>
+<tr>
+<td>GPT-5.3 chat</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Experimental</td>
+</tr>
+<tr>
+<td>GPT-5.2 reasoning</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Experimental</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>-</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental</td>
+</tr>
+<tr>
+<td>Claude Opus 4.6</td>
+<td>-</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental (cross-geo)</td>
+<td>Experimental</td>
+</tr>
+<tr>
+<td>Grok 4.1 Fast (Non-reasoning)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Experimental</td>
+</tr>
+</tbody>
+</table>
+<h3 id="us-government-availability">US Government availability</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: center;">Government Community Cloud (GCC)</th>
+<th style="text-align: center;">Government Community Cloud – High (GCC High)</th>
+<th style="text-align: center;">Department of Defense (DoD)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">GPT-4o mini</td>
+<td style="text-align: center;">GA</td>
+<td style="text-align: center;">GA</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">GPT-4.1 mini</td>
+<td style="text-align: center;">GA</td>
+<td style="text-align: center;">GA</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">GPT-4o</td>
+<td style="text-align: center;">GA</td>
+<td style="text-align: center;">GA</td>
+<td style="text-align: center;">-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="upcoming-model-updates-december-2-2026">Upcoming model updates (December 2, 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Retiring models</th>
+<th>Replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basic</td>
+<td>GPT-4.1 mini</td>
+<td>GPT-6 Luna</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>GPT-4.1, GPT-5 chat, GPT-5.3 chat, Claude Sonnet 4.6, Grok 4.1 Fast reasoning</td>
+<td>ChatGPT-latest</td>
+</tr>
+<tr>
+<td>Premium</td>
+<td>GPT-5 reasoning, GPT-5.2 reasoning, Claude Opus 4.6</td>
+<td>GPT-6 Reasoning</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-changes">What changes</h3>
+<h2 id="retired-models">Retired models</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Retirement date</th>
+<th>Replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>o3</td>
+<td>December 4, 2025</td>
+<td>GPT-5 reasoning</td>
+</tr>
+<tr>
+<td>GPT-4o mini</td>
+<td>July 2025</td>
+<td>GPT-4.1 mini</td>
+</tr>
+<tr>
+<td>GPT-4o</td>
+<td>July 2025</td>
+<td>GPT-4.1</td>
+</tr>
+<tr>
+<td>o1</td>
+<td>July 2025</td>
+<td>o3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ms--feedback" class="title is-3">Feedback</h2>
+<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Additional resources
+			</h2>
+<h3>In this article</h3>
+</body></html>

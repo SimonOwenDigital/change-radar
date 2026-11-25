@@ -1,0 +1,902 @@
+{
+ "note": "Trimmed AI Builder text recognition output (predictionOutput) for the change log pages of the guide, captured in spike T12 on 2026-11-23. Lines keep text and bounding box only.",
+ "results": [
+  {
+   "page": 30,
+   "fullPageText": "Appendix C: Change Log\nPage(s)\nTopic\nChange\nAction\nDate\n24\nBusiness Applications\nNew\nBusiness Application tools, including Model Context\nProtocol\nOctober 2026\nCopilot Managed Runtime: Apps built in Copilot\n6-9\nPower Apps Premium\nNew\nStudio and Copilot Cowork, hosted, managed and\nSeptember 2026\ndeployed in the Copilot Managed Runtime Host.\n6-9\nPower Apps Premium\nNew\nRun apps built in Copilot Studio and Copilot\nCowork\nSeptember 2026\n23\nData Loss Prevention\nNew\nPower Platform Data Loss Prevention\nJune 2026\n27-28\nTerminology\nUpdate\nTerminology section updated\nJune 2026\n7\nPower Apps Premium\nAI in-apps: Microsoft 365 Copilot in-app assistance\nNew\nand agent usage within Power Apps and App skills\nApril 2026\nVarious\nPower Apps per app\nRemove\nPower Apps per app End of Sale\nJanuary 2026\n23\nDataverse\nNew\nDataverse MCP Server\nDecember 2025\n21, 22\nIncreased default capacities for Power Apps, Power\nDataverse\nUpdate\nAutomate and Power Pages\nNovember 2025\nVarious\nAI Builder\nRemove\nAI Builder End of Sale\nNovember 2025\nAI Builder entitlements for existing Power Apps,\nVarious\nAI Builder\nUpdate\nPower Automate and Dynamics 365 remain\nNovember 2025\navailable until November 1, 2026.\nUpdated with Microsoft Partners, Microsoft Sales\n4\nHow to buy\nUpdate\nand Microsoft Online purchasing options\nOctober 2025\n5\nRecommended Offers\nUpdate\nCopilot Studio messages renamed to Copilot\nCredits\nSeptember 2025\nVarious\nAccessibility\nUpdate\nLicensing guide accessibility update\nAugust 2025\nVarious\nCopilot Studio\nUpdate\nCopilot Studio now referenced in the Microsoft\nCopilot Studio Licensing Guide\nJuly 2025\n© 2025 Microsoft Corporation. All rights reserved.\nThis document is for informational purposes only. MICROSOFT MAKES NO WARRANTIES, EXPRESS OR IMPLIED, IN THIS DOCUMENT. This information\nis provided to help guide your authorized use of products you license; it is not your agreement. Your use of products licensed under your license\nagreement is governed by the terms and conditions of that agreement. In the case of any conflict between this information and your agreement, the\nterms and conditions of your agreement control. Prices for licenses acquired through Microsoft resellers are determined by the reseller.\nPower Platform Licensing Guide | November 2026\nP a g e | 30",
+   "lines": [
+    {
+     "text": "Appendix C: Change Log",
+     "boundingBox": {
+      "left": 0.11775,
+      "top": 0.09507,
+      "width": 0.17858,
+      "height": 0.01229
+     }
+    },
+    {
+     "text": "Page(s)",
+     "boundingBox": {
+      "left": 0.12847,
+      "top": 0.13935,
+      "width": 0.04899,
+      "height": 0.01061
+     }
+    },
+    {
+     "text": "Topic",
+     "boundingBox": {
+      "left": 0.20751,
+      "top": 0.13891,
+      "width": 0.03727,
+      "height": 0.01099
+     }
+    },
+    {
+     "text": "Change",
+     "boundingBox": {
+      "left": 0.40649,
+      "top": 0.13889,
+      "width": 0.05075,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Action",
+     "boundingBox": {
+      "left": 0.49173,
+      "top": 0.13891,
+      "width": 0.04421,
+      "height": 0.00852
+     }
+    },
+    {
+     "text": "Date",
+     "boundingBox": {
+      "left": 0.8484,
+      "top": 0.13935,
+      "width": 0.03072,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "24",
+     "boundingBox": {
+      "left": 0.12807,
+      "top": 0.16451,
+      "width": 0.01449,
+      "height": 0.00809
+     }
+    },
+    {
+     "text": "Business Applications",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.16419,
+      "width": 0.13676,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.16465,
+      "width": 0.02773,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Business Application tools, including Model Context",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.15662,
+      "width": 0.33405,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Protocol",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.17176,
+      "width": 0.05198,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "October 2026",
+     "boundingBox": {
+      "left": 0.86084,
+      "top": 0.16419,
+      "width": 0.0872,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Copilot Managed Runtime: Apps built in Copilot",
+     "boundingBox": {
+      "left": 0.49233,
+      "top": 0.18813,
+      "width": 0.31012,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "6-9",
+     "boundingBox": {
+      "left": 0.12809,
+      "top": 0.2036,
+      "width": 0.02013,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Power Apps Premium",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.20338,
+      "width": 0.13712,
+      "height": 0.01091
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.20374,
+      "width": 0.02773,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Studio and Copilot Cowork, hosted, managed and",
+     "boundingBox": {
+      "left": 0.49252,
+      "top": 0.20328,
+      "width": 0.32128,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "September 2026",
+     "boundingBox": {
+      "left": 0.85005,
+      "top": 0.20328,
+      "width": 0.1092,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "deployed in the Copilot Managed Runtime Host.",
+     "boundingBox": {
+      "left": 0.49234,
+      "top": 0.21844,
+      "width": 0.31255,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "6-9",
+     "boundingBox": {
+      "left": 0.12809,
+      "top": 0.24269,
+      "width": 0.02013,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Power Apps Premium",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.24247,
+      "width": 0.13712,
+      "height": 0.01091
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.24283,
+      "width": 0.02773,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Run apps built in Copilot Studio and Copilot",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.2348,
+      "width": 0.28427,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Cowork",
+     "boundingBox": {
+      "left": 0.49233,
+      "top": 0.2498,
+      "width": 0.04858,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "September 2026",
+     "boundingBox": {
+      "left": 0.85201,
+      "top": 0.24237,
+      "width": 0.10506,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "23",
+     "boundingBox": {
+      "left": 0.12807,
+      "top": 0.26724,
+      "width": 0.01391,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Data Loss Prevention",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.26702,
+      "width": 0.13338,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.26737,
+      "width": 0.02773,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Power Platform Data Loss Prevention",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.26679,
+      "width": 0.23712,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "June 2026",
+     "boundingBox": {
+      "left": 0.87207,
+      "top": 0.26724,
+      "width": 0.0644,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "27-28",
+     "boundingBox": {
+      "left": 0.12807,
+      "top": 0.28481,
+      "width": 0.03615,
+      "height": 0.00821
+     }
+    },
+    {
+     "text": "Terminology",
+     "boundingBox": {
+      "left": 0.20758,
+      "top": 0.28449,
+      "width": 0.08105,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.40719,
+      "top": 0.28449,
+      "width": 0.04566,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "Terminology section updated",
+     "boundingBox": {
+      "left": 0.49194,
+      "top": 0.28449,
+      "width": 0.18864,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "June 2026",
+     "boundingBox": {
+      "left": 0.87207,
+      "top": 0.28481,
+      "width": 0.0644,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "7",
+     "boundingBox": {
+      "left": 0.128,
+      "top": 0.30954,
+      "width": 0.00654,
+      "height": 0.00795
+     }
+    },
+    {
+     "text": "Power Apps Premium",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.30918,
+      "width": 0.13712,
+      "height": 0.01091
+     }
+    },
+    {
+     "text": "AI in-apps: Microsoft 365 Copilot in-app assistance",
+     "boundingBox": {
+      "left": 0.49181,
+      "top": 0.30134,
+      "width": 0.32891,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.30954,
+      "width": 0.02773,
+      "height": 0.00807
+     }
+    },
+    {
+     "text": "and agent usage within Power Apps and App skills",
+     "boundingBox": {
+      "left": 0.49229,
+      "top": 0.31665,
+      "width": 0.32502,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "April 2026",
+     "boundingBox": {
+      "left": 0.87169,
+      "top": 0.30908,
+      "width": 0.06518,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12742,
+      "top": 0.33373,
+      "width": 0.04764,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "Power Apps per app",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.33408,
+      "width": 0.12952,
+      "height": 0.01055
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.33408,
+      "width": 0.05061,
+      "height": 0.00807
+     }
+    },
+    {
+     "text": "Power Apps per app End of Sale",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.3335,
+      "width": 0.20595,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "January 2026",
+     "boundingBox": {
+      "left": 0.86227,
+      "top": 0.33395,
+      "width": 0.084,
+      "height": 0.01075
+     }
+    },
+    {
+     "text": "23",
+     "boundingBox": {
+      "left": 0.12807,
+      "top": 0.35152,
+      "width": 0.01391,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "Dataverse",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.35165,
+      "width": 0.062,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "New",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.35165,
+      "width": 0.02773,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Dataverse MCP Server",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.35152,
+      "width": 0.14147,
+      "height": 0.00822
+     }
+    },
+    {
+     "text": "December 2025",
+     "boundingBox": {
+      "left": 0.85466,
+      "top": 0.3512,
+      "width": 0.09986,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "21, 22",
+     "boundingBox": {
+      "left": 0.12807,
+      "top": 0.37602,
+      "width": 0.03729,
+      "height": 0.00959
+     }
+    },
+    {
+     "text": "Increased default capacities for Power Apps, Power",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.36805,
+      "width": 0.32806,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "Dataverse",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.3762,
+      "width": 0.062,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.40719,
+      "top": 0.37575,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Automate and Power Pages",
+     "boundingBox": {
+      "left": 0.49181,
+      "top": 0.38332,
+      "width": 0.17833,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.85387,
+      "top": 0.37575,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12742,
+      "top": 0.40039,
+      "width": 0.04764,
+      "height": 0.00844
+     }
+    },
+    {
+     "text": "AI Builder",
+     "boundingBox": {
+      "left": 0.20745,
+      "top": 0.40029,
+      "width": 0.06231,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Remove",
+     "boundingBox": {
+      "left": 0.40732,
+      "top": 0.40075,
+      "width": 0.05061,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "AI Builder End of Sale",
+     "boundingBox": {
+      "left": 0.49181,
+      "top": 0.40016,
+      "width": 0.13829,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.85387,
+      "top": 0.40029,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "AI Builder entitlements for existing Power Apps,",
+     "boundingBox": {
+      "left": 0.49181,
+      "top": 0.41729,
+      "width": 0.30668,
+      "height": 0.01119
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12742,
+      "top": 0.43252,
+      "width": 0.04764,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "AI Builder",
+     "boundingBox": {
+      "left": 0.20745,
+      "top": 0.43241,
+      "width": 0.06231,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.40719,
+      "top": 0.43241,
+      "width": 0.04566,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "Power Automate and Dynamics 365 remain",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.43241,
+      "width": 0.27755,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "November 2025",
+     "boundingBox": {
+      "left": 0.85387,
+      "top": 0.43241,
+      "width": 0.10165,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "available until November 1, 2026.",
+     "boundingBox": {
+      "left": 0.49229,
+      "top": 0.44756,
+      "width": 0.21418,
+      "height": 0.00986
+     }
+    },
+    {
+     "text": "Updated with Microsoft Partners, Microsoft Sales",
+     "boundingBox": {
+      "left": 0.49287,
+      "top": 0.4638,
+      "width": 0.3146,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "4",
+     "boundingBox": {
+      "left": 0.1274,
+      "top": 0.47195,
+      "width": 0.00732,
+      "height": 0.00795
+     }
+    },
+    {
+     "text": "How to buy",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.4715,
+      "width": 0.07392,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.40719,
+      "top": 0.4715,
+      "width": 0.04566,
+      "height": 0.01102
+     }
+    },
+    {
+     "text": "and Microsoft Online purchasing options",
+     "boundingBox": {
+      "left": 0.49229,
+      "top": 0.47895,
+      "width": 0.26369,
+      "height": 0.01119
+     }
+    },
+    {
+     "text": "October 2025",
+     "boundingBox": {
+      "left": 0.86084,
+      "top": 0.4715,
+      "width": 0.08681,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "5",
+     "boundingBox": {
+      "left": 0.12847,
+      "top": 0.50347,
+      "width": 0.00578,
+      "height": 0.00808
+     }
+    },
+    {
+     "text": "Recommended Offers",
+     "boundingBox": {
+      "left": 0.20864,
+      "top": 0.50289,
+      "width": 0.13971,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.40719,
+      "top": 0.50302,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Copilot Studio messages renamed to Copilot",
+     "boundingBox": {
+      "left": 0.49233,
+      "top": 0.49545,
+      "width": 0.28926,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Credits",
+     "boundingBox": {
+      "left": 0.49233,
+      "top": 0.51059,
+      "width": 0.04376,
+      "height": 0.00854
+     }
+    },
+    {
+     "text": "September 2025",
+     "boundingBox": {
+      "left": 0.85201,
+      "top": 0.50302,
+      "width": 0.10467,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12742,
+      "top": 0.52769,
+      "width": 0.04764,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "Accessibility",
+     "boundingBox": {
+      "left": 0.20745,
+      "top": 0.52759,
+      "width": 0.07782,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.40719,
+      "top": 0.52759,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Licensing guide accessibility update",
+     "boundingBox": {
+      "left": 0.493,
+      "top": 0.52759,
+      "width": 0.2288,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "August 2025",
+     "boundingBox": {
+      "left": 0.86386,
+      "top": 0.52791,
+      "width": 0.08047,
+      "height": 0.01075
+     }
+    },
+    {
+     "text": "Various",
+     "boundingBox": {
+      "left": 0.12742,
+      "top": 0.55224,
+      "width": 0.04764,
+      "height": 0.00843
+     }
+    },
+    {
+     "text": "Copilot Studio",
+     "boundingBox": {
+      "left": 0.20796,
+      "top": 0.55214,
+      "width": 0.09153,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Update",
+     "boundingBox": {
+      "left": 0.40719,
+      "top": 0.55214,
+      "width": 0.04566,
+      "height": 0.01101
+     }
+    },
+    {
+     "text": "Copilot Studio now referenced in the Microsoft",
+     "boundingBox": {
+      "left": 0.49233,
+      "top": 0.54444,
+      "width": 0.30358,
+      "height": 0.01114
+     }
+    },
+    {
+     "text": "Copilot Studio Licensing Guide",
+     "boundingBox": {
+      "left": 0.49233,
+      "top": 0.55971,
+      "width": 0.19812,
+      "height": 0.01107
+     }
+    },
+    {
+     "text": "July 2025",
+     "boundingBox": {
+      "left": 0.87462,
+      "top": 0.55214,
+      "width": 0.05872,
+      "height": 0.01106
+     }
+    },
+    {
+     "text": "© 2025 Microsoft Corporation. All rights reserved.",
+     "boundingBox": {
+      "left": 0.11859,
+      "top": 0.59273,
+      "width": 0.25027,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "This document is for informational purposes only. MICROSOFT MAKES NO WARRANTIES, EXPRESS OR IMPLIED, IN THIS DOCUMENT. This information",
+     "boundingBox": {
+      "left": 0.11792,
+      "top": 0.60455,
+      "width": 0.75531,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "is provided to help guide your authorized use of products you license; it is not your agreement. Your use of products licensed under your license",
+     "boundingBox": {
+      "left": 0.11848,
+      "top": 0.61636,
+      "width": 0.72605,
+      "height": 0.00866
+     }
+    },
+    {
+     "text": "agreement is governed by the terms and conditions of that agreement. In the case of any conflict between this information and your agreement, the",
+     "boundingBox": {
+      "left": 0.11819,
+      "top": 0.62804,
+      "width": 0.74599,
+      "height": 0.00865
+     }
+    },
+    {
+     "text": "terms and conditions of your agreement control. Prices for licenses acquired through Microsoft resellers are determined by the reseller.",
+     "boundingBox": {
+      "left": 0.11793,
+      "top": 0.64122,
+      "width": 0.67948,
+      "height": 0.00865
+     }
+    },
+    {
+     "text": "Power Platform Licensing Guide | November 2026",
+     "boundingBox": {
+      "left": 0.11881,
+      "top": 0.9689,
+      "width": 0.29774,
+      "height": 0.01015
+     }
+    },
+    {
+     "text": "P a g e | 30",
+     "boundingBox": {
+      "left": 0.43474,
+      "top": 0.9689,
+      "width": 0.07273,
+      "height": 0.01015
+     }
+    }
+   ]
+  }
+ ]
+}

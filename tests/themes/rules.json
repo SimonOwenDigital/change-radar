@@ -1,0 +1,31 @@
+{
+  "description": "ADR 0012 addendum (2026-11-22): rule themes. A signal gets a rule theme when a row of seed/theme-rules.csv matches it: match 'source' compares the signal's source (signalsource choice label), match 'feed' compares the key of the signal's feed (crdr_feed.crdr_key), both exactly. The first matching row wins. No match gives no rule theme (null): the assessment's LLM theme is kept. A rule theme takes precedence over the LLM theme and is written whatever theme the signal already has. A rule whose theme is not in seed/themes.csv is a configuration error, never applied. Written before the engine (CLAUDE.md).",
+  "cases": [
+    { "id": "thm-01", "signal": { "source": "graph_health", "feedKey": null, "theme": null }, "expected": "Service incidents", "note": "service health incident, unthemed" },
+    { "id": "thm-02", "signal": { "source": "graph_health", "feedKey": null, "theme": "Other" }, "expected": "Service incidents", "note": "rule wins over an existing theme" },
+    { "id": "thm-03", "signal": { "source": "feed", "feedKey": "ML-CSM", "theme": null }, "expected": "AI models and lifecycle" },
+    { "id": "thm-04", "signal": { "source": "feed", "feedKey": "ML-CS", "theme": "Agents and Work IQ platform" }, "expected": "AI models and lifecycle", "note": "rule wins over the LLM theme" },
+    { "id": "thm-05", "signal": { "source": "feed", "feedKey": "ML-PR", "theme": null }, "expected": "AI models and lifecycle" },
+    { "id": "thm-06", "signal": { "source": "feed", "feedKey": "M365RN", "theme": "Copilot for end users" }, "expected": null, "note": "release notes have no rule: the LLM theme stays" },
+    { "id": "thm-07", "signal": { "source": "feed", "feedKey": "CSBLOG", "theme": null }, "expected": null, "note": "blog posts have no rule: themed by the assessment" },
+    { "id": "thm-08", "signal": { "source": "graph_mc", "feedKey": null, "theme": "Governance and controls" }, "expected": null, "note": "Message Center: assessment theme" },
+    { "id": "thm-09", "signal": { "source": "roadmap", "feedKey": null, "theme": null }, "expected": null },
+    { "id": "thm-10", "signal": { "source": "feed", "feedKey": "ml-csm", "theme": null }, "expected": null, "note": "feed keys compare exactly, as Dataverse stores them" },
+    { "id": "thm-11", "signal": { "source": "graph_mc", "feedKey": "ML-CS", "theme": null }, "expected": "AI models and lifecycle", "note": "the feed rule needs only the feed key" }
+  ],
+  "configErrors": [
+    { "id": "thm-e1", "rules": [ { "match": "feed", "value": "X", "theme": "Not a theme" } ], "expectError": "Not a theme", "note": "unknown theme: refused at load, never applied" },
+    { "id": "thm-e2", "rules": [ { "match": "product", "value": "X", "theme": "Other" } ], "expectError": "product", "note": "unknown match kind" }
+  ],
+  "natureNote": "ADR 0013 section 4 (step 5): a model retirement with automatic migration is a behaviour change; without one, breaking. seed/theme-rules.csv's optional nature column carries it per feed; a rule nature takes precedence over the LLM's, and an empty nature leaves the LLM's. A nature not in the schema's nature choice is a configuration error.",
+  "natureCases": [
+    { "id": "nat-01", "signal": { "source": "feed", "feedKey": "ML-PR" }, "expected": "behaviour_change", "note": "prompts move to the tier's replacement automatically" },
+    { "id": "nat-02", "signal": { "source": "feed", "feedKey": "ML-CSM" }, "expected": "behaviour_change", "note": "Microsoft Copilot harness: replaced by the replacement model" },
+    { "id": "nat-03", "signal": { "source": "feed", "feedKey": "ML-CS" }, "expected": "breaking", "note": "standard harness: only the GPT Chat Latest alias and managed solutions move automatically" },
+    { "id": "nat-04", "signal": { "source": "graph_health", "feedKey": null }, "expected": null, "note": "a theme rule with no nature: the LLM's (none for incidents) stays" },
+    { "id": "nat-05", "signal": { "source": "graph_mc", "feedKey": null }, "expected": null }
+  ],
+  "natureErrors": [
+    { "id": "nat-e1", "rules": [ { "match": "feed", "value": "X", "theme": "Other", "nature": "catastrophic" } ], "expectError": "catastrophic" }
+  ]
+}

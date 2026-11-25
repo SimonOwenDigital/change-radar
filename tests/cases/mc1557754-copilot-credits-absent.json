@@ -1,0 +1,31 @@
+{
+  "id": "mc1557754-copilot-credits-absent",
+  "workedExample": "spec §5 row 6 (MC1557754 / MC1558033), tenant without a spending policy",
+  "signal": {
+    "id": "MC1557754",
+    "source": "graph_mc",
+    "title": "Copilot Credits: spending policies",
+    "fingerprint": [
+      { "group": "A", "facet": "setting", "value": "copilot_spending_policy", "confidence": 0.9, "extractedBy": "manual" },
+      { "group": "A", "facet": "product", "value": "M365 Copilot", "confidence": 0.9, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "inventory": [
+      { "name": "agt-builder", "type": "microsoft.copilotstudio/agents", "location": "europe",
+        "properties": { "displayName": "Meeting prep helper", "environmentId": "env-default", "createdBy": "usr-maker-a", "ownerId": "usr-maker-a",
+          "harness": "Microsoft Copilot", "createdIn": "Microsoft Copilot Agent Builder", "channels": [], "powerPlatformConnectors": [] } }
+    ],
+    "tenantSettings": [
+      { "key": "copilot_in_power_bi", "enabled": true, "scope": ["Power BI"], "evidence": "fixture" }
+    ]
+  },
+  "cases": [
+    { "id": "credits-01", "kind": "positive", "target": "setting:copilot_spending_policy",
+      "description": "Tenant has no spending policy: setting gap is an exposure",
+      "expect": { "match": true, "matchedFacets": ["setting"] } },
+    { "id": "credits-02", "kind": "near_miss", "assetId": "agt-builder",
+      "description": "An M365 Copilot agent exists, but this is a setting check, not an asset match",
+      "expect": { "match": false } }
+  ]
+}

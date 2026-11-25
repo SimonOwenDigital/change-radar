@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Microsoft Copilot Blog</title>
+	<atom:link href="https://www.microsoft.com/en-us/copilot/blog/copilot-studio/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.microsoft.com/en-us/copilot/blog/copilot-studio/</link>
+	<description></description>
+	<lastBuildDate>Thu, 24 Sep 2026 21:04:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9.5</generator>
+	<item>
+		<title>Build where you want, run with confidence: Now Microsoft hosts and manages the code created by Copilot</title>
+		<link>https://www.microsoft.com/en-us/copilot/blog/copilot-studio/build-where-you-want-run-with-confidence-now-microsoft-hosts-and-manages-the-code-created-by-copilot/</link>
+		
+		<dc:creator><![CDATA[David Blyth]]></dc:creator>
+		<pubDate>Fri, 25 Sep 2026 12:00:00 +0000</pubDate>
+				<guid isPermaLink="false">https://www.microsoft.com/en-us/copilot/blog/copilot-studio/?p=8818</guid>
+
+					<description><![CDATA[<p>Meet Microsoft Copilot Managed Runtime, an enterprise platform that helps teams build and run apps with security, governance, and IT control.</p>
+<p>The post <a href="https://www.microsoft.com/en-us/copilot/blog/copilot-studio/build-where-you-want-run-with-confidence-now-microsoft-hosts-and-manages-the-code-created-by-copilot/">Build where you want, run with confidence: Now Microsoft hosts and manages the code created by Copilot</a> appeared first on <a href="https://www.microsoft.com/en-us/copilot/blog/copilot-studio">Microsoft Copilot Blog</a>.</p>
+]]></description>
+					
+		
+		<enclosure url="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/1305895-managedruntime" length="168081014" type="" />
+
+			</item>
+<item>
+		<title>Build apps in Copilot Cowork and Copilot Studio</title>
+		<link>https://www.microsoft.com/en-us/copilot/blog/copilot-studio/build-apps-in-copilot-cowork-and-copilot-studio/</link>
+		
+		<dc:creator><![CDATA[Ryan Cunningham]]></dc:creator>
+		<pubDate>Thu, 10 Sep 2026 15:00:00 +0000</pubDate>
+				<guid isPermaLink="false">https://www.microsoft.com/en-us/copilot/blog/copilot-studio/?post_type=copilot&#038;p=8383</guid>
+
+					<description><![CDATA[<p>Introducing app building in Copilot Cowork and Copilot Studio. Create full-stack business apps through conversation, grounded in your data.</p>
+<p>The post <a href="https://www.microsoft.com/en-us/copilot/blog/copilot-studio/build-apps-in-copilot-cowork-and-copilot-studio/">Build apps in Copilot Cowork and Copilot Studio</a> appeared first on <a href="https://www.microsoft.com/en-us/copilot/blog/copilot-studio">Microsoft Copilot Blog</a>.</p>
+]]></description>
+					
+		
+		
+			</item>
+<item>
+		<title>New and improved: GitHub Copilot harness, agent skills, and richer context</title>
+		<link>https://www.microsoft.com/en-us/copilot/blog/copilot-studio/new-and-improved-github-copilot-harness-agent-skills-and-richer-context/</link>
+		
+		<dc:creator><![CDATA[Jason Moore]]></dc:creator>
+		<pubDate>Wed, 02 Sep 2026 17:30:00 +0000</pubDate>
+				<guid isPermaLink="false">https://www.microsoft.com/en-us/copilot/blog/copilot-studio/?post_type=copilot&#038;p=8289</guid>
+
+					<description><![CDATA[<p>Explore the latest Copilot Studio updates, including the GitHub Copilot harness and new ways for agents to use skills, enterprise knowledge, and more.</p>
+<p>The post <a href="https://www.microsoft.com/en-us/copilot/blog/copilot-studio/new-and-improved-github-copilot-harness-agent-skills-and-richer-context/">New and improved: GitHub Copilot harness, agent skills, and richer context</a> appeared first on <a href="https://www.microsoft.com/en-us/copilot/blog/copilot-studio">Microsoft Copilot Blog</a>.</p>
+]]></description>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

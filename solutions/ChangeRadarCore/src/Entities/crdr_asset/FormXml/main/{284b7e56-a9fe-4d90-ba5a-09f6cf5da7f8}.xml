@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{284b7e56-a9fe-4d90-ba5a-09f6cf5da7f8}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab name="tab_asset" verticallayout="true" id="{cfabdfbf-1179-4be5-85da-42104edf3cdf}" IsUserDefined="1">
+          <labels>
+            <label description="Asset" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="40%">
+              <sections>
+                <section name="sec_details" showlabel="true" showbar="false" id="{aaa7faee-c802-4b6a-b26f-5e8f6af02818}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{db37e9b7-8348-4c41-92d2-be98adc41400}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_name" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{958151a5-dbbe-4f85-8e3e-7e84fca7c16f}">
+                        <labels>
+                          <label description="Resource type" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_resourcetype" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_resourcetype" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5d111434-4388-46db-937f-e79ef31d7865}">
+                        <labels>
+                          <label description="Environment" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_environmentname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_environmentname" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8f975e66-17fe-431e-a5f6-c7e1b86e2cb7}">
+                        <labels>
+                          <label description="Environment type" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_environmenttype" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_environmenttype" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7ac5b7ed-5328-421c-bc44-6b5dcf3e4f73}">
+                        <labels>
+                          <label description="Source" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_source" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="crdr_source" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4541d70b-f916-4ac2-9e5e-01a8008f0cf3}">
+                        <labels>
+                          <label description="Synthetic or fixture organisation" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_syntheticorg" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_syntheticorg" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d9971bde-c309-4008-b3a0-25893cf47df3}">
+                        <labels>
+                          <label description="Solution" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_solutionuniquename" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_solutionuniquename" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d3d18a5f-ccfe-4dba-8c5d-87eec1c44251}">
+                        <labels>
+                          <label description="Component ID" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_componentid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_componentid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{801cfc21-c7a5-4570-a850-e7aa569bc173}">
+                        <labels>
+                          <label description="Source ID" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_sourceid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="crdr_sourceid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5de7b6c3-2aa6-4564-bc33-b8404f2c8d2c}">
+                        <labels>
+                          <label description="Last seen" languagecode="1033" />
+                        </labels>
+                        <control id="crdr_lastseen" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="crdr_lastseen" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="60%">
+              <sections>
+                <section name="sec_fingerprints" showlabel="true" showbar="false" id="{804456a1-9e09-432a-80b4-4bedd85682f7}" IsUserDefined="0" columns="1">
+                  <labels>
+                    <label description="Facets and evidence" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{be82c860-484f-46bc-a86a-d5781adfdd78}" showlabel="true" rowspan="10" colspan="1" auto="false">
+                        <labels>
+                          <label description="Fingerprints" languagecode="1033" />
+                        </labels>
+                        <control id="fingerprints" classid="{E7A81278-8635-4d9e-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{6e51afd6-10e5-f111-84ea-002248db5401}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>crdr_asset_assetfingerprint_asset</RelationshipName>
+                            <TargetEntityType>crdr_assetfingerprint</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>25</RecordsPerPage>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{a8f562c1-a916-4fdc-abdd-af5cdc13c645}</savedqueryid>
+    <layoutxml>
+      <grid name="crdr_tenantsettings" jump="crdr_key" select="1" icon="1" preview="1">
+        <row name="crdr_tenantsetting" id="crdr_tenantsettingid">
+          <cell name="crdr_key" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="crdr_tenantsetting">
+          <attribute name="crdr_tenantsettingid" />
+          <attribute name="crdr_key" />
+          <attribute name="createdon" />
+          <order attribute="crdr_key" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Tenant setting Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

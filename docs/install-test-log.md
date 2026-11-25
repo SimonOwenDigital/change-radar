@@ -1,0 +1,76 @@
+# Install test log (ADR 0022)
+
+> **For:** whoever maintains `install.md`. **Kind:** reference.
+> A clean Developer environment ("Change Radar install test", same tenant as pp-lab, created 2026-11-24) installed by following `install.md`. Each finding is fixed in the docs or the product, then ticked. Environment URLs and ids are not recorded here (CLAUDE.md).
+>
+> **From:** [Empower Your World](https://www.empoweryour.world/?utm_source=github&utm_medium=docs&utm_campaign=change-radar&utm_content=install-test-log) · [The story behind Change Radar](https://www.empoweryour.world/blog/change-radar?utm_source=github&utm_medium=docs&utm_campaign=change-radar&utm_content=install-test-log)
+
+## Run 1: 24 November 2026
+
+Starting point: an empty Developer environment, created with `pac admin create --type Developer --macro-region europe-uk`. Same tenant as pp-lab, so the reader app registration, its Graph consent and the Key Vault already existed and were reused: only the environment-level steps were new.
+
+| # | Step | What happened | Finding | Fix |
+|---|---|---|---|---|
+| 1 | Create the environment | `--region unitedkingdom` and `--region switzerland` are rejected; `pac admin create` takes a **macro-region** (`europe-uk`, `eu-efta`, ...). The new environment landed on the same Dataverse cluster as pp-lab | `install.md` should show the macro-region form | ✓ docs |
+| 2 | Reader identity before import | `New-ReaderIdentity.ps1` refuses: "solution 'ChangeRadarCore' doesn't exist". The Reader role now ships in the solution | **Order:** Azure and Entra part first (or reuse), then import, then the script's Dataverse part (application user). The script can't yet do the Azure/Entra part alone | ✓ docs order (steps 2 to 4); ✓ `-SkipDataverse` (plan-run 2026-11-24: Azure and Entra only, nothing to create) |
+| 3 | Pack the managed solution | `pac solution pack --packagetype Managed` from `solutions/ChangeRadarCore/src` works (357 KB) | A versioned release zip is still needed (ADR 0022) | ☐ |
+| 4 | Import | First attempt: "connection forcibly closed" (transient). `--async` succeeded in 37 seconds. Arrived: managed solution, 20 tables, 23 flows, three roles (Reader, User, Admin), the app, two prompts, the three environment variable values | Use `--async` in the docs | ✓ docs |
+| 5 | Flows after import | **17 of 23 flows were switched on with no connections bound** (all four connection references empty); 6 off (estate inventory, dispatch, the four Teams and email handlers). The 17 fail at their first scheduled run until connected | Create the connections before importing (as `install.md` says), or import with flows off and turn them on after | ✓ docs (step 3.1) |
+| 6 | Reader identity, Dataverse part | Created the application user with the Reader role. The plan reported the role's 20 read privileges on Change Radar's tables missing and added them, though the User and Admin roles arrived complete | **Cause found (2026-11-24):** the Reader role was built in pp-lab from every privilege named `prvReadcrdr_*`, so it held read on pp-lab's fixture table (not in the solution; the import drops it) and missed `crdr_watch` (added later). The script's fix-up at install then wrote an **unmanaged layer** over the managed role, which blocks every later update of it (seen: a re-import left it unchanged) | ✓ Role rebuilt from the solution's own tables; `New-ReaderIdentity.ps1` takes the tables from the solution's components and never changes a managed role (reports MISSING instead); `Export-CoreSolution.ps1` refuses an export whose roles don't read exactly the solution's tables. Proved: unmanaged layer removed in the test environment (`RemoveActiveCustomizations`), re-import gave 37 privileges and all 20 reads, and the script plans nothing |
+| 7 | Settings | `Import-Config.ps1` created all 23 | — | ✓ |
+| 8 | Seed data | Vocabulary 85, rules 9, subscriptions 28, feeds 22, watch topics 3 | **Feeds load switched off** whatever `seed/feeds.csv` says (a dev safeguard): an adopter sees no feed signals until each feed is switched on. **Manual fingerprints** skip until their signals exist: re-run the matching import after the first collection. **Tenant settings** are entered with `-TenantSetting` | ✓ docs (step 5) |
+| 9 | Credit caps | `rating_max_per_run` and `fingerprint_max_per_run` seed as `0` (no cap). A new install's first night sends every Message Center and roadmap item to the fingerprint prompt | **Simon, 2026-11-24:** seed 25 for new installs | ✓ `seed/config.csv` |
+| 10 | Connections | Simon made Dataverse, Power Platform for Admins V2 and Teams connections in the environment; the three connection references were bound to them and 21 of 21 flows switched on (email flows left off) | — | ✓ |
+| 11 | Sources | 19 of 22 feeds switched on in the app; three licensing guides left off, Copilot Studio's guide on to measure text recognition cost | — | ✓ |
+
+### First night (run by hand in schedule order, 24 November 2026, 13:06 to 13:19 UTC)
+
+| # | Step | What happened | Finding | Fix |
+|---|---|---|---|---|
+| 12 | All 14 flows | Estate, detail, service health, Message Center, roadmap, five feed collectors, horizons, fingerprint, match and assess: **14 of 14 succeeded**, 13 minutes in all. Access tier Full throughout | — | ✓ |
+| 13 | What arrived | 773 signals (Message Center 228, roadmap 132, service health 64, feeds 349), 76 assets, 4 solutions with 25 members, 572 events. 100 fingerprints (90 by rule, 10 by the prompt), 2 exposures (1 New, 1 Microsoft system component, not rated), 1 assessment | — | ✓ |
+| 14 | Thin first radar | With the caps at 10, the prompt fingerprinted **10 of several hundred** signals, so the first night matched only 37 signals and opened 2 exposures. At the seeded 25 a night, a new install takes a few weeks to work through its backlog | `install.md` and the operate guide should say so. Whether to offer a one-off catch-up (a higher cap for the first week, with its credit cost) **needs Simon** | ✓ **Simon, 2026-11-24: raise the caps for the first weeks.** `catchup_max_per_run` (100) until `catchup_until`, which `Import-Config.ps1` sets to install + 14 days on a fresh install only; ends by itself. `Get-EffectiveCap` (16 cases) and the forecast (4 more cases): the default backlog clears in 5 nights instead of 30, same total calls. Proved in pp-lab: caps this run 100/100 with a date, 50/25 without. Run summaries show the caps used. Docs: `requirements.md` 3.1, `configure.md`, `install.md` step 5 |
+| 15 | Credits | AI events log: fingerprint 10 calls, 61 AI Builder credits; assessment 11 calls, 58 | Rating made **11 calls with the cap at 10**. Cause: two prompt stages. `rating_max_per_run` capped signal rating (10, "rated 10"); the estate assessment (1, "prompted 1") had no cap, so a large estate change or demo data switched on could prompt every exposed signal in one night | ✓ **Simon, 2026-11-24: separate cap.** `assessment_max_per_run` (seed 25): over the cap a signal is deferred, not rescored, so it is prompted on a later run (`Get-AssessmentStep`, 8 cases). Proved in pp-lab: cap 1 gave prompted 1, deferred 4; cap 25 the next run prompted those 4, none left. The test environment gets it with the next managed import. ✓ `requirements.md` 3.1 credit estimate |
+| 16 | Text recognition (LIC-CS) | One AI event, **3 AI Builder credits for the whole Copilot Studio guide** in one call, the same as spike T12 | Per call in the event log, not per page as the rate table says: check against the capacity report | ✓ `requirements.md`; ☐ capacity report |
+| 17 | Early scheduled runs | Service health and Message Center had already run on their own at 12:34, before the settings were loaded: in scope 0, no harm | Covered by finding 5 (flows on at import) | ✓ |
+| 18 | Manual fingerprints | `Import-MatchingDataToDev.ps1` re-run: 3 created (MC1551122 ×2, RM570671) | As `install.md` step 5 says | ✓ |
+| 19 | Cards | `alert_recipient` set with `Import-Config.ps1 -AlertRecipient` (caps unchanged at 10). No High or Critical rating yet (the one live rating is Medium), so a labelled test incident was injected (`New-TestSignals.ps1 -Scenario incident`, then `resolve`) | ✓ 2026-11-24: incident.opened and incident.resolved each went to Notify-Teams (Succeeded within 5 seconds of the event); the card arrived in the recipient's Teams chat from the Workflows bot (14:36:34). Test signal and everything it caused removed (`Remove-TestSignals.ps1`) |
+
+| 20 | Demo data end to end | `Import-DemoData.ps1`: 912 assets, 5,003 asset fingerprints, 34 solutions, 324 memberships in 3 minutes, demo_data on; the match run then made 18 demo exposures and the assess run 6 demo assessments (24 events). `Remove-DemoData.ps1` planned exactly those counts and removed them all in 1 minute, demo_data off. Live rows identical before, during and after (76 assets, 2 exposures, 1 assessment, 4 solutions, 25 members) | — | ✓ |
+| 21 | Re-import (upgrade) | Packed from the repo and imported over the installed solution with `--async` (49 seconds); flows replaced and still on; settings kept | — | ✓ |
+
+| 22 | Change Radar User role | Tested as a real account holding only Basic User and Change Radar User (System Administrator removed for the test), with `setup/dev/Test-UserRole.ps1`: reads every one of the 20 tables and sees the app; can change an exposure's status, an assessment's override, a signal's Watched flag and a fingerprint's status; refused (403) changing a setting, a feed or a rule, and creating a rule, subscription, vocabulary value or signal | **Order matters** when swapping your own roles in the admin centre: add the new role and save **before** removing System Administrator, or the save fails silently. `install.md` step 7 to say so | ✓ 32 of 32; ✓ `install.md` step 7 |
+| 23 | First-night incident cards | The first service health collection raised `incident.opened` for all 64 incidents Microsoft lists; **61 were already over** (restored or post-incident review published). They failed only because no alert destination was set yet: with one set, the first night would post 64 cards | ✓ A new incident that is already over (horizon future) raises `signal.new` only (engine `Get-RecordEvents`, cases derive-15 to 17; Raise signal events flow). Proved in pp-lab: a restored test incident raised no `incident.opened`, an open one still did. First night now: 3 cards, one per incident still in progress |
+| 24 | Check the install | `setup/Test-Install.ps1`: one read-only run of every check in step 9 and more. Test environment 52 pass (after `Import-Config.ps1` added the three settings from today), pp-lab 55 pass. It found finding 23 | ✓ `install.md` step 9 |
+| 25 | Upgrade from the release | `ChangeRadarCore_0.2.0_managed.zip` from `New-Release.ps1`: SHA-256 checked, imported over 0.1.0.0 with `--async`; `Test-Install.ps1` 52 pass after the upgrade, Reader role still as shipped | — | ✓ |
+
+Run 1 complete: every step of `install.md` and every check has been run in a clean environment.
+
+## Run 2: 24 November 2026 (ADR 0023, the handlers' own solution)
+
+**Part A, upgrade** of the run 1 environment from release 0.2.0 (handlers inside Core, Notify-Teams and Digest-Weekly on, 572 handler runs) to release 0.3.0 (three solutions).
+
+| # | Step | What happened | Finding | Fix |
+|---|---|---|---|---|
+| 1 | Import ChangeRadarHandlers 0.3.0 | The four handler flows and the Teams and Outlook references became part of both solutions, **same ids**; the template arrived off; **Notify-Teams and Digest-Weekly stayed on**: importing over existing flows keeps their state (shipping off applies to a new install) | Upgrading keeps alerts running | ✓ `install.md` Upgrade |
+| 2 | Upgrade ChangeRadarCore 0.3.0 with `--stage-and-upgrade` | 2 minutes. The handler flows and references left Core and stayed in Handlers, same ids and state; 572 handler runs intact. **This was ADR 0023's open assumption** | A plain import of a higher version never removes components: use `--stage-and-upgrade` for Core | ✓ `install.md` Upgrade, `releases.md` |
+| 3 | Solution checker on Handlers | 35 medium, all `meta-include-missingunmanageddependencies` (it depends on Core's tables, unmanaged in the dev environment) | Expected for a layered solution; step 1 proved the dependencies resolve | ✓ `releases.md` |
+| 4 | `Set-Handlers.ps1 -Off Notify-Teams`, then a test incident | Flow off and its 7 subscriptions disabled; the incident raised `signal.new` and `incident.opened`, and **no Notify-Teams run was queued** (only the digest's) | — | ✓ |
+| 5 | `-On Notify-Teams`, then resolve the incident | Flow on, 7 subscriptions enabled; the "Resolved" card arrived in Teams (16:09) | — | ✓ |
+| 6 | `Test-Install.ps1` | 55 pass: Core 0.3.0, 19 of 19 core flows on, handlers reported per state, Reader role as shipped | — | ✓ |
+
+**Part B, fresh install** in a new, empty Developer environment ("Change Radar install test 2", created and deleted the same day, Simon's go-ahead), from the 0.3.0 release zips, following `install.md`.
+
+| # | Step | What happened | Finding | Fix |
+|---|---|---|---|---|
+| 7 | Connections, then import ChangeRadarCore alone | Dataverse and Power Platform for Admins V2 connections only; SHA-256 checked; imported with `--async`; 19 of 19 core flows on | Core needs no Teams or Outlook connection | ✓ |
+| 8 | Reader identity | The managed Reader role arrived **complete** (20 table reads, 8 component reads): the script only created the application user and assigned the role. **Finding 6 confirmed fixed on a fresh install** | — | ✓ |
+| 9 | Settings and seed | `Import-Config.ps1 -CatchupDays 0` (caps then 10 for the test), `Import-MatchingData.ps1` (28 subscriptions, all disabled), `Import-Feeds.ps1 -UseSeedActive` (22 on), `Import-Watches.ps1` | — | ✓ |
+| 10 | First night | 14 of 14 flows succeeded; 844 signals, 100 fingerprints; **4 "incident opened" events for 65 collected incidents, the 4 still open** (finding 23's fix on a real first night) | — | ✓ |
+| 11 | `Test-Install.ps1`, Core alone | First run: 1 fail, "subscriptions: none", because the check counted *enabled* subscriptions and they're now seeded disabled. Then 52 pass, alerts "not installed", destination "not needed until a handler is on" | The check counts loaded subscriptions; enabling is checked per handler | ✓ `Test-Install.ps1` |
+| 12 | Import ChangeRadarHandlers | Every handler arrived **off**, subscriptions 0 enabled (shipped off, ADR 0023) | — | ✓ |
+| 13 | `Set-Handlers.ps1 -On Notify-Teams,Digest-Weekly` | Plan: 2 flows on, 14 subscriptions enabled, no warnings (connection bound, destination set); applied | — | ✓ |
+| 14 | Test incident | The "Incident" card arrived in Teams (16:42); test data removed | — | ✓ |
+| 15 | `Test-Install.ps1`, full | 58 pass, 0 warn, 0 fail | — | ✓ |
+
+**ADR 0023 done when: met.** Core holds no handler and no Teams or Outlook reference; Handlers holds the four handlers and the template, all off on import; the upgrade keeps flows, state and history, and `Set-Handlers.ps1` brings cards back; Core alone passes the check, and with Handlers on it passes fully; release 0.3.0 holds three checked, checksummed solutions.

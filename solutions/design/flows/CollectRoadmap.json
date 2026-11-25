@@ -1,0 +1,407 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "5"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_roadmap_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'horizon_roadmap_days')"
+          }
+        },
+        "Collect": {
+          "type": "Scope",
+          "runAfter": {
+            "Config_roadmap_days": [
+              "Succeeded"
+            ]
+          },
+          "actions": {
+            "Get_items": {
+              "type": "Http",
+              "runAfter": {},
+              "inputs": {
+                "method": "GET",
+                "uri": "https://www.microsoft.com/releasecommunications/api/v1/m365",
+                "headers": {
+                  "User-Agent": "change-radar-collector/0.1"
+                }
+              }
+            },
+            "In_scope": {
+              "type": "Query",
+              "runAfter": {
+                "Get_items": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Get_items')",
+                "where": "@or(contains(string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '\"tagName\":\"Power Apps\"'), contains(string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '\"tagName\":\"Power Automate\"'), contains(string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '\"tagName\":\"Power Pages\"'), contains(string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '\"tagName\":\"Microsoft Dataverse\"'), contains(string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '\"tagName\":\"Microsoft Copilot Studio\"'), contains(string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '\"tagName\":\"Microsoft Power Platform governance and administration\"'), contains(string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '\"tagName\":\"Work IQ\"'), false)"
+              }
+            },
+            "Shape": {
+              "type": "Select",
+              "runAfter": {
+                "In_scope": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('In_scope')",
+                "select": {
+                  "key": "@concat('RM', string(item()?['id']), '|', if(empty(item()?['modified']), '', formatDateTime(item()?['modified'], 'yyyy-MM-ddTHH:mm:ss')))",
+                  "externalid": "@concat('RM', string(item()?['id']))",
+                  "title": "@if(greater(length(coalesce(item()?['title'], '')), 400), substring(item()?['title'], 0, 400), coalesce(item()?['title'], ''))",
+                  "summary": "@if(greater(length(coalesce(item()?['description'], '')), 20000), substring(item()?['description'], 0, 20000), coalesce(item()?['description'], ''))",
+                  "products": "@if(greater(length(coalesce(join(xpath(xml(json(concat('{\"r\":{\"p\":', string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '}}'))), '//tagName/text()'), '; '), '')), 400), substring(join(xpath(xml(json(concat('{\"r\":{\"p\":', string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '}}'))), '//tagName/text()'), '; '), 0, 400), coalesce(join(xpath(xml(json(concat('{\"r\":{\"p\":', string(coalesce(item()?['tagsContainer']?['products'], json('[]'))), '}}'))), '//tagName/text()'), '; '), ''))",
+                  "horizon": "@if(or(equals(item()?['status'], 'Launched'), equals(item()?['status'], 'Cancelled')), 169890002, if(equals(item()?['status'], 'Rolling out'), 169890001, if(and(equals(item()?['status'], 'In development'), not(empty(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null))), less(ticks(coalesce(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null), '9999-12-31T00:00:00Z')), ticks(startOfMonth(utcNow())))), 169890002, if(and(not(empty(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null))), lessOrEquals(ticks(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null)), ticks(addDays(utcNow(), int(coalesce(first(body('Config_roadmap_days'))?['crdr_value'], '45')))))), 169890001, 169890002))))",
+                  "keydate": "@if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null)",
+                  "datelabel": "@if(greater(length(coalesce(concat(if(and(equals(item()?['status'], 'In development'), not(empty(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null))), less(ticks(coalesce(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null), '9999-12-31T00:00:00Z')), ticks(startOfMonth(utcNow())))), 'Slipped · ', ''), coalesce(item()?['status'], ''), ' · GA ', coalesce(item()?['publicDisclosureAvailabilityDate'], 'not announced')), '')), 100), substring(concat(if(and(equals(item()?['status'], 'In development'), not(empty(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null))), less(ticks(coalesce(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null), '9999-12-31T00:00:00Z')), ticks(startOfMonth(utcNow())))), 'Slipped · ', ''), coalesce(item()?['status'], ''), ' · GA ', coalesce(item()?['publicDisclosureAvailabilityDate'], 'not announced')), 0, 100), coalesce(concat(if(and(equals(item()?['status'], 'In development'), not(empty(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null))), less(ticks(coalesce(if(and(not(empty(item()?['publicDisclosureAvailabilityDate'])), contains(coalesce(item()?['publicDisclosureAvailabilityDate'], ''), ' CY')), concat(replace(last(split(item()?['publicDisclosureAvailabilityDate'], ' ')), 'CY', ''), '-', coalesce(json('{\"January\":\"01\",\"February\":\"02\",\"March\":\"03\",\"April\":\"04\",\"May\":\"05\",\"June\":\"06\",\"July\":\"07\",\"August\":\"08\",\"September\":\"09\",\"October\":\"10\",\"November\":\"11\",\"December\":\"12\"}')?[first(split(item()?['publicDisclosureAvailabilityDate'], ' '))], '01'), '-01T00:00:00Z'), null), '9999-12-31T00:00:00Z')), ticks(startOfMonth(utcNow())))), 'Slipped · ', ''), coalesce(item()?['status'], ''), ' · GA ', coalesce(item()?['publicDisclosureAvailabilityDate'], 'not announced')), ''))",
+                  "actionrequired": false,
+                  "url": "@concat('https://www.microsoft.com/microsoft-365/roadmap?id=', string(item()?['id']))",
+                  "lastchanged": "@item()?['modified']",
+                  "snapshot": "@if(greater(length(string(item())), 100000), substring(string(item()), 0, 100000), string(item()))"
+                }
+              }
+            },
+            "List_existing": {
+              "type": "OpenApiConnection",
+              "runAfter": {
+                "Shape": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$filter": "crdr_source eq 169890002",
+                  "$select": "crdr_signalid,crdr_externalid,crdr_lastchanged,crdr_title,crdr_keydate,crdr_datelabel,crdr_horizon,crdr_actionrequired",
+                  "entityName": "crdr_signals"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "paginationPolicy": {
+                  "minimumItemCount": 100000
+                }
+              }
+            },
+            "Existing_keys": {
+              "type": "Select",
+              "runAfter": {
+                "List_existing": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('List_existing')?['value']",
+                "select": "@concat(item()?['crdr_externalid'], '|', if(empty(item()?['crdr_lastchanged']), '', formatDateTime(item()?['crdr_lastchanged'], 'yyyy-MM-ddTHH:mm:ss')))"
+              }
+            },
+            "Changed": {
+              "type": "Query",
+              "runAfter": {
+                "Existing_keys": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": {
+                "from": "@body('Shape')",
+                "where": "@not(contains(body('Existing_keys'), item()?['key']))"
+              }
+            },
+            "Upsert": {
+              "type": "Foreach",
+              "foreach": "@body('Changed')",
+              "runAfter": {
+                "Changed": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 10
+                }
+              },
+              "actions": {
+                "Find_existing": {
+                  "type": "Query",
+                  "runAfter": {},
+                  "inputs": {
+                    "from": "@body('List_existing')?['value']",
+                    "where": "@equals(item()?['crdr_externalid'], items('Upsert')?['externalid'])"
+                  }
+                },
+                "Is_new": {
+                  "type": "If",
+                  "runAfter": {
+                    "Find_existing": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@empty(body('Find_existing'))",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Create_signal": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {},
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signals",
+                          "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                          "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                          "item/crdr_externalid": "@items('Upsert')?['externalid']",
+                          "item/crdr_firstseen": "@utcNow()",
+                          "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                          "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                          "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                          "item/crdr_products": "@items('Upsert')?['products']",
+                          "item/crdr_source": 169890002,
+                          "item/crdr_summary": "@items('Upsert')?['summary']",
+                          "item/crdr_title": "@items('Upsert')?['title']",
+                          "item/crdr_url": "@items('Upsert')?['url']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Create_version": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {
+                        "Create_signal": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_signalversions",
+                          "item/crdr_capturedon": "@utcNow()",
+                          "item/crdr_changedfields": "created",
+                          "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                          "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', body('Create_signal')?['crdr_signalid'], ')')",
+                          "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Update_signal": {
+                        "type": "OpenApiConnection",
+                        "runAfter": {},
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "crdr_signals",
+                            "item/crdr_actionrequired": "@items('Upsert')?['actionrequired']",
+                            "item/crdr_datelabel": "@items('Upsert')?['datelabel']",
+                            "item/crdr_horizon": "@items('Upsert')?['horizon']",
+                            "item/crdr_keydate": "@items('Upsert')?['keydate']",
+                            "item/crdr_lastchanged": "@items('Upsert')?['lastchanged']",
+                            "item/crdr_products": "@items('Upsert')?['products']",
+                            "item/crdr_summary": "@items('Upsert')?['summary']",
+                            "item/crdr_title": "@items('Upsert')?['title']",
+                            "item/crdr_url": "@items('Upsert')?['url']",
+                            "recordId": "@first(body('Find_existing'))?['crdr_signalid']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      },
+                      "Update_version": {
+                        "type": "OpenApiConnection",
+                        "runAfter": {
+                          "Update_signal": [
+                            "Succeeded"
+                          ]
+                        },
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "crdr_signalversions",
+                            "item/crdr_capturedon": "@utcNow()",
+                            "item/crdr_changedfields": "@concat(if(equals(first(body('Find_existing'))?['crdr_title'], items('Upsert')?['title']), '', 'title; '), if(equals(first(body('Find_existing'))?['crdr_horizon'], items('Upsert')?['horizon']), '', 'horizon; '), if(equals(coalesce(first(body('Find_existing'))?['crdr_datelabel'], ''), items('Upsert')?['datelabel']), '', 'date label; '), if(equals(first(body('Find_existing'))?['crdr_actionrequired'], items('Upsert')?['actionrequired']), '', 'action required; '), if(equals(if(empty(first(body('Find_existing'))?['crdr_keydate']), '', formatDateTime(first(body('Find_existing'))?['crdr_keydate'], 'yyyy-MM-ddTHH:mm:ss')), if(empty(items('Upsert')?['keydate']), '', formatDateTime(items('Upsert')?['keydate'], 'yyyy-MM-ddTHH:mm:ss'))), '', 'key date; '), 'last modified')",
+                            "item/crdr_name": "@concat(items('Upsert')?['externalid'], ' ', items('Upsert')?['lastchanged'])",
+                            "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', first(body('Find_existing'))?['crdr_signalid'], ')')",
+                            "item/crdr_snapshotjson": "@items('Upsert')?['snapshot']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Record_run": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Collect": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "crdr_collectionruns",
+              "item/crdr_accesstier": 169890000,
+              "item/crdr_collector": "roadmap",
+              "item/crdr_gaps": "@if(equals(actions('Collect')?['status'], 'Succeeded'), '', concat('Get_items ', coalesce(actions('Get_items')?['status'], 'not run'), ' HTTP ', string(coalesce(outputs('Get_items')?['statusCode'], '-')), '. ', string(coalesce(outputs('Get_items')?['body']?['error']?['message'], '')), ' Collect scope: ', actions('Collect')?['status']))",
+              "item/crdr_itemcount": "@length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))",
+              "item/crdr_name": "@concat('roadmap ', formatDateTime(trigger()?['startTime'], 'yyyy-MM-dd HH:mm'), ': fetched ', string(length(coalesce(body('Get_items'), json('[]')))), ', in scope ', string(length(coalesce(actions('In_scope')?['outputs']?['body'], json('[]')))), ', new or changed ', string(length(coalesce(actions('Changed')?['outputs']?['body'], json('[]')))))",
+              "item/crdr_startedon": "@trigger()?['startTime']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Fail_if_collect_failed": {
+          "type": "If",
+          "runAfter": {
+            "Record_run": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "expression": {
+            "not": {
+              "equals": [
+                "@actions('Collect')?['status']",
+                "Succeeded"
+              ]
+            }
+          },
+          "actions": {
+            "Terminate": {
+              "inputs": {
+                "runError": {
+                  "code": "CollectFailed",
+                  "message": "@{coalesce(string(outputs('Get_items')?['body']?['error']?['message']), 'See the Collect scope')}"
+                },
+                "runStatus": "Failed"
+              },
+              "runAfter": {},
+              "type": "Terminate"
+            }
+          },
+          "else": {
+            "actions": {}
+          }
+        }
+      },
+      "description": "Change Radar: collect the public Microsoft Copilot Roadmap for in-scope products (seed/roadmap-product-map.csv)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,27 @@
+key,value,description
+fingerprint_confidence_threshold,0.7,Signal facets below this confidence go to the review queue instead of matching
+abandoned_flow_days,180,A flow with no run in this many days counts as abandoned
+estate_impact_max,4,Clamp for the additive estate impact score (1 Low to 4 Critical)
+poll_minutes_service_health,15,Graph service health poll interval
+poll_minutes_message_center,60,Graph Message Center poll interval
+digest_day,Monday,Weekly digest day
+poll_hours_roadmap,24,Roadmap poll interval (the roadmap flow runs daily at 05:00 UTC)
+horizon_now_days,14,Message Center posts with an action-required date within this many days (or past) are Now (ADR 0007)
+horizon_imminent_days,90,Message Center posts with an action-required date within this many days are Imminent (ADR 0007)
+graph_services,Power Apps;Power Apps in Microsoft 365;Microsoft Power Automate;Microsoft Power Automate in Microsoft 365;Microsoft Copilot (Power Platform);Microsoft Dataverse;Power Platform;Power Pages;Microsoft Copilot (Microsoft 365);Dynamics 365 Apps,"Graph service names (exact, semicolon-separated) whose service health issues and Message Center posts are collected. Copilot Studio appears as Microsoft Copilot (Power Platform)"
+horizon_recent_days,30,"Message Center ""plan for change"" posts published within this many days are Imminent (ADR 0007, amended)"
+horizon_roadmap_days,45,"Roadmap items still in development whose GA month starts within this many days are Imminent (ADR 0007, amended)"
+detail_environments,,"Dataverse environment URLs (semicolon-separated) where the reader app user exists and the Dataverse detail flow reads component detail (ADR 0008). Empty: no detail is collected"
+fixture_solutions,ChangeRadarFixtures,"Solution unique names (semicolon-separated) whose apps and flows are fixtures: the detail flow labels them source = fixture (spec §15.2, ADR 0008)"
+fingerprint_signal_ids,,"Signal external ids (semicolon-separated) the fingerprint flow is limited to; empty means every in-scope signal. Use to cap Copilot credit use while testing (ADR 0009)"
+alert_destinations,,"Where Change Radar alerts go (ADR 0011 addendum): entries separated by ';', each chat:<user principal name> (Teams chat with the Flow bot), channel:<team id>/<channel id> (Teams channel, as the Flow bot) or email:<address> (sent by Notify-Email and Digest-Email, which ship off). Set at install, never in the repo. Bad entries are reported on the handler run and the others are still sent"
+alert_recipient,,"Older setting, still read: one user principal name, treated as one more chat: entry in alert_destinations. Set at install, never in the repo (ADR 0011). With neither setting, handlers record the run as failed and post nothing"
+app_url,,"Change Radar app URL (environment URL + main.aspx?appid=...), used for card links. Set at install (ADR 0011)"
+deadline_days,14;3,"Days before an action-required key date when a deadline card is sent, for signals with live exposure (spec §7)"
+rating_scope,window,"Which signals the assess flow rates: window (Now, Imminent, key date within 183 days, or exposed; ADR 0012) or all (every active signal except service health, once; ADR 0012 addendum 2026-11-22, within the 500-credit cap)"
+rating_max_per_run,25,"Most signals the assess flow rates in one run (0 = no cap). A credit safeguard: new installs start at 25 so the first night can't run up a large bill (Simon, 2026-11-24); raise it once the cost is known"
+assessment_max_per_run,25,"Most estate assessments the assess flow sends to the prompt in one run (0 = no cap). Separate from rating_max_per_run (install test finding 15, Simon 2026-11-24). An exposed signal over the cap is deferred, not skipped: it is assessed on a later run. Usually only a few a night; a large estate change or switching demo data on can need many"
+catchup_max_per_run,100,"Higher per-run cap for the first weeks of an install, while the backlog of Microsoft's existing changes is fingerprinted and rated (install test finding 14, Simon 2026-11-24). Used by fingerprint, rating and estate assessment until catchup_until; it never lowers a cap. 0 = no catch-up"
+catchup_until,,"Date (yyyy-MM-dd) the catch-up ends; from that date the normal caps apply. Import-Config.ps1 sets it to the install date + 14 days when it first creates this setting, and never changes it after. Clear it to end catch-up early. Ignored unless it is a yyyy-MM-dd date within the next 120 days"
+fingerprint_max_per_run,25,"Most signals the fingerprint flow sends to the prompt in one run (0 = no cap). A credit safeguard: new installs start at 25 so the first night can't run up a large bill (Simon, 2026-11-24); raise it once the cost is known"
+demo_data,off,"Synthetic demo data (ADR 0022): on or off. Off: the match and assess flows skip it (no credits spent on it) and the Radar page hides it; nothing is deleted. Load it with setup/Import-DemoData.ps1 and remove it with setup/Remove-DemoData.ps1. Never load it in production."

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<!-- Trimmed copy of the public Microsoft Learn page https://learn.microsoft.com/en-us/microsoft-365/copilot/release-notes (two sections, unmodified HTML), saved 2026-11-22 for ADR 0014 tests. -->
+<html><head>
+<meta name="updated_at" content="2026-11-18T00:48:00Z" />
+<meta name="git_commit_id" content="03f66d223e629b4917c6fdc007b4ee80943888dc" />
+</head><body>
+<h2 id="november-17-2026">November 17, 2026</h2>
+<p>Updates released between November 03, 2026, and November 17, 2026.</p>
+<h3 id="microsoft-365-admin-center">Microsoft 365 admin center</h3>
+<!--128784-->
+<ul>
+<li><p><strong>Share custom organizational attributes with Microsoft 365 people experiences</strong>&nbsp;[Web]</p>
+<p>We're introducing a new capability in Microsoft 365 Organizational Data Service that enables organizations to share selected custom organizational attributes with the Microsoft 365 people store.</p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Microsoft 365 Organizational Data Service now includes a setting that allows administrators to share selected custom organizational attributes with the Microsoft 365 people store. Custom attributes shared to Microsoft 365 experiences will be visible to all users in the tenant, and guests.
+This feature is off by default and requires administrator action to enable. During setup, administrators configure visibility for each attribute before it is shared. Organizations that do not use Microsoft 365 Organizational Data Service, or that do not enable this capability, experience no change.</p>
+<p><strong>Why:</strong> The change allows organizations to select custom organizational data to make available in Microsoft 365 people experiences.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Review existing custom attributes in Microsoft 365 Organizational Data Service.</li>
+<li>Determine whether Microsoft 365 experiences would benefit from including any custom attributes.</li>
+<li>Review internal organizational privacy, governance, and data-sharing requirements before enabling the capability.</li>
+<li>Confirm that custom attributes are appropriate to be shared with all users and guests in the tenant.</li>
+<li>Configure app access settings in Microsoft 365 Organizational Data Service to select custom attributes to make available to Microsoft 365.</li>
+</ul>
+<p><strong>Why this matters:</strong> Organizations can enable new organizational data scenarios for Microsoft 365 while controlling which attributes are visible to Microsoft 365 experiences.</p>
+<p><strong>Business impact:</strong> Administrators can extend people-related experiences with approved organizational data while aligning with governance and privacy policies.</p>
+<p><strong>Personal impact:</strong> Users can access additional organizational information in Microsoft 365 experiences when their organization chooses to share it.</p>
+<p><strong>Learn:</strong> <a href="/en-us/microsoft-365-apps/org-data-service/distribute/applications" data-linktype="absolute-path">Applications powered by Microsoft 365 Organizational Data Service</a></p>
+</li>
+</ul>
+<h3 id="microsoft-365-copilot-extensibility">Microsoft 365 Copilot extensibility</h3>
+<!--113853-->
+<ul>
+<li><p><strong>Support for refining query filters for the Confluence Cloud Copilot connector</strong>&nbsp;[Web]</p>
+<p>This feature gives admins more control over what the Confluence Cloud connector indexes. By default, the connector indexes all blogs and pages. Admins can now include or exclude specific spaces. For advanced scenarios, they can write a Confluence Query Language (CQL) string that sets the conditions for which pages are synced.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=503571" data-linktype="external">503571</a></p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> The Confluence Cloud connector now supports two kinds of filters. You can include or exclude spaces, and you can use CQL strings to sync only the pages that meet your conditions. For example, you can index only pages modified in the last two years. Before this release, the connector indexed all blogs and pages, and you had little control over its scope.</p>
+<p><strong>Why:</strong> These filters let you choose more precisely which content gets indexed. They help keep content that's outdated or out of scope out of Copilot results.</p>
+<p><strong>Try this:</strong></p>
+<ol>
+<li>Open your Confluence Cloud connector settings in Microsoft Copilot.</li>
+<li>Under Include or exclude data, select the spaces you want to include or exclude.</li>
+<li>To filter further, enter a CQL string. For example, lastModified &gt;= "2024/12/31" indexes only content modified after that date.</li>
+<li>Choose Preview results to check sample values for the selected properties and CQL string.</li>
+</ol>
+<p><strong>Why this matters:</strong> Better filters help users find relevant Confluence Cloud content faster, which makes Copilot search results more useful.</p>
+<p><strong>Business impact:</strong> Teams can control exactly which Confluence Cloud spaces and pages Copilot indexes. This helps with compliance and data governance and keeps outdated content out of results.</p>
+<p><strong>Personal impact:</strong> Users spend less time sorting through results that don't apply to them and get more current, relevant Confluence Cloud content in Copilot.</p>
+<p><strong>Learn:</strong> <a href="/en-us/microsoft-365/copilot/connectors/confluence-cloud-deployment#include-or-exclude-data" data-linktype="absolute-path">Deploy the Confluence Cloud connector in the Microsoft 365 admin center</a></p>
+</li>
+</ul>
+<!--115611-->
+<ul>
+<li><p><strong>Connect Tableau data to Copilot</strong>&nbsp;[Web]</p>
+<p>Customers can connect Microsoft Copilot with Tableau to explore and interpret dashboards and visualizations through a Copilot connector.</p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Microsoft Copilot now supports a Tableau Copilot connector. Users can explore and interpret Tableau dashboards and visualizations through Copilot using connected Tableau content.</p>
+<p>Previously, Tableau data was not available through this connector-based integration. Access to connected content continues to rely on the permissions enforced by the source system.</p>
+<p><strong>Why:</strong> Business information is often spread across analytics platforms and productivity tools. This integration helps users understand dashboard content through natural language interactions in Copilot.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Open the Microsoft 365 admin experience and configure the Tableau Copilot connector.</li>
+<li>Ask Copilot questions about available Tableau dashboards and visualizations.</li>
+<li>Review Copilot-generated interpretations based on connected Tableau content.</li>
+</ul>
+<p><strong>Why this matters:</strong> Users can gain insights from Tableau content without manually navigating every dashboard.</p>
+<p><strong>Business impact:</strong> Organizations can extend Copilot access to analytics content and improve discoverability of business information.</p>
+<p><strong>Personal impact:</strong> Users can find and interpret dashboard information more quickly through conversational prompts.</p>
+</li>
+</ul>
+<!--121992-->
+<ul>
+<li><p><strong>Access custom engine agents directly in Outlook</strong>&nbsp;[Web]</p>
+<p>Users can now access custom engine agents within Outlook to automate tasks and extend email workflows.</p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Custom engine agents are now available inside Outlook, allowing users to run tailored automation workflows without leaving the app. Previously, accessing these agents required separate tools or platforms.
+This integration supports consistent agent experiences across Microsoft 365 apps and enhances security by running agents within Outlook's trusted environment.</p>
+<p><strong>Why:</strong> Providing access to custom agents in Outlook streamlines email-related automation and reduces context switching.</p>
+<p>Users can now:</p>
+<ul>
+<li>Automate email processing and management</li>
+<li>Integrate custom workflows directly in Outlook</li>
+<li>Improve productivity by using agents where they work most</li>
+</ul>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Open Outlook and access the agent pane.</li>
+<li>Select a custom engine agent from your agent list.</li>
+<li>Run the agent to automate email tasks such as sorting or summarizing messages.</li>
+</ul>
+<p><strong>Why this matters:</strong> Integrating custom agents in Outlook enhances workflow automation where users spend significant time, improving efficiency and reducing manual effort.</p>
+<p><strong>Business impact:</strong> Teams benefit from consistent automation capabilities across Microsoft 365 apps, enabling streamlined email management and collaboration.</p>
+<p><strong>Personal impact:</strong> You save time managing emails and related tasks by using custom agents directly within Outlook.</p>
+</li>
+</ul>
+<h3 id="microsoft-365-copilot-studio">Microsoft 365 Copilot Studio</h3>
+<!--127132-->
+<ul>
+<li><p><strong>Invoke agents as workflow steps with the agent node</strong>&nbsp;[Web]</p>
+<p>Add an agent node to your workflow to reason over data, call tools, and return a response, all within a single step. The agent node lets you embed reasoning directly into your workflow. This means fewer manual handoffs, faster processing times, and workflows that can handle nuanced decisions without additional development effort, helping teams automate more of their end-to-end processes and reduce operational overhead.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=562222" data-linktype="external">562222</a></p>
+<p><strong>What changed:</strong> The agent node now allows workflows to embed reasoning directly within a single step, replacing prior multi-step manual handoffs. This integration supports data reasoning, tool invocation, and response generation in one workflow node, reducing complexity and accelerating processing times. Workflows can now handle nuanced decisions without additional development effort, improving automation capabilities and lowering operational overhead.</p>
+<p><strong>Why:</strong> Embedding reasoning in workflows reduces manual intervention and speeds up process execution. Teams can now:</p>
+<ul>
+<li>Automate more end-to-end processes.</li>
+<li>Reduce operational overhead by simplifying workflow design.</li>
+</ul>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>In Copilot Studio, add an agent node to your workflow canvas.</li>
+<li>Configure the agent node to call specific tools and process data.</li>
+<li>Run the workflow to see combined reasoning and tool responses in one step.</li>
+</ul>
+<p><strong>Why this matters:</strong> This change streamlines workflows by reducing manual steps and enabling more complex automation without extra development.</p>
+<p><strong>Business impact:</strong> Teams can automate complex processes more efficiently, reducing delays and operational costs.</p>
+<p><strong>Personal impact:</strong> You save time by managing fewer workflow steps and reduce errors from manual handoffs.</p>
+</li>
+</ul>
+<!--128158-->
+<ul>
+<li><p><strong>Invoke agents as workflow steps with the agent node</strong>&nbsp;[Web]</p>
+<p>The agent node lets you embed reasoning directly into your workflow. This means fewer manual handoffs, faster processing times, and workflows that can handle nuanced decisions without additional development effort, helping teams automate more of their end-to-end processes and reduce operational overhead.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=566998" data-linktype="external">566998</a></p>
+<p><strong>What changed:</strong> Workflows now include an agent node that performs data reasoning, calls tools, and returns responses within a single step. Previously, these actions required multiple workflow steps and manual coordination. This update enables workflows to handle nuanced decisions without extra development effort, improving automation and reducing operational overhead.</p>
+<p><strong>Why:</strong> Embedding reasoning into workflows simplifies automation and accelerates processing. Teams can:</p>
+<ul>
+<li>Automate more complex processes end-to-end.</li>
+<li>Reduce operational overhead by minimizing manual workflow steps.</li>
+</ul>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Add an agent node in Copilot Studio to your workflow.</li>
+<li>Configure the node to integrate reasoning and tool calls.</li>
+<li>Execute the workflow to observe streamlined processing.</li>
+</ul>
+<p><strong>Why this matters:</strong> This update reduces workflow complexity and enables faster, more capable automation.</p>
+<p><strong>Business impact:</strong> Teams improve process automation efficiency and reduce operational costs.</p>
+<p><strong>Personal impact:</strong> You save time by reducing manual workflow steps and gain more reliable automation.</p>
+</li>
+</ul>
+<h3 id="outlook">Outlook</h3>
+<!--127691-->
+<ul>
+<li><p><strong>Sort improvements to the message list</strong>&nbsp;[Windows]</p>
+<p>When sorting on Outlook for Web or Outlook for Windows, if the Sort By field is not one of From, Subject, or Date Received, we will now show an additional column for the Sort By value (e.g., Size). We will also support sorting by Flag Due Date.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=564803" data-linktype="external">564803</a></p>
+<p><strong>What changed:</strong> Previously, sorting in Outlook for Web and Windows only displayed columns for From, Subject, or Date Received. Now, when sorting by other fields like Size or Flag Due Date, Outlook adds a new column showing the sorted value. This change applies to both Outlook for Web and Outlook for Windows, improving visibility of sort criteria.</p>
+<p><strong>Why:</strong> Adding a column for the Sort By value clarifies which attribute is controlling message order, reducing confusion and improving message list usability.</p>
+<p><strong>Try this:</strong></p>
+<ol>
+<li>Open Outlook for Web or Windows.</li>
+<li>Click the Sort By dropdown above your message list.</li>
+<li>Select a field like Size or Flag Due Date to see the new column appear.</li>
+</ol>
+<p><strong>Why this matters:</strong> This update helps users quickly identify how their messages are sorted, improving email management efficiency.</p>
+<p><strong>Business impact:</strong> Teams can organize and prioritize emails more effectively by clearly seeing the sorting criteria in their message list.</p>
+<p><strong>Personal impact:</strong> You save time by easily understanding message order without guessing which field controls sorting.</p>
+</li>
+</ul>
+<h3 id="teams">Teams</h3>
+<!--113367-->
+<ul>
+<li><p><strong>Express voice enrollment in Microsoft Teams</strong>&nbsp;[Windows, Mac]</p>
+<p>Express voice enrollment makes registering your voice in Teams fast and easy. Your profile enables features like voice isolation, speaker recognition, identification in a meeting room, transcripts, and enhanced meeting recaps and insights from Microsoft 365 Copilot. If you don’t yet have a voice profile, go to the recognition tab in Teams settings and opt in to enroll your voice from audio during your Teams meetings.  Admins can enable or disable this feature.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=537269" data-linktype="external">537269</a></p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Teams now provides Express voice enrollment, allowing users to create a voice profile by opting in to enroll their voice from audio during their Teams meetings. Users who do not already have a voice profile can enroll through the Recognition tab in Teams settings. A voice profile supports voice isolation, speaker recognition, identification in meeting rooms and transcripts, and enhanced meeting recaps and insights from Microsoft 365 Copilot. Administrators can enable or disable this feature for their organization.</p>
+<p><strong>Why:</strong> Voice-based meeting features depend on accurate speaker recognition. This update simplifies enrollment and increases access to features that rely on a registered voice profile.</p>
+<p><strong>Try this:</strong></p>
+<ol>
+<li>Open Teams Settings and select the Recognition tab.</li>
+<li>Opt in to enroll your voice</li>
+<li>Speak during a couple of Teams meeting to complete enrollment.</li>
+</ol>
+<p><strong>Why this matters:</strong> Simpler voice enrollment helps more users access meeting features that depend on recognized speakers.</p>
+<p><strong>Business impact:</strong> Organizations can improve transcript attribution and meeting intelligence while maintaining administrative control over enrollment availability.</p>
+<p><strong>Personal impact:</strong> You gain quicker access to personalized meeting features without completing a separate enrollment process.</p>
+</li>
+</ul>
+<!--123199-->
+<ul>
+<li><p><strong>Ability for IT admins to customize the user notification messages for recording and transcription in calls</strong>&nbsp;[Windows, Mac]</p>
+<p>This feature enables IT admins to customize a portion of the user notification messages for recording and transcription during Teams calls.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=567302" data-linktype="external">567302</a></p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Microsoft Teams now allows IT admins to customize some user notification messages shown for recording and transcription during calls. Previously, these notifications used standard system-provided text.</p>
+<p>The change provides greater flexibility in how recording and transcription information is communicated to users while maintaining notification experiences during calls.</p>
+<p><strong>Why:</strong> Organizations may need notification wording that better aligns with internal policies, compliance requirements, or user guidance. Customizable messages help present recording and transcription information in a way that fits organizational needs.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Open the Teams administration settings for recording and transcription notifications.</li>
+<li>Configure the available custom notification message text.</li>
+<li>Validate the notification experience during a test Teams call.</li>
+</ul>
+<p><strong>Why this matters:</strong> Organizations can provide clearer information to users about recording and transcription activities during calls.</p>
+<p><strong>Business impact:</strong> Customized notifications can help align user communications with organizational compliance and communication standards.</p>
+<p><strong>Personal impact:</strong> Users receive call notifications that better reflect their organization's terminology and guidance.</p>
+</li>
+</ul>
+<h2 id="january-13-2026">January 13, 2026</h2>
+<p>Updates released between December 23, 2025, and January 13, 2026.</p>
+<h3 id="microsoft-365-admin-center-6">Microsoft 365 admin center</h3>
+<ul>
+<li><p><strong>Admin control to customize AI disclaimers in Copilot Chat</strong> [Windows, Web]</p>
+<p>We updated the AI Disclaimer experience in Microsoft Copilot Chat based on customer feedback. To address this, we introduced an admin control that allows organizations to customize how the disclaimer appears, improving user awareness and flexibility.</p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> The AI disclaimer will remain visible in the user experience. Admins will gain the ability to heighten this message and to provide a link to their own documentation. The disclaimer will display bolded text for increased visibility. Admins can configure a custom URL pointing to their AI policy documentation.</p>
+<p><strong>Why:</strong> Organizations asked for more control over how the disclaimer appears to improve user awareness and flexibility.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Review the new AI Disclaimer setting in the Admin Portal.</li>
+<li>Decide whether you want to configure this setting for your organization.</li>
+<li>If desired, prepare a custom URL to include in the UX.</li>
+<li>Communicate this change to your helpdesk staff and Copilot users.</li>
+<li>Update internal documentation if you reference the disclaimer experience.</li>
+</ul>
+<p><strong>Why this matters:</strong></p>
+<p><strong>Business impact:</strong> Allows organizations to customize how the disclaimer appears.</p>
+<p><strong>Personal impact:</strong> Improves user awareness of the disclaimer.</p>
+</li>
+</ul>
+<h3 id="microsoft-365-copilot-app-7">Microsoft 365 Copilot app</h3>
+<ul>
+<li><p><strong>Access all your Copilot-generated content in one library</strong> [Android, Windows, iOS, Mac, Web]</p>
+<p>Use the new Library in the Microsoft 365 Copilot app to easily find and manage your Copilot-created images and pages.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=501783" data-linktype="external">501783</a></p>
+<p><strong>What changed:</strong> A new centralized Library view in Copilot lets users access all their AI-generated assets in one place.</p>
+<p><strong>Why:</strong> Improves organization and removes friction in retrieving past Copilot content.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Open Copilot app → go to Library</li>
+<li>Filter by images or summaries</li>
+<li>Share content in Teams or email</li>
+</ul>
+<p><strong>Business impact:</strong> Boosts collaboration by making assets reusable and sharable.</p>
+<p><strong>Personal impact:</strong> Saves time by avoiding re-creating previous work.</p>
+<p><strong>Additional resources:</strong></p>
+<p><strong>Learn:</strong><br>
+<a href="/en-us/microsoft-365/copilot/copilot-library" data-linktype="absolute-path">Microsoft 365 Copilot Library</a></p>
+</li>
+</ul>
+<h3 id="microsoft-365-copilot-chat-11">Microsoft 365 Copilot Chat</h3>
+<ul>
+<li><p><strong>Search for meetings by organizer using Copilot Chat</strong> [Windows]</p>
+<p>Quickly find meetings scheduled by a specific person to review or prioritize your calendar.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=503859" data-linktype="external">503859</a></p>
+<p><strong>What changed:</strong> Copilot Chat now lets you search your calendar for meetings organized by a specific individual.</p>
+<p><strong>Why:</strong> Helps users locate calendar items and prioritize activities faster.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Ask Copilot: "Find meetings organized by Alex Johnson next week."</li>
+<li>Or: "Summarize action items from last 3 meetings organized by Sarah Davis."</li>
+</ul>
+<p><strong>Business impact:</strong> Reduces wasted time searching for calendar details.</p>
+<p><strong>Personal impact:</strong> Gives quick control and visibility over relevant scheduled events.</p>
+</li>
+</ul>
+<h3 id="microsoft-365-copilot-extensibility-21">Microsoft 365 Copilot extensibility</h3>
+<ul>
+<li><p><strong>Build smarter agents with GPT-5 in Agent Builder</strong> [Android, Windows, iOS, Mac, Web]</p>
+<p>Create more capable and context-aware Copilot agents powered by GPT-5, delivering richer responses and streamlined experiences for your users.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=502552" data-linktype="external">502552</a></p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Declarative agents built in Microsoft 365 Copilot now use GPT-5 as the underlying chat model, enabling advanced reasoning, more natural language understanding, and improved multi-step processing.</p>
+<p><strong>Why:</strong> Organizations need AI-powered solutions that not only respond accurately but anticipate user needs. GPT-5 delivers higher precision and better handling of complex queries, resulting in agents that feel more responsive and intelligent, reducing repetitive follow-ups.</p>
+<p><strong>Try This:</strong></p>
+<ul>
+<li>Open Agent Builder in Microsoft 365 Copilot to create a new declarative agent that runs on GPT-5 as the foundation.</li>
+<li>Configure your agent with domain-specific knowledge and test its ability to handle scenario-based queries.</li>
+<li>Ask your new agent: <em>"Help me draft a Q4 performance summary with recommendations based on last quarter's sales trends."</em></li>
+</ul>
+<p><strong>Why this matters:</strong></p>
+<p><strong>Business Impact:</strong> Smarter agents mean streamlined workflows and faster completion of complex business processes, reducing time-to-value and improving ROI on AI initiatives.</p>
+<p><strong>Personal Impact:</strong> Users experience fewer frustrations when interacting with Copilot, getting precise answers and recommendations that fit their context-saving time and effort.</p>
+</li>
+<li><p><strong>Connect Dropbox for smarter Copilot file access</strong> [Web]</p>
+<p>Integrate Dropbox with Copilot to access, retrieve, and manage files directly, regardless of where they are stored.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=513282" data-linktype="external">513282</a></p>
+<p><strong>What Changed:</strong> A new Copilot connector allows you to integrate Dropbox into the Microsoft 365 Copilot experience. Once connected, Copilot can retrieve and manage files stored in Dropbox and use them for context in responses.</p>
+<p><strong>Why:</strong> This update eliminates friction by letting Copilot work across locations, so users never waste time searching or switching services.</p>
+<p><strong>Try This:</strong></p>
+<ul>
+<li>In Copilot settings, enable the Dropbox connector and sign in with your account.</li>
+<li><strong>Ask Copilot</strong>, "Summarize the Q4 plan from my Dropbox folder."</li>
+<li>Use Copilot in Word to insert insights from Dropbox files into a report.</li>
+</ul>
+<p><strong>Why it Matters:</strong></p>
+<p><strong>Business Impact:</strong> Improve team efficiency by unifying data access across platforms, eliminating manual transfers.</p>
+<p><strong>Personal Impact:</strong> Create and edit content with ease by letting Copilot pull in what you need, including content from Dropbox.</p>
+<p><strong>Additional resources:</strong></p>
+<p><strong>Learn:</strong><br>
+<a href="/en-us/microsoftsearch/google-drive-overview" data-linktype="absolute-path">Google Drive Microsoft 365 Copilot connector overview</a></p>
+</li>
+<li><p><strong>Connect Microsoft 365 Copilot with Guru for enhanced insights</strong> [Web]</p>
+<p>Microsoft 365 Copilot can now connect with Guru to surface internal knowledge and team insights, enhancing team collaboration and decision-making.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=513281" data-linktype="external">513281</a></p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Previously, Microsoft 365 Copilot operated with its standard integrations. With this update, users can connect Microsoft 365 Copilot with Guru, allowing it to access and utilize internal knowledge bases and team insights directly within the workflow.</p>
+<p><strong>Why:</strong> This feature was added to leverage the wealth of internal knowledge and insights stored in Guru. By doing so, it enhances decision-making processes and streamlines access to valuable information for team members.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Connect Microsoft 365 Copilot with Guru to start accessing your organization's internal knowledge base.</li>
+<li>Use the Copilot Connector to query specific team insights and data stored in Guru.</li>
+<li>Implement this connection in your workflow to improve collaboration and information retrieval during meetings or project planning.</li>
+</ul>
+<p><strong>Why this matters:</strong></p>
+<p><strong>Business impact:</strong> Integrating Microsoft 365 Copilot with Guru enhances technological capabilities, optimizes workflow efficiency, and strengthens team collaboration by providing immediate access to critical insights.</p>
+<p><strong>Personal impact:</strong> Individual users benefit from quicker access to information and insights, aiding personal productivity and informed decision-making.</p>
+</li>
+<li><p><strong>Expand Copilot Agents with Mail, People, and Meeting Insights</strong> [Windows, Web]</p>
+<p>Copilot declarative agents can now integrate with richer M365 data: mail, people's data, Teams chats, and meeting transcripts.</p>
+<p><strong>What Changed:</strong> Agents can now tap into richer Microsoft 365 data sources - email, Teams chats, meeting transcripts, and people data - to deliver more context-aware answers and automate tasks seamlessly.</p>
+<p><strong>Why:</strong> Modern work spans inboxes, chats, calendars, and documents. Constant switching slows teams down. By grounding declarative agents in organizational data, Copilot reduces context-switching, improves accuracy, and accelerates decision-making.</p>
+<p><strong>Try This:</strong></p>
+<ul>
+<li>Create a declarative agent that uses Meetings data to generate a project summary.</li>
+<li><strong>Sample query:</strong> "Summarize decisions and blockers from this week's meetings relating to Project X."</li>
+<li>Create a declarative agent that uses Email data to draft emails.</li>
+<li><strong>Sample query:</strong> "Draft follow up emails for unresolved items from yesterday."</li>
+</ul>
+<p><strong>Why This Matters:</strong></p>
+<p><strong>Business Impact:</strong> Teams works faster when Copilot agents bring context from across Microsoft 365 into one place. By reducing time spent searching through emails, chats and transcripts, organizations improve decision accuracy, accelerate workflows, and keep projects moving without delays.</p>
+<p><strong>Personal Impact:</strong> Users no longer need to juggle multiple tools to gather context. Copilot agents can consolidate multiple knowledge capabilities in one place, saving time and reducing cognitive load throughout the workday.</p>
+<p><strong>Additional resources:</strong></p>
+<p><strong>Learn:</strong><br>
+<a href="/en-us/microsoft-365-copilot/extensibility/knowledge-sources" data-linktype="absolute-path">Add knowledge sources to your declarative agent</a></p>
+</li>
+<li><p><strong>Generate Office documents from agents in Copilot Studio lite</strong> [Windows, Web]</p>
+<p>Agents built with Copilot Studio lite can generate PowerPoint decks, Excel spreadsheets, and Word documents via chat, with files saved to OneDrive.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=506753" data-linktype="external">506753</a></p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Office skills are available in Copilot Studio lite. Users can chat with an agent to generate PowerPoint, Excel, and Word files. Files are saved to OneDrive to streamline organization and support retention policies. These skills are part of the "Generate code, graphs, and documents" capability (formerly known as Code Interpreter).</p>
+<p><strong>Why:</strong> Automating common document tasks helps teams move faster and maintain consistency, while OneDrive storage supports governance needs.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Ask your agent to create a Word document with a project outline.</li>
+<li>Request an Excel spreadsheet with labeled columns for status tracking.</li>
+<li>Generate a PowerPoint deck with section titles for an upcoming review.</li>
+</ul>
+<p><strong>Why this matters:</strong></p>
+<p><strong>Business impact:</strong> Reduces manual document creation time and supports compliant storage.</p>
+<p><strong>Personal impact:</strong> Makes everyday document tasks quicker and easier.</p>
+<p><strong>Additional resources:</strong></p>
+<p><strong>Learn:</strong><br>
+<a href="/en-us/microsoft-365-copilot/extensibility/agent-builder-build-agents#add-capabilities" data-linktype="absolute-path">Add capabilities</a></p>
+</li>
+<li><p><strong>Simplified ServiceNow tickets setup with per-table ACL rules</strong> [Web]</p>
+<p>Admins can now define ACL permission rules per table for ServiceNow ticket ingestion, reducing setup complexity.</p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Previously, permissions were selected for all tables combined. Now, admins define permission rules for each selected table, improving control and clarity.</p>
+<p><strong>Why:</strong> Per-table ACL rules simplify configuration and provide finer-grained access control aligned with data security practices.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Set ACL permissions for a single table that requires restricted access.</li>
+<li>Review and adjust table-level rules to match ingestion needs.</li>
+<li>Validate table permissions to ensure correct access during ingestion.</li>
+</ul>
+<p><strong>Why this matters:</strong></p>
+<p><strong>Business impact:</strong> Reduces configuration complexity and improves security alignment for ticket data.</p>
+<p><strong>Personal impact:</strong> Helps individuals manage permissions more clearly and confidently.</p>
+<p><strong>Additional resources:</strong></p>
+<p><strong>Learn:</strong><br>
+<a href="/en-us/microsoftsearch/servicenow-tickets-deployment#access-permissions" data-linktype="absolute-path">Access permissions</a></p>
+</li>
+<li><p><strong>Smart document management with Google Drive integration</strong> [Web]</p>
+<p>Connect Google Drive to Copilot for smooth collaboration in multiple clouds.</p>
+<p><strong>What Changed:</strong> Copilot can access, reference, and combine insights from Google Drive files, allowing for richer, cross-platform collaboration.</p>
+<p><strong>Why:</strong> This feature ensures Copilot brings content from different sources together, reducing complexity and improving workflow.</p>
+<p><strong>Try This:</strong></p>
+<ul>
+<li>Add Google Drive as a connector in Copilot settings.</li>
+<li>Ask Copilot in Word, "Combine insights from my Google Drive marketing plan and recent reports."</li>
+<li>Use Copilot in PowerPoint to create a slide pulling directly from Google Drive data.</li>
+</ul>
+<p><strong>Why it Matters:</strong></p>
+<p><strong>Business Impact:</strong> Improves cross-platform workflows in hybrid environments</p>
+<p><strong>Personal Impact:</strong> Minimizes context switching and increases document creation efficiency</p>
+<p><strong>Additional resources:</strong></p>
+<p><strong>Learn:</strong><br>
+<a href="/en-us/microsoftsearch/google-drive-overview" data-linktype="absolute-path">Google Drive Microsoft 365 Copilot connector overview</a></p>
+</li>
+<li><p><strong>Template-based knowledge ingestion for ServiceNow Knowledge Connector</strong> [Web]</p>
+<p>ServiceNow Knowledge Connector now ingests articles created using out-of-the-box and custom templates, expanding coverage and flexibility.</p>
+<p><strong>Roadmap ID:</strong> <a href="https://www.microsoft.com/microsoft-365/roadmap?filters=&amp;searchterms=505436" data-linktype="external">505436</a></p>
+<p><strong>Details:</strong></p>
+<p><strong>What changed:</strong> Previously, template-based knowledge articles were not ingested. The connector now supports out-of-the-box templates such as FAQ, How to, and What is, as well as custom templates used by customers.</p>
+<p><strong>Why:</strong> Supporting common and custom templates ensures more knowledge content is accessible, improving search and guidance quality.</p>
+<p><strong>Try this:</strong></p>
+<ul>
+<li>Ingest FAQ template articles to improve self-service answers.</li>
+<li>Include How to articles to guide users through procedures.</li>
+<li>Add custom template articles to reflect organizational standards.</li>
+</ul>
+<p><strong>Why this matters:</strong></p>
+<p><strong>Business impact:</strong> Broadens access to structured knowledge and improves help coverage for teams.</p>
+<p><strong>Personal impact:</strong> Makes it easier for individuals to find accurate, template-based guidance.</p>
+<p><strong>Additional resources:</strong></p>
+<p><strong>Learn:</strong><br>
+<a href="/en-us/microsoftsearch/servicenow-knowledge-overview#connector-capabilities-and-limitations" data-linktype="absolute-path">Connector capabilities and limitations</a></p>
+</li>
+</ul>
+</section>
+<section id="tabpanel_1_win" role="tabpanel" data-tab="win" aria-hidden="true" hidden="hidden">
+<!--INSERT NEW RELEASE NOTES HERE DesktopWindows -->
+
+</body></html>

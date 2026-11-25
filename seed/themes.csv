@@ -1,0 +1,10 @@
+theme,description
+Copilot Credits and consumption,"Licence limits turning into metered spend: spending policies, credit reporting, per-run costs and FinOps for agents"
+Capability moving into Copilot,"Scheduled prompts, app building and reporting each gaining a Copilot-native route; the question shifts from how to build it to where it should live and who governs it"
+Governance and controls,"Controls catching up with agents: service principals, connector inventory, MCP policies, in-chat connections, model-provider defaults, DLP and admin settings"
+Agents and Work IQ platform,"The agent substrate changing underneath builders: dynamic skills, live meeting data, MCP, new models and mode switching"
+Maker experience,"Incremental improvements to Power Apps, Power Automate, Power Pages and Dataverse for makers: useful, rarely strategic"
+Copilot for end users,"Features people use in Copilot Chat, the Microsoft 365 Copilot app, Office apps and Teams: what changes for users and what adoption, training and enablement it needs"
+AI models and lifecycle,"Models arriving, becoming defaults, changing version or retiring in Copilot, Copilot Studio and prompts: which agents and prompts are affected and what to re-test"
+Service incidents,"Service health incidents and advisories: outages, degradations and their resolution"
+Other,Anything that fits none of the themes above

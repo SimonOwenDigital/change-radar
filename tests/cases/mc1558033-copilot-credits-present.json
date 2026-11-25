@@ -1,0 +1,23 @@
+{
+  "id": "mc1558033-copilot-credits-present",
+  "workedExample": "spec §5 row 6 (MC1557754 / MC1558033), tenant with a spending policy covering M365 Copilot",
+  "signal": {
+    "id": "MC1558033",
+    "source": "graph_mc",
+    "title": "Copilot Credits: billing changes",
+    "fingerprint": [
+      { "group": "A", "facet": "setting", "value": "copilot_spending_policy", "confidence": 0.9, "extractedBy": "manual" },
+      { "group": "A", "facet": "product", "value": "M365 Copilot", "confidence": 0.9, "extractedBy": "manual" }
+    ]
+  },
+  "estate": {
+    "tenantSettings": [
+      { "key": "copilot_spending_policy", "enabled": true, "scope": ["M365 Copilot", "Copilot Studio"], "evidence": "fixture" }
+    ]
+  },
+  "cases": [
+    { "id": "credits-03", "kind": "near_miss", "target": "setting:copilot_spending_policy",
+      "description": "Spending policy exists and covers M365 Copilot: all-clear, no exposure",
+      "expect": { "match": false } }
+  ]
+}

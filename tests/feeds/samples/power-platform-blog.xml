@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Microsoft Power Platform Blog</title>
+	<atom:link href="https://www.microsoft.com/en-us/power-platform/blog/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.microsoft.com/en-us/power-platform/blog/</link>
+	<description>Innovate with Business Apps</description>
+	<lastBuildDate>Fri, 20 Nov 2026 07:39:07 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9.5</generator>
+	<item>
+		<title>Discover and review Power Pages sites with Power Platform inventory (public preview)</title>
+		<link>https://www.microsoft.com/en-us/power-platform/blog/power-pages/discover-and-review-power-pages-sites-with-power-platform-inventory-public-preview/</link>
+					<comments>https://www.microsoft.com/en-us/power-platform/blog/power-pages/discover-and-review-power-pages-sites-with-power-platform-inventory-public-preview/#respond</comments>
+		<pubDate>Fri, 20 Nov 2026 07:08:22 +0000</pubDate>
+				<guid isPermaLink="false">https://www.microsoft.com/en-us/power-platform/blog/?p=135742</guid>
+
+					<description><![CDATA[<p>Support for Power Pages sites in Power Platform inventory is now in public preview. Administrators can now discover and review sites across environments in one place, alongside apps, flows, and agents.</p>
+<p>The post <a href="https://www.microsoft.com/en-us/power-platform/blog/power-pages/discover-and-review-power-pages-sites-with-power-platform-inventory-public-preview/">Discover and review Power Pages sites with Power Platform inventory (public preview)</a> appeared first on <a href="https://www.microsoft.com/en-us/power-platform/blog">Microsoft Power Platform Blog</a>.</p>
+]]></description>
+		
+		
+			</item>
+	<item>
+		<title>Turn AI ambition into real business value with Power Platform </title>
+		<link>https://www.microsoft.com/en-us/power-platform/blog/2026/11/18/turn-ai-ambition-into-real-business-value-with-power-platform/</link>
+					<comments>https://www.microsoft.com/en-us/power-platform/blog/2026/11/18/turn-ai-ambition-into-real-business-value-with-power-platform/#respond</comments>
+		<pubDate>Wed, 18 Nov 2026 19:00:00 +0000</pubDate>
+				<guid isPermaLink="false">https://www.microsoft.com/en-us/power-platform/blog/?p=135681</guid>
+
+					<description><![CDATA[<p>At Microsoft Ignite 2026, see how Power Platform helps you put AI to work without starting over.</p>
+<p>The post <a href="https://www.microsoft.com/en-us/power-platform/blog/2026/11/18/turn-ai-ambition-into-real-business-value-with-power-platform/">Turn AI ambition into real business value with Power Platform </a> appeared first on <a href="https://www.microsoft.com/en-us/power-platform/blog">Microsoft Power Platform Blog</a>.</p>
+]]></description>
+		
+		<enclosure url="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/1307360-Pillar1CanvasControls" length="10210228" type="" />
+<enclosure url="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/1307360-Pillar1Model" length="7761109" type="" />
+<enclosure url="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/1307360-PIllar2" length="17583047" type="" />
+<enclosure url="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/1307360-Pillar3" length="2220881" type="" />
+<enclosure url="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/1307360-Pillar4" length="1256398" type="" />
+
+			</item>
+	<item>
+		<title>Act faster: hourly alerts for your critical flows, apps, and agents</title>
+		<link>https://www.microsoft.com/en-us/power-platform/blog/2026/11/11/act-faster-hourly-alerts-for-your-critical-flows-apps-and-agents/</link>
+					<comments>https://www.microsoft.com/en-us/power-platform/blog/2026/11/11/act-faster-hourly-alerts-for-your-critical-flows-apps-and-agents/#respond</comments>
+		<pubDate>Wed, 11 Nov 2026 17:00:00 +0000</pubDate>
+				<guid isPermaLink="false">https://www.microsoft.com/en-us/power-platform/blog/?p=135582</guid>
+
+					<description><![CDATA[<p>Spot performance and reliability issues sooner with hourly alerts in Monitor. By checking supported health metrics hourly instead of daily, these alerts help your team identify issues across apps, flows, and agents—and respond faster when thresholds are breached.</p>
+<p>The post <a href="https://www.microsoft.com/en-us/power-platform/blog/2026/11/11/act-faster-hourly-alerts-for-your-critical-flows-apps-and-agents/">Act faster: hourly alerts for your critical flows, apps, and agents</a> appeared first on <a href="https://www.microsoft.com/en-us/power-platform/blog">Microsoft Power Platform Blog</a>.</p>
+]]></description>
+		
+		
+			</item>
+	<item>
+		<title>What’s new in Power Platform: October/November 2026 feature update</title>
+		<link>https://www.microsoft.com/en-us/power-platform/blog/power-apps/whats-new-in-power-platform-october-2026-feature-update/</link>
+					<comments>https://www.microsoft.com/en-us/power-platform/blog/power-apps/whats-new-in-power-platform-october-2026-feature-update/#respond</comments>
+		<pubDate>Tue, 10 Nov 2026 16:00:37 +0000</pubDate>
+				<guid isPermaLink="false">https://www.microsoft.com/en-us/power-platform/blog/?p=135130</guid>
+
+					<description><![CDATA[<p>Power Apps Public preview: Build flexible file experiences with modern attachments The new modern attachments control gives makers a Fluent file experience that works inside forms or as a standalone control on a canvas.</p>
+<p>The post <a href="https://www.microsoft.com/en-us/power-platform/blog/power-apps/whats-new-in-power-platform-october-2026-feature-update/">What’s new in Power Platform: October/November 2026 feature update</a> appeared first on <a href="https://www.microsoft.com/en-us/power-platform/blog">Microsoft Power Platform Blog</a>.</p>
+]]></description>
+		
+		
+			</item>
+	</channel>
+</rss>

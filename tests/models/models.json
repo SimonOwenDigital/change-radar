@@ -1,0 +1,61 @@
+{
+  "description": "ADR 0013 step 3: model ids and lifecycle fingerprints. Model ids come from the model rows of seed/vocabulary.csv: a spelling maps to the row whose value or any '|'-separated alias equals it, ignoring case and surrounding spaces; an unknown spelling maps to nothing (a gap, never a guess). A lifecycle signal (spike T9 row) gets a rule fingerprint, group A, accepted: model = the row's model id (qualifier dropped), plus the feed profile's fingerprintScope facets. Written before the engine (CLAUDE.md).",
+  "modelIds": [
+    { "id": "mid-01", "text": "GPT-4.1 Mini", "expected": "gpt-4.1-mini", "note": "Learn standard-harness table spelling" },
+    { "id": "mid-02", "text": "GPT-4.1 mini", "expected": "gpt-4.1-mini", "note": "prompts table spelling" },
+    { "id": "mid-03", "text": "gpt-41-mini", "expected": "gpt-4.1-mini", "note": "prompt configuration modelType" },
+    { "id": "mid-04", "text": "Claude Sonnet 4.6", "expected": "claude-sonnet-4.6", "note": "inventory properties.model" },
+    { "id": "mid-05", "text": "GPT-5 chat", "expected": "gpt-5-chat" },
+    { "id": "mid-06", "text": " GPT-5 Chat ", "expected": "gpt-5-chat", "note": "spaces trimmed" },
+    { "id": "mid-07", "text": "Microsoft 365 Copilot", "expected": "m365-copilot", "note": "Agent Builder agents in inventory" },
+    { "id": "mid-08", "text": "default", "expected": "default", "note": "prompt configuration modelType" },
+    { "id": "mid-09", "text": "gpt-6-sol", "expected": "gpt-6-sol", "note": "the id itself" },
+    { "id": "mid-10", "text": "ChatGPT-latest", "expected": "chatgpt-latest" },
+    { "id": "mid-11", "text": "GPT Chat Latest", "expected": "gpt-chat-latest" },
+    { "id": "mid-12", "text": "Some New Model 9", "expected": null, "note": "unknown: a gap, never a guess" },
+    { "id": "mid-13", "text": "", "expected": null }
+  ],
+  "lifecycleFingerprints": {
+    "note": "From the saved Learn pages in tests/models/pages, today 2026-11-22. Facet order: model, resource_type, harness.",
+    "today": "2026-11-22",
+    "cases": [
+      { "id": "lfp-01", "feed": "ML-CSM", "sample": "pages/authoring-agent-model-availability.html", "externalid": "ML-CSM-claude-sonnet-4-6",
+        "expected": [ { "facet": "model", "value": "claude-sonnet-4.6" }, { "facet": "resource_type", "value": "agent" }, { "facet": "harness", "value": "microsoft_copilot" } ] },
+      { "id": "lfp-02", "feed": "ML-CSM", "sample": "pages/authoring-agent-model-availability.html", "externalid": "ML-CSM-gpt-5-chat-eu-efta-data-movement-across-regions-turned-off", "note": "qualifier dropped for the model id",
+        "expected": [ { "facet": "model", "value": "gpt-5-chat" }, { "facet": "resource_type", "value": "agent" }, { "facet": "harness", "value": "microsoft_copilot" } ] },
+      { "id": "lfp-03", "feed": "ML-CS", "sample": "pages/authoring-select-agent-model.html", "externalid": "ML-CS-gpt-4-1-mini",
+        "expected": [ { "facet": "model", "value": "gpt-4.1-mini" }, { "facet": "resource_type", "value": "agent" }, { "facet": "harness", "value": "standard" } ] },
+      { "id": "lfp-04", "feed": "ML-PR", "sample": "pages/prompt-model-availability.html", "externalid": "ML-PR-grok-4-1-fast-reasoning",
+        "note": "ADR 0017: the profile's callerScope adds group B, the model plus capability ai_prompt, so the flows that call such a prompt are exposed too",
+        "expected": [ { "facet": "model", "value": "grok-4.1-fast-reasoning" }, { "facet": "resource_type", "value": "prompt" },
+                      { "group": "B", "facet": "model", "value": "grok-4.1-fast-reasoning" }, { "group": "B", "facet": "capability", "value": "ai_prompt" } ] },
+      { "id": "lfp-05", "feed": "ML-CS", "sample": "pages/authoring-select-agent-model.html", "externalid": "ML-CS-gpt-4-1-mini",
+        "note": "Agent tables have no callerScope: group A only",
+        "expected": [ { "facet": "model", "value": "gpt-4.1-mini" }, { "facet": "resource_type", "value": "agent" }, { "facet": "harness", "value": "standard" } ] }
+    ],
+    "allMapped": { "note": "Every row of the three saved pages maps to a model id: no unmapped-model gaps", "feeds": ["ML-CS", "ML-CSM", "ML-PR"], "expectedGaps": 0 }
+  },
+  "promptModelTypes": {
+    "note": "ADR 0013 step 4: a prompt's model is modelParameters.modelType in its active run configuration's msdyn_customconfiguration. That JSON is undocumented and pp-lab holds one that is not valid JSON (a trailing comma), so the value is read as text: the first \"modelType\" key, a colon, then the quoted string. No key, or an empty string, gives null (not collected as a model).",
+    "cases": [
+      { "id": "pmt-01", "configuration": "{\"version\":\"GptDynamicPrompt-2\",\"modelParameters\":{\"modelType\":\"gpt-41-mini\",\"gptParameters\":{\"temperature\":0}}}", "expected": "gpt-41-mini" },
+      { "id": "pmt-02", "configuration": "{\"modelParameters\": { \"modelType\" : \"gpt-6-sol\" }, \"settings\": {},}", "expected": "gpt-6-sol", "note": "trailing comma: not valid JSON, still read" },
+      { "id": "pmt-03", "configuration": "{\"modelParameters\":{\"modelType\":\"default\"}}", "expected": "default" },
+      { "id": "pmt-04", "configuration": "{\"modelParameters\":{\"gptParameters\":{}}}", "expected": null, "note": "no modelType" },
+      { "id": "pmt-05", "configuration": null, "expected": null },
+      { "id": "pmt-06", "configuration": "{\"modelParameters\":{\"modelType\":\"\"}}", "expected": null, "note": "empty" }
+    ]
+  },
+  "promptCalls": {
+    "note": "ADR 0017: the prompt actions in a flow definition (workflow.clientdata), read as text so the flow can do the same. After each operationId value starting aibuilderpredict_, the operation is the rest of that value; its recordId is the first recordId value before the next operationId key. The recordId is a prompt id only when it does not start with @ and is 36 characters in 5 parts separated by hyphens; otherwise the prompt is chosen at run time (empty id). Expected: operation|promptId. Stored definitions are compact JSON (pp-lab, 2026-11-23).",
+    "cases": [
+      { "id": "pc-01", "note": "picked in the designer: a literal id, lower-cased", "clientData": "{\"properties\":{\"definition\":{\"actions\":{\"Run_a_prompt\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"aibuilderpredict_customprompt\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"recordId\":\"6F0B2C1D-3E4A-4B5C-8D6E-7F8091A2B3C4\",\"item/requestv2/Text\":\"x\"}}}}}}}", "expected": ["customprompt|6f0b2c1d-3e4a-4b5c-8d6e-7f8091a2b3c4"] },
+      { "id": "pc-02", "note": "two prompt actions, one inside a scope, in definition order", "clientData": "{\"properties\":{\"definition\":{\"actions\":{\"Run_a\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"aibuilderpredict_customprompt\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"recordId\":\"6f0b2c1d-3e4a-4b5c-8d6e-7f8091a2b3c4\",\"item/requestv2/Text\":\"x\"}}},\"Scope\":{\"type\":\"Scope\",\"actions\":{\"Run_b\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"aibuilderpredict_customprompt\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"recordId\":\"0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d\",\"item/requestv2/Text\":\"x\"}}}}}}}}}", "expected": ["customprompt|6f0b2c1d-3e4a-4b5c-8d6e-7f8091a2b3c4", "customprompt|0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d"] },
+      { "id": "pc-03", "note": "an expression: a prompt chosen at run time, so no prompt id", "clientData": "{\"properties\":{\"definition\":{\"actions\":{\"Run_a\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"aibuilderpredict_customprompt\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"recordId\":\"@first(body('Find_prompt')?['value'])?['msdyn_aimodelid']\",\"item/requestv2/Text\":\"x\"}}}}}}}", "expected": ["customprompt|"] },
+      { "id": "pc-04", "note": "no AI Builder action: nothing, even though another action has a recordId", "clientData": "{\"properties\":{\"definition\":{\"actions\":{\"Get_row\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"GetItem\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"entityName\":\"accounts\",\"recordId\":\"0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d\"}}}}}}}", "expected": [] },
+      { "id": "pc-05", "note": "the recordId after the prompt action belongs to the next action (it follows the next operationId), so it is not taken", "clientData": "{\"properties\":{\"definition\":{\"actions\":{\"Run_a\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"aibuilderpredict_customprompt\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"item/requestv2/Text\":\"x\"}}},\"Get_row\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"GetItem\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"entityName\":\"accounts\",\"recordId\":\"0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d\"}}}}}}}", "expected": ["customprompt|"] },
+      { "id": "pc-06", "note": "a literal that is not 36 characters in 5 parts is not an id", "clientData": "{\"properties\":{\"definition\":{\"actions\":{\"Run_a\":{\"type\":\"OpenApiConnection\",\"inputs\":{\"host\":{\"connectionName\":\"shared_commondataserviceforapps\",\"operationId\":\"aibuilderpredict_customprompt\",\"apiId\":\"/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps\"},\"parameters\":{\"recordId\":\"not-a-guid\",\"item/requestv2/Text\":\"x\"}}}}}}}", "expected": ["customprompt|"] },
+      { "id": "pc-07", "note": "no definition", "clientData": null, "expected": [] }
+    ]
+  }
+}

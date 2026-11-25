@@ -1,0 +1,283 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "crdr_dataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Tenant ID (crdr_tenantid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Microsoft Entra tenant ID",
+            "schemaName": "crdr_tenantid"
+          },
+          "type": "String"
+        },
+        "Reader client ID (crdr_readerclientid)": {
+          "defaultValue": "",
+          "metadata": {
+            "description": "Application (client) ID of the crdr-reader app registration",
+            "schemaName": "crdr_readerclientid"
+          },
+          "type": "String"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "7"
+              ]
+            }
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "List_config": {
+          "type": "OpenApiConnection",
+          "runAfter": {},
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$select": "crdr_key,crdr_value",
+              "entityName": "crdr_configs"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Config_days": {
+          "type": "Query",
+          "runAfter": {
+            "List_config": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('List_config')?['value']",
+            "where": "@equals(item()?['crdr_key'], 'deadline_days')"
+          }
+        },
+        "Days_list": {
+          "type": "Select",
+          "runAfter": {
+            "Config_days": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@split(coalesce(first(body('Config_days'))?['crdr_value'], '14;3'), ';')",
+            "select": "@trim(item())"
+          }
+        },
+        "Open_live": {
+          "type": "OpenApiConnection",
+          "runAfter": {
+            "Days_list": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "$filter": "(crdr_status eq 169890000 or crdr_status eq 169890001) and crdr_source eq 169890000",
+              "$select": "_crdr_signal_value",
+              "entityName": "crdr_exposures"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 100000
+            }
+          }
+        },
+        "Open_signal_ids": {
+          "type": "Select",
+          "runAfter": {
+            "Open_live": [
+              "Succeeded"
+            ]
+          },
+          "inputs": {
+            "from": "@body('Open_live')?['value']",
+            "select": "@item()?['_crdr_signal_value']"
+          }
+        },
+        "Each_deadline_signal": {
+          "type": "Foreach",
+          "foreach": "@union(body('Open_signal_ids'), body('Open_signal_ids'))",
+          "runAfter": {
+            "Open_signal_ids": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "repetitions": 1
+            }
+          },
+          "actions": {
+            "Deadline_signal": {
+              "type": "OpenApiConnection",
+              "runAfter": {},
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "$select": "crdr_externalid,crdr_title,crdr_actionrequired,crdr_keydate",
+                  "entityName": "crdr_signals",
+                  "recordId": "@items('Each_deadline_signal')"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Days_left": {
+              "type": "Compose",
+              "runAfter": {
+                "Deadline_signal": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@if(empty(body('Deadline_signal')?['crdr_keydate']), -1, div(sub(ticks(startOfDay(body('Deadline_signal')?['crdr_keydate'])), ticks(startOfDay(utcNow()))), 864000000000))"
+            },
+            "Deadline_corr": {
+              "type": "Compose",
+              "runAfter": {
+                "Days_left": [
+                  "Succeeded"
+                ]
+              },
+              "inputs": "@concat('deadline.approaching|', items('Each_deadline_signal'), '|', string(outputs('Days_left')), '|', formatDateTime(utcNow(), 'yyyy-MM-dd'))"
+            },
+            "If_due": {
+              "type": "If",
+              "runAfter": {
+                "Deadline_corr": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@and(equals(body('Deadline_signal')?['crdr_actionrequired'], true), contains(body('Days_list'), string(outputs('Days_left'))))",
+                  true
+                ]
+              },
+              "actions": {
+                "Already_raised": {
+                  "type": "OpenApiConnection",
+                  "runAfter": {},
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "$filter": "@concat('crdr_correlationid eq ''', outputs('Deadline_corr'), '''')",
+                      "$select": "crdr_eventid",
+                      "$top": 1,
+                      "entityName": "crdr_events"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "If_not_raised": {
+                  "type": "If",
+                  "runAfter": {
+                    "Already_raised": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@empty(body('Already_raised')?['value'])",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Raise_deadline_payload": {
+                      "type": "Compose",
+                      "runAfter": {},
+                      "inputs": {
+                        "externalId": "@body('Deadline_signal')?['crdr_externalid']",
+                        "estate": "live",
+                        "daysLeft": "@outputs('Days_left')"
+                      }
+                    },
+                    "Raise_deadline": {
+                      "type": "OpenApiConnection",
+                      "runAfter": {
+                        "Raise_deadline_payload": [
+                          "Succeeded"
+                        ]
+                      },
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "crdr_events",
+                          "item/crdr_correlationid": "@if(greater(length(coalesce(outputs('Deadline_corr'), '')), 100), substring(outputs('Deadline_corr'), 0, 100), coalesce(outputs('Deadline_corr'), ''))",
+                          "item/crdr_eventtype": 169890006,
+                          "item/crdr_name": "@if(greater(length(coalesce(concat('deadline.approaching | ', body('Deadline_signal')?['crdr_externalid'], ' | ', string(outputs('Days_left')), ' days'), '')), 200), substring(concat('deadline.approaching | ', body('Deadline_signal')?['crdr_externalid'], ' | ', string(outputs('Days_left')), ' days'), 0, 200), coalesce(concat('deadline.approaching | ', body('Deadline_signal')?['crdr_externalid'], ' | ', string(outputs('Days_left')), ' days'), ''))",
+                          "item/crdr_payloadjson": "@string(outputs('Raise_deadline_payload'))",
+                          "item/crdr_raisedon": "@utcNow()",
+                          "item/crdr_signal@odata.bind": "@concat('/crdr_signals(', items('Each_deadline_signal'), ')')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              }
+            }
+          }
+        }
+      },
+      "description": "Change Radar: raise deadline.approaching for live signals with action required whose key date is deadline_days away (ADR 0011)."
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
