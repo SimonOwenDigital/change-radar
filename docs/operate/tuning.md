@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: Change Radar admins who adjust what it collects, matches, rates and sends
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---

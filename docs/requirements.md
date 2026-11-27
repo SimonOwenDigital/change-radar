@@ -7,7 +7,7 @@ date: 24 November 2026
 status: Draft
 audience: Whoever plans an install, and the people who approve it: platform owners, licensing and security reviewers
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---
@@ -61,7 +61,7 @@ AI Builder capacity is changing. Since 1 November 2025 new customers buy **Copil
 
 | Use | Rate (Learn rate table, 2026-11-24) | What Change Radar uses | Known by |
 |---|---|---|---|
-| Fingerprint and rating prompts (basic model) | 1.2 AI Builder credits, or 0.1 Copilot Credits, per 1,000 tokens | About 3,400 tokens a rating call and 4,600 a fingerprint call, so about 4 to 6 AI Builder credits, or 0.35 to 0.46 Copilot Credits, per call | measured: 1,041 calls used 4,786 AI Builder credits in November (one-off backfill included) |
+| Fingerprint and rating prompts (basic model) | 1.2 AI Builder credits, or 0.1 Copilot Credits, per 1,000 tokens | About 3,400 tokens a rating call and 4,600 a fingerprint call, so about 4 to 6 AI Builder credits, or 0.35 to 0.46 Copilot Credits, per call | measured: 1,041 calls used 4,786 AI Builder credits in November (one-off backfill included). **Billed in Copilot Credits** (spike T13, 2026-11-27): 0.1 per started 1,000 tokens, rounded up per call, so 0.3 to 0.5 a call (ADR 0027) |
 | Licensing guide text recognition | 3 AI Builder credits, or 0.1 Copilot Credits, per page | Only when Microsoft replaces a guide | measured twice: spike T12 and the install test (2026-11-24) each logged **one AI event of 3 AI Builder credits for a whole guide**, sent in one call. The rate table charges per page (the guides run to about 30 to 95 pages): **to verify** against the capacity report whether billing matches the event log |
 | Ask Change Radar (optional) | Copilot Credits per question (agent actions and generative answers) | About 10 Copilot Credits a question if billed; free for Microsoft 365 Copilot licensed users in Teams and Microsoft 365 Copilot | measured (spike T10); Learn, 2026-11-23 |
 | Matching | None | No AI | measured |
@@ -80,7 +80,9 @@ An approximation from the development build and the clean install test (November
 | Rating | New or changed signals in the rating window (`rating_scope = window`: Now, Imminent, key date within six months, or exposed), or all of them (`all`) | One a signal, again whenever it changes |
 | Estate assessment | Signals with open exposures in your estate | One when first exposed, again whenever the signal or what it affects changes |
 
-**What one call costs** (measured): about **5.5 AI Builder credits**, or about **0.46 Copilot Credits** at the token rates above. The development environment averaged 5.2 a fingerprint call and 4.8 a rating call over about 400 of each; the install test's first night averaged 6.1 and 5.3.
+**What one call costs** (measured): about **5.5 AI Builder credits**, or about **0.46 Copilot Credits**. The development environment averaged 5.2 AI Builder credits a fingerprint call and 4.8 a rating call over about 400 of each; the install test's first night averaged 6.1 and 5.3. The Copilot Credit figure has been checked against billing: 48 calls on the production model billed an average of 0.41 (spike T13, ADR 0027). 0.46 leaves a small margin.
+
+**Which currency.** The nightly cloud flows spend AI Builder credits while any are left, then Copilot Credits. A prompt called any other way, from an agent flow or straight through the Dataverse API (for example a test script), bills Copilot Credits straight away. Agent flows also bill their actions, which is why Change Radar's pipeline is built from cloud flows (ADR 0016).
 
 **The inputs.** Measured values come from the development environment and the install test; assumed values are estimates to replace with your own.
 

@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: Platform teams and makers who add vocabulary, rules, watch topics, handlers, sources or tenant settings
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---

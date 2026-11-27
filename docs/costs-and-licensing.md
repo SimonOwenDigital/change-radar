@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: Procurement, licensing and budget holders
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---
@@ -47,7 +47,9 @@ breaks: none
 
 ## 4. AI credits by estate size
 
-One prompt call costs about **5.5 AI Builder credits**, or about **0.46 Copilot Credits** (measured). The cost depends mostly on how many Microsoft changes you watch, not on the size of your estate.
+One prompt call costs about **5.5 AI Builder credits**, or about **0.46 Copilot Credits** (measured; the Copilot Credit figure was checked against billing in November 2026). The cost depends mostly on how many Microsoft changes you watch, not on the size of your estate.
+
+The flows spend AI Builder credits while your environment has any, then Copilot Credits. As seeded AI Builder credits end at licence renewal, plan in Copilot Credits.
 
 | | Small | Medium | Large |
 |---|---|---|---|

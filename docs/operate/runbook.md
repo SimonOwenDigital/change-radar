@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: The platform team who run Change Radar day to day
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---
@@ -57,7 +57,7 @@ A night's run takes about 15 minutes in a small environment; matching grows with
 
 ### 2.3 Monthly (30 minutes)
 
-1. **AI capacity.** Power Platform admin centre, Licensing, AI Builder or Copilot Credits, filtered to the Change Radar environment. Compare with the forecast:
+1. **AI capacity.** Power Platform admin centre, Licensing, AI Builder or Copilot Credits, filtered to the Change Radar environment. Expect about 0.46 Copilot Credits (or 5.5 AI Builder credits) per prompt call. When the environment's AI Builder credits run out, the same calls move to Copilot Credits. Compare with the forecast:
    ```powershell
    ./setup/Get-CreditEstimate.ps1 -EnvironmentUrl https://<org>.crm.dynamics.com -ExpectedEnvironmentName '<environment name>'
    ```

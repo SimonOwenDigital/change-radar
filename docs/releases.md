@@ -2,12 +2,12 @@
 title: Change Radar
 subtitle: Release Notes
 document: CR-REL-01
-version: "0.3"
-date: 24 November 2026
+version: "0.3.1"
+date: 27 November 2026
 status: For review
 audience: Whoever installs or upgrades Change Radar
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---
@@ -17,6 +17,16 @@ breaks: none
 > Each release is a set of managed solutions (Core, Handlers and the optional Ask agent since 0.3.0) built by `setup/dev/New-Release.ps1` from the commit named. Check a download against its SHA-256 before importing. Newest first.
 >
 > **From:** [Empower Your World](https://www.empoweryour.world/?utm_source=github&utm_medium=docs&utm_campaign=change-radar&utm_content=releases) · [The story behind Change Radar](https://www.empoweryour.world/blog/change-radar?utm_source=github&utm_medium=docs&utm_campaign=change-radar&utm_content=releases)
+
+## 0.3.1 (27 November 2026)
+
+**Documentation only.** The solutions are unchanged: install or upgrade with the 0.3.0 files below.
+
+**What's new**:
+
+- **The Copilot Credit cost of a prompt call is now checked against billing,** not just calculated from the rate card (ADR 0027). A call bills 0.1 Copilot Credits for every 1,000 tokens or part of one, about 0.41 on average, so the planning figure of 0.46 a call in the requirements and costs documents holds. The figures themselves don't change.
+- **Which credits a call spends depends on how it's called.** The nightly cloud flows use AI Builder credits while any are left. Agent flows, and anything calling a prompt through the Dataverse API (such as a test script), bill Copilot Credits straight away. Agent flows also bill their actions, so the pipeline stays in cloud flows. The requirements, costs, runbook and developer guide now say so.
+- **The prompts stay on GPT-6 Sol,** with GPT-6 Luna as the tested fallback. On the 24 test cases, run twice, Sol and Luna each passed 43 of 48 and GPT Chat Latest 37 of 48. All three billed at the basic rate in November 2026. This is to be checked again after the prompt model changes of 2 December 2026.
 
 ## 0.3.0 (24 November 2026)
 

@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: The maintainer adding a new public source of change signals
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---

@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: Sponsors, platform owners and whoever writes the case for adopting Change Radar
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---

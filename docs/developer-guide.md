@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: People who build, test, change or release Change Radar from source
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 intro: keep
 breaks: none
 ---
@@ -86,6 +86,8 @@ Run one with `pwsh -File engine/Invoke-MatchingTests.ps1`. Every runner reports 
 `solutions/design/flows/New-CollectorFlows.ps1` generates every flow's definition (JSON in the same folder); each change is made in the script. `setup/dev/Deploy-CollectorsToDev.ps1` deploys them to the development environment, into the solution each belongs to. `setup/dev/Export-CoreSolution.ps1` exports the solutions back to `solutions/`, with checks: every flow matches the generator, Core holds no Teams or Outlook reference, handler flows are off.
 
 The schema (`schema.json`, with `schema.md` generated from it), roles (`roles.json`) and prompts (`prompts.json`) are data in `solutions/design/`, deployed by `Deploy-SchemaToDev.ps1` and `Deploy-RolesToDev.ps1`. Prompts can't be created through an API: they are made once in the AI hub from the text in `prompts.json` and then exported.
+
+**Prompt tests cost Copilot Credits.** The prompt scorers in `spikes/T7` and `spikes/T8` call a prompt through the Dataverse `Predict` message. That bills Copilot Credits straight away, about 0.4 a call, even when the environment still has AI Builder credits; only the nightly cloud flows use AI Builder credits first (ADR 0027). A full run of the three scorers is 24 calls, about 10 Copilot Credits.
 
 ## 6. The pages
 

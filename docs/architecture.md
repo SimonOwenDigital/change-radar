@@ -7,7 +7,7 @@ date: 24 November 2026
 status: For review
 audience: Platform owners, enterprise and solution architects, security reviewers, and anyone deciding whether to adopt Change Radar
 owner: Simon Owen
-release: Change Radar 0.3.0
+release: Change Radar 0.3.1
 ---
 
 # Change Radar: Architecture Definition
